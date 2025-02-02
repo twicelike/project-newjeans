@@ -10,6 +10,6 @@ public class AppController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("message", "Hanni");
-        return "hello";
+        return "client/home_page";
     }
 }
