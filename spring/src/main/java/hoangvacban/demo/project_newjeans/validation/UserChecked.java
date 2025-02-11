@@ -5,10 +5,10 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
+@Documented
 @Constraint(validatedBy = UserValidator.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
 public @interface UserChecked {
     String message() default "User validation failed";
 

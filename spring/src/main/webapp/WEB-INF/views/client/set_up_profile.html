@@ -11,12 +11,14 @@
     <form th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
         <label class="block">Name:</label>
         <input type="text" th:field="*{name}" class="border p-2 w-full mb-4" required>
+        <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 
         <label class="block">Email:</label>
         <input type="email" th:field="*{email}" class="border p-2 w-full mb-4" required>
 
         <label class="block">Password:</label>
         <input type="password" th:field="*{password}" class="border p-2 w-full mb-4" required>
+        <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 
         <label class="block">Phone Number:</label>
         <input type="text" th:field="*{phoneNumber}" class="border p-2 w-full mb-4">
@@ -36,14 +38,46 @@
         <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
             <h2 class="text-lg font-semibold text-gray-700 mb-4">Upload up to 6 images</h2>
 
-            <input type="file" id="imageInput" multiple name="images"
-                   class="block w-full text-sm text-gray-500
-                   file:mr-4 file:py-2 file:px-4
-                   file:rounded-lg file:border-0
-                   file:text-sm file:font-semibold
-                   file:bg-blue-500 file:text-white
-                   hover:file:bg-blue-600"
-            />
+            <div class="grid grid-cols-3 gap-4">
+                <!-- 6 ô upload ảnh -->
+                <div class="relative w-32 h-32 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center">
+                    <input type="file" name="image1" accept="image/*" id="image1"
+                           class="absolute w-full h-full opacity-0 cursor-pointer">
+                    <img id="preview1" class="hidden w-full h-full object-cover rounded-lg">
+                    <span id="icon1" class="text-gray-400 text-lg font-semibold">+</span>
+                </div>
+                <div class="relative w-32 h-32 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center">
+                    <input type="file" name="image2" accept="image/*" id="image2"
+                           class="absolute w-full h-full opacity-0 cursor-pointer">
+                    <img id="preview2" class="hidden w-full h-full object-cover rounded-lg">
+                    <span id="icon2" class="text-gray-400 text-lg font-semibold">+</span>
+                </div>
+                <div class="relative w-32 h-32 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center">
+                    <input type="file" name="image3" accept="image/*" id="image3"
+                           class="absolute w-full h-full opacity-0 cursor-pointer">
+                    <img id="preview3" class="hidden w-full h-full object-cover rounded-lg">
+                    <span id="icon3" class="text-gray-400 text-lg font-semibold">+</span>
+                </div>
+                <div class="relative w-32 h-32 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center">
+                    <input type="file" name="image4" accept="image/*" id="image4"
+                           class="absolute w-full h-full opacity-0 cursor-pointer">
+                    <img id="preview4" class="hidden w-full h-full object-cover rounded-lg">
+                    <span id="icon4" class="text-gray-400 text-lg font-semibold">+</span>
+                </div>
+                <div class="relative w-32 h-32 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center">
+                    <input type="file" name="image5" accept="image/*" id="image5"
+                           class="absolute w-full h-full opacity-0 cursor-pointer">
+                    <img id="preview5" class="hidden w-full h-full object-cover rounded-lg">
+                    <span id="icon5" class="text-gray-400 text-lg font-semibold">+</span>
+                </div>
+                <div class="relative w-32 h-32 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center">
+                    <input type="file" name="image6" accept="image/*" id="image6"
+                           class="absolute w-full h-full opacity-0 cursor-pointer">
+                    <img id="preview6" class="hidden w-full h-full object-cover rounded-lg">
+                    <span id="icon6" class="text-gray-400 text-lg font-semibold">+</span>
+                </div>
+            </div>
+
 
             <p id="errorText" class="text-red-500 text-sm mt-2 hidden">You can upload a maximum of 6 images.</p>
 
@@ -51,48 +85,27 @@
         </div>
 
         <script>
-            const imageInput = document.getElementById("imageInput");
-            const previewContainer = document.getElementById("previewContainer");
-            const errorText = document.getElementById("errorText");
+            for (let i = 1; i <= 6; i++) {
+                let input = document.getElementById('image' + i);
+                let preview = document.getElementById('preview' + i);
+                let icon = document.getElementById('icon' + i);
 
-            let selectedFiles = [];
-
-            imageInput.addEventListener("change", function (event) {
-                const files = Array.from(event.target.files);
-
-                if (selectedFiles.length + files.length > 6) {
-                    errorText.classList.remove("hidden");
-                    return;
-                }
-
-                errorText.classList.add("hidden");
-
-                files.forEach((file, index) => {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const imgContainer = document.createElement("div");
-                        imgContainer.className = "relative w-24 h-24";
-
-                        const img = document.createElement("img");
-                        img.src = e.target.result;
-                        img.className = "w-full h-full object-cover rounded-md shadow";
-
-                        const removeButton = document.createElement("button");
-                        removeButton.className = "absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center";
-                        removeButton.innerHTML = "✕";
-                        removeButton.onclick = function () {
-                            selectedFiles = selectedFiles.filter(f => f !== file);
-                            imgContainer.remove();
+                input.addEventListener('change', function (event) {
+                    let file = event.target.files[0];
+                    if (file) {
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            preview.src = e.target.result;
+                            preview.classList.remove("hidden");
+                            icon.classList.add("hidden"); // Ẩn dấu "+"
                         };
-
-                        imgContainer.appendChild(img);
-                        imgContainer.appendChild(removeButton);
-                        previewContainer.appendChild(imgContainer);
-                        selectedFiles.push(file);
-                    };
-                    reader.readAsDataURL(file);
+                        reader.readAsDataURL(file);
+                    } else {
+                        preview.classList.add("hidden");
+                        icon.classList.remove("hidden"); // Hiện dấu "+"
+                    }
                 });
-            });
+            }
         </script>
 
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full">

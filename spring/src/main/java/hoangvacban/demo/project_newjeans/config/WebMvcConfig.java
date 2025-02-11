@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -36,23 +35,6 @@ public class WebMvcConfig implements ApplicationContextAware, WebMvcConfigurer {
         registry.addResourceHandler("/client/**").addResourceLocations("/resources/client");
     }
 
-//    @Bean
-//    public ResourceBundleMessageSource messageSource() {
-//        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-//        messageSource.setBasename("messages");
-//        return messageSource;
-//    }
-
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        WebMvcConfigurer.super.addFormatters(registry);
-//        registry.addFormatter(dateFormatter());
-    }
-
-//    @Bean
-//    public DateFormatter dateFormatter() {
-//        return new DateFormatter();
-//    }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
