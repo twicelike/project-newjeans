@@ -8,18 +8,21 @@ import lombok.Setter;
 
 import java.util.List;
 
+
 @Entity
-@Table(name = "roles")
+@Table(name = "hobby_tags")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class HobbyTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
 
-    @OneToMany(mappedBy = "role")
-    private List<User> users;
+    @OneToMany(mappedBy = "hobbyTag")
+    private List<UserHobby> userHobbies;
+
 }
