@@ -8,6 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Home</h1>
+<h1 th:text="${user}"></h1>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign out">
+</form>
+
 </body>
 </html>

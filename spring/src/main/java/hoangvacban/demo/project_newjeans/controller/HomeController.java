@@ -2,6 +2,7 @@ package hoangvacban.demo.project_newjeans.controller;
 
 import hoangvacban.demo.project_newjeans.dto.UserDTO;
 import hoangvacban.demo.project_newjeans.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +17,13 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String getIntroducePage() {
         return "client/introduce_page";
     }
 
     @GetMapping("/home")
-    public String home() {
+    public String home(HttpSession session, Model model) {
+        model.addAttribute("user", session.getAttribute("user"));
         return "client/home";
     }
 

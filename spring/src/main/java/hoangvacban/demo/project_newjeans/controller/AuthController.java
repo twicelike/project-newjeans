@@ -4,9 +4,6 @@ import hoangvacban.demo.project_newjeans.dto.UserDTO;
 import hoangvacban.demo.project_newjeans.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,13 +17,9 @@ import java.util.List;
 public class AuthController {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final SecurityContextRepository securityContextRepository =
-            new HttpSessionSecurityContextRepository();
 
-    public AuthController(UserService userService, AuthenticationManager authenticationManager) {
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("/create-admin")
@@ -38,7 +31,6 @@ public class AuthController {
     public String login(Model model) {
         return "client/login";
     }
-
 
     @PostMapping("/register")
     public String register(

@@ -9,7 +9,7 @@
     <h2 class="text-xl font-bold mb-4">Create New User</h2>
 
     <form th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
-        <label class="block">Name:</label>
+        <label class="block">Username:</label>
         <input type="text" th:field="*{name}" class="border p-2 w-full mb-4" required>
         <p class="text-red-500 text-sm" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 

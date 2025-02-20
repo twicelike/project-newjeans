@@ -13,6 +13,10 @@
                class="w-full mb-3 p-2 border rounded">
         <input type="password" name="password" placeholder="Password" required
                class="w-full mb-3 p-2 border rounded">
+        <div>
+            <input type="checkbox" name="remember-me">
+            <span>Remember me:</span>
+        </div>
         <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Login</button>
     </form>
     <p class="text-red-500 mt-2 text-center" th:text="${error}"></p>
