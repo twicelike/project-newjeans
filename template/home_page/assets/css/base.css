@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+:root {
+    --color-one: #CF5784;
+    --color-two: #061C78;
+    
+    --color-text-1: #080809;
+
+    --font: "Roboto", serif;
+}
+
+body {
+    font-family: var(--font);
+    color: var(--color-text);
+}
+
