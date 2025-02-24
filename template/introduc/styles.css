@@ -1,0 +1,50 @@
+/* Custom CSS */
+.container.active .register-container {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.container.active .login-container {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.container.active .overlay {
+    transform: translateX(-100%);
+    border-radius: 100px 0 0 100px;
+}
+
+.input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-blue-500 transition mb-4;
+}
+
+.btn {
+    @apply w-full py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 transition;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+.btn {
+    width: auto;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #2e53a3;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}

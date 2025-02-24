@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="font-roboto">
+    <!-- Main Section -->
+    <main class="relative h-screen flex flex-col">
+        <!-- Background Image -->
+        <img src="./img/background.jpeg" class="absolute inset-0 w-full h-full object-cover">
+
+        <!-- Header Content -->
+        <div class="flex justify-between items-center p-4 z-50">
+            <div class="flex items-center space-x-8">
+                <img alt="logo" class="h-8" src="./img/logo.jpeg" />
+                <nav class="flex space-x-4">
+                    <div class="relative">
+                        <a href="#" id="productBtn"
+                            class="text-gray-700 hover:text-gray-900 hover:underline">Products</a>
+                        <div id="productMenu" class="absolute hidden bg-white shadow-md p-2 mt-2 rounded-md z-50">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 1</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 2</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 3</a>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <a href="#" id="safetyBtn" class="text-gray-700 hover:text-gray-900 hover:underline">Safety</a>
+                        <div id="safetyMenu" class="absolute hidden bg-white shadow-md p-2 mt-2 rounded-md z-50">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option A</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option B</a>
+                        </div>
+                    </div>
+                    <a href="learn.html" class="text-gray-700 hover:text-gray-900 hover:underline">Learn</a>
+                    <a href="support.html" class="text-gray-700 hover:text-gray-900 hover:underline">Support</a>
+                    <a href="download.html" class="text-gray-700 hover:text-gray-900 hover:underline">Download</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Language Dropdown -->
+                <div class="relative">
+                    <button id="languageBtn" class="text-gray-700 hover:text-gray-900 hover:underline">Language</button>
+                    <div id="languageMenu" class="absolute hidden bg-white shadow-md p-2 mt-2 rounded-md right-0 z-50">
+                        <a href="#" data-lang="en" class="block px-4 py-2 hover:bg-gray-100">English</a>
+                        <a href="#" data-lang="vi" class="block px-4 py-2 hover:bg-gray-100">Vietnamese</a>
+                        <a href="#" data-lang="es" class="block px-4 py-2 hover:bg-gray-100">Spanish</a>
+                    </div>
+                </div>
+                <button id="loginButton" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Log
+                    in</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-grow flex items-center justify-center text-white z-10">
+            <div class="text-center">
+                <h1 id="mainTitle" class="text-5xl font-bold mb-4">Swipe Right<sup>®</sup></h1>
+            </div>
+        </div>
+    </main>
+
+    <!-- Testimonials Section -->
+    <section class="py-12 bg-gray-50 z-10">
+        <div class="max-w-4xl mx-auto px-4 space-y-8">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg">
+                <h3 class="text-xl font-bold mb-2">Lauren</h3>
+                <p class="text-gray-700">For all the single people out there, especially introverted ones like us: do
+                    not be afraid to travel outside of your comfort zone. That’s where you’ll make a genuine connection.
+                    Tinder brought us together and for that, I am forever grateful. <span class="text-red-500">❤️</span>
+                </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg">
+                <h3 class="text-xl font-bold mb-2">Rebecca</h3>
+                <p class="text-gray-700">I was also adamant the next man I'd be with and commit to, would be the man I'd
+                    spend the rest of my life with (just not married). I was very fussy and didn't expect to meet a man
+                    on Tinder. I decided to sign up anyways and just match away and see what happened.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg">
+                <h3 class="text-xl font-bold mb-2">Elissa</h3>
+                <p class="text-gray-700">My college roommate and I both would stay up on Tinder, not looking for
+                    anything serious (also not looking for hookups though, just entertainment). My now husband and I
+                    matched on Tinder.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 z-10">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Legal -->
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Privacy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Consumer Health Data
+                                Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Terms</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Intellectual Property</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Careers -->
+                <div>
+                    <h4 class="font-bold mb-4">Careers</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Careers Portal</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Tech Blog</a></li>
+                    </ul>
+                </div>
+                <!-- Social -->
+                <div>
+                    <h4 class="font-bold mb-4">Social</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <!-- App Download -->
+                <div>
+                    <h4 class="font-bold mb-4">Get the app!</h4>
+                    <div class="space-y-4">
+                        <a href="#"><img alt="App Store" class="h-10" src="./img/apstore.png" /></a>
+                        <a href="#"><img alt="Google Play" class="h-10" src="./img/ggplay.png" /></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Privacy Section -->
+            <div id="privacySection" class="mt-8 border-t border-gray-800 pt-8">
+                <p class="text-gray-400">We value your privacy. We and our partners use trackers to measure the audience
+                    of our website and to provide you with offers and improve our own Tinder marketing operations. <a
+                        href="#" class="text-red-500 hover:underline">More info on cookies and providers we use.</a> You
+                    can withdraw your consent at any time in your settings.</p>
+                <div class="flex space-x-4 mt-4">
+                    <button id="personalizeButton"
+                        class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Personalize my
+                        choices</button>
+                    <button id="acceptButton" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">I
+                        accept</button>
+                    <button id="declineButton" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">I
+                        decline</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Popup -->
+    <div id="authPopup" class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div class="container relative w-[800px] h-[500px] bg-white rounded-2xl shadow-lg overflow-hidden flex"
+            id="container">
+            <!-- Đăng Ký Form -->
+            <div
+                class="form-container register-container absolute left-1/2 w-1/2 h-full flex flex-col justify-center items-center px-10 transition-transform duration-500 opacity-0 translate-x-full">
+                <h2 class="text-2xl font-bold mb-4">Đăng Ký</h2>
+                <input type="text" placeholder="Tên đăng nhập" class="input">
+                <input type="email" placeholder="Email" class="input">
+                <input type="password" placeholder="Mật khẩu" class="input">
+                <input type="text" placeholder="Email" class="input">
+                <button class="btn">Đăng Ký</button>
+            </div>
+
+            <!-- Đăng Nhập Form -->
+            <div
+                class="form-container login-container absolute w-1/2 h-full flex flex-col justify-center items-center px-10 transition-transform duration-500 opacity-100">
+                <h2 class="text-2xl font-bold mb-4">Đăng Nhập</h2>
+                <input type="text" placeholder="Tên đăng nhập" class="input">
+                <input type="password" placeholder="Mật khẩu" class="input">
+                <button class="btn">Tạo tài khoản</button>
+            </div>
+
+            <!-- Overlay -->
+            <div class="overlay absolute w-1/2 h-full bg-blue-500 text-white flex flex-col justify-center items-center transition-transform duration-500 right-0 rounded-l-[100px] cursor-pointer"
+                id="toggleOverlay">
+                <h2 class="text-2xl font-bold" id="overlayText">Xin Chào!</h2>
+                <p class="text-sm mt-2" id="overlayDesc">Bạn chưa có tài khoản?</p>
+                <button class="btn bg-white text-blue-500 mt-4" id="overlayButton">Đăng Ký</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
