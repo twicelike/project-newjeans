@@ -36,6 +36,9 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @OneToMany(mappedBy = "user")
+    private List<DeviceMetadata> deviceMetadata;
+
     @Override
     public String toString() {
         return "User{" +

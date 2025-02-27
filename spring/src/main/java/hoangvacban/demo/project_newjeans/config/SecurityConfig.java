@@ -1,6 +1,7 @@
 package hoangvacban.demo.project_newjeans.config;
 
 import hoangvacban.demo.project_newjeans.service.CustomUserDetailService;
+import hoangvacban.demo.project_newjeans.service.DeviceMetadataService;
 import hoangvacban.demo.project_newjeans.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,8 +49,11 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationSuccessHandler successHandler(UserService userService) {
-        return new CustomSuccessHandler(userService);
+    public AuthenticationSuccessHandler successHandler(
+            UserService userService,
+            DeviceMetadataService metadataService
+    ) {
+        return new CustomSuccessHandler(userService, metadataService);
     }
 
     @Bean
@@ -58,24 +62,30 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, UserService userService) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            UserService userService,
+            DeviceMetadataService metadataService
+    ) throws Exception {
         http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/", "/css/**", "/js/**", "/login", "/register", "/admin",
+                        .requestMatchers("/", "/css/**", "/js/**", "/login", "/register",
                                 "/logout",
-                                "/create-admin").permitAll()
+                                "/create-admin", "/favicon.ico", "/favicon.ico.").permitAll()
                         .requestMatchers("/admin/*").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .failureUrl("/login?error")
-                        .successHandler(successHandler(userService))
+                        .successHandler(successHandler(userService, metadataService))
                         .permitAll())
                 .rememberMe(rememberMe -> rememberMe
                         .key("36")
+                        .tokenValiditySeconds(2592000)
                         .rememberMeServices(rememberMeServices()))
                 .sessionManagement(sm -> sm
+//                        .addSessionAuthenticationStrategy()
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                        .invalidSessionUrl("/?expired")
+                        .invalidSessionUrl("/login?expired")
                         .maximumSessions(36)
                         .maxSessionsPreventsLogin(false))
                 .logout(logout -> logout

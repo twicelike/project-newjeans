@@ -2,7 +2,9 @@ package hoangvacban.demo.project_newjeans.controller;
 
 import hoangvacban.demo.project_newjeans.dto.UserDTO;
 import hoangvacban.demo.project_newjeans.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,14 +19,33 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String getIntroducePage() {
+    public String getIntroducePage(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            System.out.println("CAC LON 1");
+        } else {
+            System.out.println("DAU CAC 1");
+        }
         return "client/introduce_page";
     }
 
     @GetMapping("/home")
-    public String home(HttpSession session, Model model) {
-        model.addAttribute("user", session.getAttribute("user"));
-        return "client/home";
+    public String home(HttpSession session, Model model, HttpServletRequest request, Authentication authentication) {
+        model.addAttribute("user", authentication.getName());
+//        Enumeration<String> headerNames = request.getHeaderNames();
+//
+//        if (authentication.getPrincipal() instanceof User) {
+//            System.out.println("CAC");
+//            System.out.println(authentication.getPrincipal());
+//        } else {
+//            System.out.println("LON");
+//        }
+//
+//        while (headerNames.hasMoreElements()) {
+//            String headerName = headerNames.nextElement();
+//            String headerValue = request.getHeader(headerName);
+//            System.out.println(headerName + ": " + headerValue);
+//        }
+        return "client/home/home";
     }
 
     @GetMapping("/set-up-profile")
