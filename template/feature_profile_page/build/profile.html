@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/profile.css">
+</head>
+
+<body class="min-w-50 h-screen flex bg-[url(./img/11283256.jpg)]">
+    <button id="menuButton" class="fixed top-4 left-4 bg-[#8421fd] text-white p-2 rounded-md z-50">☰ Menu</button>
+
+    <aside id="sidebar"
+        class="w-1/5 min-w-50 p-4 shadow-2xl text-white backdrop-blur-md fixed md:relative h-full transition-transform duration-300 translate-x-0 z-50">
+        <button id="closeSidebar" class="text-black text-2xl absolute top-4 right-4">✖</button>
+        <div class="flex justify-center">
+            <div class="w-20 h-20 mt-4 rounded-full overflow-hidden">
+                <input type="file" accept="image/*" id="fileInput" class="hidden">
+                <label for="fileInput" class="cursor-pointer w-20 h-20 overflow-hidden">
+                    <img id="profilePic" src="./img/avata.webp" alt="Ảnh" class="w-full h-full object-cover">
+                </label>
+            </div>
+        </div>
+        <div class="text-[#9C27B0] text-center mt-4">Đỗ Quốc Huy</div>
+        <nav class="mt-6 flex flex-col space-y-4">
+            <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate" data-target="profile">Profile</a>
+            <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate" data-target="criteria">Criteria</a>
+            <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate" data-target="settings">Settings</a>
+        </nav>
+    </aside>
+    <main id="mainContent" class="main-collapsed flex justify-center p-6 transition-all duration-300">
+
+        <div class="w-full backdrop-blur-sm p-6 rounded-xl shadow-lg">
+            <div id="profile" class="content-section">
+                <button class="rounded-xl outline-double w-20 h-7 float-right"type="submit">Save</button>
+                <h1 class="text-2xl font-bold">Profile</h1>
+                <p>Your basic Information.</p>
+                <hr class="my-4">
+                <div class="font-bold">Biography</div>
+                <textarea class="rounded-md input-expansion outline-none"type="text" name="bio" id="bio" placeholder=""></textarea>
+                <div class="grid grid-cols-2">
+                    <div class="w-1/2">
+                    <div class="font-bold">Information</div>
+                        <textarea class="rounded-md w-full h-8 py-1 px-2 outline-none mt-3"type="text" name="fullname" id="fullname" placeholder="fullname"></textarea>
+                        <br/>
+                        <input class="rounded-md w-full h-8 py-1 px-2 outline-none mt-1"type="date" name="birthday" id="birthday" placeholder="birthday" min="1-1-1930" max="1-1-2010"></input>
+                        <br/>
+                        <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="address" id="address" placeholder="address">
+                            <option value="">-- Chọn tỉnh/thành phố --</option>
+                            <option value="An Giang">An Giang</option>
+                            <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+                            <option value="Bắc Giang">Bắc Giang</option>
+                            <option value="Bắc Kạn">Bắc Kạn</option>
+                            <option value="Bạc Liêu">Bạc Liêu</option>
+                            <option value="Bắc Ninh">Bắc Ninh</option>
+                            <option value="Bến Tre">Bến Tre</option>
+                            <option value="Bình Định">Bình Định</option>
+                            <option value="Bình Dương">Bình Dương</option>
+                            <option value="Bình Phước">Bình Phước</option>
+                            <option value="Bình Thuận">Bình Thuận</option>
+                            <option value="Cà Mau">Cà Mau</option>
+                            <option value="Cần Thơ">Cần Thơ</option>
+                            <option value="Cao Bằng">Cao Bằng</option>
+                            <option value="Đà Nẵng">Đà Nẵng</option>
+                            <option value="Đắk Lắk">Đắk Lắk</option>
+                            <option value="Đắk Nông">Đắk Nông</option>
+                            <option value="Điện Biên">Điện Biên</option>
+                            <option value="Đồng Nai">Đồng Nai</option>
+                            <option value="Đồng Tháp">Đồng Tháp</option>
+                            <option value="Gia Lai">Gia Lai</option>
+                            <option value="Hà Giang">Hà Giang</option>
+                            <option value="Hà Nam">Hà Nam</option>
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Hà Tĩnh">Hà Tĩnh</option>
+                            <option value="Hải Dương">Hải Dương</option>
+                            <option value="Hải Phòng">Hải Phòng</option>
+                            <option value="Hậu Giang">Hậu Giang</option>
+                            <option value="Hòa Bình">Hòa Bình</option>
+                            <option value="Hưng Yên">Hưng Yên</option>
+                            <option value="Khánh Hòa">Khánh Hòa</option>
+                            <option value="Kiên Giang">Kiên Giang</option>
+                            <option value="Kon Tum">Kon Tum</option>
+                            <option value="Lai Châu">Lai Châu</option>
+                            <option value="Lâm Đồng">Lâm Đồng</option>
+                            <option value="Lạng Sơn">Lạng Sơn</option>
+                            <option value="Lào Cai">Lào Cai</option>
+                            <option value="Long An">Long An</option>
+                            <option value="Nam Định">Nam Định</option>
+                            <option value="Nghệ An">Nghệ An</option>
+                            <option value="Ninh Bình">Ninh Bình</option>
+                            <option value="Ninh Thuận">Ninh Thuận</option>
+                            <option value="Phú Thọ">Phú Thọ</option>
+                            <option value="Phú Yên">Phú Yên</option>
+                            <option value="Quảng Bình">Quảng Bình</option>
+                            <option value="Quảng Nam">Quảng Nam</option>
+                            <option value="Quảng Ngãi">Quảng Ngãi</option>
+                            <option value="Quảng Ninh">Quảng Ninh</option>
+                            <option value="Quảng Trị">Quảng Trị</option>
+                            <option value="Sóc Trăng">Sóc Trăng</option>
+                            <option value="Sơn La">Sơn La</option>
+                            <option value="Tây Ninh">Tây Ninh</option>
+                            <option value="Thái Bình">Thái Bình</option>
+                            <option value="Thái Nguyên">Thái Nguyên</option>
+                            <option value="Thanh Hóa">Thanh Hóa</option>
+                            <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+                            <option value="Tiền Giang">Tiền Giang</option>
+                            <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+                            <option value="Trà Vinh">Trà Vinh</option>
+                            <option value="Tuyên Quang">Tuyên Quang</option>
+                            <option value="Vĩnh Long">Vĩnh Long</option>
+                            <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                            <option value="Yên Bái">Yên Bái</option>
+                        </select>
+                        <br/>
+                        <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="gender" id="gender" placeholder="gender">
+                            <option value="">-- Chọn giới tính --</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                        </select>
+                        <br/>
+                        <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="idealtype" id="idealtype" placeholder="idealtype">
+                            <option value="">--Loại quan hệ--</option>
+                            <option value="Trò chuyện">Trò chuyện</option>
+                            <option value="Bạn bè">Bạn bè</option>
+                            <option value="Lâu dài">Lâu dài</option>
+                            <option value="Ngắn hạn">Ngắn hạn</option>
+                        </select>
+                    </div>
+                    <div class="w-1/2"> 
+                    <div class="truncate font-bold">Work and education</div>
+                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-3" id="work">
+                        <option value="">--Công việc--</option>
+                    </select>
+                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" id="company">
+                        <option value="">--Công ty--</option>
+                    </select>
+                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" id="high-school">
+                        <option value="">--Trung học phổ thông--</option>
+                    </select>
+                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" id="college-university">
+                        <option value="">--Cao đẳng/Đại học--</option>
+                    </select>
+                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" id="edu-level">
+                        <option value="">--Trình độ học vấn--</option>
+                    </select>
+                </div>
+                </div>
+            </div>
+            <div id="criteria" class="content-section hidden">
+                <button class="rounded-xl outline-double w-20 h-7 float-right"type="submit">Save</button>
+                <h1 class="text-2xl font-bold">Criteria</h1>
+                <p>List of criteria.</p>
+                <hr class="my-4">
+                <div class="font-bold">Đối tượng muốn tìm kiếm</div>
+                <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="gender" id="gender" placeholder="gender">
+                    <option value="">-- Chọn giới tính --</option>
+                    <option value="male">Nam</option>
+                    <option value="female">Nữ</option>
+                </select>
+                <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="address" id="address" placeholder="address">
+                    <option value="">-- Vị trí hẹn hò --</option>
+                    <option value="An Giang">An Giang</option>
+                    <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+                    <option value="Bắc Giang">Bắc Giang</option>
+                    <option value="Bắc Kạn">Bắc Kạn</option>
+                    <option value="Bạc Liêu">Bạc Liêu</option>
+                    <option value="Bắc Ninh">Bắc Ninh</option>
+                    <option value="Bến Tre">Bến Tre</option>
+                    <option value="Bình Định">Bình Định</option>
+                    <option value="Bình Dương">Bình Dương</option>
+                    <option value="Bình Phước">Bình Phước</option>
+                    <option value="Bình Thuận">Bình Thuận</option>
+                    <option value="Cà Mau">Cà Mau</option>
+                    <option value="Cần Thơ">Cần Thơ</option>
+                    <option value="Cao Bằng">Cao Bằng</option>
+                    <option value="Đà Nẵng">Đà Nẵng</option>
+                    <option value="Đắk Lắk">Đắk Lắk</option>
+                    <option value="Đắk Nông">Đắk Nông</option>
+                    <option value="Điện Biên">Điện Biên</option>
+                    <option value="Đồng Nai">Đồng Nai</option>
+                    <option value="Đồng Tháp">Đồng Tháp</option>
+                    <option value="Gia Lai">Gia Lai</option>
+                    <option value="Hà Giang">Hà Giang</option>
+                    <option value="Hà Nam">Hà Nam</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hà Tĩnh">Hà Tĩnh</option>
+                    <option value="Hải Dương">Hải Dương</option>
+                    <option value="Hải Phòng">Hải Phòng</option>
+                    <option value="Hậu Giang">Hậu Giang</option>
+                    <option value="Hòa Bình">Hòa Bình</option>
+                    <option value="Hưng Yên">Hưng Yên</option>
+                    <option value="Khánh Hòa">Khánh Hòa</option>
+                    <option value="Kiên Giang">Kiên Giang</option>
+                    <option value="Kon Tum">Kon Tum</option>
+                    <option value="Lai Châu">Lai Châu</option>
+                    <option value="Lâm Đồng">Lâm Đồng</option>
+                    <option value="Lạng Sơn">Lạng Sơn</option>
+                    <option value="Lào Cai">Lào Cai</option>
+                    <option value="Long An">Long An</option>
+                    <option value="Nam Định">Nam Định</option>
+                    <option value="Nghệ An">Nghệ An</option>
+                    <option value="Ninh Bình">Ninh Bình</option>
+                    <option value="Ninh Thuận">Ninh Thuận</option>
+                    <option value="Phú Thọ">Phú Thọ</option>
+                    <option value="Phú Yên">Phú Yên</option>
+                    <option value="Quảng Bình">Quảng Bình</option>
+                    <option value="Quảng Nam">Quảng Nam</option>
+                    <option value="Quảng Ngãi">Quảng Ngãi</option>
+                    <option value="Quảng Ninh">Quảng Ninh</option>
+                    <option value="Quảng Trị">Quảng Trị</option>
+                    <option value="Sóc Trăng">Sóc Trăng</option>
+                    <option value="Sơn La">Sơn La</option>
+                    <option value="Tây Ninh">Tây Ninh</option>
+                    <option value="Thái Bình">Thái Bình</option>
+                    <option value="Thái Nguyên">Thái Nguyên</option>
+                    <option value="Thanh Hóa">Thanh Hóa</option>
+                    <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+                    <option value="Tiền Giang">Tiền Giang</option>
+                    <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+                    <option value="Trà Vinh">Trà Vinh</option>
+                    <option value="Tuyên Quang">Tuyên Quang</option>
+                    <option value="Vĩnh Long">Vĩnh Long</option>
+                    <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                    <option value="Yên Bái">Yên Bái</option>
+                </select>
+                <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="age" id="age" placeholder="age">
+                    <option value="">--Chọn độ tuổi--</option>
+                </select>
+                <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="relationship" id="relationship" placeholder="relationship">
+                    <option value="">--Mối quan hệ đang tìm--</option>
+                </select>
+                <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="edu-level" id="edu-level" placeholder="edu-level">
+                    <option value="">--Trình độ học vấn--</option>
+                </select>
+            </div>
+            <div id="settings" class="content-section hidden">
+                <button class="rounded-xl outline-double w-20 h-7 float-right"type="submit">Save</button>
+                <h1 class="text-2xl font-bold">Settings</h1>
+                <hr class="my-4">
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const menuButton = document.getElementById("menuButton");
+        const closeSidebar = document.getElementById("closeSidebar");
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.getElementById("mainContent");
+
+        let isSidebarOpen = true;
+        
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            sidebar.style.transform = isSidebarOpen ? "translateX(0)" : "translateX(-100%)";
+
+            if (isSidebarOpen) {
+                mainContent.classList.replace("main-collapsed", "main-expanded");
+            } else {
+                mainContent.classList.replace("main-expanded", "main-collapsed");
+            }
+        }
+
+        window.addEventListener("resize", function () {
+            if (window.innerWidth <= 768) {
+                sidebar.style.transform = "translateX(-100%)";
+                isSidebarOpen = false;
+            }
+        });
+                
+        menuButton.addEventListener("click", toggleSidebar);
+        closeSidebar.addEventListener("click", toggleSidebar);
+
+        const links = document.querySelectorAll("nav a");
+        const sections = document.querySelectorAll(".content-section");
+
+        links.forEach(link => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                sections.forEach(section => section.classList.add("hidden"));
+                document.getElementById(this.getAttribute("data-target")).classList.remove("hidden");
+            });
+        });
+
+        document.getElementById("fileInput").addEventListener("change", function (event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("profilePic").src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+
+</html>
