@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinder</title>
+    <title>NewJeans Dating</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
 <body class="font-roboto">
-    <!-- Main Section -->
-    <main class="relative h-screen flex flex-col">
-        <!-- Background Image -->
-        <img src="./img/background.jpeg" class="absolute inset-0 w-full h-full object-cover">
-
-        <!-- Header Content -->
-        <div class="flex justify-between items-center p-4 z-50">
-            <div class="flex items-center space-x-8">
-                <img alt="logo" class="h-8" src="./img/logo.jpeg" />
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full bg-white bg-opacity-90 shadow-md z-50">
+        <div class="container mx-auto flex justify-between items-center p-2">
+            <div class="flex items-center space-x-6">
+                <img src="./img/logo.png" alt="logo" class="h-12 cursor-pointer" id="logo">
                 <nav class="flex space-x-4">
                     <div class="relative">
-                        <a href="#" id="productBtn"
-                            class="text-gray-700 hover:text-gray-900 hover:underline">Products</a>
+                        <a href="#" id="productBtn" class="text-gray-700 hover:text-gray-900 hover:underline">Products</a>
                         <div id="productMenu" class="absolute hidden bg-white shadow-md p-2 mt-2 rounded-md z-50">
                             <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 1</a>
                             <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 2</a>
@@ -44,8 +37,8 @@
                     <a href="download.html" class="text-gray-700 hover:text-gray-900 hover:underline">Download</a>
                 </nav>
             </div>
+
             <div class="flex items-center space-x-4">
-                <!-- Language Dropdown -->
                 <div class="relative">
                     <button id="languageBtn" class="text-gray-700 hover:text-gray-900 hover:underline">Language</button>
                     <div id="languageMenu" class="absolute hidden bg-white shadow-md p-2 mt-2 rounded-md right-0 z-50">
@@ -54,36 +47,38 @@
                         <a href="#" data-lang="es" class="block px-4 py-2 hover:bg-gray-100">Spanish</a>
                     </div>
                 </div>
-                <button id="loginButton" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Log
-                    in</button>
+                <!-- Login Button -->
+                <button id="loginButton" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Log in</button>
             </div>
         </div>
+    </header>
 
-        <!-- Main Content -->
-        <div class="flex-grow flex items-center justify-center text-white z-10">
-            <div class="text-center">
-                <h1 id="mainTitle" class="text-5xl font-bold mb-4">Swipe Right<sup>®</sup></h1>
-            </div>
+    <!-- Main Section -->
+    <main class="relative h-screen flex flex-col justify-center items-center">
+        <img src="./img/bg.jpg" class="absolute inset-0 w-full h-full object-cover z-0">
+        <div class="text-center z-10">
+            <h1 id="mainTitle" class="text-5xl font-bold mb-4 text-white">Swipe Right<sup>®</sup></h1>
+            <p class="text-white text-lg">Find your match today.</p>
         </div>
     </main>
 
     <!-- Testimonials Section -->
     <section class="py-12 bg-gray-50 z-10">
         <div class="max-w-4xl mx-auto px-4 space-y-8">
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-xl font-bold mb-2">Lauren</h3>
                 <p class="text-gray-700">For all the single people out there, especially introverted ones like us: do
                     not be afraid to travel outside of your comfort zone. That’s where you’ll make a genuine connection.
                     Tinder brought us together and for that, I am forever grateful. <span class="text-red-500">❤️</span>
                 </p>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-xl font-bold mb-2">Rebecca</h3>
                 <p class="text-gray-700">I was also adamant the next man I'd be with and commit to, would be the man I'd
                     spend the rest of my life with (just not married). I was very fussy and didn't expect to meet a man
                     on Tinder. I decided to sign up anyways and just match away and see what happened.</p>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                 <h3 class="text-xl font-bold mb-2">Elissa</h3>
                 <p class="text-gray-700">My college roommate and I both would stay up on Tinder, not looking for
                     anything serious (also not looking for hookups though, just entertainment). My now husband and I
@@ -157,38 +152,110 @@
     </footer>
 
     <!-- Popup -->
-    <div id="authPopup" class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-        <div class="container relative w-[800px] h-[500px] bg-white rounded-2xl shadow-lg overflow-hidden flex"
-            id="container">
-            <!-- Đăng Ký Form -->
-            <div
-                class="form-container register-container absolute left-1/2 w-1/2 h-full flex flex-col justify-center items-center px-10 transition-transform duration-500 opacity-0 translate-x-full">
-                <h2 class="text-2xl font-bold mb-4">Đăng Ký</h2>
-                <input type="text" placeholder="Tên đăng nhập" class="input">
-                <input type="email" placeholder="Email" class="input">
-                <input type="password" placeholder="Mật khẩu" class="input">
-                <input type="text" placeholder="Email" class="input">
-                <button class="btn">Đăng Ký</button>
+    <div id="authPopup" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="container relative w-[90%] max-w-[800px] h-[500px] bg-white rounded-2xl shadow-lg overflow-hidden flex">
+            <!-- Nút đóng popup -->
+            <button id="closeAuthPopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Login Form -->
+            <div class="form-box login absolute w-1/2 h-full flex flex-col justify-center items-center px-10 transition-transform duration-500">
+                <form class="w-full max-w-xs">
+                    <h1 class="text-2xl font-bold mb-4">Login</h1>
+                    <div class="relative mb-4">
+                        <input type="text" placeholder="Username"
+                            class="w-full px-4 py-2 pl-10 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class='bx bxs-user absolute right-3 top-1/2 transform -translate-y-1/2 text-lg text-gray-500'></i>
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="password" placeholder="Password"
+                            class="w-full px-4 py-2 pl-10 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class='bx bxs-lock-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-lg text-gray-500'></i>
+                    </div>
+                    <div class="text-right mb-4">
+                        <a href="#" class="text-sm text-gray-600 hover:text-blue-500">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                    <p class="text-xs text-gray-500 mt-3">or login with social platforms</p>
+                    <div class="flex justify-center space-x-3 mt-3">
+                        <a href="#" class="p-2 border-2 border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"><i class='bx bxl-google text-xl'></i></a>
+                        <a href="#" class="p-2 border-2 border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"><i class='bx bxl-facebook text-xl'></i></a>
+                        <a href="#" class="p-2 border-2 border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"><i class='bx bxl-github text-xl'></i></a>
+                        <a href="#" class="p-2 border-2 border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"><i class='bx bxl-linkedin text-xl'></i></a>
+                    </div>
+                </form>
             </div>
 
-            <!-- Đăng Nhập Form -->
-            <div
-                class="form-container login-container absolute w-1/2 h-full flex flex-col justify-center items-center px-10 transition-transform duration-500 opacity-100">
-                <h2 class="text-2xl font-bold mb-4">Đăng Nhập</h2>
-                <input type="text" placeholder="Tên đăng nhập" class="input">
-                <input type="password" placeholder="Mật khẩu" class="input">
-                <button class="btn">Tạo tài khoản</button>
+            <!-- Register Form -->
+            <div class="form-box register absolute left-1/2 w-1/2 h-full flex flex-col justify-center items-center px-10 transition-transform duration-500">
+                <form class="w-full max-w-xs">
+                    <h1 class="text-2xl font-bold mb-4">Registration</h1>
+            
+                    <!-- Tên đăng nhập -->
+                    <div class="relative mb-4">
+                        <input type="text" placeholder="Tên đăng nhập"
+                            class="w-full px-4 py-2 pl-10 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class='bx bxs-user absolute right-3 top-1/2 transform -translate-y-1/2 text-lg text-gray-500'></i>
+                    </div>
+            
+                    <!-- Email -->
+                    <div class="relative mb-4">
+                        <input type="email" placeholder="Email"
+                            class="w-full px-4 py-2 pl-10 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class='bx bxs-envelope absolute right-3 top-1/2 transform -translate-y-1/2 text-lg text-gray-500'></i>
+                    </div>
+            
+                    <!-- Gửi mã xác nhận -->
+                    <div class="relative mb-4">
+                        <input type="text" placeholder="Mã xác nhận"
+                            class="w-full px-4 py-2 pl-10 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="button" id="sendCodeButton" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-blue-500 hover:text-blue-700">
+                            Gửi mã
+                        </button>
+                    </div>
+            
+                    <!-- Mật khẩu -->
+                    <div class="relative mb-4">
+                        <input type="password" placeholder="Mật khẩu"
+                            class="w-full px-4 py-2 pl-10 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class='bx bxs-lock-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-lg text-gray-500'></i>
+                    </div>
+            
+                    <!-- Nhập lại mật khẩu -->
+                    <div class="relative mb-4">
+                        <input type="password" placeholder="Nhập lại mật khẩu"
+                            class="w-full px-4 py-2 pl-10 bg-gray-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class='bx bxs-lock-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-lg text-gray-500'></i>
+                    </div>
+            
+                    <!-- Nút đăng ký -->
+                    <button type="submit" class="btn">Đăng ký</button>
+            
+                    <p class="text-xs text-gray-500 mt-3">or register with social platforms</p>
+                    <div class="flex justify-center space-x-3 mt-3">
+                        <a href="#" class="p-2 border-2 border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"><i class='bx bxl-google text-xl'></i></a>
+                        <a href="#" class="p-2 border-2 border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"><i class='bx bxl-facebook text-xl'></i></a>
+                        <a href="#" class="p-2 border-2 border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"><i class='bx bxl-github text-xl'></i></a>
+                        <a href="#" class="p-2 border-2 border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"><i class='bx bxl-linkedin text-xl'></i></a>
+                    </div>
+                </form>
             </div>
 
-            <!-- Overlay -->
-            <div class="overlay absolute w-1/2 h-full bg-blue-500 text-white flex flex-col justify-center items-center transition-transform duration-500 right-0 rounded-l-[100px] cursor-pointer"
-                id="toggleOverlay">
-                <h2 class="text-2xl font-bold" id="overlayText">Xin Chào!</h2>
-                <p class="text-sm mt-2" id="overlayDesc">Bạn chưa có tài khoản?</p>
-                <button class="btn bg-white text-blue-500 mt-4" id="overlayButton">Đăng Ký</button>
+            <!-- Toggle Box -->
+            <div class="toggle-box absolute w-1/2 h-full bg-blue-500 text-white flex flex-col justify-center items-center transition-transform duration-500 right-0 rounded-l-[100px] cursor-pointer" id="toggleOverlay">
+                <div class="toggle-panel toggle-left">
+                    <h1 class="text-2xl font-bold">Hello, Welcome!</h1>
+                    <p class="text-sm mt-2">Don't have an account?</p>
+                    <button class="mt-4 px-5 py-1.5 bg-transparent border-2 border-white rounded-lg font-semibold hover:bg-white hover:text-blue-500 transition-all register-btn">Register</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1 class="text-2xl font-bold">Welcome Back!</h1>
+                    <p class="text-sm mt-2">Already have an account?</p>
+                    <button class="mt-4 px-5 py-1.5 bg-transparent border-2 border-white rounded-lg font-semibold hover:bg-white hover:text-blue-500 transition-all login-btn">Login</button>
+                </div>
             </div>
         </div>
     </div>
 </body>
-
 </html>
