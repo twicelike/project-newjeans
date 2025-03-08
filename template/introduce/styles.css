@@ -1,50 +1,294 @@
 /* Custom CSS */
-.container.active .register-container {
-    transform: translateX(0);
-    opacity: 1;
+:root {
+    --primary-color: #ff5864;
+    --secondary-color: #333;
+    --font-family: "Roboto", sans-serif;
+    --background-gradient: linear-gradient(90deg, #ff7e5f, #ff5864);
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
 }
 
-.container.active .login-container {
-    transform: translateX(-100%);
-    opacity: 0;
+body {
+    font-family: var(--font-family);
+    background: var(--background-gradient);
+    color: var(--secondary-color);
 }
 
-.container.active .overlay {
-    transform: translateX(-100%);
-    border-radius: 100px 0 0 100px;
-}
-
-.input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-blue-500 transition mb-4;
-}
-
-.btn {
-    @apply w-full py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 transition;
-}
-
-.input {
+header {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--box-shadow);
+    padding: 0.5rem 1rem;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    outline: none;
+    z-index: 1000;
 }
 
-.btn {
-    width: auto;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
+header .logo {
+    height: 40px;
     cursor: pointer;
-    transition: 0.3s;
-    background: #2e53a3;
+}
+
+header nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+header nav a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+header .flex.items-center.space-x-4 {
+    gap: 0.5rem;
+}
+
+header #languageBtn,
+header #loginButton {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+header #loginButton {
+    padding: 0.25rem 0.75rem;
+    background: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+header #loginButton:hover {
+    background: #ff4757;
+}
+
+main {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+main img.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+main h1 {
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+section {
+    background: #f9f9f9;
+    padding: 4rem 0;
+}
+
+section .bg-white {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section .bg-white:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+footer {
+    background: #2d2d2d;
+    color: white;
+}
+
+footer a {
+    color: #a0a0a0;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: white;
+}
+
+footer .text-gray-400 {
+    color: #a0a0a0;
+}
+
+footer .text-red-500 {
+    color: var(--primary-color);
+}
+
+footer .bg-gray-700 {
+    background: #444;
+}
+
+footer .bg-red-500 {
+    background: var(--primary-color);
+}
+
+footer .bg-red-500:hover {
+    background: #ff4757;
+}
+
+/* Popup */
+#authPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#authPopup .container {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    width: 800px;
+    height: 500px;
+    position: relative;
+}
+
+#authPopup .form-box {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: .6s ease-in-out 1.2s, visibility 0s 1s;
+}
+
+#authPopup .form-box.login {
+    left: 0;
+}
+
+#authPopup .form-box.register {
+    left: 50%;
+    transform: translateX(100%);
+}
+
+#authPopup .container.active .form-box.login {
+    transform: translateX(-100%);
+}
+
+#authPopup .container.active .form-box.register {
+    transform: translateX(0);
+}
+
+#authPopup .toggle-box {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.6s ease-in-out;
+}
+
+#authPopup .toggle-box.toggle-left {
+    transform: translateX(-100%);
+}
+
+#authPopup .container.active .toggle-box.toggle-left {
+    transform: translateX(0);
+}
+
+#authPopup .toggle-box.toggle-right {
+    transform: translateX(0);
+}
+
+#authPopup .container.active .toggle-box.toggle-right {
+    transform: translateX(100%);
+}
+
+#authPopup .btn {
+    background: var(--primary-color);
     color: white;
     border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.btn:hover {
-    opacity: 0.8;
+#authPopup .btn:hover {
+    background: #ff4757;
+}
+
+@media (max-width: 768px) {
+    main h1 {
+        font-size: 3rem;
+    }
+
+    #authPopup .container {
+        width: 90%;
+        height: auto;
+    }
+
+    #authPopup .form-box {
+        width: 100%;
+        padding: 20px;
+    }
+
+    #authPopup .toggle-box {
+        width: 100%;
+        height: 50%;
+        left: 0;
+        top: 50%;
+    }
+
+    #authPopup .container.active .toggle-box.toggle-left {
+        transform: translateY(-100%);
+    }
+
+    #authPopup .container.active .toggle-box.toggle-right {
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+#sendCodeButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #3b82f6;
+}
+
+#sendCodeButton:hover {
+    color: #2563eb;
 }
