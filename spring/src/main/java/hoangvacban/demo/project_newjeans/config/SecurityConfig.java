@@ -69,8 +69,8 @@ public class SecurityConfig {
     ) throws Exception {
         http.authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/css/**", "/js/**", "/login", "/register",
-                                "/logout",
-                                "/create-admin", "/favicon.ico", "/favicon.ico.").permitAll()
+                                "/logout", "/create-user",
+                                "/create-admin", "/favicon.ico", "/favicon.ico.", "/test-send-mail").permitAll()
                         .requestMatchers("/admin/*").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
@@ -83,11 +83,10 @@ public class SecurityConfig {
                         .tokenValiditySeconds(2592000)
                         .rememberMeServices(rememberMeServices()))
                 .sessionManagement(sm -> sm
-//                        .addSessionAuthenticationStrategy()
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                         .invalidSessionUrl("/login?expired")
                         .maximumSessions(36)
-                        .maxSessionsPreventsLogin(false))
+                        .maxSessionsPreventsLogin(true))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)

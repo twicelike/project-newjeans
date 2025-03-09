@@ -1,5 +1,6 @@
 package hoangvacban.demo.project_newjeans.config;
 
+import hoangvacban.demo.project_newjeans.domain.User;
 import hoangvacban.demo.project_newjeans.service.DeviceMetadataService;
 import hoangvacban.demo.project_newjeans.service.UserService;
 import jakarta.servlet.ServletException;
@@ -19,8 +20,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
-import static hoangvacban.demo.project_newjeans.util.Constants.*;
+import static hoangvacban.demo.project_newjeans.util.Constants.ROLE_ADMIN;
+import static hoangvacban.demo.project_newjeans.util.Constants.ROLE_USER;
 
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -56,19 +59,14 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         String email = authentication.getName();
-//        Optional<User> user = userService.getUserByEmail(email);
-//        user.ifPresent(value -> session.setAttribute("user", value.getEmail()));
+        Optional<User> user = userService.getUserByEmail(email);
+        user.ifPresent(value -> session.setAttribute("isFinishSetUpProfile", value.isFinishSetUpProfile()));
     }
 
     public void loginNotification(Authentication authentication, HttpServletRequest request) {
         try {
             if (authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
-                String userAgent = request.getHeader(USER_AGENT);
-                String ipAddress = request.getHeader(IP_ADDRESS) != null
-                        ? request.getHeader(IP_ADDRESS) : request.getRemoteAddr();
-                String email = authentication.getName();
-                System.out.println("DAU CAC");
-                deviceMetadataService.verify(userAgent, ipAddress, email);
+                deviceMetadataService.verify(request, authentication.getName());
             }
         } catch (Exception e) {
             log.error(e.getMessage());

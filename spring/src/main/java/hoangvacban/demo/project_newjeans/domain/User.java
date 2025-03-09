@@ -20,14 +20,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    private String username;
+    private String realName;
     private String password;
     private String email;
+    private long createdDate;
+
     private String phoneNumber;
     private boolean gender;
-    private String location;
+    private String nation;
     private String birthday;
     private String avatar;
+    private long updatedDate;
+
+    private boolean isFinishSetUpProfile;
 
     @OneToMany(mappedBy = "user")
     private List<UserImage> images;
@@ -43,16 +49,23 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", gender=" + gender +
-                ", location='" + location + '\'' +
+                ", location='" + nation + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", images=" + images +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User user) {
+            return this.getId() == user.getId();
+        } else return false;
     }
 }
 
