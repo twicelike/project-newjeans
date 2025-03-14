@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -22,7 +23,7 @@ public class HobbyTag {
 
     private String name;
 
-    @OneToMany(mappedBy = "hobbyTag")
-    private List<UserHobby> userHobbies;
-
+    @ManyToMany
+    @JoinTable
+    private Set<User> users = new HashSet<>();
 }

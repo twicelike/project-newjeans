@@ -6,7 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -20,30 +23,41 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    // pre-set up
     private String username;
-    private String realName;
+    private String fullName;
     private String password;
     private String email;
     private long createdDate;
 
-    private String phoneNumber;
+    // set up
     private boolean gender;
     private String nation;
     private String birthday;
     private String avatar;
     private long updatedDate;
 
+    // post set up
+    private String school;
+    private String working;
+
     private boolean isFinishSetUpProfile;
 
     @OneToMany(mappedBy = "user")
-    private List<UserImage> images;
+    private List<UserImage> images = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private List<DeviceMetadata> deviceMetadata;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<DeviceMetadata> deviceMetadata = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+    private Set<NjzSend> njzSends = new HashSet<>();
+
+    @OneToMany(mappedBy = "crushId", fetch = FetchType.LAZY)
+    private Set<NjzSend> njzCrushes = new HashSet<>();
 
     @Override
     public String toString() {
@@ -52,7 +66,6 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
                 ", gender=" + gender +
                 ", location='" + nation + '\'' +
                 ", birthday='" + birthday + '\'' +

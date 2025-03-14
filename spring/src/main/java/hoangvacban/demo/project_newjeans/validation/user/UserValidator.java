@@ -49,7 +49,7 @@ public class UserValidator implements ConstraintValidator<UserConstraint, UserDT
                     .disableDefaultConstraintViolation();
         }
 
-        Optional<User> userOptional = userRepository.findByRealName(user.getRealName());
+        Optional<User> userOptional = userRepository.findByFullName(user.getRealName());
 
         if (userOptional.isPresent()) {
             context.buildConstraintViolationWithTemplate("Real name already exists")

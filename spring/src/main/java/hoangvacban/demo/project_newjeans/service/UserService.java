@@ -103,7 +103,6 @@ public class UserService {
         User admin = new User();
         admin.setUsername("admin cac lon");
         admin.setEmail("mhoanga1@gmail.com");
-        admin.setPhoneNumber("123123123");
         admin.setGender(true);
         admin.setNation("");
         admin.setBirthday("123");
@@ -117,7 +116,6 @@ public class UserService {
         User admin = new User();
         admin.setUsername("admin cac lon");
         admin.setEmail("abc@gmail.com");
-        admin.setPhoneNumber("123123123");
         admin.setGender(true);
         admin.setNation("");
         admin.setBirthday("123");
@@ -131,7 +129,6 @@ public class UserService {
         User admin = new User();
         admin.setUsername("admin cac lon");
         admin.setEmail("admin@gmail.com");
-        admin.setPhoneNumber("123123123");
         admin.setGender(true);
         admin.setNation("");
         admin.setBirthday("123");

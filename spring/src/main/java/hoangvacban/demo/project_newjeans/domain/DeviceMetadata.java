@@ -25,7 +25,7 @@ public class DeviceMetadata {
     @EqualsAndHashCode.Exclude
     private long lastLoggedIn;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }
