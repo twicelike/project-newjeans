@@ -27,11 +27,10 @@ public class CustomUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.get().getRole().getName());
         return new org.springframework.security.core.userdetails.User(
                 username,
                 user.get().getPassword(),
-                Collections.singleton(authority)
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_" + user.get().getRole().getName()))
         );
     }
 }

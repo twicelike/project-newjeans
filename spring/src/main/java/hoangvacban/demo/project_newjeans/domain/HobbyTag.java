@@ -23,7 +23,11 @@ public class HobbyTag {
 
     private String name;
 
-    @ManyToMany
-    @JoinTable
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "hobby_user",
+            joinColumns = @JoinColumn(name = "hobby_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private Set<User> users = new HashSet<>();
 }

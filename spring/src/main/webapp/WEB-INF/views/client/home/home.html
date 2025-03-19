@@ -14,7 +14,33 @@
     <input type="submit" value="Sign out">
 </form>
 
+<br/>
 
+<form th:action="@{/create-hobbytag}" method="post">
+    <input type="submit" value="create hobby tag and add users">
+</form>
+
+<br/>
+
+<form th:action="@{/add-tag-to-user}" method="post">
+    <input type="submit" value="add user to hobby tag">
+</form>
+
+<br/>
+
+<form th:action="@{/fetch}" method="post">
+    <input type="submit" value="fetch">
+</form>
+
+<br/>
+
+<form th:action="@{/remove-hobbytag}" method="post">
+    <input type="submit" value="remove hobby tag">
+</form>
+
+<form th:action="@{/add-crush-to-list}" method="post">
+    <input type="submit" value="add crush">
+</form>
 
 </body>
 </html>

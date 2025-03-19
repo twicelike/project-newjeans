@@ -39,9 +39,7 @@ public class AuthController {
 
     @PostMapping("/create-user")
     public String createUser() {
-        userService.createUser1();
-        userService.createAdmin();
-        userService.createUser();
+        userService.createUserMulti();
         return "redirect:/admin";
     }
 

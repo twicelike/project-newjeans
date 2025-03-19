@@ -125,6 +125,20 @@ public class UserService {
         userRepository.save(admin);
     }
 
+    public void createUserMulti() {
+        for (int i = 1; i <= 10; i++) {
+            User admin = new User();
+            admin.setUsername("admin cac lon " + i);
+            admin.setEmail("abc" + i + "@gmail.com");
+            admin.setGender(true);
+            admin.setBirthday("123");
+            admin.setFinishSetUpProfile(true);
+            admin.setRole(roleService.findByName("USER"));
+            admin.setPassword(passwordEncoder.encode("123123"));
+            userRepository.save(admin);
+        }
+    }
+
     public void createAdmin() {
         User admin = new User();
         admin.setUsername("admin cac lon");

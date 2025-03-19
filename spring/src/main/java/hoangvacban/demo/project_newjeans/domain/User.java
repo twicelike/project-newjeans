@@ -46,7 +46,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserImage> images = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
@@ -58,6 +58,9 @@ public class User {
 
     @OneToMany(mappedBy = "crushId", fetch = FetchType.LAZY)
     private Set<NjzSend> njzCrushes = new HashSet<>();
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    private Set<HobbyTag> hobbyTags = new HashSet<>();
 
     @Override
     public String toString() {
