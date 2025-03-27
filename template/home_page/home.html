@@ -1,134 +1,156 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <title>NJinder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../home_page/assets/images/favicon.png">
+    <title>NewJeans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../home_page/assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="../home_page/assets/css/base.css">
+    <link rel="stylesheet" href="../home_page/assets/css/styles.css">
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="inner-main">
-            <div class="inner-logo">
-                <a href="/">
-                    <img src="assets/images/logo.png" alt="Logo" class="logo">
-                </a>
-            </div>
-            <div class="inner-menu">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-house"></i>
+    <div class="root">
+        <div class="content-wrapper max-w-screen sm:flex relative">
+            <!-- Sidebar -->
+            <aside class="sidebar lg:basis-1/5 basic-1/12 sm:p-4 lg:border-0 border lg:border-r-gray-200">
+                <nav class="font-semibold flex justify-between items-center sm:block">
+                    <div class="ct-logo lg:block hidden mb-3">
+                        <a href="#" class="flex justify-start items-center">
+                            <img class="w-16 h-16" src="../home_page/assets/images/logo.png" alt="Logo">
+                            <span class="ct-content">NewJeans</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-heart"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="inner-profile">
-                <!-- Avatar change here -->
-                <img src="assets/images/avt.jpg" alt="Avatar">
-                <!-- Username change here -->
-                <span class="user-name">NewJeans</span>
-            </div>
-        </div>
-    </header>
-    <!-- End Header -->
+                    </div> <!-- End Logo -->
+                    <div
+                        class="ct-search lg:flex inline-flex lg:items-center bg-slate-100 lg:rounded-3xl rounded-full lg:w-full p-2 gap-3 cursor-pointer sm:mb-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="ct-icons">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                        <span class="lg:block hidden">Tìm kiếm</span>
+                    </div> <!-- End Search -->
+                    <ul class="ct-menu sm:block flex items-center gap-5">
+                        <li class="">
+                            <a href="#"
+                                class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="ct-icons">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                </svg>
+                                <span class="ct-content lg:block hidden">Home</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="#"
+                                class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
+                                <img src="assets/images/match.png" alt=""
+                                    class="max-w-[32px] max-h-[32px] object-cover">
+                                <span class="ct-content lg:block hidden">Match</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="#"
+                                class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="ct-icons">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+                                </svg>
+                                <span class="ct-content lg:block hidden">Message</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="#"
+                                class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="ct-icons">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+                                </svg>
+                                <span class="ct-content lg:block hidden">Notification</span>
+                            </a>
+                        </li>
+                    </ul> <!-- End Menu -->
+                    <ul class="ct-profile">
+                        <li class="">
+                            <a href="#"
+                                class="lg:flex inline-flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100">
+                                <img class="max-w-8 h-8 object-cover rounded-full"
+                                    src="../home_page/assets/images/avt.jpg" alt="Avatar">
+                                <span class="lg:block hidden">Name</span>
+                            </a>
+                        </li>
+                    </ul> <!-- End Profile -->
+                </nav>
+            </aside>
+            <!-- End Sidebar -->
+            <!-- Main -->
+            <main class="main-section w-full sm:ml-[20%]">
+                <div class="sm:inline-flex relative">
+                    <div class="flex flex-col h-screen sm:w-[360px] w-screen p-0.5 border border-slate-300">
+                        <div class="swiper mySwiper basis-3/4">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img class="max-w-full max-h-full object-cover" src="../home_page/assets/images/bg1.webp"
+                                        alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="max-w-full max-h-full object-cover" src="../home_page/assets/images/bg2.webp"
+                                        alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="max-w-full max-h-full object-cover" src="../home_page/assets/images/bg3.webp"
+                                        alt="">
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
 
-    <!-- Section One -->
-    <section class="section-one">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="inner-wrap">
-                        <div class="inner-profile">
-                            <img src="assets/images/avt.jpg" alt="">
-                            <span class="user-name">NewJeans</span>
-                        </div>
-                        <div class="inner-slide">
-                            <ul>
-                                <li class="slide-item slide-active">
-                                    <img src="assets/images/bg1.webp" alt="">
-                                </li>
-                                <li class="slide-item">
-                                    <img src="assets/images/bg2.webp" alt="">
-                                </li>
-                                <li class="slide-item">
-                                    <img src="assets/images/bg3.webp" alt="">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="inner-content">
-                            <div class="inner-interact">
-                                <ul>
-                                    <li>
-                                        <i class="fa-regular fa-heart"></i>
-                                    </li>
-                                    <li>
-                                        <i class="fa-regular fa-comment"></i>
-                                    </li>
-                                    <li>
-                                        <i class="fa-solid fa-repeat"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="inner-desc">
-                                <div class="info">
-                                    <p class="name">Name</p>
-                                    <p class="age">Age</p>
-                                    <p class="location">Location</p>
-                                </div>
-                                <div class="hobby-tags">
-                                    <p class="hobby-label hobby-1">
-                                        Play Football
-                                    </p>
-                                    <p class="hobby-label hobby-2">
-                                        Reading Book
-                                    </p>
-                                    <p class="hobby-label hobby-3">
-                                        Music
-                                    </p>
-                                </div>
-                            </div>
+                        <div class="infoUser">
+                            <p class="">NewJeans</p>
+                            <p class="">World</p>
+                            <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos cupiditate ipsam
+                                quod tenetur, corporis vero beatae illum</p>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div class="flex flex-col justify-center items-center p-1">
+                        <a href="#" class="flex items-center p-5">
+                            <img class="max-w-12 h-12 object-cover rounded-full"
+                                src="../home_page/assets/images/avt.jpg" alt="Avatar">
+                        </a>
+                        <div id="interactIcon" class="interact-icon flex items-center cursor-pointer p-1">
+                            <img src="assets/images/match.png" alt="" class="w-12 h-12 object-cover">
+                        </div>
+                    </div>
+                </div> <!-- Main Content -->
+            </main>
+            <!-- End Main -->
         </div>
-    </section>
-    <!-- End Section One -->
+        <div
+            class="updown-icon md:inline-block hidden absolute text-black text-semibold p-3 bg-slate-100 rounded-full fixed right-3 bottom-1/2 m-1 cursor-pointer z-50">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="ct-icons">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+            </svg>
+        </div> <!-- Up Icon -->
+        <div
+            class="updown-icon md:inline-block hidden absolute text-black text-semibold p-3 bg-slate-100 rounded-full fixed right-3 top-1/2 m-1 cursor-pointer z-50">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="ct-icons">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
+        </div> <!-- Down Icon -->
+    </div>
 
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
-    </script>
-    
-    <script src="assets/js/script.js"></script>
+    <!-- End Root -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="../home_page/assets/js/script.js"></script>
 </body>
 
 </html>
