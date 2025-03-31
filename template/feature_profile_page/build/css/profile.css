@@ -32,3 +32,31 @@ resize: none;
 transform: translateX(-100%);
 }
 }
+
+.settings-nav-link.active {
+  background-color: #fae0ff;
+  color: white;
+}
+:root {
+  --primary-color: #0f141c;
+}
+
+:root {
+  --secondary-color:aquamarine;
+}
+
+:root {
+  --hobby-background-color: gray;
+}
+
+:root {
+  --nav-icon-color: rgb(63, 18, 18);
+}
+
+.bg-gray-200 {
+    background-color: #e5e7eb;
+}
+
+.bg-purple-500 {
+    background-color: #8b5cf6;
+}
