@@ -15,7 +15,7 @@
 
 <body>
     <div class="root">
-        <div class="content-wrapper max-w-screen sm:flex relative">
+        <div class="content-wrapper max-w-screen flex flex-col sm:flex sm:flex-row relative">
             <!-- Sidebar -->
             <aside class="sidebar lg:basis-1/5 basic-1/12 sm:p-4 lg:border-0 border lg:border-r-gray-200">
                 <nav class="font-semibold flex justify-between items-center sm:block">
@@ -91,61 +91,110 @@
             </aside>
             <!-- End Sidebar -->
             <!-- Main -->
-            <main class="main-section w-full sm:ml-[20%]">
-                <div class="sm:inline-flex relative">
-                    <div class="flex flex-col h-screen sm:w-[360px] w-screen p-0.5 border border-slate-300">
-                        <div class="swiper mySwiper basis-3/4">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img class="max-w-full max-h-full object-cover" src="../home_page/assets/images/bg1.webp"
-                                        alt="">
+            <main class="main-section sm:flex sm:ml-[20%] flex-1 relative">
+                <div class="main-wrapper sm:w-[360px] overflow-y-hidden">
+                    <div class="">
+                        <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
+                            <div class="swiper mySwiper basis-4/5">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg1.webp" alt="">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg2.webp" alt="">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg3.webp" alt="">
+                                    </div>
                                 </div>
-                                <div class="swiper-slide">
-                                    <img class="max-w-full max-h-full object-cover" src="../home_page/assets/images/bg2.webp"
-                                        alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="max-w-full max-h-full object-cover" src="../home_page/assets/images/bg3.webp"
-                                        alt="">
-                                </div>
+                                <div class="swiper-pagination"></div>
                             </div>
-                            <div class="swiper-pagination"></div>
+                            <div class="infoUser flex-1">
+                                <p class="">NewJeans</p>
+                                <p class="">World</p>
+                            </div>
                         </div>
-
-                        <div class="infoUser">
-                            <p class="">NewJeans</p>
-                            <p class="">World</p>
-                            <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos cupiditate ipsam
-                                quod tenetur, corporis vero beatae illum</p>
+                    </div> <!-- Main Content -->
+                    <div class="hidden">
+                        <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
+                            <div class="swiper mySwiper basis-4/5">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg5.webp" alt="">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg6.webp" alt="">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg3.webp" alt="">
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                            <div class="infoUser flex-1">
+                                <p class="">NewJeans</p>
+                                <p class="">World</p>
+                            </div>
                         </div>
+                    </div> <!-- Main Content -->
+                    <div class="hidden">
+                        <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
+                            <div class="swiper mySwiper basis-4/5">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg4.webp" alt="">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg2.webp" alt="">
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="w-full h-full object-cover"
+                                            src="../home_page/assets/images/bg6.webp" alt="">
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                            <div class="infoUser flex-1">
+                                <p class="">NewJeans</p>
+                                <p class="">World</p>
+                            </div>
+                        </div>
+                    </div> <!-- Main Content -->
+                </div>
+                <div class="flex flex-col justify-center items-center gap-6 mr-2 sm:p-1 sm:static absolute z-50 inset-y-1/2 right-0">
+                    <a href="#" class="flex items-center sm:p-5">
+                        <img class="max-w-12 h-12 object-cover rounded-full" src="../home_page/assets/images/avt.jpg"
+                            alt="Avatar">
+                    </a>
+                    <div id="interactIcon" class="interact-icon flex items-center cursor-pointer p-1">
+                        <img src="assets/images/match.png" alt="" class="w-12 h-12 object-cover">
                     </div>
-                    <div class="flex flex-col justify-center items-center p-1">
-                        <a href="#" class="flex items-center p-5">
-                            <img class="max-w-12 h-12 object-cover rounded-full"
-                                src="../home_page/assets/images/avt.jpg" alt="Avatar">
-                        </a>
-                        <div id="interactIcon" class="interact-icon flex items-center cursor-pointer p-1">
-                            <img src="assets/images/match.png" alt="" class="w-12 h-12 object-cover">
-                        </div>
-                    </div>
-                </div> <!-- Main Content -->
+                </div>
             </main>
             <!-- End Main -->
         </div>
         <div
-            class="updown-icon md:inline-block hidden absolute text-black text-semibold p-3 bg-slate-100 rounded-full fixed right-3 bottom-1/2 m-1 cursor-pointer z-50">
+            class="updown-button up-button md:inline-block hidden absolute text-black text-semibold p-3 bg-slate-100 rounded-full fixed right-3 bottom-1/2 m-1 cursor-pointer z-50">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="ct-icons">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
             </svg>
-        </div> <!-- Up Icon -->
+        </div> <!-- Up Button -->
         <div
-            class="updown-icon md:inline-block hidden absolute text-black text-semibold p-3 bg-slate-100 rounded-full fixed right-3 top-1/2 m-1 cursor-pointer z-50">
+            class="updown-button down-button md:inline-block hidden absolute text-black text-semibold p-3 bg-slate-100 rounded-full fixed right-3 top-1/2 m-1 cursor-pointer z-50">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="ct-icons">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
             </svg>
-        </div> <!-- Down Icon -->
+        </div> <!-- Down Button -->
     </div>
 
     <!-- End Root -->
