@@ -12,18 +12,41 @@ interactIcon.addEventListener('click', function(){
     interactIcon.classList.toggle('interact-icon');
 });
 
+//Search Box
+const ctSearch = document.getElementById('ctSearch');
+const searchBox = document.getElementById('searchBox');
+const closeSearch = document.getElementById('closeSearch');
+const ctContent = document.getElementsByClassName('ct-content');
+
+document.addEventListener('click', (e) => {
+  if(ctSearch.contains(e.target)) {
+      searchBox.classList.toggle('hidden');
+  }
+  else {
+    if(searchBox.contains) {
+      if(closeSearch.contains(e.target)){
+        searchBox.classList.add('hidden');
+      }
+      else if(!searchBox.contains(e.target)){
+        searchBox.classList.add('hidden');
+      }
+    }
+  }
+})
+
+
+
 //Up/Down Button
 document.addEventListener('DOMContentLoaded', function () {
   const posts = document.querySelectorAll('.main-wrapper > div');
   let currentIndex = 0;
 
-  // Hàm hiển thị bài viết theo index
   function showPost(index) {
     posts.forEach((post, i) => {
       if (i === index) {
-        post.classList.remove('hidden');
+        post.classList.add('active');
       } else {
-        post.classList.add('hidden');
+        post.classList.remove('active');
       }
     });
   }
@@ -51,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  //Cuộn chuột
   const mainWrapper = document.querySelector('.root');
   let isScrolling = false;
 
@@ -62,13 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
     isScrolling = true;
 
     if (e.deltaY > 0) {
-      // Cuộn xuống
       if (currentIndex < posts.length - 1) {
         currentIndex++;
         showPost(currentIndex);
       }
     } else {
-      // Cuộn lên
       if (currentIndex > 0) {
         currentIndex--;
         showPost(currentIndex);
@@ -77,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setTimeout(() => {
       isScrolling = false;
-    }, 100);
+    }, 400); 
   });
 });
+

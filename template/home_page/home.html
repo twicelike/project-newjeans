@@ -17,22 +17,21 @@
     <div class="root">
         <div class="content-wrapper max-w-screen flex flex-col sm:flex sm:flex-row relative">
             <!-- Sidebar -->
-            <aside class="sidebar lg:basis-1/5 basic-1/12 sm:p-4 lg:border-0 border lg:border-r-gray-200">
+            <aside class="sidebar lg:basis-1/6 basic-1/12 sm:p-2 lg:border-0 border lg:border-r-gray-200 relative">
                 <nav class="font-semibold flex justify-between items-center sm:block">
                     <div class="ct-logo lg:block hidden mb-3">
                         <a href="#" class="flex justify-start items-center">
                             <img class="w-16 h-16" src="../home_page/assets/images/logo.png" alt="Logo">
-                            <span class="ct-content">NewJeans</span>
                         </a>
                     </div> <!-- End Logo -->
                     <div
-                        class="ct-search lg:flex inline-flex lg:items-center bg-slate-100 lg:rounded-3xl rounded-full lg:w-full p-2 gap-3 cursor-pointer sm:mb-5">
+                        id="ctSearch" class="ct-search lg:flex inline-flex lg:items-center bg-slate-100 lg:rounded-3xl rounded-full lg:w-full p-2 gap-3 cursor-pointer sm:mb-5">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="ct-icons">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
-                        <span class="lg:block hidden">Tìm kiếm</span>
+                        <span class="ct-content lg:block hidden">Tìm kiếm</span>
                     </div> <!-- End Search -->
                     <ul class="ct-menu sm:block flex items-center gap-5">
                         <li class="">
@@ -51,7 +50,7 @@
                                 class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
                                 <img src="assets/images/match.png" alt=""
                                     class="max-w-[32px] max-h-[32px] object-cover">
-                                <span class="ct-content lg:block hidden">Match</span>
+                                <span class="ct-content lg:block hidden">NewJeans</span>
                             </a>
                         </li>
                         <li class="">
@@ -87,13 +86,59 @@
                             </a>
                         </li>
                     </ul> <!-- End Profile -->
-                </nav>
+                </nav> 
+                <div id="searchBox" class="search-box hidden absolute top-full left-0 w-full sm:w-[208px] sm:top-0 sm:left-full bg-white border border-slate-300 p-4 z-10">
+                    <div class="search-input mb-4">
+                        <div class="flex justify-between my-4">
+                            <label for="searchInput" class="block text-xl font-bold">Tìm kiếm</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer hover:bg-slate-100 rounded-full" id="closeSearch">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              </svg>
+                        </div>
+                        <input type="text" id="searchInput" class="block w-full text-base py-2 px-4 rounded-full bg-slate-100" placeholder="Tìm kiếm...">
+                    </div>
+                    <div class="search-content">
+                        <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
+                            <a href="#" class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                  </svg>
+                                <span class="">NewJeans</span>
+                            </a>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              </svg>                                                            
+                        </div>
+                        <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
+                            <a href="#" class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                  </svg>
+                                <span class="">K-POP</span>
+                            </a>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              </svg>
+                        </div>
+                        <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
+                            <a href="#" class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                  </svg>
+                                <span class="">Hanni</span>
+                            </a>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                              </svg>
+                        </div>
+                    </div>
+                </div>
             </aside>
             <!-- End Sidebar -->
             <!-- Main -->
-            <main class="main-section sm:flex sm:ml-[20%] flex-1 relative">
-                <div class="main-wrapper sm:w-[360px] overflow-y-hidden">
-                    <div class="">
+            <main class="main-section sm:flex sm:ml-[20%] flex-1 relative overflow-y-hidden">
+                <div class="main-wrapper sm:w-[360px] relative h-[calc(100vh-50px)] sm:h-screen">
+                    <div class="active">
                         <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
                             <div class="swiper mySwiper basis-4/5">
                                 <div class="swiper-wrapper">
@@ -113,12 +158,12 @@
                                 <div class="swiper-pagination"></div>
                             </div>
                             <div class="infoUser flex-1">
-                                <p class="">NewJeans</p>
+                                <p class="">Hanni</p>
                                 <p class="">World</p>
                             </div>
                         </div>
                     </div> <!-- Main Content -->
-                    <div class="hidden">
+                    <div class="">
                         <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
                             <div class="swiper mySwiper basis-4/5">
                                 <div class="swiper-wrapper">
@@ -138,12 +183,12 @@
                                 <div class="swiper-pagination"></div>
                             </div>
                             <div class="infoUser flex-1">
-                                <p class="">NewJeans</p>
+                                <p class="">Haerin</p>
                                 <p class="">World</p>
                             </div>
                         </div>
                     </div> <!-- Main Content -->
-                    <div class="hidden">
+                    <div class="">
                         <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
                             <div class="swiper mySwiper basis-4/5">
                                 <div class="swiper-wrapper">
@@ -163,7 +208,7 @@
                                 <div class="swiper-pagination"></div>
                             </div>
                             <div class="infoUser flex-1">
-                                <p class="">NewJeans</p>
+                                <p class="">Minji</p>
                                 <p class="">World</p>
                             </div>
                         </div>
