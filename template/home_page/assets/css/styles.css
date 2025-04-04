@@ -22,6 +22,44 @@
     transition: .8s;
 }
 
+/* Popup */
+.match-popup.active {
+  opacity: 1;
+  z-index: 35;
+  transform: translate(-50%, -50%);
+}
+.popup-bg.active {
+  opacity: 0.5;
+  z-index: 34;
+  transition: opacity 300ms ease-in-out;
+}
+.popup-bg {
+  position: absolute;
+  content: "";
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  opacity: 0;
+  //transition: opacity 100ms ease-in-out 200ms;
+}
+
+/* Button */
+.ct-button {
+  color: white;
+  padding: 10px;
+  width: 100px;
+  border-radius: 8px;
+  font-weight: 600;
+  background-color: var(--color-one);
+}
+
+.ct-button:hover {
+  color: var(--color-one);
+  background-color: var(--color-two);
+}
+
+/* Swiper slider */
 .swiper {
     width: 100%;
     height: 100%;
@@ -36,9 +74,10 @@
     align-items: center;
   }
 
-/* Gán cho mỗi bài đăng trong main-wrapper */
+
+/* Main Wrapper */
 .main-wrapper > div {
-    position: absolute; /* Để các bài đăng xếp chồng lên nhau */
+    position: absolute; 
     top: 0;
     left: 0;
     width: 100%;
@@ -48,7 +87,6 @@
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   }
   
-  /* Khi bài đăng được active */
   .main-wrapper > div.active {
     opacity: 1;
     visibility: visible;

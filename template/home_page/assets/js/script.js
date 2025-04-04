@@ -8,10 +8,11 @@ var swiper = new Swiper(".mySwiper", {
 
 //Interact icon click
 const interactIcon = document.getElementById('interactIcon');
-interactIcon.addEventListener('click', function(){
-    interactIcon.classList.toggle('interact-icon');
-});
-
+//Match Popup
+const matchPopup = document.getElementById('matchPopup');
+const popupBg = document.getElementById('popupBg');
+const closePopup = document.getElementById('closePopup');
+const matchBtn = document.getElementById('matchBtn');
 //Search Box
 const ctSearch = document.getElementById('ctSearch');
 const searchBox = document.getElementById('searchBox');
@@ -22,19 +23,33 @@ document.addEventListener('click', (e) => {
   if(ctSearch.contains(e.target)) {
       searchBox.classList.toggle('hidden');
   }
-  else {
-    if(searchBox.contains) {
-      if(closeSearch.contains(e.target)){
-        searchBox.classList.add('hidden');
-      }
-      else if(!searchBox.contains(e.target)){
-        searchBox.classList.add('hidden');
-      }
+  if(interactIcon.contains(e.target)) {
+    popupBg.classList.add('active');
+    matchPopup.classList.add('active');
+    interactIcon.classList.toggle('interact-icon');
+  }
+  if(matchBtn.contains(e.target)){
+    popupBg.classList.remove('active');
+    matchPopup.classList.remove('active');
+  }
+  if(searchBox.contains) {
+    if(closeSearch.contains(e.target)){
+      searchBox.classList.add('hidden');
+    }
+  }
+  if (!ctSearch.contains(e.target) && !searchBox.contains(e.target)) {
+    searchBox.classList.add('hidden');
+  }
+
+  // Nếu click bên ngoài interactIcon, matchPopup và popupBg thì ẩn popup
+  if ((!interactIcon.contains(e.target) && !matchPopup.contains(e.target)) || closePopup.contains(e.target)) {
+    popupBg.classList.remove('active');
+    matchPopup.classList.remove('active');
+    if(interactIcon.contains(e.target)) {
+      interactIcon.classList.toggle('interact-icon');
     }
   }
 })
-
-
 
 //Up/Down Button
 document.addEventListener('DOMContentLoaded', function () {
