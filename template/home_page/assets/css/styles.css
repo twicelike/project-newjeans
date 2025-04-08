@@ -19,6 +19,10 @@
   opacity: 0;
 }
 
+.interact-icon.active {
+  filter: grayscale(0);
+}
+
 /* Swiper slider */
 .swiper {
     width: 100%;

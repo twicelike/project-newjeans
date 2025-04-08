@@ -17,7 +17,7 @@
     <div class="root">
         <div class="content-wrapper flex flex-col sm:flex sm:flex-row relative">
             <!-- Sidebar -->
-            <aside class="sidebar lg:basis-1/6 basic-1/12 sm:p-2 lg:border-0 border lg:border-r-gray-200 relative z-20">
+            <aside class="sidebar lg:basis-1/6 basis-1/12 sm:p-2 lg:border-0 border lg:border-r-gray-200 relative z-20">
                 <nav class="font-semibold flex justify-between items-center sm:block">
                     <div class="ct-logo lg:block hidden mb-3">
                         <a href="#" class="flex justify-start items-center">
@@ -187,8 +187,6 @@
                             <div class="flex-1 bg-sky-100">
                                 <div class="shadow-lg shadow-gray-300 z-20 mb-2">
                                     <a href="" class="flex items-center sm:gap-6 gap-2">
-                                        <img src="assets/images/avt.jpg" alt=""
-                                            class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500 mt-[-15px] relative z-20">
                                         <span class="">Name</span>
                                         <span class="">Age</span>
                                     </a>
@@ -227,8 +225,6 @@
                             <div class="flex-1 bg-sky-100">
                                 <div class="shadow-lg shadow-gray-300 z-20 mb-2">
                                     <a href="" class="flex items-center sm:gap-6 gap-2">
-                                        <img src="assets/images/avt.jpg" alt=""
-                                            class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500 mt-[-15px] relative z-20">
                                         <span class="">Name</span>
                                         <span class="">Age</span>
                                     </a>
@@ -267,8 +263,6 @@
                             <div class="flex-1 bg-sky-100">
                                 <div class="shadow-lg shadow-gray-300 z-20 mb-2">
                                     <a href="" class="flex items-center sm:gap-6 gap-2">
-                                        <img src="assets/images/avt.jpg" alt=""
-                                            class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500 mt-[-15px] relative z-20">
                                         <span class="">Name</span>
                                         <span class="">Age</span>
                                     </a>
@@ -283,10 +277,10 @@
                 <div
                     class="flex flex-col justify-center items-center gap-6 mr-2 sm:p-1 sm:static absolute z-10 inset-y-2/3 right-0">
                     <a href="#" class="flex items-center sm:p-5">
-                        <img class="max-w-12 h-12 object-cover rounded-full" src="../home_page/assets/images/avt.jpg"
+                        <img class="w-12 h-12 object-cover rounded-full" src="../home_page/assets/images/avt.jpg"
                             alt="Avatar">
                     </a>
-                    <div id="interactIcon" class="interact-icon flex items-center grayscale hover:grayscale-0 transision duration-700 hover:duration-700 cursor-pointer p-1">
+                    <div id="interactIcon" class="interact-icon flex items-center grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer p-1">
                         <img src="assets/images/match.png" alt="" class="w-12 h-12 object-cover">
                     </div>
                 </div>
@@ -294,7 +288,7 @@
             <!-- End Main -->
             <div id="popupBg" class="popup-bg"></div>
             <div id="matchPopup"
-                class="match-popup sm:w-[360px] absolute opacity-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-5 sm:h-[400px] p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
+                class="match-popup sm:w-[360px] absolute opacity-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[5] sm:h-[400px] p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
                 <div class="popup-title flex justify-between items-center mb-4">
                     <p class="text-lg font-semibold">Information</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -322,14 +316,14 @@
             </div>
         </div>
         <div
-            class="updown-button hover:bg-[#ACA4A2] up-button md:inline-block hidden absolute text-black text-semibold p-3 bg-slate-100 rounded-full fixed right-3 bottom-1/2 m-1 cursor-pointer z-20">
+            class="updown-button hover:bg-[#ACA4A2] up-button md:inline-block hidden text-black font-semibold p-3 bg-slate-100 rounded-full fixed right-3 bottom-1/2 m-1 cursor-pointer z-20">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-8 h-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
             </svg>
         </div> <!-- Up Button -->
         <div
-            class="updown-button hover:bg-[#ACA4A2] down-button md:inline-block hidden absolute text-black text-semibold p-3 bg-slate-100 rounded-full fixed right-3 top-1/2 m-1 cursor-pointer z-20">
+            class="updown-button hover:bg-[#ACA4A2] down-button md:inline-block hidden text-black font-semibold p-3 bg-slate-100 rounded-full fixed right-3 top-1/2 m-1 cursor-pointer z-20">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-8 h-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />

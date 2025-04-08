@@ -40,7 +40,7 @@ document.addEventListener('click', (e) => {
   if(matchBtn.contains(e.target)){
     popupBg.classList.remove('active');
     matchPopup.classList.remove('active');
-    interactIcon.classList.toggle('interact-icon');
+    interactIcon.classList.add('active');
   }
   //Close SearchBox
   if(searchBox.contains) {
