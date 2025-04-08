@@ -12,20 +12,19 @@
 </head>
 
 <body class="overflow-scroll">
-  <div class="fixed top-0 left-0 w-screen h-screen bg-[url('/template/register/img/bg-enwseajn.jpg')] animate-bg"></div>
-  <div class="absolute flex justify-center w-screen h-screen items-center" id="setUpProfileForm">
-    <div class="relative" id="setUpBasicInfo">
-      <div class="relative flex font-bold text-white text-xl mb-4">Basic Information</div>
-      <div class="relative rounded-lg bg-black/30 backdrop-blur-sm p-10 items-center justify-center">
-        <div class="flex grid grid-cols-2 space-x-4">
-          <input type="text" class="rounded-lg max-w-sm w-full mt-3 py-1 px-2" placeholder="Username">
-          <select class="rounded-lg w-full h-8 py-1 px-2 outline-none mt-3" name="gender" id="gender">
+  <div class="fixed w-full h-full bg-[url('/template/register/img/11283131.png')] animate-bg"></div>
+  <div class="flex justify-center w-screen h-screen items-center" id="setUpProfileForm">
+    <div class="flex-col flex rounded-lg bg-black/75 sm:w-4/5 md:w-3/5 lg:w-2/5 w-full h-auto backdrop-blur-sm items-center" id="setUpBasicInfo">
+        <div class="flex font-bold text-white text-xl my-4 ml-10 w-full">Basic Information</div>
+        <div class="flex grid grid-cols-2 space-x-1 w-4/5">
+          <input type="text" class="rounded-lg w-full h-8 py-1 px-2 mt-3" placeholder="Username">
+          <select class="rounded-lg w-full h-8 py-1 px-2 mt-3" name="gender" id="gender">
             <option value="">--Gender--</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </div>
-        <select class="rounded-md w-full h-8 outline-none mt-2" name="address" id="address" placeholder="address">
+        <select class="rounded-md w-4/5 h-8 mt-2" name="address" id="address" placeholder="address">
           <option value="">--Location--</option>
           <option value="An Giang">An Giang</option>
           <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
@@ -91,7 +90,7 @@
           <option value="Vĩnh Phúc">Vĩnh Phúc</option>
           <option value="Yên Bái">Yên Bái</option>
         </select>
-        <select class="rounded-md w-full h-8 outline-none mt-2" name="edu-level" id="edu-level" placeholder="edu-level">
+        <select class="rounded-md w-4/5 h-8 mt-2" name="edu-level" id="edu-level" placeholder="edu-level">
           <option value="">--Education level--</option>
           <option value="High school">High school</option>
           <option value="College">College</option>
@@ -99,7 +98,7 @@
           <option value="Master">Master</option>
           <option value="Doctor">Doctor</option>
         </select>
-        <div class="relative my-3">
+        <div class="my-3 w-4/5">
           <label for="userAge" class="block text-sm text-[--primary-color] mb-1 text-center">Age: <span
               id="ageValue">18</span></label>
           <div class="flex items-center">
@@ -108,14 +107,13 @@
               oninput="document.getElementById('ageValue').textContent = this.value">
           </div>
         </div>
-      </div>
-        <div class="relative flex justify-end mt-4">
-          <input type="button" value="Next" class="bg-[--primary-color] rounded-lg px-4 py-2 text-white" id="nextSetup">
+        <div class="flex justify-end mr-10 w-full mb-4">
+          <input type="image" value="Next" src="./img/nextbutton.png" class="rounded-lg w-20 h-10" id="nextSetup">
         </div>
     </div>
     <div class="relative hidden" id="addImages">
+      <div class="rounded-xl p-6 bg-black/75 backdrop-blur-sm">
       <div class="relative flex font-bold text-white text-xl mb-4">Your Pictures</div>
-      <div class="rounded-xl p-6 bg-black/30 backdrop-blur-sm">
         <div class="grid md:grid-cols-3 grid-cols-2 gap-4" id="pictureContainer">
           <label id="uploadLabel"
             class="p-10 aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors w-[200px] h-[200px]">
@@ -123,10 +121,10 @@
             <span class="text-4xl text-gray-400">+</span>
           </label>
         </div>
+      <div class="relative flex justify-between mt-4 space-x-2 w-full">
+        <input type="image" value="Back" src="./img/backbutton.png" class="rounded-lg h-10 w-20" id="backSetup">
+        <input type="image" value="Next" src="./img//nextbutton.png" class="rounded-lg h-10 w-20" id="submitSetup">
       </div>
-      <div class="relative flex justify-between mt-4 space-x-2 ">
-        <input type="button" value="Back" class="bg-[--primary-color] rounded-lg px-4 py-2 text-white" id="backSetup">
-        <input type="button" value="Next" class="bg-[--primary-color] rounded-lg px-4 py-2 text-white" id="submitSetup">
       </div>
     </div>
   </div>

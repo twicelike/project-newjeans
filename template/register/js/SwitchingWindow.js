@@ -13,8 +13,8 @@ function switchSetUp() {
     setUpProfileForm.classList.add("SlideAndAppearR2M");
   }, 490);
   setTimeout(() => {
-    addImages.classList.remove("hidden");
     setUpProfileForm.classList.remove("SlideAndAppearR2M");
+    addImages.classList.remove("hidden");
   }, 980);
 }
 
