@@ -1,27 +1,3 @@
-.ct-icons {
-    width: 32px;
-    height: 32px;
-}
-
-.updown-button:hover {
-    background-color: #ACA4A2;
-}
-
-.sidebar::-webkit-scrollbar, .content::-webkit-scrollbar {
-    display: none;
-  }
-
-.interact-icon {
-    filter: grayscale(100%);
-    transition: 0.7s;
-}
-
-
-.interact-icon:hover {
-    filter: grayscale(0%);
-    transition: .8s;
-}
-
 /* Popup */
 .match-popup.active {
   opacity: 1;
@@ -39,24 +15,8 @@
   background-color: black;
   width: 100%;
   height: 100%;
-  z-index: 15;
+  z-index: 5;
   opacity: 0;
-  //transition: opacity 100ms ease-in-out 200ms;
-}
-
-/* Button */
-.ct-button {
-  color: white;
-  padding: 10px;
-  width: 100px;
-  border-radius: 8px;
-  font-weight: 600;
-  background-color: var(--color-one);
-}
-
-.ct-button:hover {
-  color: var(--color-one);
-  background-color: var(--color-two);
 }
 
 /* Swiper slider */

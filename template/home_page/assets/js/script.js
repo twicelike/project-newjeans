@@ -1,9 +1,16 @@
 //Swiper slider image
 var swiper = new Swiper(".mySwiper", {
-    pagination: {
-      el: ".swiper-pagination",
-      dynamicBullets: true,
-    },
+  slidesPerView: 1,
+  spaceBetween: 30,
+  loop: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
 });
 
 //Interact icon click
@@ -20,18 +27,22 @@ const closeSearch = document.getElementById('closeSearch');
 const ctContent = document.getElementsByClassName('ct-content');
 
 document.addEventListener('click', (e) => {
+  //Open Search Box
   if(ctSearch.contains(e.target)) {
       searchBox.classList.toggle('hidden');
   }
+  //Open Match Popup
   if(interactIcon.contains(e.target)) {
     popupBg.classList.add('active');
     matchPopup.classList.add('active');
-    interactIcon.classList.toggle('interact-icon');
   }
+  //Choose Match Button
   if(matchBtn.contains(e.target)){
     popupBg.classList.remove('active');
     matchPopup.classList.remove('active');
+    interactIcon.classList.toggle('interact-icon');
   }
+  //Close SearchBox
   if(searchBox.contains) {
     if(closeSearch.contains(e.target)){
       searchBox.classList.add('hidden');
@@ -41,15 +52,21 @@ document.addEventListener('click', (e) => {
     searchBox.classList.add('hidden');
   }
 
-  // Nếu click bên ngoài interactIcon, matchPopup và popupBg thì ẩn popup
+  //Close Match Popup
   if ((!interactIcon.contains(e.target) && !matchPopup.contains(e.target)) || closePopup.contains(e.target)) {
     popupBg.classList.remove('active');
     matchPopup.classList.remove('active');
-    if(interactIcon.contains(e.target)) {
-      interactIcon.classList.toggle('interact-icon');
-    }
   }
 })
+
+//Count Characters
+const messageBox = document.getElementById('messageBox');
+const countCharacter = document.getElementById('countCharacter');
+messageBox.addEventListener('input', () => {
+  const count = messageBox.value.length;
+  countCharacter.textContent = `${count}/360 Characters`;
+})
+
 
 //Up/Down Button
 document.addEventListener('DOMContentLoaded', function () {
