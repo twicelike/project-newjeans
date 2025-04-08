@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/BGMoving.css">
+  <link rel="stylesheet" href="./css/SwitchingWindow.css">
+  <link rel="stylesheet" href="./css/Root.css">
+
+</head>
+
+<body class="overflow-hidden">
+  <div class="fixed top-0 left-0 w-screen h-screen bg-[url('/template/register/img/11283256.jpg')] animate-bg"></div>
+  <!-- //Form đăng nhập  -->
+  <div class="w-screen h-screen flex flex-col items-center justify-center">
+    <div class="font-bold text-white text-xl mb-4 z-10 w-1/2">
+      <div>Sign In</div>
+    </div>
+    <div class="flex flex-col justify-center items-center bg-black/50 z-10 rounded-lg md:w-1/2 w-full h-auto py-5"
+      id="signInForm">
+      <input type="email" class="rounded-lg max-w-sm w-full py-2 px-3 mt-4 ml-4" placeholder="Email" id="email">
+      <input type="password" class="rounded-lg max-w-sm w-full py-2 px-3 mt-4 ml-4" id="password"
+        placeholder="Password">
+      <div class="rounded-lg max-w-sm w-full p-2 mt-4 flex justify-center items-center">
+        <div class="rounded-lg bg-white">
+          <input class="rounded-lg p-2" type="text" placeholder="OTP">
+          <button class="p-2" onclick="document.getElementById('Re-send')">
+            <span id="Re-send">Re-send</span>
+          </button>
+        </div>
+      </div>
+      <div class="relative md:flex ml-3 md:items-center md:justify-center">
+        <p class="text-[--secondary-color] italic">don't have an account? </p>
+        <a href="./SignUp.html" class="text-green-400 italic" id="signUp"> Sign Up</a>
+      </div>
+    </div>
+
+    <div class="z-10 mt-4 w-1/2 flex justify-between flex-row-reverse">
+      <input type="button" value="Next" class="bg-[--primary-color] rounded-lg px-4 text-white py-2"
+        id="submitSignInButton">
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/BGMoving.css">
+  <link rel="stylesheet" href="./css/SwitchingWindow.css">
+  <link rel="stylesheet" href="./css/Root.css">
+</head>
+
+<body class="overflow-scroll">
+  <div class="fixed top-0 left-0 w-screen h-screen bg-[url('/template/register/img/11283256.jpg')] animate-bg"></div>
+  <div class="absolute flex justify-center w-screen h-screen items-center" id="setUpProfileForm">
+    <div class="relative" id="setUpBasicInfo">
+      <div class="relative flex font-bold text-white text-xl mb-4">Basic Information</div>
+      <div class="relative rounded-lg bg-black/30 backdrop-blur-sm p-10 items-center justify-center">
+        <div class="flex grid grid-cols-2 space-x-4">
+          <input type="text" class="rounded-lg max-w-sm w-full mt-3 py-1 px-2" placeholder="Username">
+          <select class="rounded-lg w-full h-8 py-1 px-2 outline-none mt-3" name="gender" id="gender">
+            <option value="">--Gender--</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <select class="rounded-md w-full h-8 outline-none mt-2" name="address" id="address" placeholder="address">
+          <option value="">--Location--</option>
+          <option value="An Giang">An Giang</option>
+          <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+          <option value="Bắc Giang">Bắc Giang</option>
+          <option value="Bắc Kạn">Bắc Kạn</option>
+          <option value="Bạc Liêu">Bạc Liêu</option>
+          <option value="Bắc Ninh">Bắc Ninh</option>
+          <option value="Bến Tre">Bến Tre</option>
+          <option value="Bình Định">Bình Định</option>
+          <option value="Bình Dương">Bình Dương</option>
+          <option value="Bình Phước">Bình Phước</option>
+          <option value="Bình Thuận">Bình Thuận</option>
+          <option value="Cà Mau">Cà Mau</option>
+          <option value="Cần Thơ">Cần Thơ</option>
+          <option value="Cao Bằng">Cao Bằng</option>
+          <option value="Đà Nẵng">Đà Nẵng</option>
+          <option value="Đắk Lắk">Đắk Lắk</option>
+          <option value="Đắk Nông">Đắk Nông</option>
+          <option value="Điện Biên">Điện Biên</option>
+          <option value="Đồng Nai">Đồng Nai</option>
+          <option value="Đồng Tháp">Đồng Tháp</option>
+          <option value="Gia Lai">Gia Lai</option>
+          <option value="Hà Giang">Hà Giang</option>
+          <option value="Hà Nam">Hà Nam</option>
+          <option value="Hà Nội">Hà Nội</option>
+          <option value="Hà Tĩnh">Hà Tĩnh</option>
+          <option value="Hải Dương">Hải Dương</option>
+          <option value="Hải Phòng">Hải Phòng</option>
+          <option value="Hậu Giang">Hậu Giang</option>
+          <option value="Hòa Bình">Hòa Bình</option>
+          <option value="Hưng Yên">Hưng Yên</option>
+          <option value="Khánh Hòa">Khánh Hòa</option>
+          <option value="Kiên Giang">Kiên Giang</option>
+          <option value="Kon Tum">Kon Tum</option>
+          <option value="Lai Châu">Lai Châu</option>
+          <option value="Lâm Đồng">Lâm Đồng</option>
+          <option value="Lạng Sơn">Lạng Sơn</option>
+          <option value="Lào Cai">Lào Cai</option>
+          <option value="Long An">Long An</option>
+          <option value="Nam Định">Nam Định</option>
+          <option value="Nghệ An">Nghệ An</option>
+          <option value="Ninh Bình">Ninh Bình</option>
+          <option value="Ninh Thuận">Ninh Thuận</option>
+          <option value="Phú Thọ">Phú Thọ</option>
+          <option value="Phú Yên">Phú Yên</option>
+          <option value="Quảng Bình">Quảng Bình</option>
+          <option value="Quảng Nam">Quảng Nam</option>
+          <option value="Quảng Ngãi">Quảng Ngãi</option>
+          <option value="Quảng Ninh">Quảng Ninh</option>
+          <option value="Quảng Trị">Quảng Trị</option>
+          <option value="Sóc Trăng">Sóc Trăng</option>
+          <option value="Sơn La">Sơn La</option>
+          <option value="Tây Ninh">Tây Ninh</option>
+          <option value="Thái Bình">Thái Bình</option>
+          <option value="Thái Nguyên">Thái Nguyên</option>
+          <option value="Thanh Hóa">Thanh Hóa</option>
+          <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+          <option value="Tiền Giang">Tiền Giang</option>
+          <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+          <option value="Trà Vinh">Trà Vinh</option>
+          <option value="Tuyên Quang">Tuyên Quang</option>
+          <option value="Vĩnh Long">Vĩnh Long</option>
+          <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+          <option value="Yên Bái">Yên Bái</option>
+        </select>
+        <select class="rounded-md w-full h-8 outline-none mt-2" name="edu-level" id="edu-level" placeholder="edu-level">
+          <option value="">--Education level--</option>
+          <option value="High school">High school</option>
+          <option value="College">College</option>
+          <option value="University">University</option>
+          <option value="Master">Master</option>
+          <option value="Doctor">Doctor</option>
+        </select>
+        <div class="relative my-3">
+          <label for="userAge" class="block text-sm text-[--primary-color] mb-1 text-center">Age: <span
+              id="ageValue">18</span></label>
+          <div class="flex items-center">
+            <input type="range" id="userAge" name="age" min="18" max="99"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" value="18"
+              oninput="document.getElementById('ageValue').textContent = this.value">
+          </div>
+        </div>
+      </div>
+        <div class="relative flex justify-end mt-4">
+          <input type="button" value="Next" class="bg-[--primary-color] rounded-lg px-4 py-2 text-white" id="nextSetup">
+        </div>
+    </div>
+    <div class="relative hidden" id="addImages">
+      <div class="relative flex font-bold text-white text-xl mb-4">Your Pictures</div>
+      <div class="rounded-xl p-6 bg-black/30 backdrop-blur-sm">
+        <div class="grid md:grid-cols-3 grid-cols-2 gap-4" id="pictureContainer">
+          <label id="uploadLabel"
+            class="p-10 aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors w-[200px] h-[200px]">
+            <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
+            <span class="text-4xl text-gray-400">+</span>
+          </label>
+        </div>
+      </div>
+      <div class="relative flex justify-between mt-4 space-x-2 ">
+        <input type="button" value="Back" class="bg-[--primary-color] rounded-lg px-4 py-2 text-white" id="backSetup">
+        <input type="button" value="Next" class="bg-[--primary-color] rounded-lg px-4 py-2 text-white" id="submitSetup">
+      </div>
+    </div>
+  </div>
+  <script src="./js/SwitchingWindow.js"></script>
+  <script src="./js/HandleImageUpload.js"></script>
+</body>
+
+</html>
