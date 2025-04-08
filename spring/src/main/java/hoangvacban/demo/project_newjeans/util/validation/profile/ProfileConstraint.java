@@ -1,4 +1,4 @@
-package hoangvacban.demo.project_newjeans.validation.user;
+package hoangvacban.demo.project_newjeans.util.validation.profile;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -6,11 +6,11 @@ import jakarta.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = UserValidator.class)
+@Constraint(validatedBy = ProfileValidator.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UserConstraint {
-    String message() default "User validation failed";
+public @interface ProfileConstraint {
+    String message() default "Profile validation failed";
 
     Class<?>[] groups() default {};
 

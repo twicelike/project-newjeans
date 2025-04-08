@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 @Configuration
@@ -67,10 +68,17 @@ public class SecurityConfig {
             UserService userService,
             DeviceMetadataService metadataService
     ) throws Exception {
-        http.authorizeHttpRequests(request -> request
+        http
+                .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.addHeaderWriter(
+                        new XFrameOptionsHeaderWriter(
+                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN
+                        )
+                ))
+                .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/css/**", "/js/**", "/login", "/register",
-                                "/logout", "/create-user",
-                                "/create-admin", "/favicon.ico", "/favicon.ico.", "/test-send-mail").permitAll()
+                                "/logout", "/create-user", "/chat",
+                                "/create-admin", "/favicon.ico",
+                                "/favicon.ico.", "/test-send-mail").permitAll()
                         .requestMatchers("/admin/*").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form

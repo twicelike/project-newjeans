@@ -1,6 +1,6 @@
 package hoangvacban.demo.project_newjeans.dto;
 
-import hoangvacban.demo.project_newjeans.validation.user.UserConstraint;
+import hoangvacban.demo.project_newjeans.util.validation.user.UserConstraint;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

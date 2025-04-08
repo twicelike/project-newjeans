@@ -1,8 +1,8 @@
 package hoangvacban.demo.project_newjeans.service;
 
-import hoangvacban.demo.project_newjeans.domain.DeviceMetadata;
-import hoangvacban.demo.project_newjeans.domain.User;
-import hoangvacban.demo.project_newjeans.domain.response.IpInfo;
+import hoangvacban.demo.project_newjeans.entity.DeviceMetadata;
+import hoangvacban.demo.project_newjeans.entity.User;
+import hoangvacban.demo.project_newjeans.dto.response.IpInfo;
 import hoangvacban.demo.project_newjeans.repository.DeviceMetadataRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import nl.basjes.parse.useragent.UserAgent;

@@ -1,6 +1,6 @@
 package hoangvacban.demo.project_newjeans.repository;
 
-import hoangvacban.demo.project_newjeans.domain.User;
+import hoangvacban.demo.project_newjeans.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

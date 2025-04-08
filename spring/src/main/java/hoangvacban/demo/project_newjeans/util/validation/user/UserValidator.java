@@ -1,6 +1,6 @@
-package hoangvacban.demo.project_newjeans.validation.user;
+package hoangvacban.demo.project_newjeans.util.validation.user;
 
-import hoangvacban.demo.project_newjeans.domain.User;
+import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.dto.UserDTO;
 import hoangvacban.demo.project_newjeans.repository.UserRepository;
 import jakarta.validation.ConstraintValidator;

@@ -9,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import static hoangvacban.demo.project_newjeans.util.Constants.IS_FINISH_SET_UP_PROFILE_ATTRIBUTE;
+import static hoangvacban.demo.project_newjeans.util.Constants.SET_UP_PROFILE_ENDPOINT;
+
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
@@ -24,9 +27,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        Boolean isFinishProfile = (Boolean) session.getAttribute("isFinishSetUpProfile");
+        Boolean isFinishProfile = (Boolean) session.getAttribute(IS_FINISH_SET_UP_PROFILE_ATTRIBUTE);
         if (!Boolean.TRUE.equals(isFinishProfile)) {
-            response.sendRedirect("/set-up-profile");
+            response.sendRedirect(SET_UP_PROFILE_ENDPOINT);
         }
 
         return true;

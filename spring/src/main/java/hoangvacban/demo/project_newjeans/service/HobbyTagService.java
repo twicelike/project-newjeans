@@ -1,7 +1,7 @@
 package hoangvacban.demo.project_newjeans.service;
 
-import hoangvacban.demo.project_newjeans.domain.HobbyTag;
-import hoangvacban.demo.project_newjeans.domain.User;
+import hoangvacban.demo.project_newjeans.entity.HobbyTag;
+import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.repository.HobbyTagRepository;
 import hoangvacban.demo.project_newjeans.repository.UserRepository;
 import org.springframework.stereotype.Service;

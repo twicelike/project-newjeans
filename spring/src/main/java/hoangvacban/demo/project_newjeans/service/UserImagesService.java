@@ -1,7 +1,7 @@
 package hoangvacban.demo.project_newjeans.service;
 
-import hoangvacban.demo.project_newjeans.domain.User;
-import hoangvacban.demo.project_newjeans.domain.UserImage;
+import hoangvacban.demo.project_newjeans.entity.User;
+import hoangvacban.demo.project_newjeans.entity.UserImage;
 import hoangvacban.demo.project_newjeans.repository.UserImagesRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

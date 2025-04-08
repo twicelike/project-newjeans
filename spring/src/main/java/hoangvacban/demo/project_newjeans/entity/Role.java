@@ -1,4 +1,4 @@
-package hoangvacban.demo.project_newjeans.domain;
+package hoangvacban.demo.project_newjeans.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,19 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
-@Table(name = "user_images")
+@Table(name = "roles")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserImage {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String url;
+    private int id;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    private List<User> users;
 }

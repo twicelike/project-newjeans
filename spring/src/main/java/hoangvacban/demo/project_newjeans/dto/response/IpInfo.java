@@ -1,4 +1,4 @@
-package hoangvacban.demo.project_newjeans.domain.response;
+package hoangvacban.demo.project_newjeans.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;

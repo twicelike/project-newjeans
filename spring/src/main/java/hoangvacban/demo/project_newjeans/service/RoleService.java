@@ -1,6 +1,6 @@
 package hoangvacban.demo.project_newjeans.service;
 
-import hoangvacban.demo.project_newjeans.domain.Role;
+import hoangvacban.demo.project_newjeans.entity.Role;
 import hoangvacban.demo.project_newjeans.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 

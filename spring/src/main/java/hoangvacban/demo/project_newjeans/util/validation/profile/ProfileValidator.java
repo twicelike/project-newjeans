@@ -1,4 +1,4 @@
-package hoangvacban.demo.project_newjeans.validation.profile;
+package hoangvacban.demo.project_newjeans.util.validation.profile;
 
 import hoangvacban.demo.project_newjeans.dto.ProfileDTO;
 import jakarta.validation.ConstraintValidator;

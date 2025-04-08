@@ -1,8 +1,8 @@
 package hoangvacban.demo.project_newjeans.service;
 
-import hoangvacban.demo.project_newjeans.domain.NjzKey;
-import hoangvacban.demo.project_newjeans.domain.NjzSend;
-import hoangvacban.demo.project_newjeans.domain.User;
+import hoangvacban.demo.project_newjeans.entity.NjzKey;
+import hoangvacban.demo.project_newjeans.entity.NjzSend;
+import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.repository.NjzSendRepository;
 import hoangvacban.demo.project_newjeans.repository.UserRepository;
 import org.springframework.stereotype.Service;

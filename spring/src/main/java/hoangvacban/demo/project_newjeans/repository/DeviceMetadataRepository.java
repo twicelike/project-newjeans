@@ -1,6 +1,6 @@
 package hoangvacban.demo.project_newjeans.repository;
 
-import hoangvacban.demo.project_newjeans.domain.DeviceMetadata;
+import hoangvacban.demo.project_newjeans.entity.DeviceMetadata;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

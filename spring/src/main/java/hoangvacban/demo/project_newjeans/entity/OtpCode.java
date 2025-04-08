@@ -1,4 +1,4 @@
-package hoangvacban.demo.project_newjeans.domain;
+package hoangvacban.demo.project_newjeans.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

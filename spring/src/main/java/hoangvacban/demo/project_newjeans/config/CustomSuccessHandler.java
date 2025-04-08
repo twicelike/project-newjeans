@@ -1,6 +1,6 @@
 package hoangvacban.demo.project_newjeans.config;
 
-import hoangvacban.demo.project_newjeans.domain.User;
+import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.service.DeviceMetadataService;
 import hoangvacban.demo.project_newjeans.service.UserService;
 import jakarta.servlet.ServletException;
@@ -22,8 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static hoangvacban.demo.project_newjeans.util.Constants.ROLE_ADMIN;
-import static hoangvacban.demo.project_newjeans.util.Constants.ROLE_USER;
+import static hoangvacban.demo.project_newjeans.util.Constants.*;
 
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -60,7 +59,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         String email = authentication.getName();
         Optional<User> user = userService.getUserByEmail(email);
-        user.ifPresent(value -> session.setAttribute("isFinishSetUpProfile", value.isFinishSetUpProfile()));
+        user.ifPresent(value -> session.setAttribute(IS_FINISH_SET_UP_PROFILE_ATTRIBUTE, value.isFinishSetUpProfile()));
     }
 
     public void loginNotification(Authentication authentication, HttpServletRequest request) {

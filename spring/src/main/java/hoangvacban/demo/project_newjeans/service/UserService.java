@@ -1,9 +1,8 @@
 package hoangvacban.demo.project_newjeans.service;
 
-import hoangvacban.demo.project_newjeans.domain.Role;
-import hoangvacban.demo.project_newjeans.domain.User;
 import hoangvacban.demo.project_newjeans.dto.UserDTO;
-import hoangvacban.demo.project_newjeans.repository.OtpCodeRepository;
+import hoangvacban.demo.project_newjeans.entity.Role;
+import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -28,7 +27,6 @@ public class UserService {
     private final UserImagesService userImagesService;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
-    private final OtpCodeRepository otpCodeRepository;
 
     public UserService(
             UserRepository userRepository,
@@ -37,8 +35,7 @@ public class UserService {
             UploadService uploadService,
             UserImagesService userImagesService,
             EmailService emailService,
-            PasswordEncoder passwordEncoder,
-            OtpCodeRepository otpCodeRepository) {
+            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.modelMapper = modelMapper;
@@ -46,7 +43,6 @@ public class UserService {
         this.userImagesService = userImagesService;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
-        this.otpCodeRepository = otpCodeRepository;
     }
 
     public Optional<User> getUserByEmail(String email) {
