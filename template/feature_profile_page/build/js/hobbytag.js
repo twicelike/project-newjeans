@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const button = tag.querySelector('button');
         button.addEventListener('click', function () {
-            removeInterest(text, section);
+            tag.remove();
+            button.classList.remove('bg-purple-500', 'text-white', 'border-purple-500');
         });
 
         return tag;
