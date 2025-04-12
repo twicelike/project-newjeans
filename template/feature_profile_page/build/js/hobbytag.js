@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
             <span>${text}</span>
             <button class="ml-2 hover:text-red-300">×</button>
         `;
-
+        let listInterest = section == 'bio' ? bioselectedInterests:targetselectedInterests
         const button = tag.querySelector('button');
         button.addEventListener('click', function () {
             tag.remove();
-            removeInterest(interest, section, button);
-            selectedButton.classList.remove('bg-purple-500', 'text-white', 'border-purple-500');
+            removeInterest(text, section, selectedButton, listInterest);
+            this.classList.remove('bg-purple-500', 'text-white', 'border-purple-500');
         });
 
         return tag;
