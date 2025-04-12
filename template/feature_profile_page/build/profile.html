@@ -31,14 +31,19 @@
                 </nav>
 
 
-                <div class="relative hover:underline">
-                    <button class="flex items-center space-x-2 hover:bg-gray-100 rounded-full p-1" onclick="dropDownSomeThing()" id="dropDownSomeThing">
+                <div class="relative" id="profileSetting">
+                    <button class="flex items-center space-x-2 hover:bg-gray-100 rounded-full p-1">
                         <img src="./img/avata.webp" alt="Profile" class="h-8 w-8 rounded-full object-cover">
                         <span class="text-gray-700 text-sm">Đỗ Quốc Huy</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24">
                             <path d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
+                    <div id="profileMenu" class="absolute hidden bg-white/80 shadow-md p-2 rounded-md z-50 w-full">
+                        <form action="@[/logout]" method="post">
+                            <input type="submit" value="Log out" class="w-full cursor-pointer text-left"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -537,6 +542,7 @@
     <script src="./js/profile.js"></script>
     <script src="./js/doublesliders.js"></script>
     <script src="./js/hobbytag.js"></script>
+    <script src="./js/DropDownMenu.js"></script>
 </body>
 
 </html>
