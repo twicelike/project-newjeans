@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let targetselectedInterests = new Set();
     const maxInterests = 8;
 
-    function createTag(emoji, text, section) {
+    function createTag(selectedButton, emoji, text, section) {
         const tag = document.createElement('div');
         tag.className = 'flex items-center gap-2 px-3 py-1.5 bg-purple-500 text-white rounded-lg';
         tag.innerHTML = `
@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const button = tag.querySelector('button');
         button.addEventListener('click', function () {
             tag.remove();
-            button.classList.remove('bg-purple-500', 'text-white', 'border-purple-500');
+            removeInterest(interest, section, button);
+            selectedButton.classList.remove('bg-purple-500', 'text-white', 'border-purple-500');
         });
 
         return tag;
@@ -37,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!listInterest.has(interest)) {
             listInterest.add(interest);
-            const tag = createTag(emoji, interest, section);
+            const tag = createTag(button ,emoji, interest, section);
             container.appendChild(tag);
 
             button.classList.add('bg-purple-500', 'text-white', 'border-purple-500');

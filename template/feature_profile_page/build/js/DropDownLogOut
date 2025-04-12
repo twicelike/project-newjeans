@@ -1,0 +1,5 @@
+const dropDownSomeThing = document.getElementById("dropDownSomeThing");
+dropDownSomeThing.onclick = dropDownSomeThing;
+function dropDownSomeThing(){
+    
+}
