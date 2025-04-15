@@ -19,16 +19,20 @@
       class="flex-col flex rounded-lg bg-black/75 sm:w-4/5 md:w-3/5 lg:w-2/5 w-full h-auto backdrop-blur-sm items-center"
       id="setUpBasicInfo">
       <div class="flex font-bold text-white text-xl my-4 ml-10 w-full">Basic Information</div>
-      <div class="flex grid grid-cols-2 space-x-1 w-4/5">
-        <input type="text" class="rounded-lg w-full h-8 py-1 px-2 mt-3" placeholder="Username">
-        <select class="rounded-lg w-full h-8 py-1 px-2 mt-3" name="gender" id="gender">
-          <option value="">--Gender--</option>
+      <div class="flex space-x-1 w-4/5">
+        <input type="text" class="rounded-lg w-full h-8 py-1 px-2 mt-3" placeholder="First name">
+        <input type="text" class="rounded-lg w-full h-8 py-1 px-2 mt-3" placeholder="Last name">
+      </div>
+      <div class="w-4/5 flex space-x-1">
+        <input type="text" class="rounded-lg h-8 py-1 px-2 mt-2 w-4/5" placeholder="Username">
+        <select class="rounded-lg h-8 py-1 px-2 mt-2 w-1/5" name="gender" id="gender">
+          <option value="">-Gender-</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
       </div>
       <select class="rounded-md w-4/5 h-8 mt-2" name="address" id="address" placeholder="address">
-        <option value="">--Location--</option>
+        <option value="">-Location-</option>
         <option value="An Giang">An Giang</option>
         <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
         <option value="Bắc Giang">Bắc Giang</option>
@@ -94,7 +98,7 @@
         <option value="Yên Bái">Yên Bái</option>
       </select>
       <select class="rounded-md w-4/5 h-8 mt-2" name="edu-level" id="edu-level" placeholder="edu-level">
-        <option value="">--Education level--</option>
+        <option value="">-Education level-</option>
         <option value="High school">High school</option>
         <option value="College">College</option>
         <option value="University">University</option>
