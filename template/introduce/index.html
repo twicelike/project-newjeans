@@ -12,14 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
-<body  class="bg-gradient-to-r from-[#ff7e5f] to-[#ff5864] text-[#333] font-[Roboto]">
+<body class="bg-gradient-to-r from-[#ff7e5f] to-[#ff5864] text-[#333] font-[Roboto]">
     <!-- Header -->
-    <header class="bg-white/90 shadow-md h-[60px] fixed top-0 left-0 w-full z-[1000]">
+    <header class="bg-white/70 shadow-md h-[60px] fixed top-0 left-0 w-full z-[1000]">
         <div class="m-auto flex justify-between items-center">
             <div class="flex items-center space-x-6 mt-2">
                 <img src="./img/logo.jpeg" alt="logo" class="h-12 cursor-pointer rounded-full pt-1" id="logo">
                 <nav class="flex gap-4 items-center">
-                    <div id="productBtn">
+                    <!-- <div id="productBtn">
                         <a href="#"
                             class="text-gray-700 hover:text-gray-900 hover:underline">Products</a>
                         <div id="productMenu" class="absolute hidden bg-white shadow-md p-2 rounded-md z-50">
@@ -27,12 +27,15 @@
                             <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 2</a>
                             <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 3</a>
                         </div>
-                    </div>
-                    <div id="safetyBtn" >
+                    </div> -->
+                    <div id="safetyBtn">
                         <a href="#" class="text-gray-700 hover:text-gray-900 hover:underline">Safety</a>
-                        <div id="safetyMenu" class="absolute hidden bg-white shadow-md p-2 rounded-md z-50">
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option A</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option B</a>
+                        <div id="safetyMenu" class="absolute hidden bg-white/80 shadow-md p-2 rounded-md z-50">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Community Guidlines</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Safety Tips</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Safety & Policy</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Safety & Reporting</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Security</a>
                         </div>
                     </div>
                     <a href="learn.html" class="text-gray-700 hover:text-gray-900 hover:underline">Learn</a>
@@ -42,7 +45,7 @@
 
             <div class="flex items-center space-x-4 h-full">
                 <!-- Login Button -->
-                 <button type="submit" class="h-full w-20 bg-red-500 rounded-sm">Log in</button>
+                <button type="submit" class="h-full w-20 bg-[--button-color] text-white rounded-md mr-5">Log in</button>
             </div>
         </div>
     </header>
@@ -126,9 +129,9 @@
                 </div>
             </div>
             <!-- Privacy Section -->
-            <div id="privacySection" class="mt-8 border-t border-gray-800 pt-8">
+            <div id="privacySection" class="fixed b-0 border-t border-gray-800 pt-8">
                 <p class="text-gray-400">We value your privacy. We and our partners use trackers to measure the audience
-                    of our website and to provide you with offers and improve our own Tinder marketing operations. <a
+                    of our website and to provide you with offers and improve our own NewJeans marketing operations. <a
                         href="#" class="text-red-500 hover:underline">More info on cookies and providers we use.</a> You
                     can withdraw your consent at any time in your settings.</p>
                 <div class="flex space-x-4 mt-4">
@@ -143,6 +146,23 @@
             </div>
         </div>
     </footer>
+    <div id="privacySection" class="fixed bottom-0 bg-white border-gray-800 py-4 w-full flex justify-center items-center">
+        <div class="w-4/5">
+            <p class="text-gray-400 w-full">We value your privacy. We and our partners use trackers to measure the audience
+                of our website and to provide you with offers and improve our own NewJeans marketing operations. <a
+                    href="#" class="text-red-500 hover:underline">More info on cookies and providers we use.</a> You
+                can withdraw your consent at any time in your settings.</p>
+            <div class="flex space-x-4 mt-4">
+                <button id="personalizeButton"
+                    class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Personalize my
+                    choices</button>
+                <button id="acceptButton" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">I
+                    accept</button>
+                <button id="declineButton" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">I
+                    decline</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
