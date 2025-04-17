@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
-<body class="min-w-50 h-screen flex bg-[url(./img/11283256.jpg)]">
+<body class="h-auto flex bg-[url(./img/11283256.jpg)] w-screen bg-cover bg-no-repeat">
     <header class="w-full bg-white/30 backdrop-blur-md shadow-lg fixed top-0 z-50">
         <div class="container mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
@@ -24,10 +24,14 @@
 
 
                 <nav class="md:flex items-center justify-center md:space-x-6 space-x-2">
-                    <a href="#" class="fa-solid text-[--nav-icon-color] fa-house hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
-                    <a href="#" class="fa-solid text-[--nav-icon-color] fa-heart hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
-                    <a href="#" class="fa-solid text-[--nav-icon-color] fa-message hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
-                    <a href="#" class="fa-solid text-[--nav-icon-color] fa-bell hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
+                    <a href="#"
+                        class="fa-solid text-[--nav-icon-color] fa-house hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
+                    <a href="#"
+                        class="fa-solid text-[--nav-icon-color] fa-heart hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
+                    <a href="#"
+                        class="fa-solid text-[--nav-icon-color] fa-message hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
+                    <a href="#"
+                        class="fa-solid text-[--nav-icon-color] fa-bell hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
                 </nav>
 
 
@@ -41,7 +45,7 @@
                     </button>
                     <div id="profileMenu" class="absolute hidden bg-white/80 shadow-md p-2 rounded-md z-50 w-full">
                         <form action="@[/logout]" method="post">
-                            <input type="submit" value="Log out" class="w-full cursor-pointer text-left"/>
+                            <input type="submit" value="Log out" class="w-full cursor-pointer text-left" />
                         </form>
                     </div>
                 </div>
@@ -68,6 +72,8 @@
                 data-target="criteria">Criteria</a>
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
                 data-target="settings">Changes</a>
+            <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
+                data-target="general">General</a>
         </nav>
     </aside>
     <main id="mainContent" class="w-full h-full flex justify-center p-6 transition-all duration-300 my-16">
@@ -396,12 +402,14 @@
                                     </div>
                                 </div>
                                 <div class="flex justify-end mt-4">
-                                    <button class="rounded-full outline-double lg:w-20 lg:h-7 w-12 h-6  hover:bg-purple-100 transition-all" type="submit">
+                                    <button
+                                        class="rounded-full outline-double lg:w-20 lg:h-7 w-12 h-6  hover:bg-purple-100 transition-all"
+                                        type="submit">
                                         Save
                                     </button>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -526,12 +534,40 @@
                                     </div>
                                 </div>
                                 <div class="flex justify-end mt-4">
-                                    <button class="rounded-full outline-double w-20 h-7 hover:bg-purple-100 transition-all" type="submit">Save</button>
+                                    <button
+                                        class="rounded-full outline-double w-20 h-7 hover:bg-purple-100 transition-all"
+                                        type="submit">Save</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div id="general" class="content-section hidden" style="color:var(--primary-color)">
+                <h1 class="text-2xl font-bold">General settings</h1>
+                <div class="flex justify-center w-full">
+                    <nav class="flex space-x-6 mt-6">
+                        <a href="#"
+                            class="px-4 py-2 text-black rounded-md hover-effect truncate settings-nav-general-link active"
+                            style="color:var(--primary-color)" data-target="#changepassword">Change password</a>
+                    </nav>
+                </div>
+                <hr class="mt-4" />
+                <form action="" id="changepassword" class="general-section flex items-center justify-center w-full">
+                        <div class="lg:w-2/5 md:w-3/5 w-4/5 backdrop-blur-md p-6">
+                            <div class="flex flex-col space-y-2">
+                                <input type="text" placeholder="Current password" class="p-2 rounded-md">
+                                <input type="text" placeholder="New password" class="p-2 rounded-md">
+                                <input type="text" placeholder="Re-enter new password" class="p-2 rounded-md">
+                            </div>
+                            
+                            <div class="flex justify-end mt-4">
+                                <button
+                                    class="rounded-full outline-double w-20 h-7 hover:bg-purple-100 transition-all"
+                                    type="submit">Save</button>
+                            </div>
+                        </div>
+                </form>
             </div>
         </div>
         </div>
@@ -539,10 +575,11 @@
 
         </div>
     </main>
-    <script src="./js/profile.js"></script>
-    <script src="./js/doublesliders.js"></script>
-    <script src="./js/hobbytag.js"></script>
+    <script src="./js/Profile.js"></script>
+    <script src="./js/DoubleSliders.js"></script>
+    <script src="./js/HobbyTag.js"></script>
     <script src="./js/DropDownMenu.js"></script>
+    <script src="./js/TransferPage.js"></script>
 </body>
 
 </html>

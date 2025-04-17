@@ -119,26 +119,9 @@ function addUploadButton(container) {
             `;
     container.appendChild(label);
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    const sidebarLinks = document.querySelectorAll('aside nav a');
-    const contentSections = document.querySelectorAll('.content-section');
-
-    sidebarLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = link.getAttribute('data-target');
-
-            contentSections.forEach(section => {
-                section.classList.add('hidden');
-            });
-
-            document.getElementById(target).classList.remove('hidden');
-        });
-    });
-
-    const settingsNavLinks = document.querySelectorAll('.settings-nav-link');
-    const settingsSections = document.querySelectorAll('.settings-section');
+function transPage(navigationLink, section){
+    const settingsNavLinks = document.querySelectorAll('.'+navigationLink);//
+    const settingsSections = document.querySelectorAll('.'+section+'-section');//
 
     if (settingsSections.length > 0) {
         settingsSections[0].classList.remove('hidden');
@@ -162,10 +145,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 targetSection.classList.remove('hidden');
             }
 
-            document.getElementById('settings').classList.remove('hidden');
+            document.getElementById(section).classList.remove('hidden');
+        });
+    });
+}
+transPage('settings-nav-link','settings');
+transPage('settings-nav-general-link','general');
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebarLinks = document.querySelectorAll('aside nav a');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = link.getAttribute('data-target');
+
+            contentSections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            document.getElementById(target).classList.remove('hidden');
         });
     });
 
+    
     if (menuButton && sidebar && closeSidebar) {
         menuButton.addEventListener('click', () => {
             sidebar.classList.remove('-translate-x-full');
@@ -189,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function () {
             reader.readAsDataURL(file);
         }
     });
-
     const pictureContainer = document.getElementById('pictureContainer');
     const maxImages = 6;
 

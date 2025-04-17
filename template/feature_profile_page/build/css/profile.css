@@ -37,6 +37,10 @@ transform: translateX(-100%);
   background-color: #fae0ff;
   color: white;
 }
+.settings-nav-general-link.active {
+  background-color: #fae0ff;
+  color: white;
+}
 :root {
   --primary-color: #0f141c;
 }
