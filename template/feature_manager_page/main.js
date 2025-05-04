@@ -1,287 +1,782 @@
-// Sample data
-const sampleTags = [
-    { id: 1, name: "Design", icon: "https://placehold.co/30" },
-    { id: 2, name: "Development", icon: "https://placehold.co/30" },
-    { id: 3, name: "Marketing", icon: "https://placehold.co/30" }
-  ];
+// ==============================================
+// DATA STORE
+// ==============================================
+const dataStore = {
+  tags: [
+    { id: 1, name: "Music", icon: "https://placehold.co/20x20/music.png" },
+    { id: 2, name: "Sports", icon: "https://placehold.co/20x20/sports.png" },
+    { id: 3, name: "Art", icon: "https://placehold.co/20x20/art.png" },
+    { id: 4, name: "Food", icon: "https://placehold.co/20x20/food.png" },
+    { id: 5, name: "Travel", icon: "https://placehold.co/20x20/travel.png" }
+  ],
   
-  const teamMembers = [
-    { id: 1, name: "DatPhan", email: "datphan@example.com", role: "admin", avatar: "https://placehold.co/50", joined: "01/01/2023" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com", role: "member", avatar: "https://placehold.co/50", joined: "15/03/2023" },
-    { id: 3, name: "John Doe", email: "john@example.com", role: "member", avatar: "https://placehold.co/50", joined: "10/02/2023" }
-  ];
+  posts: [
+    { id: 1, title: "New Music Festival", author: "John Doe", date: "2023-05-15", content: "Content about music festival" },
+    { id: 2, title: "Sports Event Update", author: "Jane Smith", date: "2023-05-14", content: "Content about sports event" },
+    { id: 3, title: "Art Exhibition", author: "Bob Johnson", date: "2023-05-13", content: "Content about art exhibition" }
+  ],
   
-  const pendingInvitations = [
-    { id: 1, email: "mike@example.com", date: "20/05/2023", role: "member" }
-  ];
+  reports: [
+    { 
+      id: 1, 
+      reportedUser: "user123", 
+      reporter: "user456", 
+      reason: "Inappropriate content", 
+      status: "pending", 
+      date: "2023-05-15" 
+    },
+    { 
+      id: 2, 
+      reportedUser: "user789", 
+      reporter: "user101", 
+      reason: "Harassment", 
+      status: "reviewed", 
+      date: "2023-05-14" 
+    }
+  ],
   
-  // DOM Elements
-  const profileDropdownBtn = document.getElementById('profileDropdownBtn');
-  const profileDropdown = document.getElementById('profileDropdown');
-  const logoutBtn = document.getElementById('logoutBtn');
-  const editModal = document.getElementById('editModal');
-  const inviteModal = document.getElementById('inviteModal');
-  const editTagForm = document.getElementById('editTagForm');
-  const inviteForm = document.getElementById('inviteForm');
-  const productTableBody = document.getElementById('productTableBody');
-  const teamMembersContainer = document.getElementById('teamMembersContainer');
-  const pendingInvitationsContainer = document.getElementById('pendingInvitationsContainer');
+  bannedUsers: [
+    { id: 1, username: "user123", reason: "Spamming", bannedBy: "admin1", date: "2023-05-10", duration: "7 days" },
+    { id: 2, username: "user456", reason: "Harassment", bannedBy: "admin2", date: "2023-05-12", duration: "30 days" }
+  ],
   
-  // Load data when page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    loadTags();
-    loadTeamMembers();
-    loadPendingInvitations();
-    
-    // Event listeners
-    profileDropdownBtn.addEventListener('click', toggleProfileDropdown);
-    logoutBtn.addEventListener('click', handleLogout);
-    document.addEventListener('click', closeProfileDropdownOutside);
-    profileDropdown.addEventListener('click', preventDropdownClose);
-    editTagForm.addEventListener('submit', handleEditTagSubmit);
-    inviteForm.addEventListener('submit', handleInviteSubmit);
+  feedbacks: [
+    { 
+      id: 1, 
+      user: "user123", 
+      rating: 5, 
+      comment: "Great platform! Very easy to use and navigate.", 
+      date: "2023-05-15" 
+    },
+    { 
+      id: 2, 
+      user: "user456", 
+      rating: 3, 
+      comment: "Could improve the loading speed. Otherwise good.", 
+      date: "2023-05-14" 
+    },
+    { 
+      id: 3, 
+      user: "user789", 
+      rating: 4, 
+      comment: "Loving the new features. Keep up the good work!", 
+      date: "2023-05-13" 
+    },
+    { 
+      id: 4, 
+      user: "user101", 
+      rating: 2, 
+      comment: "Experienced some bugs. Needs fixing.", 
+      date: "2023-05-12" 
+    },
+    { 
+      id: 5, 
+      user: "user202", 
+      rating: 5, 
+      comment: "Perfect! Exactly what I was looking for.", 
+      date: "2023-05-11" 
+    }
+  ]
+};
+
+// ==============================================
+// STATE MANAGEMENT
+// ==============================================
+const state = {
+  currentPage: {
+    tags: 1,
+    posts: 1,
+    reports: 1,
+    bannedUsers: 1,
+    feedback: 1
+  },
+  itemsPerPage: 5,
+  activeSection: 'tasks',
+  currentFilter: {
+    reports: 'all',
+    feedback: 'all'
+  },
+  searchTerm: {
+    tags: '',
+    posts: '',
+    reports: '',
+    bannedUsers: '',
+    feedback: ''
+  }
+};
+
+// ==============================================
+// DOM ELEMENTS
+// ==============================================
+const elements = {
+  // Tables
+  tagsTable: document.getElementById('tagsTableBody'),
+  postsTable: document.getElementById('postsTableBody'),
+  reportsTable: document.getElementById('reportsTableBody'),
+  bannedUsersTable: document.getElementById('bannedUsersTableBody'),
+  feedbackTable: document.getElementById('feedbackTableBody'),
+  
+  // Search and filter
+  searchInputs: {
+    tags: document.getElementById('reportSearch'),
+    posts: document.getElementById('postSearch'),
+    reports: document.getElementById('reportSearch'),
+    bannedUsers: document.getElementById('bannedUserSearch'),
+    feedback: document.getElementById('feedbackSearch')
+  },
+  filters: {
+    reports: document.getElementById('reportFilter'),
+    feedback: document.getElementById('feedbackFilter')
+  },
+  
+  // Modals
+  modals: {
+    edit: document.getElementById('editModal'),
+    ban: document.getElementById('banModal'),
+    createPost: document.getElementById('createPostModal'),
+    viewFeedback: document.getElementById('viewFeedbackModal'),
+    editPost: document.getElementById('editPostModal')
+  },
+  
+  // Forms
+  forms: {
+    editTag: document.getElementById('editTagForm'),
+    banUser: document.getElementById('banForm'),
+    createPost: document.getElementById('createPostForm'),
+    editPost: document.getElementById('editPostForm')
+  }
+};
+
+// ==============================================
+// INITIALIZATION
+// ==============================================
+function initialize() {
+  loadInitialData();
+  setupEventListeners();
+  showSection(state.activeSection);
+}
+
+function loadInitialData() {
+  loadTags();
+  loadPosts();
+  loadReports();
+  loadBannedUsers();
+  loadFeedback();
+}
+
+function setupEventListeners() {
+  // Navigation
+  document.querySelectorAll('[data-section]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSection(link.dataset.section);
+    });
+  });
+
+  // Profile dropdown
+  document.getElementById('profileDropdownBtn').addEventListener('click', toggleProfileDropdown);
+  document.addEventListener('click', closeProfileDropdown);
+
+  // Search and filter
+  setupSearchAndFilter();
+
+  // Modal forms
+  setupModalForms();
+
+  // Close modal when clicking outside
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('fixed') && 
+        e.target.classList.contains('bg-black') && 
+        e.target.classList.contains('bg-opacity-50')) {
+      closeModal(e.target.id);
+    }
+  });
+}
+
+// ==============================================
+// MODAL FUNCTIONS
+// ==============================================
+function openModal(modalId) {
+  // Close all modals first
+  Object.values(elements.modals).forEach(modal => {
+    if (modal) modal.classList.add('hidden');
   });
   
-  // Load tags into table
-  function loadTags() {
-    productTableBody.innerHTML = '';
-    
-    sampleTags.forEach(tag => {
-      const row = document.createElement('tr');
-      row.className = 'hover-row border-b';
-      row.innerHTML = `
-        <td class="py-3 px-4">${tag.id}</td>
-        <td class="py-3 px-4">${tag.name}</td>
-        <td class="py-3 px-4">
-          <img src="${tag.icon}" alt="${tag.name} icon" class="h-6 w-6 object-contain">
-        </td>
-        <td class="py-3 px-4 space-x-2">
-          <button class="text-blue-600 hover:text-blue-800" onclick="viewTag(${tag.id})">
-            <i class="fas fa-eye"></i>
-          </button>
-          <button class="text-yellow-600 hover:text-yellow-800" onclick="editTag(${tag.id})">
+  // Open the requested modal
+  const modal = elements.modals[modalId];
+  if (modal) {
+    modal.classList.remove('hidden');
+  }
+}
+
+function closeModal(modalId) {
+  const modal = typeof modalId === 'string' 
+    ? document.getElementById(modalId) 
+    : modalId;
+  
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+}
+
+// ==============================================
+// DATA LOADING FUNCTIONS
+// ==============================================
+function loadTags(page = 1) {
+  state.currentPage.tags = page;
+  const filteredData = filterData(dataStore.tags, state.searchTerm.tags, ['name']);
+  renderTable({
+    data: filteredData,
+    container: elements.tagsTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'name', header: 'Name' },
+      { 
+        key: 'icon', 
+        header: 'Icon',
+        render: (value) => `<img src="${value}" alt="Icon" class="w-6 h-6">`
+      },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="openEditModal(${row.id}, 'tag')" class="text-blue-500 hover:text-blue-700 mr-2">
             <i class="fas fa-edit"></i>
           </button>
-          <button class="text-red-600 hover:text-red-800" onclick="deleteTag(${tag.id})">
+          <button onclick="deleteItem(${row.id}, 'tag')" class="text-red-500 hover:text-red-700">
             <i class="fas fa-trash"></i>
           </button>
-        </td>
-      `;
-      productTableBody.appendChild(row);
+        `
+      }
+    ],
+    type: 'tags'
+  });
+}
+
+function loadPosts(page = 1) {
+  state.currentPage.posts = page;
+  const filteredData = filterData(dataStore.posts, state.searchTerm.posts, ['title', 'author']);
+  renderTable({
+    data: filteredData,
+    container: elements.postsTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'title', header: 'Title' },
+      { key: 'author', header: 'Author' },
+      { key: 'date', header: 'Date' },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="openEditPostModal(${row.id})" class="text-blue-500 hover:text-blue-700 mr-2">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button onclick="deleteItem(${row.id}, 'post')" class="text-red-500 hover:text-red-700">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        `
+      }
+    ],
+    type: 'posts'
+  });
+}
+
+function loadReports(page = 1) {
+  state.currentPage.reports = page;
+  let filteredData = [...dataStore.reports];
+  
+  // Apply filter
+  if (state.currentFilter.reports !== 'all') {
+    filteredData = filteredData.filter(report => report.status === state.currentFilter.reports);
+  }
+  
+  // Apply search
+  filteredData = filterData(filteredData, state.searchTerm.reports, ['reportedUser', 'reporter', 'reason']);
+
+  renderTable({
+    data: filteredData,
+    container: elements.reportsTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'reportedUser', header: 'Reported User' },
+      { key: 'reporter', header: 'Reporter' },
+      { key: 'reason', header: 'Reason' },
+      { 
+        key: 'status', 
+        header: 'Status',
+        render: (value) => `
+          <span class="px-2 py-1 text-xs rounded-full ${
+            value === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+            value === 'reviewed' ? 'bg-blue-100 text-blue-800' :
+            'bg-green-100 text-green-800'
+          }">${value}</span>
+        `
+      },
+      { key: 'date', header: 'Date' },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="reviewReport(${row.id})" class="text-blue-500 hover:text-blue-700 mr-2">
+            <i class="fas fa-eye"></i>
+          </button>
+          <button onclick="resolveReport(${row.id})" class="text-green-500 hover:text-green-700 mr-2">
+            <i class="fas fa-check"></i>
+          </button>
+          <button onclick="openBanModal('${row.reportedUser}')" class="text-red-500 hover:text-red-700 mr-2">
+            <i class="fas fa-ban"></i>
+          </button>
+        `
+      }
+    ],
+    type: 'reports'
+  });
+}
+
+function loadBannedUsers(page = 1) {
+  state.currentPage.bannedUsers = page;
+  const filteredData = filterData(dataStore.bannedUsers, state.searchTerm.bannedUsers, ['username', 'reason', 'bannedBy']);
+  renderTable({
+    data: filteredData,
+    container: elements.bannedUsersTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'username', header: 'Username' },
+      { key: 'reason', header: 'Reason' },
+      { key: 'bannedBy', header: 'Banned By' },
+      { key: 'date', header: 'Date' },
+      { key: 'duration', header: 'Duration' },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="unbanUser(${row.id})" class="text-green-500 hover:text-green-700">
+            <i class="fas fa-unlock"></i>
+          </button>
+        `
+      }
+    ],
+    type: 'banned-users'
+  });
+}
+
+function loadFeedback(page = 1) {
+  state.currentPage.feedback = page;
+  let filteredData = [...dataStore.feedbacks];
+  
+  // Apply filter
+  if (state.currentFilter.feedback !== 'all') {
+    filteredData = filteredData.filter(feedback => feedback.rating == state.currentFilter.feedback);
+  }
+  
+  // Apply search
+  filteredData = filterData(filteredData, state.searchTerm.feedback, ['user', 'comment']);
+
+  renderTable({
+    data: filteredData,
+    container: elements.feedbackTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'user', header: 'User' },
+      { 
+        key: 'rating', 
+        header: 'Rating',
+        render: (value) => {
+          let stars = '';
+          for (let i = 1; i <= 5; i++) {
+            stars += i <= value 
+              ? '<i class="fas fa-star text-yellow-500"></i>'
+              : '<i class="far fa-star text-yellow-500"></i>';
+          }
+          return stars;
+        }
+      },
+      { 
+        key: 'comment', 
+        header: 'Comment',
+        render: (value) => value.length > 50 ? value.substring(0, 50) + '...' : value
+      },
+      { key: 'date', header: 'Date' },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="viewFeedbackDetails(${row.id})" class="text-blue-500 hover:text-blue-700">
+            <i class="fas fa-eye"></i>
+          </button>
+        `
+      }
+    ],
+    type: 'feedback'
+  });
+}
+
+// ==============================================
+// RENDER FUNCTIONS
+// ==============================================
+function renderTable(options) {
+  const { data, container, columns, type } = options;
+  const startIndex = (state.currentPage[type] - 1) * state.itemsPerPage;
+  const endIndex = Math.min(startIndex + state.itemsPerPage, data.length);
+  
+  container.innerHTML = '';
+  
+  for (let i = startIndex; i < endIndex; i++) {
+    const item = data[i];
+    const row = document.createElement('tr');
+    row.className = 'hover-row';
+    
+    columns.forEach(col => {
+      const cell = document.createElement('td');
+      cell.className = 'py-3 px-4 border';
+      const value = item[col.key];
+      cell.innerHTML = col.render ? col.render(value, item) : value;
+      row.appendChild(cell);
+    });
+    
+    container.appendChild(row);
+  }
+  
+  updatePaginationInfo(type, startIndex + 1, endIndex, data.length);
+  renderPagination(type, Math.ceil(data.length / state.itemsPerPage));
+}
+
+function renderPagination(type, totalPages) {
+  const pageNumbersContainer = document.getElementById(`${type}-page-numbers`);
+  const prevButton = document.getElementById(`${type}-prev-page`);
+  const nextButton = document.getElementById(`${type}-next-page`);
+  
+  pageNumbersContainer.innerHTML = '';
+  
+  // Previous button
+  prevButton.disabled = state.currentPage[type] === 1;
+  
+  // Page numbers
+  for (let i = 1; i <= totalPages; i++) {
+    const pageButton = document.createElement('button');
+    pageButton.textContent = i;
+    pageButton.className = `px-3 py-1 border rounded-md ${
+      i === state.currentPage[type] ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'
+    }`;
+    pageButton.addEventListener('click', () => {
+      state.currentPage[type] = i;
+      loadDataForCurrentSection();
+    });
+    pageNumbersContainer.appendChild(pageButton);
+  }
+  
+  // Next button
+  nextButton.disabled = state.currentPage[type] === totalPages;
+}
+
+// ==============================================
+// UTILITY FUNCTIONS
+// ==============================================
+function filterData(data, searchTerm, searchFields) {
+  if (!searchTerm) return data;
+  
+  const term = searchTerm.toLowerCase();
+  return data.filter(item => 
+    searchFields.some(field => 
+      String(item[field]).toLowerCase().includes(term)
+    )
+  );
+}
+
+function updatePaginationInfo(type, start, end, total) {
+  document.getElementById(`${type}-pagination-start`).textContent = start;
+  document.getElementById(`${type}-pagination-end`).textContent = end;
+  document.getElementById(`${type}-pagination-total`).textContent = total;
+}
+
+function loadDataForCurrentSection() {
+  switch(state.activeSection) {
+    case 'tasks': loadTags(state.currentPage.tags); break;
+    case 'posts': loadPosts(state.currentPage.posts); break;
+    case 'banned-users': 
+      loadReports(state.currentPage.reports); 
+      loadBannedUsers(state.currentPage.bannedUsers); 
+      break;
+    case 'feedback': loadFeedback(state.currentPage.feedback); break;
+  }
+}
+
+function setupSearchAndFilter() {
+  // Search functionality
+  Object.entries(elements.searchInputs).forEach(([type, input]) => {
+    if (input) {
+      input.addEventListener('input', (e) => {
+        state.searchTerm[type] = e.target.value;
+        loadDataForCurrentSection();
+      });
+    }
+  });
+
+  // Report filter
+  if (elements.filters.reports) {
+    elements.filters.reports.addEventListener('change', (e) => {
+      state.currentFilter.reports = e.target.value;
+      loadReports();
     });
   }
-  
-  // Team functions
-  function loadTeamMembers() {
-    teamMembersContainer.innerHTML = '';
-    
-    teamMembers.forEach(member => {
-      const card = document.createElement('div');
-      card.className = 'bg-white p-4 rounded-lg border hover:shadow-md transition';
-      
-      let removeButton = '';
-      if (member.id !== 1) {
-        removeButton = `<button class="ml-auto text-red-500 hover:text-red-700" onclick="removeMember(${member.id})">
-          <i class="fas fa-times"></i>
-        </button>`;
-      }
-      
-      card.innerHTML = `
-        <div class="flex items-center mb-3">
-          <img src="${member.avatar}" alt="Member" class="rounded-full mr-3 w-10 h-10">
-          <div>
-            <h3 class="font-medium">${member.name} ${member.id === 1 ? '(You)' : ''}</h3>
-            <p class="text-sm text-gray-500">${member.role.charAt(0).toUpperCase() + member.role.slice(1)}</p>
-          </div>
-          ${removeButton}
-        </div>
-        <div class="text-sm text-gray-600">
-          <p><i class="fas fa-envelope mr-2"></i> ${member.email}</p>
-          <p><i class="fas fa-calendar-alt mr-2"></i> Joined: ${member.joined}</p>
-        </div>
-      `;
-      teamMembersContainer.appendChild(card);
+
+  // Feedback filter
+  if (elements.filters.feedback) {
+    elements.filters.feedback.addEventListener('change', (e) => {
+      state.currentFilter.feedback = e.target.value;
+      loadFeedback();
     });
   }
-  
-  function loadPendingInvitations() {
-    const container = pendingInvitationsContainer.querySelector('.bg-gray-50');
-    container.innerHTML = '';
-    
-    if (pendingInvitations.length === 0) {
-      container.innerHTML = '<p class="text-gray-500 text-center">No pending invitations</p>';
-      return;
-    }
-    
-    pendingInvitations.forEach(invite => {
-      const inviteElement = document.createElement('div');
-      inviteElement.className = 'flex items-center justify-between mb-2';
-      inviteElement.innerHTML = `
-        <div>
-          <p class="font-medium">${invite.email}</p>
-          <p class="text-sm text-gray-500">Invited: ${invite.date}</p>
-        </div>
-        <button class="text-gray-500 hover:text-gray-700" onclick="cancelInvitation(${invite.id})">
-          <i class="fas fa-times"></i> Cancel
-        </button>
-      `;
-      container.appendChild(inviteElement);
-    });
+}
+
+function setupModalForms() {
+  // Edit tag form
+  if (elements.forms.editTag) {
+    elements.forms.editTag.addEventListener('submit', handleEditTag);
   }
-  
-  // Tag functions
-  function viewTag(id) {
-    const tag = sampleTags.find(t => t.id === id);
-    if (tag) {
-      alert(`Tag Details:\nID: ${tag.id}\nName: ${tag.name}\nIcon: ${tag.icon}`);
-    }
+
+  // Ban user form
+  if (elements.forms.banUser) {
+    elements.forms.banUser.addEventListener('submit', handleBanUser);
   }
-  
-  function editTag(id) {
-    const tag = sampleTags.find(t => t.id === id);
-    if (tag) {
-      document.getElementById('editTagId').value = tag.id;
-      document.getElementById('editTagName').value = tag.name;
-      document.getElementById('editTagIcon').value = tag.icon;
-      editModal.classList.remove('hidden');
-    }
+
+  // Create post form
+  if (elements.forms.createPost) {
+    elements.forms.createPost.addEventListener('submit', handleCreatePost);
   }
-  
-  function closeEditModal() {
-    editModal.classList.add('hidden');
+
+  // Edit post form
+  if (elements.forms.editPost) {
+    elements.forms.editPost.addEventListener('submit', handleEditPost);
   }
+}
+
+// ==============================================
+// UI FUNCTIONS
+// ==============================================
+function showSection(sectionId) {
+  // Hide all sections
+  document.querySelectorAll('[id$="-section"]').forEach(section => {
+    section.classList.add('hidden');
+  });
   
-  // Team functions
-  function openInviteModal() {
-    inviteModal.classList.remove('hidden');
+  // Show selected section
+  document.getElementById(`${sectionId}-section`).classList.remove('hidden');
+  state.activeSection = sectionId;
+  
+  // Load data for the section
+  loadDataForCurrentSection();
+}
+
+function toggleProfileDropdown() {
+  document.getElementById('profileDropdown').classList.toggle('show');
+}
+
+function closeProfileDropdown(e) {
+  if (!e.target.closest('#profileDropdownBtn') && !e.target.closest('#profileDropdown')) {
+    document.getElementById('profileDropdown').classList.remove('show');
   }
-  
-  function closeInviteModal() {
-    inviteModal.classList.add('hidden');
-    inviteForm.reset();
-  }
-  
-  function removeMember(id) {
-    if (confirm('Are you sure you want to remove this team member?')) {
-      const index = teamMembers.findIndex(m => m.id === id);
-      if (index !== -1) {
-        teamMembers.splice(index, 1);
-        loadTeamMembers();
+}
+
+// ==============================================
+// ACTION FUNCTIONS
+// ==============================================
+function openEditModal(id, type) {
+  let item;
+  switch(type) {
+    case 'tag':
+      item = dataStore.tags.find(t => t.id === id);
+      if (item) {
+        document.getElementById('editTagId').value = item.id;
+        document.getElementById('editTagName').value = item.name;
+        document.getElementById('editTagIcon').value = item.icon;
+        openModal('edit');
       }
-    }
+      break;
   }
-  
-  function cancelInvitation(id) {
-    if (confirm('Are you sure you want to cancel this invitation?')) {
-      const index = pendingInvitations.findIndex(i => i.id === id);
-      if (index !== -1) {
-        pendingInvitations.splice(index, 1);
-        loadPendingInvitations();
-      }
-    }
+}
+
+function openEditPostModal(id) {
+  const post = dataStore.posts.find(p => p.id === id);
+  if (post) {
+    document.getElementById('editPostId').value = post.id;
+    document.getElementById('editPostTitle').value = post.title;
+    document.getElementById('editPostAuthor').value = post.author;
+    document.getElementById('editPostContent').value = post.content;
+    document.getElementById('editPostDate').value = post.date;
+    
+    openModal('editPost');
   }
-  
-  // Form handlers
-  function handleEditTagSubmit(e) {
-    e.preventDefault();
+}
+
+function openCreatePostModal() {
+  openModal('createPost');
+}
+
+function openBanModal(username) {
+  document.getElementById('banUserId').value = username;
+  openModal('ban');
+}
+
+function viewFeedbackDetails(id) {
+  const feedback = dataStore.feedbacks.find(f => f.id === id);
+  if (feedback) {
+    document.getElementById('feedbackUser').textContent = feedback.user;
     
-    const id = parseInt(document.getElementById('editTagId').value);
-    const name = document.getElementById('editTagName').value;
-    const icon = document.getElementById('editTagIcon').value;
-    
-    if (!name || !icon) {
-      alert('Please fill in all fields');
-      return;
-    }
-    
-    const index = sampleTags.findIndex(t => t.id === id);
-    if (index !== -1) {
-      sampleTags[index] = { id, name, icon };
-      loadTags();
-    }
-    
-    closeEditModal();
-  }
-  
-  function handleInviteSubmit(e) {
-    e.preventDefault();
-    
-    const email = document.getElementById('inviteEmail').value;
-    const role = document.getElementById('inviteRole').value;
-    
-    if (!email || !role) {
-      alert('Please fill in all fields');
-      return;
+    // Render stars
+    const starsContainer = document.getElementById('feedbackRating');
+    starsContainer.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement('i');
+      star.className = i <= feedback.rating ? 'fas fa-star' : 'far fa-star';
+      starsContainer.appendChild(star);
     }
     
-    const newId = pendingInvitations.length > 0 
-      ? Math.max(...pendingInvitations.map(i => i.id)) + 1 
-      : 1;
+    document.getElementById('feedbackComment').textContent = feedback.comment;
+    document.getElementById('feedbackDate').textContent = feedback.date;
+    openModal('viewFeedback');
+  }
+}
+
+function deleteItem(id, type) {
+  if (!confirm(`Are you sure you want to delete this ${type}?`)) return;
+
+  let collection;
+  switch(type) {
+    case 'tag': collection = dataStore.tags; break;
+    case 'post': collection = dataStore.posts; break;
+    default: return;
+  }
+
+  const index = collection.findIndex(item => item.id === id);
+  if (index !== -1) {
+    collection.splice(index, 1);
+    loadDataForCurrentSection();
+  }
+}
+
+function reviewReport(id) {
+  const report = dataStore.reports.find(r => r.id === id);
+  if (report) {
+    report.status = 'reviewed';
+    loadReports();
+  }
+}
+
+function resolveReport(id) {
+  const report = dataStore.reports.find(r => r.id === id);
+  if (report) {
+    report.status = 'resolved';
+    loadReports();
+  }
+}
+
+function unbanUser(id) {
+  if (!confirm('Are you sure you want to unban this user?')) return;
+
+  const index = dataStore.bannedUsers.findIndex(u => u.id === id);
+  if (index !== -1) {
+    dataStore.bannedUsers.splice(index, 1);
+    loadBannedUsers();
+  }
+}
+
+// ==============================================
+// FORM HANDLERS
+// ==============================================
+function handleEditTag(e) {
+  e.preventDefault();
+  const id = parseInt(document.getElementById('editTagId').value);
+  const name = document.getElementById('editTagName').value;
+  const icon = document.getElementById('editTagIcon').value;
+  
+  const tag = dataStore.tags.find(t => t.id === id);
+  if (tag) {
+    tag.name = name;
+    tag.icon = icon;
+    closeModal('editModal');
+    loadTags();
+  }
+}
+
+function handleBanUser(e) {
+  e.preventDefault();
+  const username = document.getElementById('banUserId').value;
+  const duration = document.getElementById('banDuration').value;
+  const reason = document.getElementById('banReason').value;
+  
+  const newBan = {
+    id: dataStore.bannedUsers.length + 1,
+    username: username,
+    reason: reason,
+    bannedBy: "Admin",
+    date: new Date().toISOString().split('T')[0],
+    duration: duration === "0" ? "Permanent" : `${duration} days`
+  };
+  
+  dataStore.bannedUsers.unshift(newBan);
+  closeModal('banModal');
+  
+  // Sau khi ban xong, tự động chuyển xuống bảng Banned Users
+  showSection('banned-users');
+  loadBannedUsers();
+}
+
+function handleCreatePost(e) {
+  e.preventDefault();
+  const title = document.getElementById('postTitle').value;
+  const content = document.getElementById('postContent').value;
+  const author = document.getElementById('postAuthor').value;
+  
+  const newPost = {
+    id: Math.max(...dataStore.posts.map(p => p.id)) + 1,
+    title,
+    content,
+    author,
+    date: new Date().toISOString().split('T')[0]
+  };
+  
+  dataStore.posts.unshift(newPost);
+  closeModal('createPostModal');
+  loadPosts();
+}
+
+function handleEditPost(e) {
+  e.preventDefault();
+  const id = parseInt(document.getElementById('editPostId').value);
+  const title = document.getElementById('editPostTitle').value;
+  const author = document.getElementById('editPostAuthor').value;
+  const content = document.getElementById('editPostContent').value;
+  const date = document.getElementById('editPostDate').value;
+  
+  const post = dataStore.posts.find(p => p.id === id);
+  if (post) {
+    post.title = title;
+    post.author = author;
+    post.content = content;
+    post.date = date;
     
-    pendingInvitations.push({
-      id: newId,
-      email,
-      role,
-      date: new Date().toLocaleDateString()
-    });
-    
-    loadPendingInvitations();
-    closeInviteModal();
-    alert(`Invitation sent to ${email}`);
+    closeModal('editPostModal');
+    loadPosts();
   }
-  
-  // Delete tag
-  function deleteTag(id) {
-    if (confirm('Are you sure you want to delete this tag?')) {
-      const index = sampleTags.findIndex(tag => tag.id === id);
-      if (index !== -1) {
-        sampleTags.splice(index, 1);
-        loadTags();
-      }
-    }
-  }
-  
-  // UI functions
-  function showSection(section) {
-    const sections = ['tasks', 'team'];
-    sections.forEach(sec => {
-      const el = document.getElementById(`${sec}-section`);
-      if (sec === section) {
-        el.classList.remove('hidden');
-      } else {
-        el.classList.add('hidden');
-      }
-    });
-  }
-  
-  function toggleProfileDropdown(e) {
-    e.stopPropagation();
-    profileDropdown.classList.toggle('show');
-  }
-  
-  function closeProfileDropdownOutside() {
-    profileDropdown.classList.remove('show');
-  }
-  
-  function preventDropdownClose(e) {
-    e.stopPropagation();
-  }
-  
-  function handleLogout(e) {
-    e.preventDefault();
-    if (confirm('Are you sure you want to logout?')) {
-      alert('Logged out successfully!');
-      // Add actual logout logic here
-    }
-  }
-  
-  // Make functions available globally for HTML onclick attributes
-  window.viewTag = viewTag;
-  window.editTag = editTag;
-  window.deleteTag = deleteTag;
-  window.closeEditModal = closeEditModal;
-  window.openInviteModal = openInviteModal;
-  window.closeInviteModal = closeInviteModal;
-  window.removeMember = removeMember;
-  window.cancelInvitation = cancelInvitation;
-  window.showSection = showSection;
+}
+
+// ==============================================
+// INITIALIZATION
+// ==============================================
+initialize();
+
+// ==============================================
+// GLOBAL FUNCTION EXPORTS
+// ==============================================
+window.showSection = showSection;
+window.openEditModal = openEditModal;
+window.openEditPostModal = openEditPostModal;
+window.openCreatePostModal = openCreatePostModal;
+window.openBanModal = openBanModal;
+window.closeModal = closeModal;
+window.deleteItem = deleteItem;
+window.reviewReport = reviewReport;
+window.resolveReport = resolveReport;
+window.unbanUser = unbanUser;
+window.viewFeedbackDetails = viewFeedbackDetails;
