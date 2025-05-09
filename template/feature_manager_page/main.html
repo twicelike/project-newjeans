@@ -46,7 +46,7 @@
     }
 
     #editModal,
-    #banModal,
+    #suspendModal,
     #reportModal,
     #createPostModal,
     #createTagModal {
@@ -60,26 +60,6 @@
 
     .pagination button:hover:not(:disabled) {
       background-color: #f3f4f6;
-    }
-
-    /* Star rating */
-    .star-rating {
-      display: inline-flex;
-      direction: rtl;
-    }
-    .star-rating input {
-      display: none;
-    }
-    .star-rating label {
-      color: #ddd;
-      font-size: 1.5rem;
-      padding: 0 0.1rem;
-      cursor: pointer;
-    }
-    .star-rating input:checked ~ label,
-    .star-rating label:hover,
-    .star-rating label:hover ~ label {
-      color: #ffc107;
     }
   </style>
 </head>
@@ -122,14 +102,14 @@
           </li>
           <li class="mb-2">
             <a href="#" class="flex items-center text-gray-400 hover:text-blue-300 transition"
-              onclick="showSection('banned-users')">
-              <i class="fas fa-ban mr-2"></i> Banned Users & Reports
+              onclick="showSection('suspended-users')">
+              <i class="fas fa-ban mr-2"></i> Suspended Users & Reports
             </a>
           </li>
           <li class="mb-2">
             <a href="#" class="flex items-center text-gray-400 hover:text-blue-300 transition"
               onclick="showSection('feedback')">
-              <i class="fas fa-star mr-2"></i> User Feedback
+              <i class="fas fa-comment mr-2"></i> User Feedback
             </a>
           </li>
         </ul>
@@ -144,7 +124,8 @@
           <div class="flex justify-between items-center mb-4">
             <h1 class="text-2xl font-semibold">Hoppy Tags</h1>
             <div class="flex items-center">
-              <a href="create.html" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition flex items-center">
+              <a href="create.html"
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition flex items-center">
                 <i class="fas fa-plus mr-2"></i> Create Hoppy Tag
               </a>
             </div>
@@ -236,8 +217,8 @@
         </div>
       </div>
 
-      <!-- Banned Users & Reports Section -->
-      <div id="banned-users-section" class="hidden">
+      <!-- Suspended Users & Reports Section -->
+      <div id="suspended-users-section" class="hidden">
         <div class="container mx-auto">
           <!-- Reports Tab -->
           <div class="bg-white p-6 rounded shadow mb-6">
@@ -297,13 +278,13 @@
             </div>
           </div>
 
-          <!-- Banned Users Tab -->
+          <!-- Suspended Users Tab -->
           <div class="bg-white p-6 rounded shadow">
             <div class="flex justify-between items-center mb-4">
-              <h1 class="text-2xl font-semibold">Banned Users</h1>
+              <h1 class="text-2xl font-semibold">Suspended Users</h1>
               <div class="flex items-center space-x-2">
                 <div class="relative">
-                  <input type="text" id="bannedUserSearch" placeholder="Search banned users..."
+                  <input type="text" id="suspendedUserSearch" placeholder="Search suspended users..."
                     class="border border-gray-300 rounded-md px-3 py-1 pl-8 focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <i class="fas fa-search absolute left-2 top-2 text-gray-400"></i>
                 </div>
@@ -316,32 +297,32 @@
                   <th class="py-3 px-4 border text-left">ID</th>
                   <th class="py-3 px-4 border text-left">Username</th>
                   <th class="py-3 px-4 border text-left">Reason</th>
-                  <th class="py-3 px-4 border text-left">Banned By</th>
+                  <th class="py-3 px-4 border text-left">Suspended By</th>
                   <th class="py-3 px-4 border text-left">Date</th>
                   <th class="py-3 px-4 border text-left">Duration</th>
                   <th class="py-3 px-4 border text-left">Actions</th>
                 </tr>
               </thead>
-              <tbody id="bannedUsersTableBody">
+              <tbody id="suspendedUsersTableBody">
                 <!-- Data will be loaded by JavaScript -->
               </tbody>
             </table>
 
             <div class="flex items-center justify-between mt-4">
               <div class="text-sm text-gray-600">
-                Showing <span id="banned-users-pagination-start">1</span> to <span
-                  id="banned-users-pagination-end">5</span> of
-                <span id="banned-users-pagination-total">0</span> items
+                Showing <span id="suspended-users-pagination-start">1</span> to <span
+                  id="suspended-users-pagination-end">5</span> of
+                <span id="suspended-users-pagination-total">0</span> items
               </div>
               <div class="flex space-x-1 pagination">
-                <button id="banned-users-prev-page"
+                <button id="suspended-users-prev-page"
                   class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
                   Previous
                 </button>
-                <div id="banned-users-page-numbers" class="flex space-x-1">
+                <div id="suspended-users-page-numbers" class="flex space-x-1">
                   <!-- Page numbers will be inserted here by JavaScript -->
                 </div>
-                <button id="banned-users-next-page"
+                <button id="suspended-users-next-page"
                   class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
                   Next
                 </button>
@@ -362,15 +343,6 @@
                   class="border border-gray-300 rounded-md px-3 py-1 pl-8 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <i class="fas fa-search absolute left-2 top-2 text-gray-400"></i>
               </div>
-              <select id="feedbackFilter"
-                class="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="all">All Feedback</option>
-                <option value="1">1 Star</option>
-                <option value="2">2 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="5">5 Stars</option>
-              </select>
             </div>
           </div>
 
@@ -378,8 +350,7 @@
             <thead>
               <tr class="bg-gray-50">
                 <th class="py-3 px-4 border text-left">ID</th>
-                <th class="py-3 px-4 border text-left">User</th>
-                <th class="py-3 px-4 border text-left">Rating</th>
+                <th class="py-3 px-4 border text-left">Email</th>
                 <th class="py-3 px-4 border text-left">Comment</th>
                 <th class="py-3 px-4 border text-left">Date</th>
                 <th class="py-3 px-4 border text-left">Actions</th>
@@ -454,60 +425,21 @@
     </div>
   </div>
 
-  <!-- Create Tag Modal -->
-  <div id="createTagModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded shadow w-full max-w-md">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-semibold">Create New Tag</h3>
-        <button onclick="closeModal('createTagModal')" class="text-gray-500 hover:text-gray-700">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-
-      <form id="createTagForm" class="space-y-4">
-        <div>
-          <label for="createTagName" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-          <input type="text" id="createTagName" name="createTagName"
-            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter tag name" required>
-        </div>
-
-        <div>
-          <label for="createTagIcon" class="block text-sm font-medium text-gray-700 mb-1">Icon URL</label>
-          <input type="text" id="createTagIcon" name="createTagIcon"
-            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter icon URL" required>
-        </div>
-
-        <div class="flex justify-end space-x-3 pt-4">
-          <button type="button" onclick="closeModal('createTagModal')"
-            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            Cancel
-          </button>
-          <button type="submit"
-            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            Create Tag
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Ban User Modal -->
-  <div id="banModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+  <!-- Suspend User Modal -->
+  <div id="suspendModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded shadow w-full max-w-md">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-xl font-semibold">Suspend User</h3>
-        <button onclick="closeModal('banModal')" class="text-gray-500 hover:text-gray-700">
+        <button onclick="closeModal('suspendModal')" class="text-gray-500 hover:text-gray-700">
           <i class="fas fa-times"></i>
         </button>
       </div>
 
-      <form id="banForm" class="space-y-4">
-        <input type="hidden" id="banUserId">
+      <form id="suspendForm" class="space-y-4">
+        <input type="hidden" id="suspendUserId">
         <div>
-          <label for="banDuration" class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-          <select id="banDuration" name="banDuration"
+          <label for="suspendDuration" class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+          <select id="suspendDuration" name="suspendDuration"
             class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             required>
             <option value="">Select duration</option>
@@ -520,14 +452,14 @@
         </div>
 
         <div>
-          <label for="banReason" class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
-          <textarea id="banReason" name="banReason" rows="3"
+          <label for="suspendReason" class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
+          <textarea id="suspendReason" name="suspendReason" rows="3"
             class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter reason for suspension" required></textarea>
         </div>
 
         <div class="flex justify-end space-x-3 pt-4">
-          <button type="button" onclick="closeModal('banModal')"
+          <button type="button" onclick="closeModal('suspendModal')"
             class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             Cancel
           </button>
@@ -585,6 +517,7 @@
       </form>
     </div>
   </div>
+
   <!-- Edit Post Modal -->
   <div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded shadow w-full max-w-2xl">
@@ -594,10 +527,10 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-  
+
       <form id="editPostForm" class="space-y-4">
         <input type="hidden" id="editPostId">
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label for="editPostTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
@@ -605,7 +538,7 @@
               class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Post title" required>
           </div>
-  
+
           <div>
             <label for="editPostAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
             <input type="text" id="editPostAuthor" name="editPostAuthor"
@@ -613,21 +546,21 @@
               placeholder="Author name" required>
           </div>
         </div>
-  
+
         <div>
           <label for="editPostContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
           <textarea id="editPostContent" name="editPostContent" rows="6"
             class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Post content" required></textarea>
         </div>
-  
+
         <div>
           <label for="editPostDate" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
           <input type="date" id="editPostDate" name="editPostDate"
             class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             required>
         </div>
-  
+
         <div class="flex justify-end space-x-3 pt-4">
           <button type="button" onclick="closeModal('editPostModal')"
             class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -654,13 +587,8 @@
 
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">User</label>
-          <p id="feedbackUser" class="font-medium"></p>
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
-          <div id="feedbackRating" class="text-yellow-500"></div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <p id="feedbackEmail" class="font-medium"></p>
         </div>
 
         <div>
