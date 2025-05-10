@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../message_page/assets/images/favicon.png">
+  <title>Message</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../message_page/assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="../message_page/assets/css/base.css">
+  <link rel="stylesheet" href="../message_page/assets/css/styles.css">
+</head>
+
+<body>
+  <div class="root h-screen flex flex-col">
+    <!-- Header -->
+    <header class="header shadow-lg shadow-slate-200 relative">
+      <nav class="flex justify-between items-center sm:gap-2 gap-1 px-2">
+        <div class="sm:basis-4/12 basis-1/4 flex items-center sm:gap-2 gap-1 relative">
+          <a href="#" class="w-16 h-16">
+            <img class="w-full h-full object-cover" src="../message_page/assets/images/logo.png" alt="Logo">
+          </a>
+          <div id="ctSearch" class="bg-slate-200 sm:w-[300px] rounded-3xl p-1 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </div>
+        </div> <!-- End Logo, Search-->
+        <ul class="flex sm:basis-7/12 basis-2/4 items-center justify-between sm:justify-start sm:gap-20 lg:gap-36">
+          <li class="w-8 h-8">
+            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-full h-full">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+              </svg>
+            </a>
+          </li>
+          <li class="w-8 h-8">
+            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+              <img src="assets/images/match.png" alt="" class="max-w-[32px] max-h-[32px] object-cover">
+            </a>
+          </li>
+          <li class="w-8 h-8">
+            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-full h-full">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+              </svg>
+            </a>
+          </li>
+          <li class="w-8 h-8">
+            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-full h-full">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+              </svg>
+            </a>
+          </li>
+        </ul> <!-- End Menu -->
+        <a href="#" class="sm:basis-1/12 inline-flex items-center justify-end gap-2">
+          <img class="max-w-8 h-8 object-cover rounded-full" src="../message_page/assets/images/avt.jpg" alt="Avatar">
+          <span class="sm:inline-block hidden">Name</span>
+        </a> <!-- End Profile -->
+      </nav>
+      <!-- <div id="searchBox"
+        class="search-box absolute hidden top-full left-0 w-full sm:w-[300px] sm:top-full sm:left-[80px] bg-white border border-slate-300 p-4 z-50">
+        <div class="search-input mb-4">
+          <div class="flex justify-between my-4">
+            <label for="searchInput" class="block text-xl font-bold">Search</label>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6 cursor-pointer hover:bg-slate-100 rounded-full" id="closeSearch">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <input type="text" id="searchInputBox" class="block w-full text-base py-2 px-4 rounded-full bg-slate-100"
+            placeholder="Tìm kiếm...">
+        </div>
+        <div class="search-content">
+          <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
+            <a href="#" class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <span class="">NewJeans</span>
+            </a>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="close-item size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
+            <a href="#" class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <span class="">K-POP</span>
+            </a>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="close-item size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
+            <a href="#" class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <span class="">Hanni</span>
+            </a>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="close-item size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+        </div>
+      </div> -->
+    </header>
+    <!-- End Header -->
+    <div class="message-container flex flex-1 overflow-y-hidden relative">
+      <!-- Sidebar Contact -->
+      <aside id="chatList" class="sm:basis-3/12 sm:flex-none flex-1 border-r p-2 overflow-y-auto relative">
+        <h2 class="text-2xl font-semibold py-4 pl-2">Chats</h2>
+        <input type="text" name="" id="searchInput" class="w-full outline-none rounded-full p-2 bg-slate-100 mb-4"
+          placeholder="Search...">
+        <ul class="contact-list">
+          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer bg-sky-100">
+            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-info">
+              <div class="contact-name">User 1</div>
+              <div class="lastest-message text-[12px] text-black opacity-70"></div>
+            </div>
+          </li>
+          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
+            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/haerin.webp" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-info">
+              <div class="contact-name">User 2</div>
+              <div class="lastest-message text-[12px] text-black opacity-70"></div>
+            </div>
+          </li>
+          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
+            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/avt.jpg" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-info">
+              <div class="contact-name">User 3</div>
+              <div class="lastest-message text-[12px] text-black opacity-70"></div>
+            </div>
+          </li>
+          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
+            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-info">
+              <div class="contact-name">User 4</div>
+              <div class="lastest-message text-[12px] text-black opacity-70"></div>
+            </div>
+          </li>
+          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
+            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-info">
+              <div class="contact-name">User 5</div>
+              <div class="lastest-message text-[12px] text-black opacity-70"></div>
+            </div>
+          </li>
+          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
+            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-info">
+              <div class="contact-name">User 6</div>
+              <div class="lastest-message text-[12px] text-black opacity-70"></div>
+            </div>
+          </li>
+          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
+            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-info">
+              <div class="contact-name">User 7</div>
+              <div class="lastest-message text-[12px] text-black opacity-70"></div>
+            </div>
+          </li>
+        </ul>
+        <p id="noResultMessage" class="text-center text-gray-400 hidden">No result</p>
+      </aside>
+      <!-- End Sidebar Contact -->
+
+      <!-- Main Chat Area -->
+      <main id="mainChat" class="main-chat basis-6/12 border-r sm:flex flex-1 flex-col hidden relative">
+        <div class="hidden chat-header flex justify-between items-center shadow-sm shadow-slate-200">
+          <a href="#" class="inline-flex gap-2 items-center p-2 hover:bg-gray-100">
+            <div class="contact-avatar w-[40px] h-[40px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-name"></div>
+          </a>
+        </div>
+        <div class="hidden chat-container flex flex-col flex-1 p-4 border-b overflow-y-auto">
+          <div class="message reveice-message relative max-w-[60%] my-[10px] p-4 rounded-[10px] bg-slate-200 self-start">
+            <p class="content-message whitespace-pre-wrap"></p>
+            <span class="time absolute text-[12px] text-black opacity-70 bottom-[-20px] left-[5px]">09:53</span>
+          </div>
+          <div class="message send-message relative max-w-[60%] my-[10px] p-4 rounded-[10px] bg-blue-300 self-end">
+            <p class="content-message">Can you call me?</p>
+            <span class="time absolute text-[12px] text-black opacity-70 bottom-[-20px] left-[5px]">10:00</span>
+          </div>
+        </div>
+        <div class="hidden input-message flex items-center p-[10px] gap-2">
+          <div class="upload-image cursor-pointer hover:bg-slate-200 rounded-full p-2">
+            <i class="size-8 inline-block fa-solid fa-clipboard-list"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-8 inline-block">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+            </svg>
+          </div>
+          <textarea name="" id="messageInput" rows="1" class="flex-1 rounded-full resize-none p-2 px-4 outline-none bg-slate-100"
+            autocomplete="off" placeholder="Aa"></textarea>
+          <div class="send-message-input cursor-pointer hover:bg-slate-200 rounded-full p-2" id="sendButton">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-8">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+            </svg>
+          </div>
+        </div>
+      </main>
+      <!-- End Main Chat Area -->
+
+      <!-- SideBar Profile Contact -->
+      <!-- <aside id="profileContact" class="profile-contact hidden basis-3/12 p-4">
+        <div class="flex justify-center mb-4">
+          <a href="#" class="inline-flex gap-2 items-center p-2 hover:bg-gray-100">
+            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
+              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="contact-name">Hanni</div>
+          </a>
+        </div>
+        <ul class="list-operation">
+          <li class="p-2 bg-slate-100 rounded-lg hover:bg-gray-200 mb-4">
+            <a href="#" class="w-full">Profile</a>
+          </li>
+          <li class="p-2 bg-slate-100 rounded-lg hover:bg-gray-200 mb-4">
+            Delete Match
+          </li>
+        </ul>
+      </aside> -->
+      <!-- End SideBar Profile Contact -->
+
+      <div id="chatToggle"
+        class="chat-toggle hidden absolute z-[45] top-[8px] right-[10px] p-2 bg-slate-200 rounded-full cursor-pointer hover:bg-slate-400">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <!-- End Root -->
+  <script src="../message_page/assets/js/script.js"></script>
+</body>
+
+</html>
