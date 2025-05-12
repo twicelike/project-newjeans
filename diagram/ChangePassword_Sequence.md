@@ -7,7 +7,12 @@ participant Database
 == Change Password ==
 User -> WebUI            : Nhập password cũ & password mới
 WebUI -> UserService     : Gửi mật khẩu cũ, mật khẩu mới, userID
+UserService -> UserService: kiểm tra mật khẩu mới
+alt sai định dạng 
+UserService --> WebUI: Mật khẩu không chứa ký tự yêu cầu
+else đúng định dạngdạng
 UserService -> Database  : Lấy mật khẩu đã mã hoá từ Table User từ userID
+end
 Database --> UserService : Trả về mật khẩu đã được mã hoá
 alt mật khẩu cũ không khớp
     UserService -> WebUI : Trả lỗi "Mật khẩu cũ không đúng"
