@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor User
 participant WebUI
@@ -17,3 +18,4 @@ note over of User
     tên, tuổi, quê quán, ...
 end note
 @enduml
+```

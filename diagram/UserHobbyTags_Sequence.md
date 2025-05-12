@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor User
 participant WebUI
@@ -20,3 +21,4 @@ Database --> HobbyTagService : Xác nhận cập nhật
 HobbyTagService --> WebUI    : Trả kết quả thành công
 WebUI --> User               : Hiển thị danh sách tags mới
 @enduml
+```

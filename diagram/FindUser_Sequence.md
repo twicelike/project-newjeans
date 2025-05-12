@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor "Admin/User" as Actor
 participant WebUI
@@ -25,3 +26,4 @@ end
 deactivate UserService
 deactivate WebUI
 @enduml
+```

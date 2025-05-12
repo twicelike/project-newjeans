@@ -10,6 +10,7 @@ participant Database
 User -> WebUI            : Upload file ảnh mới
 WebUI -> UserService     : Gửi file ảnh
 UserService -> UploadService : Yêu cầu xử lý & upload
+alt ảnh hợp lệ
 UploadService --> UserService : Trả về URL của ảnh
 UserService -> Database  : Cập nhật avatar URL trong Table User với userID
 Database --> UserService : Xác nhận cập nhật
@@ -19,5 +20,9 @@ note over of UploadService
    File ảnh sẽ được lưu 
    ở trong hệ thống backend
 end note
+else ảnh không hợp lệ
+UploadService --> UserService: không đúng yêu cầu
+UserService --> WebUI:ảnh không hợp lệ
+end
 @enduml
 ```

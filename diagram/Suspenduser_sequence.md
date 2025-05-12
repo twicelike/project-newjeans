@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor Admin
     participant WebUI
@@ -18,3 +19,4 @@ actor Admin
     UserService-->>WebUI: Trả về kết quả suspend
     WebUI->>Admin: Hiển thị thông báo thành công
 @enduml
+```

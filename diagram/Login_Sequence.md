@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor User
 participant WebUI
@@ -15,3 +16,4 @@ else Invalid login
     UserService -> WebUI : Return error message (invalid credentials)
 end
 @enduml
+```
