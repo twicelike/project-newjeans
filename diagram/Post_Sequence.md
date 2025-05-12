@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor Admin
 participant WebUI
@@ -39,3 +40,4 @@ Database --> PostService  : Xác nhận xóa thành công
 PostService --> WebUI     : Trả kết quả xóa
 end
 @enduml
+```

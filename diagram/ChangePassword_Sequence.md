@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor User
 participant WebUI
@@ -25,3 +26,4 @@ else mật khẩu cũ khớp
     WebUI --> User              : Hiển thị "Đổi mật khẩu thành công"
 end
 @enduml
+```

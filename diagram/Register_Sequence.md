@@ -1,3 +1,5 @@
+```uml
+
 @startuml
 actor User
 participant WebUI
@@ -38,3 +40,4 @@ else
     end
 end
 @enduml
+```

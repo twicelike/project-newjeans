@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor Admin
 participant WebUI
@@ -32,3 +33,4 @@ Database --> HobbyTagService       : Xác nhận xóa thành công
 HobbyTagService --> WebUI          : Trả kết quả xóa
 end
 @enduml
+```

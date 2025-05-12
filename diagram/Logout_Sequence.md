@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor "Admin/User" as Actor
 participant WebUI
@@ -33,3 +34,4 @@ WebUI -> WebUI                   : Invalidate HTTP session
 WebUI --> Actor                  : Redirect đến /login (đã đăng xuất)
 deactivate WebUI
 @enduml
+```

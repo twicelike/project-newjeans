@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor Admin
 participant WebUI
@@ -20,3 +21,4 @@ Database --> ReportService : Xác nhận cập nhật
 ReportService --> WebUI : Trả kết quả thành công
 WebUI --> Admin : Hiển thị trạng thái đã xử lý
 @enduml
+```

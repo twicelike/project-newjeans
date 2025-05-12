@@ -1,3 +1,4 @@
+```uml
 @startuml
 actor User
 participant WebUI
@@ -26,3 +27,4 @@ UploadService --> UserService: không đúng yêu cầu
 UserService --> WebUI:ảnh không hợp lệ
 end
 @enduml
+```

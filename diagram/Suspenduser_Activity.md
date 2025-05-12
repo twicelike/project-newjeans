@@ -1,3 +1,4 @@
+```uml
 @startuml
 |Admin|
 start
@@ -35,3 +36,4 @@ endif
 
 stop
 @enduml
+```
