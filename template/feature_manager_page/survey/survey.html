@@ -33,7 +33,6 @@
             display: block;
         }
         
-        /* Style for editable title */
         .editable-title {
             cursor: pointer;
             border-bottom: 1px solid transparent;
@@ -44,12 +43,6 @@
         }
         
         /* Style for question types */
-        .text-answer {
-            border-bottom: 1px solid #d1d5db;
-            padding: 8px 0;
-            width: 100%;
-        }
-        
         .paragraph-answer {
             border: 1px solid #d1d5db;
             border-radius: 4px;
@@ -59,7 +52,6 @@
             resize: vertical;
         }
         
-        /* Style for option items */
         .option-item:hover .remove-option {
             display: block !important;
         }
@@ -70,7 +62,6 @@
             cursor: not-allowed;
         }
         
-        /* Style for answer form */
         .answer-form .question-title {
             font-weight: bold;
             margin-bottom: 8px;
@@ -86,13 +77,12 @@
     <div id="builderView">
         <div class="flex justify-between items-center p-4 bg-white shadow relative">
             <div class="flex items-center space-x-2">
-                <i class="fas fa-file-alt text-purple-600"></i>
+                <img src="./img/logo-2.png" alt="Logo" class="rounded-full h-8 w-8">
                 <span id="formTitle" class="text-lg font-semibold editable-title">Survey Form</span>
             </div>
             <div class="flex items-center space-x-4">
                 <button id="publishBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded transition">Publish</button>
-                <button id="viewFormBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded transition">Preview Form</button>
-                
+                <button id="answerBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">Answer</button>
                 <!-- Profile section -->
                 <div class="relative">
                     <div id="profileBtn" class="flex items-center space-x-2 cursor-pointer">
@@ -124,7 +114,6 @@
                             <select class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
                                 <option value="radio">Multiple Choice</option>
                                 <option value="checkbox">Checkboxes</option>
-                                <option value="text">Short Answer</option>
                                 <option value="paragraph">Paragraph</option>
                             </select>
                         </div>
@@ -145,7 +134,6 @@
                         
                         <div class="flex justify-between items-center mt-4">
                             <div class="flex items-center space-x-4">
-                                <i class="fas fa-copy text-gray-600 hover:text-purple-600 cursor-pointer copy-question" title="Duplicate question"></i>
                                 <i class="fas fa-trash text-gray-600 hover:text-purple-600 cursor-pointer delete-question" title="Delete question"></i>
                             </div>
                         </div>
@@ -158,48 +146,6 @@
                         <i class="fas fa-plus-circle"></i>
                         <span>Add Question</span>
                     </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Answer Form View -->
-    <div id="answerView" class="hidden">
-        <div class="flex justify-between items-center p-4 bg-white shadow relative">
-            <div class="flex items-center space-x-2">
-                <i class="fas fa-file-alt text-purple-600"></i>
-                <span id="answerFormTitle" class="text-lg font-semibold"></span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button id="backToBuilderBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded transition">Back to Builder</button>
-                
-                <!-- Profile section -->
-                <div class="relative">
-                    <div id="answerProfileBtn" class="flex items-center space-x-2 cursor-pointer">
-                        <img src="https://placehold.co/40x40" alt="Profile" class="rounded-full h-8 w-8">
-                        <span class="hidden md:inline">User</span>
-                        <i class="fas fa-chevron-down text-gray-600 text-xs"></i>
-                    </div>
-                    
-                    <div id="answerProfileDropdown" class="profile-dropdown">
-                        <a href="#"><i class="fas fa-user mr-2"></i> Profile</a>
-                        <a href="#"><i class="fas fa-cog mr-2"></i> Settings</a>
-                        <a href="#"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="flex justify-center mt-4">
-            <div class="w-full max-w-4xl bg-white p-6 rounded shadow answer-form">
-                <div class="border-b-2 border-purple-600 pb-2 mb-4">
-                    <h1 id="answerFormMainTitle" class="text-2xl font-semibold"></h1>
-                </div>
-                
-                <div id="answersContainer"></div>
-                
-                <div class="mt-6 flex justify-center">
-                    <button id="submitAnswersBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded transition">Submit</button>
                 </div>
             </div>
         </div>
@@ -232,35 +178,10 @@
             }
             
             setupProfileDropdown('profileBtn', 'profileDropdown');
-            setupProfileDropdown('answerProfileBtn', 'answerProfileDropdown');
-            
-            // ========== View switching ==========
-            const builderView = document.getElementById('builderView');
-            const answerView = document.getElementById('answerView');
-            const viewFormBtn = document.getElementById('viewFormBtn');
-            const backToBuilderBtn = document.getElementById('backToBuilderBtn');
-            
-            viewFormBtn.addEventListener('click', function() {
-                // First publish the form to collect data
-                publishForm(false);
-                
-                if (formData) {
-                    builderView.classList.add('hidden');
-                    answerView.classList.remove('hidden');
-                    renderAnswerForm();
-                }
-            });
-            
-            backToBuilderBtn.addEventListener('click', function() {
-                builderView.classList.remove('hidden');
-                answerView.classList.add('hidden');
-            });
             
             // ========== Form title handling ==========
             const formTitle = document.getElementById('formTitle');
             const formMainTitle = document.getElementById('formMainTitle');
-            const answerFormTitle = document.getElementById('answerFormTitle');
-            const answerFormMainTitle = document.getElementById('answerFormMainTitle');
             
             let originalFormTitle = "Survey Form";
             
@@ -372,17 +293,6 @@
                     // Add at least 1 option
                     addNewOption(optionsContainer, '', type, questionElement.dataset.questionId);
                 } 
-                else if (type === 'text') {
-                    // Hide add options button
-                    addOptionsContainer.style.display = 'none';
-                    
-                    // Add short answer input
-                    const textInput = document.createElement('input');
-                    textInput.type = 'text';
-                    textInput.className = 'text-answer';
-                    textInput.placeholder = 'Short answer';
-                    optionsContainer.appendChild(textInput);
-                } 
                 else if (type === 'paragraph') {
                     // Hide add options button
                     addOptionsContainer.style.display = 'none';
@@ -423,23 +333,6 @@
                         updateAddButtonState();
                     }
                 }
-                
-                // Duplicate question
-                if (e.target.classList.contains('copy-question')) {
-                    const questionElement = e.target.closest('.question-item');
-                    const questionsContainer = document.getElementById('questionsContainer');
-                    const questionCount = questionsContainer.querySelectorAll('.question-item').length;
-                    
-                    if (questionCount >= MAX_QUESTIONS) {
-                        alert(`Maximum of ${MAX_QUESTIONS} questions allowed`);
-                        return;
-                    }
-                    
-                    const clonedQuestion = questionElement.cloneNode(true);
-                    questionsContainer.insertBefore(clonedQuestion, questionElement.nextSibling);
-                    setupQuestionEvents(clonedQuestion);
-                    updateAddButtonState();
-                }
             });
             
             // Handle question type change
@@ -478,7 +371,6 @@
                         <select class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
                             <option value="radio">Multiple Choice</option>
                             <option value="checkbox">Checkboxes</option>
-                            <option value="text">Short Answer</option>
                             <option value="paragraph">Paragraph</option>
                         </select>
                     </div>
@@ -499,7 +391,6 @@
                     
                     <div class="flex justify-between items-center mt-4">
                         <div class="flex items-center space-x-4">
-                            <i class="fas fa-copy text-gray-600 hover:text-purple-600 cursor-pointer copy-question" title="Duplicate question"></i>
                             <i class="fas fa-trash text-gray-600 hover:text-purple-600 cursor-pointer delete-question" title="Delete question"></i>
                         </div>
                     </div>
@@ -540,7 +431,7 @@
             // ========== Publish form handling ==========
             const publishBtn = document.getElementById('publishBtn');
             
-            function publishForm(showAlert = true) {
+            function publishForm() {
                 // Collect form data
                 formData = {
                     title: formTitle.textContent === originalFormTitle ? '' : formTitle.textContent,
@@ -569,95 +460,22 @@
                     formData.questions.push(question);
                 });
                 
-                if (showAlert) {
-                    alert('Form saved successfully!\nYou can preview it using the "Preview Form" button.');
-                }
+                // Save form data to localStorage
+                localStorage.setItem('surveyFormData', JSON.stringify(formData));
+                alert('Form published successfully!');
             }
             
             publishBtn.addEventListener('click', publishForm);
             
-            // ========== Answer form rendering ==========
-            function renderAnswerForm() {
-                answerFormTitle.textContent = formData.title || 'Untitled Form';
-                answerFormMainTitle.textContent = formData.title || 'Untitled Form';
-                
-                const answersContainer = document.getElementById('answersContainer');
-                answersContainer.innerHTML = '';
-                
-                formData.questions.forEach((question, index) => {
-                    const questionElement = document.createElement('div');
-                    questionElement.className = 'question-item mb-8';
-                    
-                    questionElement.innerHTML = `
-                        <div class="question-title mb-4">${index + 1}. ${question.title || 'Untitled question'}</div>
-                    `;
-                    
-                    if (question.type === 'radio') {
-                        question.options.forEach(option => {
-                            const optionElement = document.createElement('div');
-                            optionElement.className = 'flex items-center mb-2';
-                            
-                            optionElement.innerHTML = `
-                                <input type="radio" name="answer-${question.id}" id="option-${question.id}-${option.text}" class="mr-2">
-                                <label for="option-${question.id}-${option.text}">${option.text}</label>
-                            `;
-                            
-                            questionElement.appendChild(optionElement);
-                        });
-                    } 
-                    else if (question.type === 'checkbox') {
-                        question.options.forEach(option => {
-                            const optionElement = document.createElement('div');
-                            optionElement.className = 'flex items-center mb-2';
-                            
-                            optionElement.innerHTML = `
-                                <input type="checkbox" name="answer-${question.id}" id="option-${question.id}-${option.text}" class="mr-2">
-                                <label for="option-${question.id}-${option.text}">${option.text}</label>
-                            `;
-                            
-                            questionElement.appendChild(optionElement);
-                        });
-                    } 
-                    else if (question.type === 'text') {
-                        questionElement.innerHTML += `
-                            <input type="text" name="answer-${question.id}" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-purple-500" placeholder="Your answer">
-                        `;
-                    } 
-                    else if (question.type === 'paragraph') {
-                        questionElement.innerHTML += `
-                            <textarea name="answer-${question.id}" class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-purple-500" rows="4" placeholder="Your answer"></textarea>
-                        `;
-                    }
-                    
-                    answersContainer.appendChild(questionElement);
-                });
-            }
+            // ========== Answer button handling ==========
+            const answerBtn = document.getElementById('answerBtn');
             
-            // ========== Submit answers handling ==========
-            const submitAnswersBtn = document.getElementById('submitAnswersBtn');
-            
-            submitAnswersBtn.addEventListener('click', function() {
-                const answers = [];
-                const answerInputs = document.querySelectorAll('#answersContainer input, #answersContainer textarea');
+            answerBtn.addEventListener('click', function() {
+                // First save the form
+                publishForm();
                 
-                answerInputs.forEach(input => {
-                    if ((input.type === 'radio' || input.type === 'checkbox') && input.checked) {
-                        answers.push({
-                            questionId: input.name.replace('answer-', ''),
-                            answer: input.nextElementSibling.textContent
-                        });
-                    } else if (input.type === 'text' || input.tagName === 'TEXTAREA') {
-                        if (input.value.trim()) {
-                            answers.push({
-                                questionId: input.name.replace('answer-', ''),
-                                answer: input.value
-                            });
-                        }
-                    }
-                });
-                
-                console.log('Form answers:', answers);
-                alert('Answers submitted successfully!\nData has been logged to console.');
+                // Then redirect to answer.html
+                window.location.href = 'answer.html';
             });
             
             // Set up events for initial question
