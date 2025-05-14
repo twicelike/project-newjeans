@@ -410,53 +410,60 @@
   </div>
 
   <!-- Edit Post Modal -->
-  <div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg p-6 w-full max-w-2xl">
-      <h2 class="text-xl font-bold mb-4">Edit Post</h2>
-      <form id="editPostForm">
-        <input type="hidden" id="editPostId">
-
-        <div class="mb-4">
-          <label class="block mb-2 font-medium">Title</label>
-          <input type="text" id="editPostTitle" class="w-full p-2 border rounded" required>
-        </div>
-
-        <div class="mb-4">
-          <label class="block mb-2 font-medium">Author</label>
-          <input type="text" id="editPostAuthor" class="w-full p-2 border rounded" required>
-        </div>
-
-        <div class="mb-4">
-          <label class="block mb-2 font-medium">Date</label>
-          <input type="date" id="editPostDate" class="w-full p-2 border rounded" required>
-        </div>
-
-        <div class="mb-4">
-          <label class="block mb-2 font-medium">Content</label>
-          <textarea id="editPostContent" rows="4" class="w-full p-2 border rounded" required></textarea>
-        </div>
-
-        <div class="mb-4">
-          <label class="block mb-2 font-medium">Image</label>
-          <input type="file" id="editPostImage" accept="image/*" class="w-full p-2 border rounded">
-
-          <div id="editImagePreview" class="mt-2 hidden"></div>
-          <button type="button" id="editRemoveImageBtn" class="mt-2 text-red-500 hidden">
-            <i class="fas fa-trash mr-1"></i> Remove Image
-          </button>
-        </div>
-
-        <div class="flex justify-end gap-2 mt-4">
-          <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-300 rounded">
-            Cancel
-          </button>
-          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">
-            <i class="fas fa-save mr-1"></i> Save Changes
-          </button>
-        </div>
-      </form>
+<div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+  <div class="bg-white rounded-md p-4 w-full max-w-lg shadow-lg">
+    <div class="flex justify-between items-center mb-3">
+      <h2 class="text-lg font-semibold">Edit Post</h2>
+      <button onclick="closeEditModal()" class="text-gray-500 hover:text-gray-700 text-sm">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
+
+    <form id="editPostForm" class="space-y-3">
+      <input type="hidden" id="editPostId">
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Title</label>
+        <input type="text" id="editPostTitle" class="w-full p-2 border rounded text-sm" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Author</label>
+        <input type="text" id="editPostAuthor" class="w-full p-2 border rounded text-sm" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Date</label>
+        <input type="date" id="editPostDate" class="w-full p-2 border rounded text-sm" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Content</label>
+        <textarea id="editPostContent" rows="3" class="w-full p-2 border rounded text-sm" required></textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Image</label>
+        <input type="file" id="editPostImage" accept="image/*" class="w-full p-2 border rounded text-sm">
+
+        <div id="editImagePreview" class="mt-2 hidden"></div>
+        <button type="button" id="editRemoveImageBtn" class="mt-2 text-xs text-red-500 hidden">
+          <i class="fas fa-trash mr-1"></i> Remove Image
+        </button>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3">
+        <button type="button" onclick="closeEditModal()" class="px-3 py-1.5 bg-gray-200 text-sm rounded hover:bg-gray-300">
+          Cancel
+        </button>
+        <button type="submit" class="px-3 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+          <i class="fas fa-save mr-1"></i> Save
+        </button>
+      </div>
+    </form>
   </div>
+</div>
+
 
   <!-- Suspend User Modal -->
   <div id="suspendModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
@@ -570,83 +577,6 @@
     </div>
   </div>
 
-  <!-- Edit Post Modal -->
-  <div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded shadow w-full max-w-2xl">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-semibold">Edit Post</h3>
-        <button onclick="closeModal('editPostModal')" class="text-gray-500 hover:text-gray-700">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-
-      <form id="editPostForm" class="space-y-4">
-        <input type="hidden" id="editPostId">
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label for="editPostTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-            <input type="text" id="editPostTitle" name="editPostTitle"
-              class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Post title" required>
-          </div>
-
-          <div>
-            <label for="editPostAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
-            <input type="text" id="editPostAuthor" name="editPostAuthor"
-              class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Author name" required>
-          </div>
-        </div>
-
-        <div>
-          <label for="editPostContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-          <textarea id="editPostContent" name="editPostContent" rows="6"
-            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Post content" required></textarea>
-        </div>
-
-        <div>
-          <label for="editPostDate" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
-          <input type="date" id="editPostDate" name="editPostDate"
-            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-            required>
-        </div>
-
-        <!-- Image Section for Edit -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Current Image</label>
-          <div id="currentImagePreview" class="mt-2">
-            <!-- Current image will be shown here -->
-          </div>
-          <label for="editPostImage" class="block text-sm font-medium text-gray-700 mt-2 mb-1">Change Image</label>
-          <input type="file" id="editPostImage" name="editPostImage" accept="image/*" class="block w-full text-sm text-gray-500
-            file:mr-4 file:py-2 file:px-4
-            file:rounded-md file:border-0
-            file:text-sm file:font-semibold
-            file:bg-blue-50 file:text-blue-700
-            hover:file:bg-blue-100">
-          <div id="editImagePreview" class="mt-2 hidden">
-            <!-- New image preview will be shown here -->
-          </div>
-          <button type="button" id="removeEditImageBtn" class="mt-2 text-sm text-red-600 hidden">
-            <i class="fas fa-trash mr-1"></i> Remove New Image
-          </button>
-        </div>
-
-        <div class="flex justify-end space-x-3 pt-4">
-          <button type="button" onclick="closeModal('editPostModal')"
-            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            Cancel
-          </button>
-          <button type="submit"
-            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            Save Changes
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <!-- View Feedback Modal -->
   <div id="viewFeedbackModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
