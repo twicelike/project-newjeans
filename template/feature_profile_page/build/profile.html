@@ -81,8 +81,6 @@
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
                 data-target="profile">Profile</a>
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
-                data-target="criteria">Criteria</a>
-            <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
                 data-target="settings">Changes</a>
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
                 data-target="general">General</a>
@@ -172,34 +170,6 @@
 
                 </div>
             </div>
-            <div id="criteria" class="content-section hidden" style="color:var(--primary-color)">
-                <h1 class="text-2xl font-bold">Criteria</h1>
-                <p class="mb-4">Your preferences for a potential match</p>
-                <hr class="my-4">
-
-                <div class="space-y-4">
-                    <div class="flex items-center">
-                        <span class="font-medium w-32">Looking for:</span>
-                        <span id="targetGender" class="" style="color: var(--primary-color);"></span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="font-medium w-32">Location:</span>
-                        <span id="targetLocation" style="color: var(--primary-color);"></span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="font-medium w-32">Age:</span>
-                        <span id="targetAge" style="color: var(--primary-color);"></span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="font-medium w-32">Relationship:</span>
-                        <span id="targetRelationship" style="color: var(--primary-color);"></span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="font-medium w-32">Education:</span>
-                        <span id="targetEducation" style="color: var(--primary-color);"></span>
-                    </div>
-                </div>
-            </div>
             <div id="settings" class="content-section hidden" style="color:var(--primary-color)">
                 <h1 class="text-2xl font-bold">Changes</h1>
 
@@ -207,9 +177,7 @@
                     <nav class="flex space-x-6 mt-6">
                         <a href="#"
                             class="px-4 py-2 text-black rounded-md hover-effect truncate settings-nav-link active"
-                            style="color:var(--primary-color)" data-target="bio">Biography</a>
-                        <a href="#" class="px-4 py-2 text-black rounded-md hover-effect truncate settings-nav-link"
-                            style="color:var(--primary-color)" data-target="find">Criteria</a>
+                            style="color:var(--primary-color)" data-target="bio">Profile</a>
                     </nav>
                 </div>
                 <hr class="mt-4" />
@@ -445,134 +413,6 @@
                         </div>
                     </div>
 
-                    <div id="find-section" class="settings-section hidden">
-                        <div class="flex flex-col items-center justify-center w-full">
-                            <div class="lg:w-3/5 md:w-4/5 w-full backdrop-blur-md p-6">
-
-                                <div class="relative my-3">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <label class="text-sm font-medium">Age Range</label>
-                                        <span class="text-sm bg-purple-100 text-purple-800 px-2 py-1 rounded-md"
-                                            id="ageRange">18 - 35</span>
-                                    </div>
-                                    <div class="relative h-2 bg-gray-200 rounded-full w-full mt-4">
-                                        <div class="absolute h-full bg-gray-200 rounded-full w-full"></div>
-
-                                        <div class="absolute h-full bg-purple-500 rounded-full" id="ageTrack"></div>
-
-                                        <div class="absolute h-6 w-6 -top-2 -translate-x-1/2 flex items-center justify-center cursor-pointer group touch-none"
-                                            id="thumbMin">
-                                            <div class="w-6 h-6 bg-purple-500 rounded-full shadow-lg">
-                                                <span
-                                                    class="absolute -top-8 left-1/2 -translate-x-1/2 bg-purple-500 text-white px-2 py-1 rounded-lg text-sm min-w-[2.5rem] text-center shadow-md"
-                                                    id="minValue">18</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="absolute h-6 w-6 -top-2 -translate-x-1/2 flex items-center justify-center cursor-pointer group touch-none"
-                                            id="thumbMax">
-                                            <div class="w-6 h-6 bg-purple-500 rounded-full shadow-lg">
-                                                <span
-                                                    class="absolute -top-8 left-1/2 -translate-x-1/2 bg-purple-500 text-white px-2 py-1 rounded-lg text-sm min-w-[2.5rem] text-center shadow-md"
-                                                    id="maxValue">35</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-3" name="gender"
-                                    id="gender">
-                                    <option value="">--Gender--</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-
-
-                                <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="relationship"
-                                    id="relationship" placeholder="relationship">
-                                    <option value="">--Type of relationship--</option>
-                                    <option value="Casual chatting">Casual chatting</option>
-                                    <option value="Friendship">Friendship</option>
-                                    <option value="Long-term">Long-term</option>
-                                    <option value="Short-term">Short-term</option>
-                                </select>
-
-                                <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="edu-level"
-                                    id="edu-level" placeholder="edu-level">
-                                    <option value="">--Education level--</option>
-                                    <option value="High school">High school</option>
-                                    <option value="College">College</option>
-                                    <option value="University">University</option>
-                                    <option value="Master">Master</option>
-                                    <option value="Doctor">Doctor</option>
-                                </select>
-
-                                <div class="mt-4">
-                                    <div class="font-bold mb-4 text-center">Interests/Hobbies</div>
-
-                                    <div class="flex flex-wrap gap-2 mb-4 justify-center min-h-[40px] p-2 bg-white/10 rounded-lg"
-                                        id="findSelectedTags">
-                                    </div>
-
-                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                        <button
-                                            class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                            data-emoji="🎵" data-interest="Music">
-                                            <span class="text-xl">🎵</span>
-                                            <span>Music</span>
-                                        </button>
-                                        <button
-                                            class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all backdrop-blur-md"
-                                            data-emoji="🎮" data-interest="Gaming">
-                                            <span class="text-xl">🎮</span>
-                                            <span>Gaming</span>
-                                        </button>
-                                        <button
-                                            class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                            data-emoji="📚" data-interest="Reading">
-                                            <span class="text-xl">📚</span>
-                                            <span>Reading</span>
-                                        </button>
-                                        <button
-                                            class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                            data-emoji="✈️" data-interest="Travel">
-                                            <span class="text-xl">✈️</span>
-                                            <span>Travel</span>
-                                        </button>
-                                        <button
-                                            class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                            data-emoji="🏋️‍♂️" data-interest="Sports">
-                                            <span class="text-xl">🏋️‍♂️</span>
-                                            <span>Sports</span>
-                                        </button>
-                                        <button
-                                            class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                            data-emoji="🍳" data-interest="Cooking">
-                                            <span class="text-xl">🍳</span>
-                                            <span>Cooking</span>
-                                        </button>
-                                        <button
-                                            class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                            data-emoji="📸" data-interest="Photography">
-                                            <span class="text-xl">📸</span>
-                                            <span>Photography</span>
-                                        </button>
-                                        <button
-                                            class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                            data-emoji="🎨" data-interest="Art">
-                                            <span class="text-xl">🎨</span>
-                                            <span>Art</span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="flex justify-end mt-4">
-                                    <button
-                                        class="rounded-full outline-double w-20 h-7 hover:bg-purple-100 transition-all"
-                                        type="submit">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div id="general" class="content-section hidden" style="color:var(--primary-color)">
