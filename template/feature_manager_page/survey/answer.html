@@ -34,12 +34,6 @@
         }
         
         /* Style for question types */
-        .text-answer {
-            border-bottom: 1px solid #d1d5db;
-            padding: 8px 0;
-            width: 100%;
-        }
-        
         .paragraph-answer {
             border: 1px solid #d1d5db;
             border-radius: 4px;
@@ -62,19 +56,29 @@
             padding: 1rem;
             background-color: white;
         }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body class="bg-purple-100">
     <div class="flex justify-between items-center p-4 bg-white shadow relative">
-        <div class="flex items-center space-x-2">
-            <img src="./img/logo-2.png" alt="Logo" class="rounded-full h-8 w-8">
+        <div class="logo-container">
+            <a href="#" class="bg-white p-1 rounded-full shadow">
+                <img src="./img/logo-2.png" alt="Logo" class="logo-img">
+            </a>
             <span id="answerFormTitle" class="text-lg font-semibold">Survey Answers</span>
         </div>
         <div class="flex items-center space-x-4">
-            <button id="backToBuilderBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded transition">
-                <i class="fas fa-arrow-left mr-2"></i> Back to Builder
-            </button>
-            
             <!-- Profile section -->
             <div class="relative">
                 <div id="profileBtn" class="flex items-center space-x-2 cursor-pointer">
@@ -180,13 +184,7 @@
                         
                         questionElement.appendChild(optionElement);
                     });
-                } 
-                else if (question.type === 'text') {
-                    questionElement.innerHTML += `
-                        <input type="text" name="answer-${question.id}" 
-                               class="text-answer mt-2" placeholder="Your answer">
-                    `;
-                } 
+                }
                 else if (question.type === 'paragraph') {
                     questionElement.innerHTML += `
                         <textarea name="answer-${question.id}" 
@@ -198,13 +196,8 @@
             });
             
             // ========== Button handlers ==========
-            const backToBuilderBtn = document.getElementById('backToBuilderBtn');
             const saveDraftBtn = document.getElementById('saveDraftBtn');
             const submitAnswersBtn = document.getElementById('submitAnswersBtn');
-            
-            backToBuilderBtn.addEventListener('click', function() {
-                window.location.href = 'survey.html';
-            });
             
             saveDraftBtn.addEventListener('click', function() {
                 const answers = collectAnswers();
@@ -218,7 +211,6 @@
                 console.log('Submitted answers:', answers);
                 localStorage.removeItem('surveyDraft');
                 alert('Thank you for completing the survey!');
-                window.location.href = 'index.html';
             });
             
             // ========== Helper functions ==========
@@ -232,7 +224,7 @@
                             questionId: input.name.replace('answer-', ''),
                             answer: input.nextElementSibling.textContent
                         });
-                    } else if (input.type === 'text' || input.tagName === 'TEXTAREA') {
+                    } else if (input.tagName === 'TEXTAREA') {
                         if (input.value.trim()) {
                             answers.push({
                                 questionId: input.name.replace('answer-', ''),
@@ -263,7 +255,7 @@
                                     opt.checked = true;
                                 }
                             });
-                        } else {
+                        } else if (input.tagName === 'TEXTAREA') {
                             input.value = response.answer;
                         }
                     }

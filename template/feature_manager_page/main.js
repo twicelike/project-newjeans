@@ -11,9 +11,9 @@ const dataStore = {
   ],
   
   posts: [
-    { id: 1, title: "New Music Festival", author: "John Doe", date: "2023-05-15", content: "Content about music festival" },
-    { id: 2, title: "Sports Event Update", author: "Jane Smith", date: "2023-05-14", content: "Content about sports event" },
-    { id: 3, title: "Art Exhibition", author: "Bob Johnson", date: "2023-05-13", content: "Content about art exhibition" }
+    { id: 1, title: "New Music Festival", author: "John Doe", date: "2023-05-15", content: "Content about music festival", image: "https://placehold.co/600x400/music-festival.png" },
+    { id: 2, title: "Sports Event Update", author: "Jane Smith", date: "2023-05-14", content: "Content about sports event", image: "https://placehold.co/600x400/sports-event.png" },
+    { id: 3, title: "Art Exhibition", author: "Bob Johnson", date: "2023-05-13", content: "Content about art exhibition", image: "https://placehold.co/600x400/art-exhibition.png" }
   ],
   
   reports: [
@@ -70,36 +70,6 @@ const dataStore = {
       email: "user5@example.com", 
       comment: "Perfect! Exactly what I was looking for.", 
       date: "2023-05-11" 
-    },
-    { 
-      id: 6, 
-      email: "user6@example.com", 
-      comment: "The interface could be more intuitive.", 
-      date: "2023-05-10" 
-    },
-    { 
-      id: 7, 
-      email: "user7@example.com", 
-      comment: "Excellent customer support.", 
-      date: "2023-05-09" 
-    },
-    { 
-      id: 8, 
-      email: "user8@example.com", 
-      comment: "Would recommend to others.", 
-      date: "2023-05-08" 
-    },
-    { 
-      id: 9, 
-      email: "user9@example.com", 
-      comment: "Needs more features.", 
-      date: "2023-05-07" 
-    },
-    { 
-      id: 10, 
-      email: "user10@example.com", 
-      comment: "Very satisfied with the service.", 
-      date: "2023-05-06" 
     }
   ]
 };
@@ -127,7 +97,8 @@ const state = {
     reports: '',
     suspendedUsers: '',
     feedback: ''
-  }
+  },
+  previewImage: null
 };
 
 // ==============================================
@@ -143,7 +114,7 @@ const elements = {
   
   // Search and filter
   searchInputs: {
-    tags: document.getElementById('reportSearch'),
+    tags: document.getElementById('tagSearch'),
     posts: document.getElementById('postSearch'),
     reports: document.getElementById('reportSearch'),
     suspendedUsers: document.getElementById('suspendedUserSearch'),
@@ -160,7 +131,8 @@ const elements = {
     suspend: document.getElementById('suspendModal'),
     createPost: document.getElementById('createPostModal'),
     viewFeedback: document.getElementById('viewFeedbackModal'),
-    editPost: document.getElementById('editPostModal')
+    editPost: document.getElementById('editPostModal'),
+    createTag: document.getElementById('createTagModal')
   },
   
   // Forms
@@ -168,7 +140,18 @@ const elements = {
     editTag: document.getElementById('editTagForm'),
     suspendUser: document.getElementById('suspendForm'),
     createPost: document.getElementById('createPostForm'),
-    editPost: document.getElementById('editPostForm')
+    editPost: document.getElementById('editPostForm'),
+    createTag: document.getElementById('createTagForm')
+  },
+  
+  // Image upload
+  imageUpload: {
+    input: document.getElementById('postImage'),
+    preview: document.getElementById('imagePreview'),
+    removeBtn: document.getElementById('removeImageBtn'),
+    editInput: document.getElementById('editPostImage'),
+    editPreview: document.getElementById('editImagePreview'),
+    editRemoveBtn: document.getElementById('editRemoveImageBtn')
   }
 };
 
@@ -178,6 +161,7 @@ const elements = {
 function initialize() {
   loadInitialData();
   setupEventListeners();
+  setupEditPostListeners();
   showSection(state.activeSection);
 }
 
@@ -208,604 +192,782 @@ function setupEventListeners() {
   // Modal forms
   setupModalForms();
 
+  // Image upload handling
+  setupImageUpload();
+
   // Close modal when clicking outside
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('fixed') && 
-    e.target.classList.contains('bg-black') && 
-    e.target.classList.contains('bg-opacity-50')) {
-  closeModal(e.target.id);
+        e.target.classList.contains('bg-black') && 
+        e.target.classList.contains('bg-opacity-50')) {
+      closeModal(e.target.id);
+    }
+  });
 }
-});
+
+function setupImageUpload() {
+  if (elements.imageUpload.input) {
+    elements.imageUpload.input.addEventListener('change', handleImageUpload);
+  }
+  
+  if (elements.imageUpload.removeBtn) {
+    elements.imageUpload.removeBtn.addEventListener('click', removeImage);
+  }
+}
+
+function setupEditPostListeners() {
+  // Edit image upload
+  if (elements.imageUpload.editInput) {
+    elements.imageUpload.editInput.addEventListener('change', handleEditImageUpload);
+  }
+  
+  // Edit remove image button
+  if (elements.imageUpload.editRemoveBtn) {
+    elements.imageUpload.editRemoveBtn.addEventListener('click', removeEditImage);
+  }
+}
+
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.match('image.*')) {
+    alert('Please select an image file');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    state.previewImage = event.target.result;
+    updateImagePreview();
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleEditImageUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (!file.type.match('image.*')) {
+    alert('Please select an image file');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    state.previewImage = event.target.result;
+    updateEditImagePreview();
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateImagePreview() {
+  if (state.previewImage) {
+    elements.imageUpload.preview.innerHTML = `
+      <img src="${state.previewImage}" alt="Preview" class="max-w-full h-auto rounded-md">
+    `;
+    elements.imageUpload.preview.classList.remove('hidden');
+    elements.imageUpload.removeBtn.classList.remove('hidden');
+  } else {
+    elements.imageUpload.preview.innerHTML = '';
+    elements.imageUpload.preview.classList.add('hidden');
+    elements.imageUpload.removeBtn.classList.add('hidden');
+  }
+}
+
+function updateEditImagePreview() {
+  if (state.previewImage) {
+    elements.imageUpload.editPreview.innerHTML = `
+      <img src="${state.previewImage}" alt="Preview" class="max-w-full h-auto rounded-md">
+    `;
+    elements.imageUpload.editPreview.classList.remove('hidden');
+    elements.imageUpload.editRemoveBtn.classList.remove('hidden');
+  } else {
+    elements.imageUpload.editPreview.innerHTML = '';
+    elements.imageUpload.editPreview.classList.add('hidden');
+    elements.imageUpload.editRemoveBtn.classList.add('hidden');
+  }
+}
+
+function removeImage() {
+  state.previewImage = null;
+  elements.imageUpload.input.value = '';
+  updateImagePreview();
+}
+
+function removeEditImage() {
+  state.previewImage = null;
+  elements.imageUpload.editInput.value = '';
+  updateEditImagePreview();
 }
 
 // ==============================================
 // MODAL FUNCTIONS
 // ==============================================
 function openModal(modalId) {
-// Close all modals first
-Object.values(elements.modals).forEach(modal => {
-if (modal) modal.classList.add('hidden');
-});
+  Object.values(elements.modals).forEach(modal => {
+    if (modal) modal.classList.add('hidden');
+  });
 
-// Open the requested modal
-const modal = elements.modals[modalId];
-if (modal) {
-modal.classList.remove('hidden');
-}
+  const modal = elements.modals[modalId];
+  if (modal) {
+    modal.classList.remove('hidden');
+  }
 }
 
 function closeModal(modalId) {
-const modal = typeof modalId === 'string' 
-? document.getElementById(modalId) 
-: modalId;
+  const modal = typeof modalId === 'string' 
+    ? document.getElementById(modalId) 
+    : modalId;
 
-if (modal) {
-modal.classList.add('hidden');
-}
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+  
+  if (modalId === 'createPostModal' || modalId === 'editPostModal') {
+    state.previewImage = null;
+    if (elements.imageUpload.input) elements.imageUpload.input.value = '';
+    if (elements.imageUpload.editInput) elements.imageUpload.editInput.value = '';
+    updateImagePreview();
+    updateEditImagePreview();
+  }
 }
 
 // ==============================================
 // DATA LOADING FUNCTIONS
 // ==============================================
 function loadTags(page = 1) {
-state.currentPage.tags = page;
-const filteredData = filterData(dataStore.tags, state.searchTerm.tags, ['name']);
-renderTable({
-data: filteredData,
-container: elements.tagsTable,
-columns: [
-  { key: 'id', header: 'ID' },
-  { key: 'name', header: 'Name' },
-  { 
-    key: 'icon', 
-    header: 'Icon',
-    render: (value) => `<img src="${value}" alt="Icon" class="w-6 h-6">`
-  },
-  {
-    key: 'actions',
-    header: 'Actions',
-    render: (_, row) => `
-      <button onclick="openEditModal(${row.id}, 'tag')" class="text-blue-500 hover:text-blue-700 mr-2">
-        <i class="fas fa-edit"></i>
-      </button>
-      <button onclick="deleteItem(${row.id}, 'tag')" class="text-red-500 hover:text-red-700">
-        <i class="fas fa-trash"></i>
-      </button>
-    `
-  }
-],
-type: 'tags'
-});
+  state.currentPage.tags = page;
+  const filteredData = filterData(dataStore.tags, state.searchTerm.tags, ['name']);
+  renderTable({
+    data: filteredData,
+    container: elements.tagsTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'name', header: 'Name' },
+      { 
+        key: 'icon', 
+        header: 'Icon',
+        render: (value) => `<img src="${value}" alt="Icon" class="w-6 h-6">`
+      },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="openEditModal(${row.id}, 'tag')" class="text-blue-500 hover:text-blue-700 mr-2">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button onclick="deleteItem(${row.id}, 'tag')" class="text-red-500 hover:text-red-700">
+            <i class="fas fa-trash"></i>
+          </button>
+        `
+      }
+    ],
+    type: 'tags'
+  });
 }
 
 function loadPosts(page = 1) {
-state.currentPage.posts = page;
-const filteredData = filterData(dataStore.posts, state.searchTerm.posts, ['title', 'author']);
-renderTable({
-data: filteredData,
-container: elements.postsTable,
-columns: [
-  { key: 'id', header: 'ID' },
-  { key: 'title', header: 'Title' },
-  { key: 'author', header: 'Author' },
-  { key: 'date', header: 'Date' },
-  {
-    key: 'actions',
-    header: 'Actions',
-    render: (_, row) => `
-      <button onclick="openEditPostModal(${row.id})" class="text-blue-500 hover:text-blue-700 mr-2">
-        <i class="fas fa-edit"></i> Edit
-      </button>
-      <button onclick="deleteItem(${row.id}, 'post')" class="text-red-500 hover:text-red-700">
-        <i class="fas fa-trash"></i> Delete
-      </button>
-    `
-  }
-],
-type: 'posts'
-});
+  state.currentPage.posts = page;
+  const filteredData = filterData(dataStore.posts, state.searchTerm.posts, ['title', 'author']);
+  renderTable({
+    data: filteredData,
+    container: elements.postsTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'title', header: 'Title' },
+      { key: 'author', header: 'Author' },
+      { key: 'date', header: 'Date' },
+      { 
+        key: 'image', 
+        header: 'Image',
+        render: (value) => value ? `<img src="${value}" alt="Post" class="w-16 h-10 object-cover rounded">` : 'No image'
+      },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="openEditPostModal(${row.id})" class="text-blue-500 hover:text-blue-700 mr-2">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button onclick="deleteItem(${row.id}, 'post')" class="text-red-500 hover:text-red-700">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        `
+      }
+    ],
+    type: 'posts'
+  });
 }
 
 function loadReports(page = 1) {
-state.currentPage.reports = page;
-let filteredData = [...dataStore.reports];
+  state.currentPage.reports = page;
+  let filteredData = [...dataStore.reports];
 
-// Apply filter
-if (state.currentFilter.reports !== 'all') {
-filteredData = filteredData.filter(report => report.status === state.currentFilter.reports);
-}
-
-// Apply search
-filteredData = filterData(filteredData, state.searchTerm.reports, ['reportedUser', 'reporter', 'reason']);
-
-renderTable({
-data: filteredData,
-container: elements.reportsTable,
-columns: [
-  { key: 'id', header: 'ID' },
-  { key: 'reportedUser', header: 'Reported User' },
-  { key: 'reporter', header: 'Reporter' },
-  { key: 'reason', header: 'Reason' },
-  { 
-    key: 'status', 
-    header: 'Status',
-    render: (value) => `
-      <span class="px-2 py-1 text-xs rounded-full ${
-        value === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-        value === 'reviewed' ? 'bg-blue-100 text-blue-800' :
-        'bg-green-100 text-green-800'
-      }">${value}</span>
-    `
-  },
-  { key: 'date', header: 'Date' },
-  {
-    key: 'actions',
-    header: 'Actions',
-    render: (_, row) => `
-      <button onclick="reviewReport(${row.id})" class="text-blue-500 hover:text-blue-700 mr-2">
-        <i class="fas fa-eye"></i>
-      </button>
-      <button onclick="resolveReport(${row.id})" class="text-green-500 hover:text-green-700 mr-2">
-        <i class="fas fa-check"></i>
-      </button>
-      <button onclick="openSuspendModal('${row.reportedUser}')" class="text-red-500 hover:text-red-700 mr-2">
-        <i class="fas fa-ban"></i>
-      </button>
-    `
+  if (state.currentFilter.reports !== 'all') {
+    filteredData = filteredData.filter(report => report.status === state.currentFilter.reports);
   }
-],
-type: 'reports'
-});
+
+  filteredData = filterData(filteredData, state.searchTerm.reports, ['reportedUser', 'reporter', 'reason']);
+
+  renderTable({
+    data: filteredData,
+    container: elements.reportsTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'reportedUser', header: 'Reported User' },
+      { key: 'reporter', header: 'Reporter' },
+      { key: 'reason', header: 'Reason' },
+      { 
+        key: 'status', 
+        header: 'Status',
+        render: (value) => `
+          <span class="px-2 py-1 text-xs rounded-full ${
+            value === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+            value === 'reviewed' ? 'bg-blue-100 text-blue-800' :
+            'bg-green-100 text-green-800'
+          }">${value}</span>
+        `
+      },
+      { key: 'date', header: 'Date' },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="reviewReport(${row.id})" class="text-blue-500 hover:text-blue-700 mr-2">
+            <i class="fas fa-eye"></i>
+          </button>
+          <button onclick="resolveReport(${row.id})" class="text-green-500 hover:text-green-700 mr-2">
+            <i class="fas fa-check"></i>
+          </button>
+          <button onclick="openSuspendModal('${row.reportedUser}')" class="text-red-500 hover:text-red-700 mr-2">
+            <i class="fas fa-ban"></i>
+          </button>
+        `
+      }
+    ],
+    type: 'reports'
+  });
 }
 
 function loadSuspendedUsers(page = 1) {
-state.currentPage.suspendedUsers = page;
-const filteredData = filterData(dataStore.suspendedUsers, state.searchTerm.suspendedUsers, ['username', 'reason', 'suspendedBy']);
-renderTable({
-data: filteredData,
-container: elements.suspendedUsersTable,
-columns: [
-  { key: 'id', header: 'ID' },
-  { key: 'username', header: 'Username' },
-  { key: 'reason', header: 'Reason' },
-  { key: 'suspendedBy', header: 'Suspended By' },
-  { key: 'date', header: 'Date' },
-  { key: 'duration', header: 'Duration' },
-  {
-    key: 'actions',
-    header: 'Actions',
-    render: (_, row) => `
-      <button onclick="unsuspendUser(${row.id})" class="text-green-500 hover:text-green-700">
-        <i class="fas fa-unlock"></i>
-      </button>
-    `
-  }
-],
-type: 'suspended-users'
-});
+  state.currentPage.suspendedUsers = page;
+  const filteredData = filterData(dataStore.suspendedUsers, state.searchTerm.suspendedUsers, ['username', 'reason', 'suspendedBy']);
+  renderTable({
+    data: filteredData,
+    container: elements.suspendedUsersTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'username', header: 'Username' },
+      { key: 'reason', header: 'Reason' },
+      { key: 'suspendedBy', header: 'Suspended By' },
+      { key: 'date', header: 'Date' },
+      { key: 'duration', header: 'Duration' },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="unsuspendUser(${row.id})" class="text-green-500 hover:text-green-700">
+            <i class="fas fa-unlock"></i>
+          </button>
+        `
+      }
+    ],
+    type: 'suspended-users'
+  });
 }
 
 function loadFeedback(page = 1) {
-state.currentPage.feedback = page;
-const filteredData = filterData(dataStore.feedbacks, state.searchTerm.feedback, ['email', 'comment']);
+  state.currentPage.feedback = page;
+  const filteredData = filterData(dataStore.feedbacks, state.searchTerm.feedback, ['email', 'comment']);
 
-renderTable({
-data: filteredData,
-container: elements.feedbackTable,
-columns: [
-  { key: 'id', header: 'ID' },
-  { key: 'email', header: 'Email' },
-  { 
-    key: 'comment', 
-    header: 'Comment',
-    render: (value) => value.length > 50 ? value.substring(0, 50) + '...' : value
-  },
-  { key: 'date', header: 'Date' },
-  {
-    key: 'actions',
-    header: 'Actions',
-    render: (_, row) => `
-      <button onclick="viewFeedbackDetails(${row.id})" class="text-blue-500 hover:text-blue-700">
-        <i class="fas fa-eye"></i>
-      </button>
-    `
-  }
-],
-type: 'feedback'
-});
+  renderTable({
+    data: filteredData,
+    container: elements.feedbackTable,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'email', header: 'Email' },
+      { 
+        key: 'comment', 
+        header: 'Comment',
+        render: (value) => value.length > 50 ? value.substring(0, 50) + '...' : value
+      },
+      { key: 'date', header: 'Date' },
+      {
+        key: 'actions',
+        header: 'Actions',
+        render: (_, row) => `
+          <button onclick="viewFeedbackDetails(${row.id})" class="text-blue-500 hover:text-blue-700">
+            <i class="fas fa-eye"></i>
+          </button>
+        `
+      }
+    ],
+    type: 'feedback'
+  });
 }
 
 // ==============================================
 // RENDER FUNCTIONS
 // ==============================================
 function renderTable(options) {
-const { data, container, columns, type } = options;
-const startIndex = (state.currentPage[type] - 1) * state.itemsPerPage;
-const endIndex = Math.min(startIndex + state.itemsPerPage, data.length);
+  const { data, container, columns, type } = options;
+  const startIndex = (state.currentPage[type] - 1) * state.itemsPerPage;
+  const endIndex = Math.min(startIndex + state.itemsPerPage, data.length);
 
-container.innerHTML = '';
+  container.innerHTML = '';
 
-for (let i = startIndex; i < endIndex; i++) {
-const item = data[i];
-const row = document.createElement('tr');
-row.className = 'hover-row';
+  for (let i = startIndex; i < endIndex; i++) {
+    const item = data[i];
+    const row = document.createElement('tr');
+    row.className = 'hover-row';
 
-columns.forEach(col => {
-  const cell = document.createElement('td');
-  cell.className = 'py-3 px-4 border';
-  const value = item[col.key];
-  cell.innerHTML = col.render ? col.render(value, item) : value;
-  row.appendChild(cell);
-});
+    columns.forEach(col => {
+      const cell = document.createElement('td');
+      cell.className = 'py-3 px-4 border';
+      const value = item[col.key];
+      cell.innerHTML = col.render ? col.render(value, item) : value;
+      row.appendChild(cell);
+    });
 
-container.appendChild(row);
-}
+    container.appendChild(row);
+  }
 
-updatePaginationInfo(type, startIndex + 1, endIndex, data.length);
-renderPagination(type, Math.ceil(data.length / state.itemsPerPage));
+  updatePaginationInfo(type, startIndex + 1, endIndex, data.length);
+  renderPagination(type, Math.ceil(data.length / state.itemsPerPage));
 }
 
 function renderPagination(type, totalPages) {
-const pageNumbersContainer = document.getElementById(`${type}-page-numbers`);
-const prevButton = document.getElementById(`${type}-prev-page`);
-const nextButton = document.getElementById(`${type}-next-page`);
+  const pageNumbersContainer = document.getElementById(`${type}-page-numbers`);
+  const prevButton = document.getElementById(`${type}-prev-page`);
+  const nextButton = document.getElementById(`${type}-next-page`);
 
-pageNumbersContainer.innerHTML = '';
+  pageNumbersContainer.innerHTML = '';
 
-// Previous button
-prevButton.disabled = state.currentPage[type] === 1;
-prevButton.onclick = () => {
-if (state.currentPage[type] > 1) {
-  state.currentPage[type]--;
-  loadDataForCurrentSection();
-}
-};
+  prevButton.disabled = state.currentPage[type] === 1;
+  prevButton.onclick = () => {
+    if (state.currentPage[type] > 1) {
+      state.currentPage[type]--;
+      loadDataForCurrentSection();
+    }
+  };
 
-// Page numbers
-const maxVisiblePages = 5;
-let startPage = Math.max(1, state.currentPage[type] - Math.floor(maxVisiblePages / 2));
-let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  const maxVisiblePages = 5;
+  let startPage = Math.max(1, state.currentPage[type] - Math.floor(maxVisiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
-if (endPage - startPage + 1 < maxVisiblePages) {
-startPage = Math.max(1, endPage - maxVisiblePages + 1);
-}
+  if (endPage - startPage + 1 < maxVisiblePages) {
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  }
 
-// First page button
-if (startPage > 1) {
-const firstButton = document.createElement('button');
-firstButton.textContent = '1';
-firstButton.className = 'px-3 py-1 border rounded-md bg-white text-gray-700';
-firstButton.addEventListener('click', () => {
-  state.currentPage[type] = 1;
-  loadDataForCurrentSection();
-});
-pageNumbersContainer.appendChild(firstButton);
+  if (startPage > 1) {
+    const firstButton = document.createElement('button');
+    firstButton.textContent = '1';
+    firstButton.className = 'px-3 py-1 border rounded-md bg-white text-gray-700';
+    firstButton.addEventListener('click', () => {
+      state.currentPage[type] = 1;
+      loadDataForCurrentSection();
+    });
+    pageNumbersContainer.appendChild(firstButton);
 
-if (startPage > 2) {
-  const ellipsis = document.createElement('span');
-  ellipsis.textContent = '...';
-  ellipsis.className = 'px-2 py-1';
-  pageNumbersContainer.appendChild(ellipsis);
-}
-}
+    if (startPage > 2) {
+      const ellipsis = document.createElement('span');
+      ellipsis.textContent = '...';
+      ellipsis.className = 'px-2 py-1';
+      pageNumbersContainer.appendChild(ellipsis);
+    }
+  }
 
-// Page number buttons
-for (let i = startPage; i <= endPage; i++) {
-const pageButton = document.createElement('button');
-pageButton.textContent = i;
-pageButton.className = `px-3 py-1 border rounded-md ${
-  i === state.currentPage[type] ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'
-}`;
-pageButton.addEventListener('click', () => {
-  state.currentPage[type] = i;
-  loadDataForCurrentSection();
-});
-pageNumbersContainer.appendChild(pageButton);
-}
+  for (let i = startPage; i <= endPage; i++) {
+    const pageButton = document.createElement('button');
+    pageButton.textContent = i;
+    pageButton.className = `px-3 py-1 border rounded-md ${
+      i === state.currentPage[type] ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'
+    }`;
+    pageButton.addEventListener('click', () => {
+      state.currentPage[type] = i;
+      loadDataForCurrentSection();
+    });
+    pageNumbersContainer.appendChild(pageButton);
+  }
 
-// Last page button
-if (endPage < totalPages) {
-if (endPage < totalPages - 1) {
-  const ellipsis = document.createElement('span');
-  ellipsis.textContent = '...';
-  ellipsis.className = 'px-2 py-1';
-  pageNumbersContainer.appendChild(ellipsis);
-}
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      const ellipsis = document.createElement('span');
+      ellipsis.textContent = '...';
+      ellipsis.className = 'px-2 py-1';
+      pageNumbersContainer.appendChild(ellipsis);
+    }
 
-const lastButton = document.createElement('button');
-lastButton.textContent = totalPages;
-lastButton.className = 'px-3 py-1 border rounded-md bg-white text-gray-700';
-lastButton.addEventListener('click', () => {
-  state.currentPage[type] = totalPages;
-  loadDataForCurrentSection();
-});
-pageNumbersContainer.appendChild(lastButton);
-}
+    const lastButton = document.createElement('button');
+    lastButton.textContent = totalPages;
+    lastButton.className = 'px-3 py-1 border rounded-md bg-white text-gray-700';
+    lastButton.addEventListener('click', () => {
+      state.currentPage[type] = totalPages;
+      loadDataForCurrentSection();
+    });
+    pageNumbersContainer.appendChild(lastButton);
+  }
 
-// Next button
-nextButton.disabled = state.currentPage[type] === totalPages;
-nextButton.onclick = () => {
-if (state.currentPage[type] < totalPages) {
-  state.currentPage[type]++;
-  loadDataForCurrentSection();
-}
-};
+  nextButton.disabled = state.currentPage[type] === totalPages;
+  nextButton.onclick = () => {
+    if (state.currentPage[type] < totalPages) {
+      state.currentPage[type]++;
+      loadDataForCurrentSection();
+    }
+  };
 }
 
 // ==============================================
 // UTILITY FUNCTIONS
 // ==============================================
 function filterData(data, searchTerm, searchFields) {
-if (!searchTerm) return data;
+  if (!searchTerm) return data;
 
-const term = searchTerm.toLowerCase();
-return data.filter(item => 
-searchFields.some(field => 
-  String(item[field]).toLowerCase().includes(term)
-)
-);
+  const term = searchTerm.toLowerCase();
+  return data.filter(item => 
+    searchFields.some(field => 
+      String(item[field]).toLowerCase().includes(term))
+  );
 }
 
 function updatePaginationInfo(type, start, end, total) {
-document.getElementById(`${type}-pagination-start`).textContent = start;
-document.getElementById(`${type}-pagination-end`).textContent = end;
-document.getElementById(`${type}-pagination-total`).textContent = total;
+  document.getElementById(`${type}-pagination-start`).textContent = start;
+  document.getElementById(`${type}-pagination-end`).textContent = end;
+  document.getElementById(`${type}-pagination-total`).textContent = total;
 }
 
 function loadDataForCurrentSection() {
-switch(state.activeSection) {
-case 'tasks': loadTags(state.currentPage.tags); break;
-case 'posts': loadPosts(state.currentPage.posts); break;
-case 'suspended-users': 
-  loadReports(state.currentPage.reports); 
-  loadSuspendedUsers(state.currentPage.suspendedUsers); 
-  break;
-case 'feedback': loadFeedback(state.currentPage.feedback); break;
-}
+  switch(state.activeSection) {
+    case 'tasks': loadTags(state.currentPage.tags); break;
+    case 'posts': loadPosts(state.currentPage.posts); break;
+    case 'suspended-users': 
+      loadReports(state.currentPage.reports); 
+      loadSuspendedUsers(state.currentPage.suspendedUsers); 
+      break;
+    case 'feedback': loadFeedback(state.currentPage.feedback); break;
+  }
 }
 
 function setupSearchAndFilter() {
-// Search functionality
-Object.entries(elements.searchInputs).forEach(([type, input]) => {
-if (input) {
-  input.addEventListener('input', (e) => {
-    state.searchTerm[type] = e.target.value;
-    state.currentPage[type] = 1; // Reset to first page when searching
-    loadDataForCurrentSection();
+  Object.entries(elements.searchInputs).forEach(([type, input]) => {
+    if (input) {
+      input.addEventListener('input', (e) => {
+        state.searchTerm[type] = e.target.value;
+        state.currentPage[type] = 1;
+        loadDataForCurrentSection();
+      });
+    }
   });
-}
-});
 
-// Report filter
-if (elements.filters.reports) {
-elements.filters.reports.addEventListener('change', (e) => {
-  state.currentFilter.reports = e.target.value;
-  state.currentPage.reports = 1;
-  loadReports();
-});
-}
+  if (elements.filters.reports) {
+    elements.filters.reports.addEventListener('change', (e) => {
+      state.currentFilter.reports = e.target.value;
+      state.currentPage.reports = 1;
+      loadReports();
+    });
+  }
 }
 
 function setupModalForms() {
-// Edit tag form
-if (elements.forms.editTag) {
-elements.forms.editTag.addEventListener('submit', handleEditTag);
-}
+  if (elements.forms.editTag) {
+    elements.forms.editTag.addEventListener('submit', handleEditTag);
+  }
 
-// Suspend user form
-if (elements.forms.suspendUser) {
-elements.forms.suspendUser.addEventListener('submit', handleSuspendUser);
-}
+  if (elements.forms.suspendUser) {
+    elements.forms.suspendUser.addEventListener('submit', handleSuspendUser);
+  }
 
-// Create post form
-if (elements.forms.createPost) {
-elements.forms.createPost.addEventListener('submit', handleCreatePost);
-}
+  if (elements.forms.createPost) {
+    elements.forms.createPost.addEventListener('submit', handleCreatePost);
+  }
 
-// Edit post form
-if (elements.forms.editPost) {
-elements.forms.editPost.addEventListener('submit', handleEditPost);
-}
+  if (elements.forms.editPost) {
+    elements.forms.editPost.addEventListener('submit', handleEditPost);
+  }
+
+  if (elements.forms.createTag) {
+    elements.forms.createTag.addEventListener('submit', handleCreateTag);
+  }
 }
 
 // ==============================================
 // UI FUNCTIONS
 // ==============================================
 function showSection(sectionId) {
-// Hide all sections
-document.querySelectorAll('[id$="-section"]').forEach(section => {
-section.classList.add('hidden');
-});
+  document.querySelectorAll('[id$="-section"]').forEach(section => {
+    section.classList.add('hidden');
+  });
 
-// Show selected section
-document.getElementById(`${sectionId}-section`).classList.remove('hidden');
-state.activeSection = sectionId;
+  document.getElementById(`${sectionId}-section`).classList.remove('hidden');
+  state.activeSection = sectionId;
 
-// Load data for the section
-loadDataForCurrentSection();
+  loadDataForCurrentSection();
 }
 
 function toggleProfileDropdown() {
-document.getElementById('profileDropdown').classList.toggle('show');
+  document.getElementById('profileDropdown').classList.toggle('show');
 }
 
 function closeProfileDropdown(e) {
-if (!e.target.closest('#profileDropdownBtn') && !e.target.closest('#profileDropdown')) {
-document.getElementById('profileDropdown').classList.remove('show');
+  if (!e.target.closest('#profileDropdownBtn') && !e.target.closest('#profileDropdown')) {
+    document.getElementById('profileDropdown').classList.remove('show');
+  }
 }
+
+function showToast(message, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = `fixed top-4 right-4 px-4 py-2 rounded-md shadow-md text-white ${
+    type === 'success' ? 'bg-green-500' : 
+    type === 'error' ? 'bg-red-500' : 
+    'bg-blue-500'
+  }`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+    setTimeout(() => {
+      document.body.removeChild(toast);
+    }, 300);
+  }, 3000);
 }
 
 // ==============================================
 // ACTION FUNCTIONS
 // ==============================================
 function openEditModal(id, type) {
-let item;
-switch(type) {
-case 'tag':
-  item = dataStore.tags.find(t => t.id === id);
-  if (item) {
-    document.getElementById('editTagId').value = item.id;
-    document.getElementById('editTagName').value = item.name;
-    document.getElementById('editTagIcon').value = item.icon;
-    openModal('edit');
+  let item;
+  switch(type) {
+    case 'tag':
+      item = dataStore.tags.find(t => t.id === id);
+      if (item) {
+        document.getElementById('editTagId').value = item.id;
+        document.getElementById('editTagName').value = item.name;
+        document.getElementById('editTagIcon').value = item.icon;
+        openModal('edit');
+      }
+      break;
   }
-  break;
-}
 }
 
 function openEditPostModal(id) {
-const post = dataStore.posts.find(p => p.id === id);
-if (post) {
-document.getElementById('editPostId').value = post.id;
-document.getElementById('editPostTitle').value = post.title;
-document.getElementById('editPostAuthor').value = post.author;
-document.getElementById('editPostContent').value = post.content;
-document.getElementById('editPostDate').value = post.date;
+  const post = dataStore.posts.find(p => p.id === id);
+  if (post) {
+    document.getElementById('editPostId').value = post.id;
+    document.getElementById('editPostTitle').value = post.title;
+    document.getElementById('editPostAuthor').value = post.author;
+    document.getElementById('editPostContent').value = post.content;
+    document.getElementById('editPostDate').value = post.date;
 
-openModal('editPost');
-}
+    state.previewImage = post.image;
+    updateEditImagePreview();
+
+    openModal('editPost');
+  }
 }
 
 function openCreatePostModal() {
-openModal('createPost');
+  openModal('createPost');
+}
+
+function openCreateTagModal() {
+  openModal('createTag');
 }
 
 function openSuspendModal(username) {
-document.getElementById('suspendUserId').value = username;
-openModal('suspend');
+  document.getElementById('suspendUserId').value = username;
+  openModal('suspend');
 }
 
 function viewFeedbackDetails(id) {
-const feedback = dataStore.feedbacks.find(f => f.id === id);
-if (feedback) {
-document.getElementById('feedbackEmail').textContent = feedback.email;
-document.getElementById('feedbackComment').textContent = feedback.comment;
-document.getElementById('feedbackDate').textContent = feedback.date;
-openModal('viewFeedback');
-}
+  const feedback = dataStore.feedbacks.find(f => f.id === id);
+  if (feedback) {
+    document.getElementById('feedbackEmail').textContent = feedback.email;
+    document.getElementById('feedbackComment').textContent = feedback.comment;
+    document.getElementById('feedbackDate').textContent = feedback.date;
+    openModal('viewFeedback');
+  }
 }
 
 function deleteItem(id, type) {
-if (!confirm(`Are you sure you want to delete this ${type}?`)) return;
+  if (!confirm(`Are you sure you want to delete this ${type}?`)) return;
 
-let collection;
-switch(type) {
-case 'tag': collection = dataStore.tags; break;
-case 'post': collection = dataStore.posts; break;
-default: return;
+  let collection;
+  switch(type) {
+    case 'tag': collection = dataStore.tags; break;
+    case 'post': collection = dataStore.posts; break;
+    default: return;
+  }
+
+  const index = collection.findIndex(item => item.id === id);
+  if (index !== -1) {
+    collection.splice(index, 1);
+    loadDataForCurrentSection();
+    showToast(`${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`);
+  }
 }
 
-const index = collection.findIndex(item => item.id === id);
-if (index !== -1) {
-collection.splice(index, 1);
-loadDataForCurrentSection();
-}
+function deletePost(id) {
+  deleteItem(id, 'post');
 }
 
 function reviewReport(id) {
-const report = dataStore.reports.find(r => r.id === id);
-if (report) {
-report.status = 'reviewed';
-loadReports();
-}
+  const report = dataStore.reports.find(r => r.id === id);
+  if (report) {
+    report.status = 'reviewed';
+    loadReports();
+    showToast('Report marked as reviewed');
+  }
 }
 
 function resolveReport(id) {
-const report = dataStore.reports.find(r => r.id === id);
-if (report) {
-report.status = 'resolved';
-loadReports();
-}
+  const report = dataStore.reports.find(r => r.id === id);
+  if (report) {
+    report.status = 'resolved';
+    loadReports();
+    showToast('Report resolved successfully');
+  }
 }
 
 function unsuspendUser(id) {
-if (!confirm('Are you sure you want to unsuspend this user?')) return;
+  if (!confirm('Are you sure you want to unsuspend this user?')) return;
 
-const index = dataStore.suspendedUsers.findIndex(u => u.id === id);
-if (index !== -1) {
-dataStore.suspendedUsers.splice(index, 1);
-loadSuspendedUsers();
-}
+  const index = dataStore.suspendedUsers.findIndex(u => u.id === id);
+  if (index !== -1) {
+    dataStore.suspendedUsers.splice(index, 1);
+    loadSuspendedUsers();
+    showToast('User unsuspended successfully');
+  }
 }
 
 // ==============================================
 // FORM HANDLERS
 // ==============================================
 function handleEditTag(e) {
-e.preventDefault();
-const id = parseInt(document.getElementById('editTagId').value);
-const name = document.getElementById('editTagName').value;
-const icon = document.getElementById('editTagIcon').value;
+  e.preventDefault();
+  const id = parseInt(document.getElementById('editTagId').value);
+  const name = document.getElementById('editTagName').value;
+  const icon = document.getElementById('editTagIcon').value;
 
-const tag = dataStore.tags.find(t => t.id === id);
-if (tag) {
-tag.name = name;
-tag.icon = icon;
-closeModal('editModal');
-loadTags();
+  const tagIndex = dataStore.tags.findIndex(t => t.id === id);
+  if (tagIndex !== -1) {
+    dataStore.tags[tagIndex] = {
+      ...dataStore.tags[tagIndex],
+      name,
+      icon
+    };
+    closeModal('editModal');
+    loadTags();
+    showToast('Tag updated successfully');
+  }
 }
+
+function handleCreateTag(e) {
+  e.preventDefault();
+  const name = document.getElementById('createTagName').value;
+  const icon = document.getElementById('createTagIcon').value;
+
+  const newId = dataStore.tags.length > 0 
+    ? Math.max(...dataStore.tags.map(t => t.id)) + 1 
+    : 1;
+
+  const newTag = {
+    id: newId,
+    name,
+    icon
+  };
+
+  dataStore.tags.push(newTag);
+  e.target.reset();
+  closeModal('createTagModal');
+  
+  const totalPages = Math.ceil(dataStore.tags.length / state.itemsPerPage);
+  state.currentPage.tags = totalPages;
+  loadTags(totalPages);
+  showToast('Tag created successfully');
 }
 
 function handleSuspendUser(e) {
-e.preventDefault();
-const username = document.getElementById('suspendUserId').value;
-const duration = document.getElementById('suspendDuration').value;
-const reason = document.getElementById('suspendReason').value;
+  e.preventDefault();
+  const username = document.getElementById('suspendUserId').value;
+  const duration = document.getElementById('suspendDuration').value;
+  const reason = document.getElementById('suspendReason').value;
 
-const newSuspend = {
-id: dataStore.suspendedUsers.length + 1,
-username: username,
-reason: reason,
-suspendedBy: "Admin",
-date: new Date().toISOString().split('T')[0],
-duration: duration === "0" ? "Permanent" : `${duration} days`
-};
+  const newId = dataStore.suspendedUsers.length > 0 
+    ? Math.max(...dataStore.suspendedUsers.map(u => u.id)) + 1 
+    : 1;
 
-dataStore.suspendedUsers.unshift(newSuspend);
-closeModal('suspendModal');
+  const newSuspend = {
+    id: newId,
+    username,
+    reason,
+    suspendedBy: "Admin",
+    date: new Date().toISOString().split('T')[0],
+    duration: duration === "0" ? "Permanent" : `${duration} days`
+  };
 
-// After suspending, automatically switch to suspended users section
-showSection('suspended-users');
-loadSuspendedUsers();
+  dataStore.suspendedUsers.unshift(newSuspend);
+  e.target.reset();
+  closeModal('suspendModal');
+  loadSuspendedUsers();
+  showToast('User suspended successfully');
 }
 
 function handleCreatePost(e) {
-e.preventDefault();
-const title = document.getElementById('postTitle').value;
-const content = document.getElementById('postContent').value;
-const author = document.getElementById('postAuthor').value;
+  e.preventDefault();
+  const title = document.getElementById('postTitle').value;
+  const content = document.getElementById('postContent').value;
+  const author = document.getElementById('postAuthor').value;
+  
+  const newId = dataStore.posts.length > 0 
+    ? Math.max(...dataStore.posts.map(p => p.id)) + 1 
+    : 1;
 
-const newPost = {
-id: Math.max(...dataStore.posts.map(p => p.id)) + 1,
-title,
-content,
-author,
-date: new Date().toISOString().split('T')[0]
-};
+  const newPost = {
+    id: newId,
+    title,
+    content,
+    author,
+    date: new Date().toISOString().split('T')[0],
+    image: state.previewImage || "https://placehold.co/600x400/default-post.png"
+  };
 
-dataStore.posts.unshift(newPost);
-closeModal('createPostModal');
-loadPosts();
+  dataStore.posts.push(newPost);
+  e.target.reset();
+  state.previewImage = null;
+  updateImagePreview();
+  closeModal('createPostModal');
+  
+  const totalPages = Math.ceil(dataStore.posts.length / state.itemsPerPage);
+  state.currentPage.posts = totalPages;
+  loadPosts(totalPages);
+  showToast('Post created successfully');
 }
 
 function handleEditPost(e) {
-e.preventDefault();
-const id = parseInt(document.getElementById('editPostId').value);
-const title = document.getElementById('editPostTitle').value;
-const author = document.getElementById('editPostAuthor').value;
-const content = document.getElementById('editPostContent').value;
-const date = document.getElementById('editPostDate').value;
+  e.preventDefault();
+  const id = parseInt(document.getElementById('editPostId').value);
+  const title = document.getElementById('editPostTitle').value;
+  const author = document.getElementById('editPostAuthor').value;
+  const content = document.getElementById('editPostContent').value;
+  const date = document.getElementById('editPostDate').value;
 
-const post = dataStore.posts.find(p => p.id === id);
-if (post) {
-post.title = title;
-post.author = author;
-post.content = content;
-post.date = date;
-
-closeModal('editPostModal');
-loadPosts();
-}
+  const postIndex = dataStore.posts.findIndex(p => p.id === id);
+  if (postIndex !== -1) {
+    dataStore.posts[postIndex] = {
+      ...dataStore.posts[postIndex],
+      title,
+      author,
+      content,
+      date,
+      image: state.previewImage || dataStore.posts[postIndex].image
+    };
+    
+    closeModal('editPostModal');
+    loadPosts();
+    showToast('Post updated successfully');
+  }
 }
 
 // ==============================================
@@ -820,96 +982,12 @@ window.showSection = showSection;
 window.openEditModal = openEditModal;
 window.openEditPostModal = openEditPostModal;
 window.openCreatePostModal = openCreatePostModal;
+window.openCreateTagModal = openCreateTagModal;
 window.openSuspendModal = openSuspendModal;
 window.closeModal = closeModal;
 window.deleteItem = deleteItem;
+window.deletePost = deletePost;
 window.reviewReport = reviewReport;
 window.resolveReport = resolveReport;
 window.unsuspendUser = unsuspendUser;
 window.viewFeedbackDetails = viewFeedbackDetails;
-function renderPagination(type, totalPages) {
-  const pageNumbersContainer = document.getElementById(`${type}-page-numbers`);
-  const prevButton = document.getElementById(`${type}-prev-page`);
-  const nextButton = document.getElementById(`${type}-next-page`);
-  
-  pageNumbersContainer.innerHTML = '';
-  
-  // Previous button
-  prevButton.disabled = state.currentPage[type] === 1;
-  prevButton.onclick = () => {
-    if (state.currentPage[type] > 1) {
-      state.currentPage[type]--;
-      loadDataForCurrentSection();
-    }
-  };
-  
-  // Page numbers
-  const maxVisiblePages = 5;
-  let startPage = Math.max(1, state.currentPage[type] - Math.floor(maxVisiblePages / 2));
-  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-  
-  if (endPage - startPage + 1 < maxVisiblePages) {
-    startPage = Math.max(1, endPage - maxVisiblePages + 1);
-  }
-  
-  // First page button
-  if (startPage > 1) {
-    const firstButton = document.createElement('button');
-    firstButton.textContent = '1';
-    firstButton.className = 'px-3 py-1 border rounded-md bg-white text-gray-700';
-    firstButton.addEventListener('click', () => {
-      state.currentPage[type] = 1;
-      loadDataForCurrentSection();
-    });
-    pageNumbersContainer.appendChild(firstButton);
-    
-    if (startPage > 2) {
-      const ellipsis = document.createElement('span');
-      ellipsis.textContent = '...';
-      ellipsis.className = 'px-2 py-1';
-      pageNumbersContainer.appendChild(ellipsis);
-    }
-  }
-  
-  // Page number buttons
-  for (let i = startPage; i <= endPage; i++) {
-    const pageButton = document.createElement('button');
-    pageButton.textContent = i;
-    pageButton.className = `px-3 py-1 border rounded-md ${
-      i === state.currentPage[type] ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'
-    }`;
-    pageButton.addEventListener('click', () => {
-      state.currentPage[type] = i;
-      loadDataForCurrentSection();
-    });
-    pageNumbersContainer.appendChild(pageButton);
-  }
-  
-  // Last page button
-  if (endPage < totalPages) {
-    if (endPage < totalPages - 1) {
-      const ellipsis = document.createElement('span');
-      ellipsis.textContent = '...';
-      ellipsis.className = 'px-2 py-1';
-      pageNumbersContainer.appendChild(ellipsis);
-    }
-    
-    const lastButton = document.createElement('button');
-    lastButton.textContent = totalPages;
-    lastButton.className = 'px-3 py-1 border rounded-md bg-white text-gray-700';
-    lastButton.addEventListener('click', () => {
-      state.currentPage[type] = totalPages;
-      loadDataForCurrentSection();
-    });
-    pageNumbersContainer.appendChild(lastButton);
-  }
-  
-  // Next button
-  nextButton.disabled = state.currentPage[type] === totalPages;
-  nextButton.onclick = () => {
-    if (state.currentPage[type] < totalPages) {
-      state.currentPage[type]++;
-      loadDataForCurrentSection();
-    }
-  };
-}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Survey Form</title>
+    <title>Survey Form Builder</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -62,13 +62,16 @@
             cursor: not-allowed;
         }
         
-        .answer-form .question-title {
-            font-weight: bold;
-            margin-bottom: 8px;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
-        .answer-form .question-item {
-            margin-bottom: 24px;
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
         }
     </style>
 </head>
@@ -76,26 +79,25 @@
     <!-- Form Builder View -->
     <div id="builderView">
         <div class="flex justify-between items-center p-4 bg-white shadow relative">
-            <div class="flex items-center space-x-2">
-                <img src="./img/logo-2.png" alt="Logo" class="rounded-full h-8 w-8">
-                <span id="formTitle" class="text-lg font-semibold editable-title">Survey Form</span>
+            <div class="logo-container">
+                <div class="bg-white p-1 rounded-full shadow">
+                    <img src="./img/logo-2.png" alt="Logo" class="logo-img">
+                </div>
+                <span id="formTitle" class="text-lg font-semibold editable-title">Survey Form Builder</span>
             </div>
-            <div class="flex items-center space-x-4">
-                <button id="publishBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded transition">Publish</button>
-                <button id="answerBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">Answer</button>
-                <!-- Profile section -->
-                <div class="relative">
-                    <div id="profileBtn" class="flex items-center space-x-2 cursor-pointer">
-                        <img src="https://placehold.co/40x40" alt="Profile" class="rounded-full h-8 w-8">
-                        <span class="hidden md:inline">User</span>
-                        <i class="fas fa-chevron-down text-gray-600 text-xs"></i>
-                    </div>
-                    
-                    <div id="profileDropdown" class="profile-dropdown">
-                        <a href="#"><i class="fas fa-user mr-2"></i> Profile</a>
-                        <a href="#"><i class="fas fa-cog mr-2"></i> Settings</a>
-                        <a href="#"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
-                    </div>
+            
+            <!-- Profile section -->
+            <div class="relative">
+                <div id="profileBtn" class="flex items-center space-x-2 cursor-pointer">
+                    <img src="https://placehold.co/40x40" alt="Profile" class="rounded-full h-8 w-8">
+                    <span class="hidden md:inline">User</span>
+                    <i class="fas fa-chevron-down text-gray-600 text-xs"></i>
+                </div>
+                
+                <div id="profileDropdown" class="profile-dropdown">
+                    <a href="#"><i class="fas fa-user mr-2"></i> Profile</a>
+                    <a href="#"><i class="fas fa-cog mr-2"></i> Settings</a>
+                    <a href="#"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
                 </div>
             </div>
         </div>
@@ -147,6 +149,13 @@
                         <span>Add Question</span>
                     </button>
                 </div>
+
+                <!-- Publish button moved down -->
+                <div class="mt-8 flex justify-center">
+                    <button id="publishBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition text-lg font-medium">
+                        Publish Survey
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -183,7 +192,7 @@
             const formTitle = document.getElementById('formTitle');
             const formMainTitle = document.getElementById('formMainTitle');
             
-            let originalFormTitle = "Survey Form";
+            let originalFormTitle = "Survey Form Builder";
             
             function setupEditableTitle(element) {
                 element.addEventListener('click', function() {
@@ -214,10 +223,10 @@
                 // Sync main title and toolbar title
                 if (element.id === 'formTitle') {
                     formMainTitle.textContent = newTitle;
-                    document.title = newTitle + " - Survey Form";
+                    document.title = newTitle + " - Survey Builder";
                 } else if (element.id === 'formMainTitle') {
                     formTitle.textContent = newTitle;
-                    document.title = newTitle + " - Survey Form";
+                    document.title = newTitle + " - Survey Builder";
                 }
             }
             
@@ -297,11 +306,17 @@
                     // Hide add options button
                     addOptionsContainer.style.display = 'none';
                     
-                    // Add paragraph input
-                    const textarea = document.createElement('textarea');
-                    textarea.className = 'paragraph-answer';
-                    textarea.placeholder = 'Long answer';
-                    optionsContainer.appendChild(textarea);
+                    // Add placeholder for paragraph answer with disabled styling
+                    const paragraphPlaceholder = document.createElement('div');
+                    paragraphPlaceholder.className = 'mt-2 bg-gray-100 rounded-md';
+                    paragraphPlaceholder.innerHTML = `
+                        <textarea 
+                            class="paragraph-answer bg-gray-50 border border-gray-200 focus:outline-none text-gray-500" 
+                            placeholder="Đây là nơi người trả lời sẽ nhập câu trả lời dài..." 
+                            disabled></textarea>
+                        <p class="text-xs text-gray-500 mt-1 italic">Người tham gia khảo sát sẽ nhập câu trả lời của họ tại đây</p>
+                    `;
+                    optionsContainer.appendChild(paragraphPlaceholder);
                 }
             }
             
@@ -462,21 +477,10 @@
                 
                 // Save form data to localStorage
                 localStorage.setItem('surveyFormData', JSON.stringify(formData));
-                alert('Form published successfully!');
+                alert('Survey published successfully! You can now create an answer page.');
             }
             
             publishBtn.addEventListener('click', publishForm);
-            
-            // ========== Answer button handling ==========
-            const answerBtn = document.getElementById('answerBtn');
-            
-            answerBtn.addEventListener('click', function() {
-                // First save the form
-                publishForm();
-                
-                // Then redirect to answer.html
-                window.location.href = 'answer.html';
-            });
             
             // Set up events for initial question
             const initialQuestion = document.querySelector('.question-item');
