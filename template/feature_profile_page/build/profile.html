@@ -19,7 +19,8 @@
                     <span class="hidden sm:inline">Menu</span>
                 </button>
                 <div class="flex items-center ml-12 sm:ml-20">
-                    <img src="./img/logo.png" alt="Logo" class="h-8 w-8 sm:h-12 sm:w-12">
+                    <a href="#">
+                    <img src="./img/logo.png" alt="Logo" class="h-12 w-12 md:h-16 md:w-16 "></a>
                 </div>
 
 
@@ -27,25 +28,29 @@
                     <a href="#"
                         class="fa-solid text-[--nav-icon-color] fa-house hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
                     <a href="#"
-                        class="fa-solid text-[--nav-icon-color] fa-heart hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
+                        class="relative fa-solid text-[--nav-icon-color] fa-heart hover:text-pink-400 md:text-xl lg:text-2xl text-md"><span
+                            class="absolute bg-red-500 h-2 w-2 rounded-full"></span></a>
                     <a href="#"
-                        class="fa-solid text-[--nav-icon-color] fa-message hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
+                        class="relative fa-solid text-[--nav-icon-color] fa-message hover:text-pink-400 md:text-xl lg:text-2xl text-md"><span
+                            class="absolute bg-red-500 h-2 w-2 rounded-full"></span></a>
                     <a href="#"
-                        class="fa-solid text-[--nav-icon-color] fa-bell hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
+                        class="relative fa-solid text-[--nav-icon-color] fa-bell hover:text-pink-400 md:text-xl lg:text-2xl text-md"><span
+                            class="absolute bg-red-500 h-2 w-2 rounded-full"></span></a>
                 </nav>
 
 
                 <div class="relative" id="profileSetting">
                     <button class="flex items-center space-x-2 hover:bg-gray-100 rounded-full p-1">
                         <img src="./img/avata.webp" alt="Profile" class="h-8 w-8 rounded-full object-cover">
-                        <span class="text-gray-700 text-sm">Đỗ Quốc Huy</span>
+                        <span class="text-gray-700 text-sm hidden md:block">Đỗ Quốc Huy</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24">
                             <path d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div id="profileMenu" class="absolute hidden bg-white/80 shadow-md p-2 rounded-md z-50 w-full">
                         <form action="@[/logout]" method="post">
-                            <input type="submit" value="Log out" class="w-full cursor-pointer text-left" />
+                            <button type="submit" class="w-full items-start">
+                            <span class="fa-solid fa-right-from-bracket"></span> logout</button>
                         </form>
                     </div>
                 </div>
@@ -57,13 +62,20 @@
     <aside id="sidebar"
         class="w-3/5 lg:w-1/5 min-w-50 p-4 shadow-2xl text-white backdrop-blur-md fixed h-full transition-transform duration-300 -translate-x-full z-50">
         <div class="flex justify-center">
-            <div class="w-20 h-20 mt-4 rounded-full overflow-hidden">
+            <div class="w-20 h-20 mt-4 rounded-full overflow-hidden relative group">
                 <input type="file" accept="image/*" id="fileInput" class="hidden">
-                <label for="fileInput" class="cursor-pointer w-20 h-20 overflow-hidden">
-                    <img id="profilePic" src="./img/avata.webp" alt="Ảnh" class="w-full h-full object-cover">
+
+                <label for="fileInput" class="cursor-pointer w-full h-full block">
+                    <img id="profilePic" src="./img/avata.webp" alt="Ảnh"
+                        class="w-full h-full object-cover hover:opacity-30">
+                    <div
+                        class="fa-solid fa-image text-2xl absolute inset-0 flex items-center justify-center text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+
+                    </div>
                 </label>
             </div>
         </div>
+
         <div class="text-[#9C27B0] text-center mt-4">Đỗ Quốc Huy</div>
         <nav class="mt-6 flex flex-col space-y-4">
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
@@ -78,13 +90,13 @@
     </aside>
     <main id="mainContent" class="w-full h-full flex justify-center p-6 transition-all duration-300 my-16">
 
-        <div class="w-full p-6 rounded-xl" style="color:var(--primary-color)">
-            <div id="profile" class="content-section hidden">
+        <div class="w-full p-6 rounded-xl h-full" style="color:var(--primary-color)">
+            <div id="profile" class="content-section h-full">
                 <h1 class="text-2xl font-bold mb-6">Profile</h1>
                 <hr class="my-4">
-                <div class="flex gap-6  justify-center items-center">
-                    <div class="lg:w-3/5 md:w-4/5 w-full">
-                        <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                <div class="flex gap-6 justify-center items-start">
+                    <div class="w-full md:flex space-y-2 md:space-y-0 md:space-x-6">
+                        <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-[300px]">
                             <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
                             <div class="space-y-4">
                                 <div class="flex flex-col">
@@ -107,61 +119,51 @@
                                     <span class="font-medium text-gray-600">Education</span>
                                     <span id="profileEducation" class="mt-1"></span>
                                 </div>
-                                <div class="flex flex-col">
-                                    <span class="font-medium text-gray-600">Images</span>
-                                    <span id="profileImages" class="mt-1"></span>
-                                </div>
                             </div>
-                            <div class="grid sm:grid-cols-3 grid-cols-2 flex-col gap-3">
-                                <div class="bg-white/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden">
-                                    <div>
-                                        <div class="aspect-w-16 aspect-h-9 ">
-                                            <img class="w-full h-full object-cover rounded-lg" src="./img/11283256.jpg"
-                                                alt="Photo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden">
-                                    <div>
-                                        <div class="aspect-w-16 aspect-h-9 ">
-                                            <img class="w-full h-full object-cover rounded-lg" src="./img/11283256.jpg"
-                                                alt="Photo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden">
-                                    <div>
-                                        <div class="aspect-w-16 aspect-h-9 ">
-                                            <img class="w-full h-full object-cover rounded-lg" src="./img/11283256.jpg"
-                                                alt="Photo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden">
-                                    <div>
-                                        <div class="aspect-w-16 aspect-h-9 ">
-                                            <img class="w-full h-full object-cover rounded-lg" src="./img/11283256.jpg"
-                                                alt="Photo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden">
-                                    <div>
-                                        <div class="aspect-w-16 aspect-h-9 ">
-                                            <img class="w-full h-full object-cover rounded-lg" src="./img/11283256.jpg"
-                                                alt="Photo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white/30 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden">
-                                    <div>
-                                        <div class="aspect-w-16 aspect-h-9 ">
-                                            <img class="w-full h-full object-cover rounded-lg" src="./img/11283256.jpg"
-                                                alt="Photo">
-                                        </div>
-                                    </div>
-                                </div>
 
+                        </div>
+                        <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-[450px] overflow-y-auto">
+                            <div class="flex flex-col">
+                                <span class="font-medium text-gray-600">Images</span>
+                                <span id="profileImages" class="mt-1"></span>
+                            </div>
+                            <div class="relative bg-white/30 backdrop-blur-sm rounded-xl shadow-l space-y-2">
+                                <div class="relative w-full" style="padding-top: 56.25%;">
+                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                        14/5/2025
+                                    </label>
+                                </div>
+                                <div class="relative w-full" style="padding-top: 56.25%;">
+                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                        14/5/2025
+                                    </label>
+                                </div>
+                                <div class="relative w-full" style="padding-top: 56.25%;">
+                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                        14/5/2025
+                                    </label>
+                                </div>
+                                <div class="relative w-full" style="padding-top: 56.25%;">
+                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                        14/5/2025
+                                    </label>
+                                </div>
+                                <div class="relative w-full" style="padding-top: 56.25%;">
+                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                        14/5/2025
+                                    </label>
+                                </div>
+                                <div class="relative w-full" style="padding-top: 56.25%;">
+                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                        14/5/2025
+                                    </label>
+                                </div>
                             </div>
 
                         </div>
@@ -198,7 +200,7 @@
                     </div>
                 </div>
             </div>
-            <div id="settings" class="content-section" style="color:var(--primary-color)">
+            <div id="settings" class="content-section hidden" style="color:var(--primary-color)">
                 <h1 class="text-2xl font-bold">Changes</h1>
 
                 <div class="flex justify-center w-full">
@@ -207,7 +209,7 @@
                             class="px-4 py-2 text-black rounded-md hover-effect truncate settings-nav-link active"
                             style="color:var(--primary-color)" data-target="bio">Biography</a>
                         <a href="#" class="px-4 py-2 text-black rounded-md hover-effect truncate settings-nav-link"
-                            style="color:var(--primary-color)" data-target="find">The person you want to find</a>
+                            style="color:var(--primary-color)" data-target="find">Criteria</a>
                     </nav>
                 </div>
                 <hr class="mt-4" />
@@ -393,8 +395,38 @@
                                 <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg">
                                     <div class="font-bold mb-4">Your Pictures</div>
                                     <div class="grid grid-cols-2 gap-2" id="pictureContainer">
-                                        <label id="uploadLabel"
-                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors">
+                                        <label
+                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                            <input type="file" class="hidden" accept="image/*"
+                                                onchange="handleImageUpload(this)">
+                                            <span class="text-4xl text-gray-400">+</span>
+                                        </label>
+                                        <label
+                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                            <input type="file" class="hidden" accept="image/*"
+                                                onchange="handleImageUpload(this)">
+                                            <span class="text-4xl text-gray-400">+</span>
+                                        </label>
+                                        <label
+                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                            <input type="file" class="hidden" accept="image/*"
+                                                onchange="handleImageUpload(this)">
+                                            <span class="text-4xl text-gray-400">+</span>
+                                        </label>
+                                        <label
+                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                            <input type="file" class="hidden" accept="image/*"
+                                                onchange="handleImageUpload(this)">
+                                            <span class="text-4xl text-gray-400">+</span>
+                                        </label>
+                                        <label
+                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                            <input type="file" class="hidden" accept="image/*"
+                                                onchange="handleImageUpload(this)">
+                                            <span class="text-4xl text-gray-400">+</span>
+                                        </label>
+                                        <label
+                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
                                             <input type="file" class="hidden" accept="image/*"
                                                 onchange="handleImageUpload(this)">
                                             <span class="text-4xl text-gray-400">+</span>
@@ -553,20 +585,20 @@
                     </nav>
                 </div>
                 <hr class="mt-4" />
-                <form action="" id="changepassword-section" class="general-section flex items-center justify-center w-full">
-                        <div class="lg:w-2/5 md:w-3/5 w-4/5 backdrop-blur-md p-6">
-                            <div class="flex flex-col space-y-2">
-                                <input type="text" placeholder="Current password" class="p-2 rounded-md">
-                                <input type="text" placeholder="New password" class="p-2 rounded-md">
-                                <input type="text" placeholder="Re-enter new password" class="p-2 rounded-md">
-                            </div>
-                            
-                            <div class="flex justify-end mt-4">
-                                <button
-                                    class="rounded-full outline-double w-20 h-7 hover:bg-purple-100 transition-all"
-                                    type="submit">Save</button>
-                            </div>
+                <form action="" id="changepassword-section"
+                    class="general-section flex items-center justify-center w-full">
+                    <div class="lg:w-2/5 md:w-3/5 w-4/5 backdrop-blur-md p-6">
+                        <div class="flex flex-col space-y-2">
+                            <input type="text" placeholder="Current password" class="p-2 rounded-md">
+                            <input type="text" placeholder="New password" class="p-2 rounded-md">
+                            <input type="text" placeholder="Re-enter new password" class="p-2 rounded-md">
                         </div>
+
+                        <div class="flex justify-end mt-4">
+                            <button class="rounded-full outline-double w-20 h-7 hover:bg-purple-100 transition-all"
+                                type="submit">Save</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
