@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +8,37 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border-radius: 4px;
+      left: 1.5rem;
+      top: 5rem;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 14px;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .show {
+      display: block;
+    }
+  </style>
 </head>
+
 <body class="bg-gray-100">
   <div class="flex min-h-screen">
     <!-- Sidebar -->
@@ -23,14 +54,17 @@
       </div>
 
       <div id="profileDropdown" class="dropdown-content">
+        <!-- TODO: Thêm c:forEach ở đây nếu các mục dropdown lấy từ dữ liệu động -->
         <a href="#" class="hover:bg-gray-100"><i class="fas fa-user mr-2 text-gray-600"></i> Profile</a>
         <a href="#" class="hover:bg-gray-100"><i class="fas fa-cog mr-2 text-gray-600"></i> Settings</a>
-        <a href="#" class="hover:bg-gray-100 text-red-500" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
+        <a href="#" class="hover:bg-gray-100 text-red-500" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i>
+          Logout</a>
       </div>
 
       <nav>
         <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
         <ul class="mb-6">
+          <!-- TODO: Thêm c:forEach ở đây nếu danh sách task lấy từ server -->
           <li class="mb-2">
             <a href="hobbytags.html" class="flex items-center text-blue-300 transition">
               <i class="fas fa-tasks mr-2"></i> Hobby Tags
@@ -55,6 +89,7 @@
       </nav>
     </div>
 
+
     <!-- Hobby Tags Content -->
     <div class="flex-1 p-6">
       <div class="container mx-auto bg-white p-6 rounded shadow">
@@ -78,7 +113,7 @@
             </tr>
           </thead>
           <tbody id="tagsTableBody">
-            <!-- Data will be loaded by JavaScript -->
+            <!-- TODO: Dùng c:forEach để lặp qua danh sách các tag và hiển thị -->
           </tbody>
         </table>
 
@@ -93,7 +128,7 @@
               Previous
             </button>
             <div id="tags-page-numbers" class="flex space-x-1">
-              <!-- Page numbers will be inserted here by JavaScript -->
+              <!-- TODO: Dùng c:forEach để tạo các nút số trang nếu dữ liệu phân trang được backend xử lý -->
             </div>
             <button id="tags-next-page" class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50"
               disabled>
@@ -104,7 +139,46 @@
       </div>
     </div>
   </div>
+  <!-- Edit Tag Modal -->
+  <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold">Edit Tag</h3>
+        <button onclick="closeModal('editModal')" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
 
-  <script src="main.js"></script>
+      <form id="editTagForm" class="space-y-4">
+        <input type="hidden" id="editTagId">
+        <div>
+          <label for="editTagName" class="block text-sm font-medium text-gray-700 mb-1">Tag Name</label>
+          <input type="text" id="editTagName" name="editTagName"
+            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter tag name" required>
+        </div>
+
+        <div>
+          <label for="editTagIcon" class="block text-sm font-medium text-gray-700 mb-1">Icon URL</label>
+          <input type="text" id="editTagIcon" name="editTagIcon"
+            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter icon URL" required>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-4">
+          <button type="button" onclick="closeModal('editModal')"
+            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Cancel
+          </button>
+          <button type="submit"
+            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script src="main.js"></script>
 </body>
+
 </html>

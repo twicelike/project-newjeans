@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Posts Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border-radius: 4px;
+      left: 1.5rem;
+      top: 5rem;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 14px;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .show {
+      display: block;
+    }
+    .hover-row:hover {
+      background-color: #f8fafc;
+    }
+    .pagination button {
+      min-width: 2rem;
+    }
+    .pagination button:hover:not(:disabled) {
+      background-color: #f3f4f6;
+    }
+    #createPostModal, #editPostModal {
+      z-index: 100;
+    }
+    #imagePreview img,
+    #editImagePreview img {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 4px;
+      border: 1px solid #e5e7eb;
+    }
+    #removeImageBtn,
+    #editRemoveImageBtn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    #removeImageBtn:hover,
+    #editRemoveImageBtn:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="bg-gray-800 text-white w-64 p-6 relative">
+      <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
+        <img src="https://placehold.co/50x50" alt="Profile" class="rounded-full mr-4">
+        <div>
+          <h2 class="text-lg font-semibold group-hover:text-blue-300 transition">DatPhan</h2>
+          <p class="text-xs text-gray-400">Admin</p>
+        </div>
+        <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
+      </div>
+
+      <!-- Profile dropdown -->
+      <div id="profileDropdown" class="dropdown-content">
+        <!-- TODO: Thêm c:forEach ở đây nếu các mục dropdown lấy từ dữ liệu động -->
+        <a href="#" class="hover:bg-gray-100"><i class="fas fa-user mr-2 text-gray-600"></i> Profile</a>
+        <a href="#" class="hover:bg-gray-100"><i class="fas fa-cog mr-2 text-gray-600"></i> Settings</a>
+        <a href="#" class="hover:bg-gray-100 text-red-500" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i>
+          Logout</a>
+      </div>
+
+      <nav>
+        <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
+        <ul class="mb-6">
+          <!-- TODO: Thêm c:forEach ở đây nếu danh sách task lấy từ server -->
+          <li class="mb-2">
+            <a href="hobbytags.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+              <i class="fas fa-tasks mr-2"></i> Hobby Tags
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="posts.html" class="flex items-center text-blue-300 transition">
+              <i class="fas fa-newspaper mr-2"></i> Posts
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="suspendreport.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+              <i class="fas fa-ban mr-2"></i> Suspended Users & Reports
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="feedback.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+              <i class="fas fa-comment mr-2"></i> User Feedback
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Posts Content -->
+    <div class="flex-1 p-6">
+      <div class="container mx-auto bg-white p-6 rounded shadow">
+        <div class="flex justify-between items-center mb-4">
+          <h1 class="text-2xl font-semibold">Posts</h1>
+          <div class="flex items-center">
+            <button onclick="openCreatePostModal()"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition flex items-center">
+              <i class="fas fa-plus mr-2"></i> Create Post
+            </button>
+          </div>
+        </div>
+
+        <div class="relative mb-4">
+          <input type="text" id="postsSearch" placeholder="Search posts..."
+            class="border border-gray-300 rounded-md px-3 py-1 pl-8 focus:outline-none focus:ring-2 focus:ring-blue-500 w-64">
+          <i class="fas fa-search absolute left-2 top-2 text-gray-400"></i>
+        </div>
+
+        <table class="min-w-full bg-white border">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="py-3 px-4 border text-left">ID</th>
+              <th class="py-3 px-4 border text-left">Title</th>
+              <th class="py-3 px-4 border text-left">Author</th>
+              <th class="py-3 px-4 border text-left">Date</th>
+              <th class="py-3 px-4 border text-left">Image</th>
+              <th class="py-3 px-4 border text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="postsTableBody">
+            <!-- TODO: Thêm c:forEach ở đây nếu danh sách post lấy từ server -->
+          </tbody>
+        </table>
+
+        <div class="flex items-center justify-between mt-4">
+          <div class="text-sm text-gray-600">
+            Showing <span id="posts-pagination-start">1</span> to <span id="posts-pagination-end">5</span> of
+            <span id="posts-pagination-total">0</span> items
+          </div>
+          <div class="flex space-x-1 pagination">
+            <button id="posts-prev-page"
+              class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+              Previous
+            </button>
+            <div id="posts-page-numbers" class="flex space-x-1">
+              <!-- Page numbers will be inserted here by JavaScript -->
+            </div>
+            <button id="posts-next-page"
+              class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Post Modal -->
+  <div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-md p-4 w-full max-w-lg shadow-lg">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-lg font-semibold">Edit Post</h2>
+        <button onclick="closeModal('editPostModal')" class="text-gray-500 hover:text-gray-700 text-sm">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form id="editPostForm" class="space-y-3">
+        <input type="hidden" id="editPostId">
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Title</label>
+          <input type="text" id="editPostTitle" class="w-full p-2 border rounded text-sm" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Author</label>
+          <input type="text" id="editPostAuthor" class="w-full p-2 border rounded text-sm" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Date</label>
+          <input type="date" id="editPostDate" class="w-full p-2 border rounded text-sm" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Content</label>
+          <textarea id="editPostContent" rows="3" class="w-full p-2 border rounded text-sm" required></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Image</label>
+          <input type="file" id="editPostImage" accept="image/*" class="w-full p-2 border rounded text-sm">
+
+          <div id="editImagePreview" class="mt-2 hidden"></div>
+          <button type="button" id="editRemoveImageBtn" class="mt-2 text-xs text-red-500 hidden">
+            <i class="fas fa-trash mr-1"></i> Remove Image
+          </button>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3">
+          <button type="button" onclick="closeModal('editPostModal')"
+            class="px-3 py-1.5 bg-gray-200 text-sm rounded hover:bg-gray-300">
+            Cancel
+          </button>
+          <button type="submit" class="px-3 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+            <i class="fas fa-save mr-1"></i> Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Post Modal -->
+  <div id="createPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold">Create New Post</h3>
+        <button onclick="closeModal('createPostModal')" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form id="createPostForm" class="space-y-4">
+        <div>
+          <label for="postTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+          <input type="text" id="postTitle" name="postTitle"
+            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter post title" required>
+        </div>
+
+        <div>
+          <label for="postContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+          <textarea id="postContent" name="postContent" rows="4"
+            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter post content" required></textarea>
+        </div>
+
+        <div>
+          <label for="postAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
+          <input type="text" id="postAuthor" name="postAuthor"
+            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter author name" required>
+        </div>
+
+        <!-- Image Upload Section -->
+        <div>
+          <label for="postImage" class="block text-sm font-medium text-gray-700 mb-1">Post Image</label>
+          <div class="mt-1 flex items-center">
+            <input type="file" id="postImage" name="postImage" accept="image/*" class="block w-full text-sm text-gray-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-md file:border-0
+              file:text-sm file:font-semibold
+              file:bg-blue-50 file:text-blue-700
+              hover:file:bg-blue-100">
+          </div>
+          <div id="imagePreview" class="mt-2 hidden">
+            <!-- Image preview will be shown here -->
+          </div>
+          <button type="button" id="removeImageBtn" class="mt-2 text-sm text-red-600 hidden">
+            <i class="fas fa-trash mr-1"></i> Remove Image
+          </button>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-4">
+          <button type="button" onclick="closeModal('createPostModal')"
+            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Cancel
+          </button>
+          <button type="submit"
+            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Create Post
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
