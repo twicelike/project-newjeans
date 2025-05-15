@@ -63,16 +63,22 @@
             cursor: not-allowed;
         }
 
+        /* Logo styles */
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 1rem;
         }
-
+        
         .logo-img {
-            width: 48px;
-            height: 48px;
+            width: 3rem;
+            height: 3rem;
             object-fit: contain;
+            transition: transform 0.2s;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -85,7 +91,7 @@
                 <a href="#" class="bg-white p-1 rounded-full shadow">
                     <img src="./img/logo-2.png" alt="Logo" class="logo-img">
                 </a>
-                <span id="formTitle" class="text-lg font-semibold">Survey Answers</span>
+                <span id="formTitle" class="text-lg font-semibold editable-title" data-placeholder="Survey Title">Survey Title</span>
             </div>
 
             <!-- Profile section -->
@@ -107,7 +113,7 @@
         <div class="flex justify-center mt-4">
             <div class="w-full max-w-4xl bg-white p-6 rounded shadow">
                 <div class="border-b-2 border-purple-600 pb-2 mb-4">
-                    <h1 id="formMainTitle" class="text-2xl font-semibold editable-title">Survey Form</h1>
+                    <h1 id="formMainTitle" class="text-2xl font-semibold editable-title" data-placeholder="Survey Title">Survey Title</h1>
                 </div>
 
                 <div id="questionsContainer">
@@ -115,7 +121,7 @@
                     <div class="question-item border border-gray-300 rounded p-4 mb-4" data-question-type="radio">
                         <div class="flex justify-between items-center mb-2">
                             <input type="text" class="w-full border-none focus:outline-none text-lg question-title"
-                                placeholder="Question">
+                                placeholder="Question" >
                             <select
                                 class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
                                 <option value="radio">Multiple Choice</option>
@@ -129,7 +135,7 @@
                                 <input type="radio" name="options-0"
                                     class="form-radio h-5 w-5 text-purple-600 option-input">
                                 <input type="text" class="w-full border-none focus:outline-none option-text"
-                                    placeholder="Option">
+                                    placeholder="Option" value="Option 1">
                                 <i class="fas fa-times text-gray-400 hover:text-red-500 cursor-pointer remove-option"
                                     style="display: none;"></i>
                             </div>
@@ -173,7 +179,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // ========== Global variables ==========
-            let questionCount = 1; // Count questions
             const MAX_QUESTIONS = 5; // Maximum number of questions
             let formData = null; // Store form data when published
 
@@ -202,31 +207,32 @@
             const formTitle = document.getElementById('formTitle');
             const formMainTitle = document.getElementById('formMainTitle');
 
-            let originalFormTitle = "Survey Form Builder";
-
             function setupEditableTitle(element) {
-                element.addEventListener('click', function () {
+                const placeholder = element.getAttribute('data-placeholder') || 'Untitled';
+                const defaultText = element.textContent;
+                
+                element.addEventListener('click', function() {
                     this.classList.add('edit-mode');
-                    const currentText = this.textContent === originalFormTitle ? '' : this.textContent;
-                    this.innerHTML = `<input type="text" class="w-full border-none focus:outline-none bg-transparent font-semibold" value="${currentText}" placeholder="${originalFormTitle}">`;
+                    const currentText = this.textContent === placeholder ? '' : this.textContent;
+                    this.innerHTML = `<input type="text" class="w-full border-none focus:outline-none bg-transparent font-semibold" value="${currentText}" placeholder="${placeholder}">`;
 
                     const input = this.querySelector('input');
                     input.focus();
 
                     // Handle Enter key or blur
-                    input.addEventListener('blur', function () {
-                        saveTitle(this, element);
+                    input.addEventListener('blur', function() {
+                        saveTitle(this, element, placeholder, defaultText);
                     });
-                    input.addEventListener('keyup', function (e) {
+                    input.addEventListener('keyup', function(e) {
                         if (e.key === 'Enter') {
-                            saveTitle(this, element);
+                            saveTitle(this, element, placeholder, defaultText);
                         }
                     });
                 });
             }
 
-            function saveTitle(input, element) {
-                const newTitle = input.value.trim() || originalFormTitle;
+            function saveTitle(input, element, placeholder, defaultText) {
+                const newTitle = input.value.trim() || defaultText || placeholder;
                 element.textContent = newTitle;
                 element.classList.remove('edit-mode');
 
@@ -243,6 +249,11 @@
             setupEditableTitle(formTitle);
             setupEditableTitle(formMainTitle);
 
+            // ========== Helper functions ==========
+            function generateQuestionId() {
+                return 'q-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+            }
+
             // ========== Add/remove options handling ==========
             function setupOptionEvents(optionElement) {
                 const optionInput = optionElement.querySelector('.option-text');
@@ -256,7 +267,12 @@
 
             // Add new option
             function addNewOption(container, value = '', type = 'radio', questionId) {
-                const optionId = `option-${questionId}-${Math.random().toString(36).substr(2, 9)}`;
+                const currentOptions = container.querySelectorAll('.option-item');
+                if (currentOptions.length >= 10) {
+                    alert('Maximum 10 options per question');
+                    return null;
+                }
+
                 const newOption = document.createElement('div');
                 newOption.className = 'flex items-center space-x-2 mb-2 option-item';
 
@@ -280,6 +296,8 @@
             // Add "Other" option
             function addOtherOption(container, type = 'radio', questionId) {
                 const newOption = addNewOption(container, 'Other...', type, questionId);
+                if (!newOption) return null;
+
                 const optionInput = newOption.querySelector('.option-text');
                 optionInput.classList.add('text-gray-400');
                 optionInput.readOnly = true;
@@ -322,9 +340,7 @@
                     paragraphPlaceholder.innerHTML = `
                         <textarea 
                             class="paragraph-answer bg-gray-50 border border-gray-200 focus:outline-none text-gray-500" 
-                            placeholder="Đây là nơi người trả lời sẽ nhập câu trả lời dài..." 
                             disabled></textarea>
-                        <p class="text-xs text-gray-500 mt-1 italic">Người tham gia khảo sát sẽ nhập câu trả lời của họ tại đây</p>
                     `;
                     optionsContainer.appendChild(paragraphPlaceholder);
                 }
@@ -386,13 +402,14 @@
 
             function createNewQuestion() {
                 const newQuestion = document.createElement('div');
+                const questionId = generateQuestionId();
                 newQuestion.className = 'question-item border border-gray-300 rounded p-4 mb-4 mt-6';
                 newQuestion.dataset.questionType = 'radio';
-                newQuestion.dataset.questionId = questionCount;
+                newQuestion.dataset.questionId = questionId;
 
                 newQuestion.innerHTML = `
                     <div class="flex justify-between items-center mb-2">
-                        <input type="text" class="w-full border-none focus:outline-none text-lg question-title" placeholder="Question">
+                        <input type="text" class="w-full border-none focus:outline-none text-lg question-title" placeholder="Question" value="New Question">
                         <select class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
                             <option value="radio">Multiple Choice</option>
                             <option value="checkbox">Checkboxes</option>
@@ -402,8 +419,8 @@
                     
                     <div class="options-container">
                         <div class="flex items-center space-x-2 mb-2 option-item">
-                            <input type="radio" name="options-${questionCount}" class="form-radio h-5 w-5 text-purple-600 option-input">
-                            <input type="text" class="w-full border-none focus:outline-none option-text" placeholder="Option">
+                            <input type="radio" name="options-${questionId}" class="form-radio h-5 w-5 text-purple-600 option-input">
+                            <input type="text" class="w-full border-none focus:outline-none option-text" placeholder="Option" value="Option 1">
                             <i class="fas fa-times text-gray-400 hover:text-red-500 cursor-pointer remove-option" style="display: none;"></i>
                         </div>
                     </div>
@@ -422,7 +439,7 @@
                 `;
 
                 questionsContainer.appendChild(newQuestion);
-                questionCount++;
+                setupQuestionEvents(newQuestion);
                 return newQuestion;
             }
 
@@ -448,8 +465,7 @@
                     return;
                 }
 
-                const newQuestion = createNewQuestion();
-                setupQuestionEvents(newQuestion);
+                createNewQuestion();
                 updateAddButtonState();
             });
 
@@ -459,15 +475,15 @@
             function publishForm() {
                 // Collect form data
                 formData = {
-                    title: formTitle.textContent === originalFormTitle ? '' : formTitle.textContent,
+                    title: formTitle.textContent === 'Survey Title' ? 'Untitled Survey' : formTitle.textContent,
                     questions: []
                 };
 
                 const questionElements = document.querySelectorAll('.question-item');
-                questionElements.forEach((questionElement, index) => {
+                questionElements.forEach((questionElement) => {
                     const question = {
                         id: questionElement.dataset.questionId,
-                        title: questionElement.querySelector('.question-title').value,
+                        title: questionElement.querySelector('.question-title').value || 'Untitled Question',
                         type: questionElement.dataset.questionType,
                         options: []
                     };
@@ -475,9 +491,10 @@
                     if (question.type === 'radio' || question.type === 'checkbox') {
                         const optionElements = questionElement.querySelectorAll('.option-item');
                         optionElements.forEach(optionElement => {
+                            const optionText = optionElement.querySelector('.option-text');
                             question.options.push({
-                                text: optionElement.querySelector('.option-text').value,
-                                isOther: optionElement.querySelector('.option-text').classList.contains('text-gray-400')
+                                text: optionText.value || 'Untitled Option',
+                                isOther: optionText.classList.contains('text-gray-400')
                             });
                         });
                     }
@@ -494,11 +511,10 @@
 
             // Set up events for initial question
             const initialQuestion = document.querySelector('.question-item');
-            initialQuestion.dataset.questionId = 0;
+            initialQuestion.dataset.questionId = generateQuestionId();
             setupQuestionEvents(initialQuestion);
             updateAddButtonState();
         });
     </script>
 </body>
-
 </html>
