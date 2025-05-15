@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     imageInput.value = '';
   });
 
-  // 👇 Xử lý sự kiện nút quay lại danh sách
+  // Xử lý sự kiện nút quay lại danh sách
   chatToggle.addEventListener('click', () => {
     mainChat.classList.add('hidden');
     mainChat.classList.remove('flex');
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chatList.classList.remove('hidden');
     chatToggle.classList.add('hidden');
 
-    // 👇 Trả lại placeholder "Let's Chat"
+    // Trả lại placeholder "Let's Chat"
     if (!document.getElementById('placeholderChat')) {
       const placeholder = document.createElement('div');
       placeholder.id = 'placeholderChat';
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 👇 Di chuyển vào trong DOMContentLoaded
+  // Di chuyển vào trong DOMContentLoaded
   contactItems.forEach(item => {
     item.addEventListener('click', () => {
       const avatarSrc = item.querySelector('.contact-avatar img').src;
