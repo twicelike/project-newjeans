@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Survey Form Builder</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,35 +13,35 @@
             top: 3.5rem;
             background-color: white;
             min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
             border-radius: 4px;
         }
-
+        
         .profile-dropdown a {
             color: black;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
         }
-
+        
         .profile-dropdown a:hover {
             background-color: #f1f1f1;
         }
-
+        
         .show {
             display: block;
         }
-
+        
         .editable-title {
             cursor: pointer;
             border-bottom: 1px solid transparent;
         }
-
+        
         .editable-title.edit-mode {
             border-bottom: 1px dashed #8b5cf6;
         }
-
+        
         /* Style for question types */
         .paragraph-answer {
             border: 1px solid #d1d5db;
@@ -52,37 +51,30 @@
             min-height: 100px;
             resize: vertical;
         }
-
+        
         .option-item:hover .remove-option {
             display: block !important;
         }
-
+        
         /* Style for disabled button */
         .btn-disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
-        /* Logo styles */
+        
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 12px;
         }
         
         .logo-img {
-            width: 3rem;
-            height: 3rem;
+            width: 48px;
+            height: 48px;
             object-fit: contain;
-            transition: transform 0.2s;
-        }
-        
-        .logo-img:hover {
-            transform: scale(1.05);
         }
     </style>
 </head>
-
 <body class="bg-purple-100">
     <!-- Form Builder View -->
     <div id="builderView">
@@ -118,12 +110,10 @@
 
                 <div id="questionsContainer">
                     <!-- Initial sample question -->
-                    <div class="question-item border border-gray-300 rounded p-4 mb-4" data-question-type="radio">
+                    <div class="question-item border border-gray-300 rounded p-4 mb-4" data-question-type="radio" data-question-id="q0">
                         <div class="flex justify-between items-center mb-2">
-                            <input type="text" class="w-full border-none focus:outline-none text-lg question-title"
-                                placeholder="Question" >
-                            <select
-                                class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
+                            <input type="text" class="w-full border-none focus:outline-none text-lg question-title" placeholder="Question">
+                            <select class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
                                 <option value="radio">Multiple Choice</option>
                                 <option value="checkbox">Checkboxes</option>
                                 <option value="paragraph">Paragraph</option>
@@ -132,12 +122,9 @@
 
                         <div class="options-container">
                             <div class="flex items-center space-x-2 mb-2 option-item">
-                                <input type="radio" name="options-0"
-                                    class="form-radio h-5 w-5 text-purple-600 option-input">
-                                <input type="text" class="w-full border-none focus:outline-none option-text"
-                                    placeholder="Option">
-                                <i class="fas fa-times text-gray-400 hover:text-red-500 cursor-pointer remove-option"
-                                    style="display: none;"></i>
+                                <input type="radio" name="options-q0" class="form-radio h-5 w-5 text-purple-600 option-input">
+                                <input type="text" class="w-full border-none focus:outline-none option-text" placeholder="Option">
+                                <i class="fas fa-times text-gray-400 hover:text-red-500 cursor-pointer remove-option" style="display: none;"></i>
                             </div>
                         </div>
 
@@ -149,8 +136,7 @@
 
                         <div class="flex justify-between items-center mt-4">
                             <div class="flex items-center space-x-4">
-                                <i class="fas fa-trash text-gray-600 hover:text-purple-600 cursor-pointer delete-question"
-                                    title="Delete question"></i>
+                                <i class="fas fa-trash text-gray-600 hover:text-purple-600 cursor-pointer delete-question" title="Delete question"></i>
                             </div>
                         </div>
                     </div>
@@ -158,8 +144,7 @@
 
                 <!-- Add new question button -->
                 <div class="mt-6 flex justify-center">
-                    <button id="addQuestionBtn"
-                        class="flex items-center space-x-2 text-purple-600 hover:text-purple-800 cursor-pointer p-2 rounded hover:bg-purple-50">
+                    <button id="addQuestionBtn" class="flex items-center space-x-2 text-purple-600 hover:text-purple-800 cursor-pointer p-2 rounded hover:bg-purple-50">
                         <i class="fas fa-plus-circle"></i>
                         <span>Add Question</span>
                     </button>
@@ -167,8 +152,7 @@
 
                 <!-- Publish button moved down -->
                 <div class="mt-8 flex justify-center">
-                    <button id="publishBtn"
-                        class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition text-lg font-medium">
+                    <button id="publishBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition text-lg font-medium">
                         Publish Survey
                     </button>
                 </div>
@@ -179,8 +163,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // ========== Global variables ==========
-            const MAX_QUESTIONS = 5; // Maximum number of questions
-            let formData = null; // Store form data when published
+            let questionCount = 1;
+            const MAX_QUESTIONS = 5;
+            let formData = null;
 
             // ========== Profile dropdown handling ==========
             function setupProfileDropdown(btnId, dropdownId) {
@@ -209,7 +194,6 @@
 
             function setupEditableTitle(element) {
                 const placeholder = element.getAttribute('data-placeholder') || 'Untitled';
-                const defaultText = element.textContent;
                 
                 element.addEventListener('click', function() {
                     this.classList.add('edit-mode');
@@ -219,24 +203,20 @@
                     const input = this.querySelector('input');
                     input.focus();
 
-                    // Handle Enter key or blur
                     input.addEventListener('blur', function() {
-                        saveTitle(this, element, placeholder, defaultText);
+                        saveTitle(this, element, placeholder);
                     });
                     input.addEventListener('keyup', function(e) {
-                        if (e.key === 'Enter') {
-                            saveTitle(this, element, placeholder, defaultText);
-                        }
+                        if (e.key === 'Enter') saveTitle(this, element, placeholder);
                     });
                 });
             }
 
-            function saveTitle(input, element, placeholder, defaultText) {
-                const newTitle = input.value.trim() || defaultText || placeholder;
+            function saveTitle(input, element, placeholder) {
+                const newTitle = input.value.trim() || placeholder;
                 element.textContent = newTitle;
                 element.classList.remove('edit-mode');
 
-                // Sync main title and toolbar title
                 if (element.id === 'formTitle') {
                     formMainTitle.textContent = newTitle;
                     document.title = newTitle + " - Survey Builder";
@@ -251,21 +231,17 @@
 
             // ========== Helper functions ==========
             function generateQuestionId() {
-                return 'q-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+                return 'q' + questionCount++;
             }
 
             // ========== Add/remove options handling ==========
             function setupOptionEvents(optionElement) {
-                const optionInput = optionElement.querySelector('.option-text');
                 const removeBtn = optionElement.querySelector('.remove-option');
-
-                // Handle option removal
                 removeBtn.addEventListener('click', function () {
                     optionElement.remove();
                 });
             }
 
-            // Add new option
             function addNewOption(container, value = '', type = 'radio', questionId) {
                 const currentOptions = container.querySelectorAll('.option-item');
                 if (currentOptions.length >= 10) {
@@ -293,7 +269,6 @@
                 return newOption;
             }
 
-            // Add "Other" option
             function addOtherOption(container, type = 'radio', questionId) {
                 const newOption = addNewOption(container, 'Other...', type, questionId);
                 if (!newOption) return null;
@@ -302,7 +277,6 @@
                 optionInput.classList.add('text-gray-400');
                 optionInput.readOnly = true;
 
-                // Handle click to allow custom answer
                 optionInput.addEventListener('click', function () {
                     this.classList.remove('text-gray-400');
                     this.readOnly = false;
@@ -319,36 +293,24 @@
                 const addOptionsContainer = questionElement.querySelector('.add-options-container');
                 questionElement.dataset.questionType = type;
 
-                // Clear existing options
                 optionsContainer.innerHTML = '';
 
-                // Add appropriate options based on question type
                 if (type === 'radio' || type === 'checkbox') {
-                    // Show add options button
                     addOptionsContainer.style.display = 'flex';
-
-                    // Add at least 1 option
                     addNewOption(optionsContainer, '', type, questionElement.dataset.questionId);
                 }
                 else if (type === 'paragraph') {
-                    // Hide add options button
                     addOptionsContainer.style.display = 'none';
-
-                    // Add placeholder for paragraph answer with disabled styling
                     const paragraphPlaceholder = document.createElement('div');
                     paragraphPlaceholder.className = 'mt-2 bg-gray-100 rounded-md';
                     paragraphPlaceholder.innerHTML = `
-                        <textarea 
-                            class="paragraph-answer bg-gray-50 border border-gray-200 focus:outline-none text-gray-500" 
-                            disabled></textarea>
                     `;
                     optionsContainer.appendChild(paragraphPlaceholder);
                 }
             }
 
-            // ========== Event handling for options ==========
+            // ========== Event handling ==========
             document.addEventListener('click', function (e) {
-                // Add new option
                 if (e.target.classList.contains('add-option') || e.target.classList.contains('add-option-text')) {
                     const questionElement = e.target.closest('.question-item');
                     const optionsContainer = questionElement.querySelector('.options-container');
@@ -357,7 +319,6 @@
                     addNewOption(optionsContainer, '', questionType, questionId);
                 }
 
-                // Add "Other" option
                 if (e.target.classList.contains('add-other')) {
                     const questionElement = e.target.closest('.question-item');
                     const optionsContainer = questionElement.querySelector('.options-container');
@@ -366,7 +327,6 @@
                     addOtherOption(optionsContainer, questionType, questionId);
                 }
 
-                // Delete question
                 if (e.target.classList.contains('delete-question')) {
                     const questionElement = e.target.closest('.question-item');
                     if (confirm('Are you sure you want to delete this question?')) {
@@ -376,40 +336,33 @@
                 }
             });
 
-            // Handle question type change
             document.addEventListener('change', function (e) {
                 if (e.target.classList.contains('question-type')) {
                     const questionElement = e.target.closest('.question-item');
-                    const newType = e.target.value;
-                    changeQuestionType(questionElement, newType);
+                    changeQuestionType(questionElement, e.target.value);
                 }
             });
 
-            // ========== Add new question handling ==========
+            // ========== Question management ==========
             const addQuestionBtn = document.getElementById('addQuestionBtn');
             const questionsContainer = document.getElementById('questionsContainer');
 
             function updateAddButtonState() {
-                const questionCount = questionsContainer.querySelectorAll('.question-item').length;
-                if (questionCount >= MAX_QUESTIONS) {
-                    addQuestionBtn.classList.add('btn-disabled');
-                    addQuestionBtn.disabled = true;
-                } else {
-                    addQuestionBtn.classList.remove('btn-disabled');
-                    addQuestionBtn.disabled = false;
-                }
+                const currentCount = questionsContainer.querySelectorAll('.question-item').length;
+                addQuestionBtn.disabled = currentCount >= MAX_QUESTIONS;
+                addQuestionBtn.classList.toggle('btn-disabled', currentCount >= MAX_QUESTIONS);
             }
 
             function createNewQuestion() {
-                const newQuestion = document.createElement('div');
                 const questionId = generateQuestionId();
+                const newQuestion = document.createElement('div');
                 newQuestion.className = 'question-item border border-gray-300 rounded p-4 mb-4 mt-6';
                 newQuestion.dataset.questionType = 'radio';
                 newQuestion.dataset.questionId = questionId;
 
                 newQuestion.innerHTML = `
                     <div class="flex justify-between items-center mb-2">
-                        <input type="text" class="w-full border-none focus:outline-none text-lg question-title" placeholder="Question" value="New Question">
+                        <input type="text" class="w-full border-none focus:outline-none text-lg question-title" placeholder="Question" value="Question ${questionCount}">
                         <select class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
                             <option value="radio">Multiple Choice</option>
                             <option value="checkbox">Checkboxes</option>
@@ -443,15 +396,12 @@
                 return newQuestion;
             }
 
-            // Set up question events
             function setupQuestionEvents(questionElement) {
-                // Hover events for option items
                 const optionItems = questionElement.querySelectorAll('.option-item');
                 optionItems.forEach(item => {
                     item.addEventListener('mouseenter', function () {
                         this.querySelector('.remove-option').style.display = 'block';
                     });
-
                     item.addEventListener('mouseleave', function () {
                         this.querySelector('.remove-option').style.display = 'none';
                     });
@@ -459,28 +409,22 @@
             }
 
             addQuestionBtn.addEventListener('click', function () {
-                const questionCount = questionsContainer.querySelectorAll('.question-item').length;
-                if (questionCount >= MAX_QUESTIONS) {
+                if (questionsContainer.querySelectorAll('.question-item').length >= MAX_QUESTIONS) {
                     alert(`Maximum of ${MAX_QUESTIONS} questions allowed`);
                     return;
                 }
-
                 createNewQuestion();
                 updateAddButtonState();
             });
 
-            // ========== Publish form handling ==========
-            const publishBtn = document.getElementById('publishBtn');
-
-            function publishForm() {
-                // Collect form data
+            // ========== Publish form ==========
+            document.getElementById('publishBtn').addEventListener('click', function() {
                 formData = {
                     title: formTitle.textContent === 'Survey Title' ? 'Untitled Survey' : formTitle.textContent,
                     questions: []
                 };
 
-                const questionElements = document.querySelectorAll('.question-item');
-                questionElements.forEach((questionElement) => {
+                document.querySelectorAll('.question-item').forEach(questionElement => {
                     const question = {
                         id: questionElement.dataset.questionId,
                         title: questionElement.querySelector('.question-title').value || 'Untitled Question',
@@ -489,8 +433,7 @@
                     };
 
                     if (question.type === 'radio' || question.type === 'checkbox') {
-                        const optionElements = questionElement.querySelectorAll('.option-item');
-                        optionElements.forEach(optionElement => {
+                        questionElement.querySelectorAll('.option-item').forEach(optionElement => {
                             const optionText = optionElement.querySelector('.option-text');
                             question.options.push({
                                 text: optionText.value || 'Untitled Option',
@@ -502,17 +445,12 @@
                     formData.questions.push(question);
                 });
 
-                // Save form data to localStorage
                 localStorage.setItem('surveyFormData', JSON.stringify(formData));
-                alert('Survey published successfully! You can now create an answer page.');
-            }
+                alert('Survey published successfully!');
+            });
 
-            publishBtn.addEventListener('click', publishForm);
-
-            // Set up events for initial question
-            const initialQuestion = document.querySelector('.question-item');
-            initialQuestion.dataset.questionId = generateQuestionId();
-            setupQuestionEvents(initialQuestion);
+            // Initialize
+            setupQuestionEvents(document.querySelector('.question-item'));
             updateAddButtonState();
         });
     </script>
