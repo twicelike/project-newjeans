@@ -35,18 +35,24 @@
     .show {
       display: block;
     }
+
     .hover-row:hover {
       background-color: #f8fafc;
     }
+
     .pagination button {
       min-width: 2rem;
     }
+
     .pagination button:hover:not(:disabled) {
       background-color: #f3f4f6;
     }
-    #createPostModal, #editPostModal {
+
+    #createPostModal,
+    #editPostModal {
       z-index: 100;
     }
+
     #imagePreview img,
     #editImagePreview img {
       max-width: 100%;
@@ -54,6 +60,7 @@
       border-radius: 4px;
       border: 1px solid #e5e7eb;
     }
+
     #removeImageBtn,
     #editRemoveImageBtn {
       background: none;
@@ -61,9 +68,38 @@
       cursor: pointer;
       padding: 0;
     }
+
     #removeImageBtn:hover,
     #editRemoveImageBtn:hover {
       text-decoration: underline;
+    }
+
+    /* New modal styles */
+    .modal-container {
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 90%;
+      width: 100%;
+    }
+
+    .modal-content {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding: 1rem;
+    }
+
+    .modal-footer {
+      flex-shrink: 0;
+      padding: 1rem;
+      border-top: 1px solid #e5e7eb;
+      background: white;
+    }
+
+    @media (min-width: 640px) {
+      .modal-container {
+        width: 32rem;
+      }
     }
   </style>
 </head>
@@ -83,7 +119,7 @@
 
       <!-- Profile dropdown -->
       <div id="profileDropdown" class="dropdown-content">
-        <!-- TODO: Thêm c:forEach ở đây nếu các mục dropdown lấy từ dữ liệu động -->
+        <!-- TODO: Thêm c:forEach nếu các mục dropdown lấy từ dữ liệu động -->
         <a href="#" class="hover:bg-gray-100"><i class="fas fa-user mr-2 text-gray-600"></i> Profile</a>
         <a href="#" class="hover:bg-gray-100"><i class="fas fa-cog mr-2 text-gray-600"></i> Settings</a>
         <a href="#" class="hover:bg-gray-100 text-red-500" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i>
@@ -92,21 +128,26 @@
 
       <nav>
         <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
+        <!-- TODO: Thêm c:forEach nếu danh sách task lấy từ server -->
         <ul class="mb-6">
-          <!-- TODO: Thêm c:forEach ở đây nếu danh sách task lấy từ server -->
           <li class="mb-2">
             <a href="hobbytags.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
               <i class="fas fa-tasks mr-2"></i> Hobby Tags
             </a>
           </li>
           <li class="mb-2">
-            <a href="posts.html" class="flex items-center text-blue-300 transition">
+            <a href="posts.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
               <i class="fas fa-newspaper mr-2"></i> Posts
             </a>
           </li>
           <li class="mb-2">
-            <a href="suspendreport.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
-              <i class="fas fa-ban mr-2"></i> Suspended Users & Reports
+            <a href="report.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+              <i class="fas fa-flag mr-2"></i> Reports
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="suspend.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+              <i class="fas fa-ban mr-2"></i> Suspended Users
             </a>
           </li>
           <li class="mb-2">
@@ -149,7 +190,7 @@
             </tr>
           </thead>
           <tbody id="postsTableBody">
-            <!-- TODO: Thêm c:forEach ở đây nếu danh sách post lấy từ server -->
+            <!-- Data will be loaded by JavaScript -->
           </tbody>
         </table>
 
@@ -159,15 +200,15 @@
             <span id="posts-pagination-total">0</span> items
           </div>
           <div class="flex space-x-1 pagination">
-            <button id="posts-prev-page"
-              class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+            <button id="posts-prev-page" class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50"
+              disabled>
               Previous
             </button>
             <div id="posts-page-numbers" class="flex space-x-1">
               <!-- Page numbers will be inserted here by JavaScript -->
             </div>
-            <button id="posts-next-page"
-              class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+            <button id="posts-next-page" class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50"
+              disabled>
               Next
             </button>
           </div>
@@ -177,127 +218,136 @@
   </div>
 
   <!-- Edit Post Modal -->
-  <div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-    <div class="bg-white rounded-md p-4 w-full max-w-lg shadow-lg">
-      <div class="flex justify-between items-center mb-3">
+  <div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-md shadow-lg modal-container">
+      <div class="flex justify-between items-center p-4 border-b">
         <h2 class="text-lg font-semibold">Edit Post</h2>
-        <button onclick="closeModal('editPostModal')" class="text-gray-500 hover:text-gray-700 text-sm">
+        <button onclick="closeModal('editPostModal')" class="text-gray-500 hover:text-gray-700">
           <i class="fas fa-times"></i>
         </button>
       </div>
 
-      <form id="editPostForm" class="space-y-3">
-        <input type="hidden" id="editPostId">
+      <div class="modal-content">
+        <form id="editPostForm" class="space-y-4 p-4">
+          <input type="hidden" id="editPostId">
 
-        <div>
-          <label class="block text-sm font-medium mb-1">Title</label>
-          <input type="text" id="editPostTitle" class="w-full p-2 border rounded text-sm" required>
-        </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Title</label>
+            <input type="text" id="editPostTitle" class="w-full p-2 border rounded text-sm" required>
+          </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1">Author</label>
-          <input type="text" id="editPostAuthor" class="w-full p-2 border rounded text-sm" required>
-        </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Author</label>
+            <input type="text" id="editPostAuthor" class="w-full p-2 border rounded text-sm" required>
+          </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1">Date</label>
-          <input type="date" id="editPostDate" class="w-full p-2 border rounded text-sm" required>
-        </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Date</label>
+            <input type="date" id="editPostDate" class="w-full p-2 border rounded text-sm" required>
+          </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1">Content</label>
-          <textarea id="editPostContent" rows="3" class="w-full p-2 border rounded text-sm" required></textarea>
-        </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Content</label>
+            <textarea id="editPostContent" rows="4" class="w-full p-2 border rounded text-sm" required></textarea>
+          </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1">Image</label>
-          <input type="file" id="editPostImage" accept="image/*" class="w-full p-2 border rounded text-sm">
+          <div>
+            <label class="block text-sm font-medium mb-1">Image</label>
+            <input type="file" id="editPostImage" accept="image/*" class="w-full p-2 border rounded text-sm">
 
-          <div id="editImagePreview" class="mt-2 hidden"></div>
-          <button type="button" id="editRemoveImageBtn" class="mt-2 text-xs text-red-500 hidden">
-            <i class="fas fa-trash mr-1"></i> Remove Image
-          </button>
-        </div>
+            <div id="editImagePreview" class="mt-2 hidden"></div>
+            <button type="button" id="editRemoveImageBtn" class="mt-2 text-xs text-red-500 hidden">
+              <i class="fas fa-trash mr-1"></i> Remove Image
+            </button>
+          </div>
+        </form>
+      </div>
 
-        <div class="flex justify-end gap-2 pt-3">
+      <div class="modal-footer">
+        <div class="flex justify-end gap-2">
           <button type="button" onclick="closeModal('editPostModal')"
-            class="px-3 py-1.5 bg-gray-200 text-sm rounded hover:bg-gray-300">
+            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
             Cancel
           </button>
-          <button type="submit" class="px-3 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+          <button type="submit" form="editPostForm"
+            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
             <i class="fas fa-save mr-1"></i> Save
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 
   <!-- Create Post Modal -->
-  <div id="createPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded shadow w-full max-w-md">
-      <div class="flex justify-between items-center mb-4">
+  <div id="createPostModal"
+    class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-md shadow-lg modal-container">
+      <div class="flex justify-between items-center p-4 border-b">
         <h3 class="text-xl font-semibold">Create New Post</h3>
         <button onclick="closeModal('createPostModal')" class="text-gray-500 hover:text-gray-700">
           <i class="fas fa-times"></i>
         </button>
       </div>
 
-      <form id="createPostForm" class="space-y-4">
-        <div>
-          <label for="postTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-          <input type="text" id="postTitle" name="postTitle"
-            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter post title" required>
-        </div>
-
-        <div>
-          <label for="postContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-          <textarea id="postContent" name="postContent" rows="4"
-            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter post content" required></textarea>
-        </div>
-
-        <div>
-          <label for="postAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
-          <input type="text" id="postAuthor" name="postAuthor"
-            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter author name" required>
-        </div>
-
-        <!-- Image Upload Section -->
-        <div>
-          <label for="postImage" class="block text-sm font-medium text-gray-700 mb-1">Post Image</label>
-          <div class="mt-1 flex items-center">
-            <input type="file" id="postImage" name="postImage" accept="image/*" class="block w-full text-sm text-gray-500
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-md file:border-0
-              file:text-sm file:font-semibold
-              file:bg-blue-50 file:text-blue-700
-              hover:file:bg-blue-100">
+      <div class="modal-content">
+        <form id="createPostForm" class="space-y-4 p-4">
+          <div>
+            <label for="postTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input type="text" id="postTitle" name="postTitle"
+              class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter post title" required>
           </div>
-          <div id="imagePreview" class="mt-2 hidden">
-            <!-- Image preview will be shown here -->
-          </div>
-          <button type="button" id="removeImageBtn" class="mt-2 text-sm text-red-600 hidden">
-            <i class="fas fa-trash mr-1"></i> Remove Image
-          </button>
-        </div>
 
-        <div class="flex justify-end space-x-3 pt-4">
+          <div>
+            <label for="postContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+            <textarea id="postContent" name="postContent" rows="4"
+              class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter post content" required></textarea>
+          </div>
+
+          <div>
+            <label for="postAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
+            <input type="text" id="postAuthor" name="postAuthor"
+              class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter author name" required>
+          </div>
+
+          <div>
+            <label for="postImage" class="block text-sm font-medium text-gray-700 mb-1">Post Image</label>
+            <div class="mt-1 flex items-center">
+              <input type="file" id="postImage" name="postImage" accept="image/*" class="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-md file:border-0
+                file:text-sm file:font-semibold
+                file:bg-blue-50 file:text-blue-700
+                hover:file:bg-blue-100">
+            </div>
+            <div id="imagePreview" class="mt-2 hidden">
+              <!-- Image preview will be shown here -->
+            </div>
+            <button type="button" id="removeImageBtn" class="mt-2 text-sm text-red-600 hidden">
+              <i class="fas fa-trash mr-1"></i> Remove Image
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <div class="flex justify-end gap-2">
           <button type="button" onclick="closeModal('createPostModal')"
-            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
             Cancel
           </button>
-          <button type="submit"
-            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <button type="submit" form="createPostForm"
+            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
             Create Post
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-
   <script src="main.js"></script>
+  <!-- <script src="./js/post.js"></script> -->
 </body>
 
 </html>

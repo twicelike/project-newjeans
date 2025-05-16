@@ -8,7 +8,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
   <style>
-    /* CSS chung */
     body {
       font-family: 'Roboto', sans-serif;
     }
@@ -53,7 +52,6 @@
       z-index: 100;
     }
 
-    /* Phân trang */
     .pagination button {
       min-width: 2rem;
     }
@@ -62,7 +60,6 @@
       background-color: #f3f4f6;
     }
 
-    /* Image preview styles */
     #imagePreview img,
     #editImagePreview img,
     #currentImagePreview img {
@@ -102,7 +99,7 @@
 
       <!-- Profile dropdown -->
       <div id="profileDropdown" class="dropdown-content">
-        <!-- TODO: Thêm c:forEach ở đây nếu các mục dropdown lấy từ dữ liệu động -->
+        <!-- TODO: Thêm c:forEach nếu các mục dropdown lấy từ dữ liệu động -->
         <a href="#" class="hover:bg-gray-100"><i class="fas fa-user mr-2 text-gray-600"></i> Profile</a>
         <a href="#" class="hover:bg-gray-100"><i class="fas fa-cog mr-2 text-gray-600"></i> Settings</a>
         <a href="#" class="hover:bg-gray-100 text-red-500" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
@@ -111,7 +108,7 @@
       <nav>
         <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
         <ul class="mb-6">
-          <!-- TODO: Thêm c:forEach ở đây nếu danh sách task lấy từ server -->
+          <!-- TODO: Thêm c:forEach nếu danh sách task lấy từ server -->
           <li class="mb-2">
             <a href="hobbytags.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
               <i class="fas fa-tasks mr-2"></i> Hobby Tags
@@ -123,8 +120,13 @@
             </a>
           </li>
           <li class="mb-2">
-            <a href="suspendreport.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
-              <i class="fas fa-ban mr-2"></i> Suspended Users & Reports
+            <a href="report.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+              <i class="fas fa-flag mr-2"></i> Reports
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="suspend.html" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+              <i class="fas fa-ban mr-2"></i> Suspended Users
             </a>
           </li>
           <li class="mb-2">
@@ -136,14 +138,13 @@
       </nav>
     </div>
 
-    <!-- Main content will be loaded from other HTML files -->
+    <!-- Main content -->
     <div class="flex-1 p-6" id="main-content">
       <h1 class="text-2xl font-bold text-gray-800">Welcome to Admin Dashboard</h1>
       <p class="text-gray-600 mt-2">Select a section from the sidebar to get started</p>
     </div>
   </div>
 
-  <!-- Common Modals -->
   <!-- Suspend User Modal -->
   <div id="suspendModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded shadow w-full max-w-md">
@@ -153,16 +154,13 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-
       <form id="suspendForm" class="space-y-4">
         <input type="hidden" id="suspendUserId">
         <div>
           <label for="suspendDuration" class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
           <select id="suspendDuration" name="suspendDuration"
-            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-            required>
+            class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500" required>
             <option value="">Select duration</option>
-            <!-- TODO: Thêm c:forEach ở đây nếu danh sách duration lấy từ server -->
             <option value="1">1 day</option>
             <option value="3">3 days</option>
             <option value="7">1 week</option>
@@ -170,14 +168,12 @@
             <option value="0">Permanent</option>
           </select>
         </div>
-
         <div>
           <label for="suspendReason" class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
           <textarea id="suspendReason" name="suspendReason" rows="3"
             class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter reason for suspension" required></textarea>
         </div>
-
         <div class="flex justify-end space-x-3 pt-4">
           <button type="button" onclick="closeModal('suspendModal')"
             class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -201,24 +197,19 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-
       <div class="space-y-4">
-        <!-- TODO: Thêm c:forEach nếu duyệt qua nhiều feedback -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
           <p id="feedbackEmail" class="font-medium"></p>
         </div>
-
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
           <p id="feedbackComment" class="whitespace-pre-line"></p>
         </div>
-
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
           <p id="feedbackDate"></p>
         </div>
-
         <div class="flex justify-end pt-4">
           <button onclick="closeModal('viewFeedbackModal')"
             class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -238,7 +229,6 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-
       <form id="editTagForm" class="space-y-4">
         <input type="hidden" id="editTagId">
         <div>
@@ -247,15 +237,12 @@
             class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter tag name" required>
         </div>
-
         <div>
           <label for="editTagIcon" class="block text-sm font-medium text-gray-700 mb-1">Icon URL</label>
-          <!-- TODO: Thêm c:forEach ở đây nếu muốn thay input bằng danh sách icon -->
           <input type="text" id="editTagIcon" name="editTagIcon"
             class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter icon URL" required>
         </div>
-
         <div class="flex justify-end space-x-3 pt-4">
           <button type="button" onclick="closeModal('editModal')"
             class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">

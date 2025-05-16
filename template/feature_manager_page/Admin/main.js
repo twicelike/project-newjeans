@@ -32,12 +32,42 @@ const dataStore = {
       reason: "Harassment",
       status: "reviewed",
       date: "2023-05-14"
+    },
+    {
+      id: 3,
+      reportedUser: "user202",
+      reporter: "user303",
+      reason: "Spam messages",
+      status: "resolved",
+      date: "2023-05-13"
     }
   ],
 
   suspendedUsers: [
-    { id: 1, username: "user123", reason: "Spamming", suspendedBy: "admin1", date: "2023-05-10", duration: "7 days" },
-    { id: 2, username: "user456", reason: "Harassment", suspendedBy: "admin2", date: "2023-05-12", duration: "30 days" }
+    { 
+      id: 1, 
+      username: "user123", 
+      reason: "Spamming", 
+      suspendedBy: "admin1", 
+      date: "2023-05-10", 
+      duration: "7 days" 
+    },
+    { 
+      id: 2, 
+      username: "user456", 
+      reason: "Harassment", 
+      suspendedBy: "admin2", 
+      date: "2023-05-12", 
+      duration: "30 days" 
+    },
+    { 
+      id: 3, 
+      username: "user789", 
+      reason: "Fake account", 
+      suspendedBy: "admin1", 
+      date: "2023-05-11", 
+      duration: "Permanent" 
+    }
   ],
 
   feedbacks: [
@@ -309,6 +339,7 @@ function loadReports(page = 1) {
           }">${value}</span>
         `
       },
+      { key: 'date', header: 'Date' },
       {
         key: 'actions',
         header: 'Actions',
@@ -612,6 +643,7 @@ function openModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
   }
 }
 
@@ -619,6 +651,7 @@ function closeModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
   }
 }
 
