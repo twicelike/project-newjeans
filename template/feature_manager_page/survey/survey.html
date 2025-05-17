@@ -69,10 +69,52 @@
         }
         
         .logo-img {
-            width: 48px;
-            height: 48px;
+            width: 64px;
+            height: 64px;
             object-fit: contain;
         }
+        /* Thêm các style responsive mới */
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
+            }
+            
+            .profile-section {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 0.5rem;
+            }
+            
+            .form-container {
+                padding: 1rem;
+                margin: 0.5rem;
+                width: calc(100% - 1rem);
+            }
+            
+            .question-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .question-title-input {
+                width: 100%;
+            }
+            
+            .question-type-select {
+                width: 100%;
+            }
+            
+            .option-item {
+                gap: 0.5rem;
+            }
+            
+            .publish-btn {
+                width: 100%;
+                padding: 0.75rem;
+            }
+           } 
     </style>
 </head>
 <body class="bg-purple-100">
@@ -362,7 +404,7 @@
 
                 newQuestion.innerHTML = `
                     <div class="flex justify-between items-center mb-2">
-                        <input type="text" class="w-full border-none focus:outline-none text-lg question-title" placeholder="Question" value="Question ${questionCount}">
+                        <input type="text" class="w-full border-none focus:outline-none text-lg question-title" placeholder="Question" placeholder="Question ${questionCount}">
                         <select class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
                             <option value="radio">Multiple Choice</option>
                             <option value="checkbox">Checkboxes</option>
@@ -373,7 +415,7 @@
                     <div class="options-container">
                         <div class="flex items-center space-x-2 mb-2 option-item">
                             <input type="radio" name="options-${questionId}" class="form-radio h-5 w-5 text-purple-600 option-input">
-                            <input type="text" class="w-full border-none focus:outline-none option-text" placeholder="Option" value="Option 1">
+                            <input type="text" class="w-full border-none focus:outline-none option-text" placeholder="Option" placeholder="Option 1">
                             <i class="fas fa-times text-gray-400 hover:text-red-500 cursor-pointer remove-option" style="display: none;"></i>
                         </div>
                     </div>
