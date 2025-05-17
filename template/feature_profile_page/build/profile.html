@@ -18,44 +18,69 @@
                     class="fixed top-4 left-4 text-white p-2 rounded-md z-50 hover:bg-gray-700 transition-colors md:text-lg text-sm">☰
                     <span class="hidden sm:inline">Menu</span>
                 </button>
-                <div class="flex items-center ml-12 sm:ml-20">
-                    <a href="#">
-                    <img src="./img/logo.png" alt="Logo" class="h-12 w-12 md:h-16 md:w-16 "></a>
-                </div>
-
-
-                <nav class="md:flex items-center justify-center md:space-x-6 space-x-2">
-                    <a href="#"
-                        class="fa-solid text-[--nav-icon-color] fa-house hover:text-pink-400 md:text-xl lg:text-2xl text-md"></a>
-                    <a href="#"
-                        class="relative fa-solid text-[--nav-icon-color] fa-heart hover:text-pink-400 md:text-xl lg:text-2xl text-md"><span
-                            class="absolute bg-red-500 h-2 w-2 rounded-full"></span></a>
-                    <a href="#"
-                        class="relative fa-solid text-[--nav-icon-color] fa-message hover:text-pink-400 md:text-xl lg:text-2xl text-md"><span
-                            class="absolute bg-red-500 h-2 w-2 rounded-full"></span></a>
-                    <a href="#"
-                        class="relative fa-solid text-[--nav-icon-color] fa-bell hover:text-pink-400 md:text-xl lg:text-2xl text-md"><span
-                            class="absolute bg-red-500 h-2 w-2 rounded-full"></span></a>
-                </nav>
-
-
+                <div class="sm:basis-4/12 basis-1/4 flex items-center sm:gap-2 gap-1 relative">
+                    <a href="#" class="w-16 h-16">
+                        <img class="w-full h-full object-cover" src="./img/logo.png" alt="Logo">
+                    </a>
+                    <div id="ctSearch" class="bg-slate-200 md:w-[300px] rounded-3xl p-1 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </div>
+                </div> <!-- End Logo, Search-->
+                <ul
+                    class="flex sm:basis-7/12 basis-2/4 items-center justify-between sm:justify-start sm:gap-20 lg:gap-36">
+                    <li class="w-8 h-8">
+                        <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-full h-full">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="w-8 h-8">
+                        <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+                            <img src="./img/match.png" alt="" class="max-w-[32px] max-h-[32px] object-cover">
+                        </a>
+                    </li>
+                    <li class="w-8 h-8">
+                        <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-full h-full">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="w-8 h-8">
+                        <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-full h-full">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul> <!-- End Menu -->
                 <div class="relative" id="profileSetting">
                     <button class="flex items-center space-x-2 hover:bg-gray-100 rounded-full p-1">
-                        <img src="./img/avata.webp" alt="Profile" class="h-8 w-8 rounded-full object-cover">
+                        <img src="./img/bg-enwseajn.jpg" alt="Profile" class="h-8 w-8 rounded-full object-cover">
                         <span class="text-gray-700 text-sm hidden md:block">Đỗ Quốc Huy</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24">
                             <path d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div id="profileMenu" class="absolute hidden bg-white/80 shadow-md p-2 rounded-md z-50 w-full">
-                        <form action="@[/logout]" method="post">
-                            <button type="submit" class="w-full items-start">
-                            <span class="fa-solid fa-right-from-bracket"></span> logout</button>
+                    <div id="profileMenu" class="absolute hidden bg-white/80 shadow-md rounded-md w-full">
+                        <form action="@[/logout]" method="post" class="contents">
+                            <button type="submit" class="w-full py-2 flex items-center justify-center">
+                                <span class="fa-solid fa-right-from-bracket"></span> Logout</button>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </header>
 
@@ -78,11 +103,11 @@
 
         <div class="text-[#9C27B0] text-center mt-4">Đỗ Quốc Huy</div>
         <nav class="mt-6 flex flex-col space-y-4">
-            <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
+            <a href="#" class="px-4 py-2 bg-white text-black rounded-md main-nav-link hover-effect truncate"
                 data-target="profile">Profile</a>
-            <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
+            <a href="#" class="px-4 py-2 bg-white text-black rounded-md main-nav-link hover-effect truncate"
                 data-target="settings">Changes</a>
-            <a href="#" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
+            <a href="#" class="px-4 py-2 bg-white text-black rounded-md main-nav-link hover-effect truncate"
                 data-target="general">General</a>
         </nav>
     </aside>
@@ -94,7 +119,7 @@
                 <hr class="my-4">
                 <div class="flex gap-6 justify-center items-start">
                     <div class="w-full md:flex space-y-2 md:space-y-0 md:space-x-6">
-                        <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-[300px]">
+                        <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-auto">
                             <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
                             <div class="space-y-4">
                                 <div class="flex flex-col">
@@ -117,48 +142,65 @@
                                     <span class="font-medium text-gray-600">Education</span>
                                     <span id="profileEducation" class="mt-1"></span>
                                 </div>
+                                <div class="flex flex-col">
+                                    <span class="font-medium text-gray-600">Hobby:</span>
+                                    <span id="profileHobby" class="mt-1"></span>
+                                </div>
                             </div>
 
                         </div>
-                        <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-[450px] overflow-y-auto">
+                        <div
+                            class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-[450px] overflow-y-auto">
                             <div class="flex flex-col">
                                 <span class="font-medium text-gray-600">Images</span>
                                 <span id="profileImages" class="mt-1"></span>
                             </div>
                             <div class="relative bg-white/30 backdrop-blur-sm rounded-xl shadow-l space-y-2">
                                 <div class="relative w-full" style="padding-top: 56.25%;">
-                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
-                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                    <img src="./img/11283256.jpg"
+                                        class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label
+                                        class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
                                         14/5/2025
                                     </label>
                                 </div>
                                 <div class="relative w-full" style="padding-top: 56.25%;">
-                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
-                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                    <img src="./img/11283256.jpg"
+                                        class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label
+                                        class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
                                         14/5/2025
                                     </label>
                                 </div>
                                 <div class="relative w-full" style="padding-top: 56.25%;">
-                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
-                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                    <img src="./img/11283256.jpg"
+                                        class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label
+                                        class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
                                         14/5/2025
                                     </label>
                                 </div>
                                 <div class="relative w-full" style="padding-top: 56.25%;">
-                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
-                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                    <img src="./img/11283256.jpg"
+                                        class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label
+                                        class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
                                         14/5/2025
                                     </label>
                                 </div>
                                 <div class="relative w-full" style="padding-top: 56.25%;">
-                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
-                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                    <img src="./img/11283256.jpg"
+                                        class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label
+                                        class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
                                         14/5/2025
                                     </label>
                                 </div>
                                 <div class="relative w-full" style="padding-top: 56.25%;">
-                                    <img src="./img/11283256.jpg" class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
-                                    <label class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                    <img src="./img/11283256.jpg"
+                                        class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                                    <label
+                                        class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
                                         14/5/2025
                                     </label>
                                 </div>
@@ -172,245 +214,236 @@
             </div>
             <div id="settings" class="content-section hidden" style="color:var(--primary-color)">
                 <h1 class="text-2xl font-bold">Changes</h1>
-
-                <div class="flex justify-center w-full">
-                    <nav class="flex space-x-6 mt-6">
-                        <a href="#"
-                            class="px-4 py-2 text-black rounded-md hover-effect truncate settings-nav-link active"
-                            style="color:var(--primary-color)" data-target="bio">Profile</a>
-                    </nav>
+                <div class="w-full flex justify-center items-center">
+                <nav class="flex space-x-6 mt-6">
+                    <a href="#" class="px-4 py-2 text-black rounded-md hover-effect settings-nav-link"
+                        style="color:var(--primary-color)" data-target="BasicInfo">Basic Information</a>
+                    <a href="#" class="px-4 py-2 text-black rounded-md hover-effect settings-nav-link"
+                        style="color:var(--primary-color)" data-target="Pictures">Your Pictures</a>
+                </nav>
                 </div>
                 <hr class="mt-4" />
-                <div id="settings-sections">
+                <div id="BasicInfo" class="w-3/5 mx-auto bio-section">
+                    <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                        <div class="font-bold text-center mb-4">Biography</div>
+                        <textarea class="rounded-md input-expansion outline-none w-full mt-2" type="text" name="bio"
+                            id="bio" placeholder=""></textarea>
 
-                    <div id="bio-section" class="settings-section hidden">
-                        <div class="sm:flex gap-6">
-                            <div class="w-full sm:w-2/3">
-                                <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg">
-                                    <div class="font-bold text-center mb-4">Biography</div>
-                                    <textarea class="rounded-md input-expansion outline-none w-full mt-2" type="text"
-                                        name="bio" id="bio" placeholder=""></textarea>
-
-                                    <div class="relative my-3">
-                                        <label for="userAge" class="block text-sm mb-1 text-center">Age: <span
-                                                id="ageValue">18</span></label>
-                                        <div class="flex items-center">
-                                            <input type="range" id="userAge" name="age" min="18" max="99"
-                                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                                                value="18"
-                                                oninput="document.getElementById('ageValue').textContent = this.value">
-                                        </div>
-                                    </div>
-
-                                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-3" name="gender"
-                                        id="gender">
-                                        <option value="">--Gender--</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-
-                                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="address"
-                                        id="address" placeholder="address">
-                                        <option value="">--Location--</option>
-                                        <option value="An Giang">An Giang</option>
-                                        <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
-                                        <option value="Bắc Giang">Bắc Giang</option>
-                                        <option value="Bắc Kạn">Bắc Kạn</option>
-                                        <option value="Bạc Liêu">Bạc Liêu</option>
-                                        <option value="Bắc Ninh">Bắc Ninh</option>
-                                        <option value="Bến Tre">Bến Tre</option>
-                                        <option value="Bình Định">Bình Định</option>
-                                        <option value="Bình Dương">Bình Dương</option>
-                                        <option value="Bình Phước">Bình Phước</option>
-                                        <option value="Bình Thuận">Bình Thuận</option>
-                                        <option value="Cà Mau">Cà Mau</option>
-                                        <option value="Cần Thơ">Cần Thơ</option>
-                                        <option value="Cao Bằng">Cao Bằng</option>
-                                        <option value="Đà Nẵng">Đà Nẵng</option>
-                                        <option value="Đắk Lắk">Đắk Lắk</option>
-                                        <option value="Đắk Nông">Đắk Nông</option>
-                                        <option value="Điện Biên">Điện Biên</option>
-                                        <option value="Đồng Nai">Đồng Nai</option>
-                                        <option value="Đồng Tháp">Đồng Tháp</option>
-                                        <option value="Gia Lai">Gia Lai</option>
-                                        <option value="Hà Giang">Hà Giang</option>
-                                        <option value="Hà Nam">Hà Nam</option>
-                                        <option value="Hà Nội">Hà Nội</option>
-                                        <option value="Hà Tĩnh">Hà Tĩnh</option>
-                                        <option value="Hải Dương">Hải Dương</option>
-                                        <option value="Hải Phòng">Hải Phòng</option>
-                                        <option value="Hậu Giang">Hậu Giang</option>
-                                        <option value="Hòa Bình">Hòa Bình</option>
-                                        <option value="Hưng Yên">Hưng Yên</option>
-                                        <option value="Khánh Hòa">Khánh Hòa</option>
-                                        <option value="Kiên Giang">Kiên Giang</option>
-                                        <option value="Kon Tum">Kon Tum</option>
-                                        <option value="Lai Châu">Lai Châu</option>
-                                        <option value="Lâm Đồng">Lâm Đồng</option>
-                                        <option value="Lạng Sơn">Lạng Sơn</option>
-                                        <option value="Lào Cai">Lào Cai</option>
-                                        <option value="Long An">Long An</option>
-                                        <option value="Nam Định">Nam Định</option>
-                                        <option value="Nghệ An">Nghệ An</option>
-                                        <option value="Ninh Bình">Ninh Bình</option>
-                                        <option value="Ninh Thuận">Ninh Thuận</option>
-                                        <option value="Phú Thọ">Phú Thọ</option>
-                                        <option value="Phú Yên">Phú Yên</option>
-                                        <option value="Quảng Bình">Quảng Bình</option>
-                                        <option value="Quảng Nam">Quảng Nam</option>
-                                        <option value="Quảng Ngãi">Quảng Ngãi</option>
-                                        <option value="Quảng Ninh">Quảng Ninh</option>
-                                        <option value="Quảng Trị">Quảng Trị</option>
-                                        <option value="Sóc Trăng">Sóc Trăng</option>
-                                        <option value="Sơn La">Sơn La</option>
-                                        <option value="Tây Ninh">Tây Ninh</option>
-                                        <option value="Thái Bình">Thái Bình</option>
-                                        <option value="Thái Nguyên">Thái Nguyên</option>
-                                        <option value="Thanh Hóa">Thanh Hóa</option>
-                                        <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
-                                        <option value="Tiền Giang">Tiền Giang</option>
-                                        <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
-                                        <option value="Trà Vinh">Trà Vinh</option>
-                                        <option value="Tuyên Quang">Tuyên Quang</option>
-                                        <option value="Vĩnh Long">Vĩnh Long</option>
-                                        <option value="Vĩnh Phúc">Vĩnh Phúc</option>
-                                        <option value="Yên Bái">Yên Bái</option>
-                                    </select>
-
-
-                                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2"
-                                        name="relationship" id="relationship" placeholder="relationship">
-                                        <option value="">--Type of relationship--</option>
-                                        <option value="Casual chatting">Casual chatting</option>
-                                        <option value="Friendship">Friendship</option>
-                                        <option value="Long-term">Long-term</option>
-                                        <option value="Short-term">Short-term</option>
-                                    </select>
-
-                                    <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="edu-level"
-                                        id="edu-level" placeholder="edu-level">
-                                        <option value="">--Education level--</option>
-                                        <option value="High school">High school</option>
-                                        <option value="College">College</option>
-                                        <option value="University">University</option>
-                                        <option value="Master">Master</option>
-                                        <option value="Doctor">Doctor</option>
-                                    </select>
-
-                                    <div class="mt-4">
-                                        <div class="font-bold mb-4 text-center">Interests/Hobbies</div>
-
-                                        <div class="flex flex-wrap gap-2 mb-4 justify-center min-h-[40px] p-2 bg-white/10 rounded-lg"
-                                            id="bioSelectedTags">
-                                        </div>
-
-                                        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                            <button
-                                                class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all backdrop-blur-sm"
-                                                data-emoji="🎵" data-interest="Music">
-                                                <span class="text-xl">🎵</span>
-                                                <span>Music</span>
-                                            </button>
-                                            <button
-                                                class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                                data-emoji="🎮" data-interest="Gaming">
-                                                <span class="text-xl">🎮</span>
-                                                <span>Gaming</span>
-                                            </button>
-                                            <button
-                                                class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                                data-emoji="📚" data-interest="Reading">
-                                                <span class="text-xl">📚</span>
-                                                <span>Reading</span>
-                                            </button>
-                                            <button
-                                                class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                                data-emoji="✈️" data-interest="Travel">
-                                                <span class="text-xl">✈️</span>
-                                                <span>Travel</span>
-                                            </button>
-                                            <button
-                                                class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                                data-emoji="🏋️‍♂️" data-interest="Sports">
-                                                <span class="text-xl">🏋️‍♂️</span>
-                                                <span>Sports</span>
-                                            </button>
-                                            <button
-                                                class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                                data-emoji="🍳" data-interest="Cooking">
-                                                <span class="text-xl">🍳</span>
-                                                <span>Cooking</span>
-                                            </button>
-                                            <button
-                                                class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                                data-emoji="📸" data-interest="Photography">
-                                                <span class="text-xl">📸</span>
-                                                <span>Photography</span>
-                                            </button>
-                                            <button
-                                                class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
-                                                data-emoji="🎨" data-interest="Art">
-                                                <span class="text-xl">🎨</span>
-                                                <span>Art</span>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
+                        <div class="relative my-3">
+                            <label for="userAge" class="block text-sm mb-1 text-center">Age: <span
+                                    id="ageValue">18</span></label>
+                            <div class="flex items-center">
+                                <input type="range" id="userAge" name="age" min="18" max="99"
+                                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" value="18"
+                                    oninput="document.getElementById('ageValue').textContent = this.value">
                             </div>
-
-                            <div class="w-full sm:w-1/3 sm:mt-0 mt-4">
-                                <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg">
-                                    <div class="font-bold mb-4">Your Pictures</div>
-                                    <div class="grid grid-cols-2 gap-2" id="pictureContainer">
-                                        <label
-                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
-                                            <input type="file" class="hidden" accept="image/*"
-                                                onchange="handleImageUpload(this)">
-                                            <span class="text-4xl text-gray-400">+</span>
-                                        </label>
-                                        <label
-                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
-                                            <input type="file" class="hidden" accept="image/*"
-                                                onchange="handleImageUpload(this)">
-                                            <span class="text-4xl text-gray-400">+</span>
-                                        </label>
-                                        <label
-                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
-                                            <input type="file" class="hidden" accept="image/*"
-                                                onchange="handleImageUpload(this)">
-                                            <span class="text-4xl text-gray-400">+</span>
-                                        </label>
-                                        <label
-                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
-                                            <input type="file" class="hidden" accept="image/*"
-                                                onchange="handleImageUpload(this)">
-                                            <span class="text-4xl text-gray-400">+</span>
-                                        </label>
-                                        <label
-                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
-                                            <input type="file" class="hidden" accept="image/*"
-                                                onchange="handleImageUpload(this)">
-                                            <span class="text-4xl text-gray-400">+</span>
-                                        </label>
-                                        <label
-                                            class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
-                                            <input type="file" class="hidden" accept="image/*"
-                                                onchange="handleImageUpload(this)">
-                                            <span class="text-4xl text-gray-400">+</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="flex justify-end mt-4">
-                                    <button
-                                        class="rounded-full outline-double lg:w-20 lg:h-7 w-12 h-6  hover:bg-purple-100 transition-all"
-                                        type="submit">
-                                        Save
-                                    </button>
-                                </div>
-                            </div>
-
                         </div>
+
+                        <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-3" name="gender" id="gender">
+                            <option value="">--Gender--</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+
+                        <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="address" id="address"
+                            placeholder="address">
+                            <option value="">--Location--</option>
+                            <option value="An Giang">An Giang</option>
+                            <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+                            <option value="Bắc Giang">Bắc Giang</option>
+                            <option value="Bắc Kạn">Bắc Kạn</option>
+                            <option value="Bạc Liêu">Bạc Liêu</option>
+                            <option value="Bắc Ninh">Bắc Ninh</option>
+                            <option value="Bến Tre">Bến Tre</option>
+                            <option value="Bình Định">Bình Định</option>
+                            <option value="Bình Dương">Bình Dương</option>
+                            <option value="Bình Phước">Bình Phước</option>
+                            <option value="Bình Thuận">Bình Thuận</option>
+                            <option value="Cà Mau">Cà Mau</option>
+                            <option value="Cần Thơ">Cần Thơ</option>
+                            <option value="Cao Bằng">Cao Bằng</option>
+                            <option value="Đà Nẵng">Đà Nẵng</option>
+                            <option value="Đắk Lắk">Đắk Lắk</option>
+                            <option value="Đắk Nông">Đắk Nông</option>
+                            <option value="Điện Biên">Điện Biên</option>
+                            <option value="Đồng Nai">Đồng Nai</option>
+                            <option value="Đồng Tháp">Đồng Tháp</option>
+                            <option value="Gia Lai">Gia Lai</option>
+                            <option value="Hà Giang">Hà Giang</option>
+                            <option value="Hà Nam">Hà Nam</option>
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Hà Tĩnh">Hà Tĩnh</option>
+                            <option value="Hải Dương">Hải Dương</option>
+                            <option value="Hải Phòng">Hải Phòng</option>
+                            <option value="Hậu Giang">Hậu Giang</option>
+                            <option value="Hòa Bình">Hòa Bình</option>
+                            <option value="Hưng Yên">Hưng Yên</option>
+                            <option value="Khánh Hòa">Khánh Hòa</option>
+                            <option value="Kiên Giang">Kiên Giang</option>
+                            <option value="Kon Tum">Kon Tum</option>
+                            <option value="Lai Châu">Lai Châu</option>
+                            <option value="Lâm Đồng">Lâm Đồng</option>
+                            <option value="Lạng Sơn">Lạng Sơn</option>
+                            <option value="Lào Cai">Lào Cai</option>
+                            <option value="Long An">Long An</option>
+                            <option value="Nam Định">Nam Định</option>
+                            <option value="Nghệ An">Nghệ An</option>
+                            <option value="Ninh Bình">Ninh Bình</option>
+                            <option value="Ninh Thuận">Ninh Thuận</option>
+                            <option value="Phú Thọ">Phú Thọ</option>
+                            <option value="Phú Yên">Phú Yên</option>
+                            <option value="Quảng Bình">Quảng Bình</option>
+                            <option value="Quảng Nam">Quảng Nam</option>
+                            <option value="Quảng Ngãi">Quảng Ngãi</option>
+                            <option value="Quảng Ninh">Quảng Ninh</option>
+                            <option value="Quảng Trị">Quảng Trị</option>
+                            <option value="Sóc Trăng">Sóc Trăng</option>
+                            <option value="Sơn La">Sơn La</option>
+                            <option value="Tây Ninh">Tây Ninh</option>
+                            <option value="Thái Bình">Thái Bình</option>
+                            <option value="Thái Nguyên">Thái Nguyên</option>
+                            <option value="Thanh Hóa">Thanh Hóa</option>
+                            <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+                            <option value="Tiền Giang">Tiền Giang</option>
+                            <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+                            <option value="Trà Vinh">Trà Vinh</option>
+                            <option value="Tuyên Quang">Tuyên Quang</option>
+                            <option value="Vĩnh Long">Vĩnh Long</option>
+                            <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+                            <option value="Yên Bái">Yên Bái</option>
+                        </select>
+
+
+                        <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="relationship"
+                            id="relationship" placeholder="relationship">
+                            <option value="">--Type of relationship--</option>
+                            <option value="Casual chatting">Casual chatting</option>
+                            <option value="Friendship">Friendship</option>
+                            <option value="Long-term">Long-term</option>
+                            <option value="Short-term">Short-term</option>
+                        </select>
+
+                        <select class="rounded-md w-full h-8 py-1 px-2 outline-none mt-2" name="edu-level"
+                            id="edu-level" placeholder="edu-level">
+                            <option value="">--Education level--</option>
+                            <option value="High school">High school</option>
+                            <option value="College">College</option>
+                            <option value="University">University</option>
+                            <option value="Master">Master</option>
+                            <option value="Doctor">Doctor</option>
+                        </select>
+
+                        <div class="mt-4">
+                            <div class="font-bold mb-4 text-center">Interests/Hobbies</div>
+
+                            <div class="flex flex-wrap gap-2 mb-4 justify-center min-h-[40px] p-2 bg-white/10 rounded-lg"
+                                id="bioSelectedTags">
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                <button
+                                    class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all backdrop-blur-sm"
+                                    data-emoji="🎵" data-interest="Music">
+                                    <span class="text-xl">🎵</span>
+                                    <span>Music</span>
+                                </button>
+                                <button
+                                    class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
+                                    data-emoji="🎮" data-interest="Gaming">
+                                    <span class="text-xl">🎮</span>
+                                    <span>Gaming</span>
+                                </button>
+                                <button
+                                    class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
+                                    data-emoji="📚" data-interest="Reading">
+                                    <span class="text-xl">📚</span>
+                                    <span>Reading</span>
+                                </button>
+                                <button
+                                    class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
+                                    data-emoji="✈️" data-interest="Travel">
+                                    <span class="text-xl">✈️</span>
+                                    <span>Travel</span>
+                                </button>
+                                <button
+                                    class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
+                                    data-emoji="🏋️‍♂️" data-interest="Sports">
+                                    <span class="text-xl">🏋️‍♂️</span>
+                                    <span>Sports</span>
+                                </button>
+                                <button
+                                    class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
+                                    data-emoji="🍳" data-interest="Cooking">
+                                    <span class="text-xl">🍳</span>
+                                    <span>Cooking</span>
+                                </button>
+                                <button
+                                    class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
+                                    data-emoji="📸" data-interest="Photography">
+                                    <span class="text-xl">📸</span>
+                                    <span>Photography</span>
+                                </button>
+                                <button
+                                    class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
+                                    data-emoji="🎨" data-interest="Art">
+                                    <span class="text-xl">🎨</span>
+                                    <span>Art</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button id="basicInfoSubmit"
+                            class="rounded-full outline-double lg:w-20 lg:h-7 w-12 h-6  hover:bg-purple-100 transition-all"
+                            type="dubmit">
+                            Save
+                        </button>
+                    </div>
+                </div>
+
+                <div id="Pictures" class="w-3/5 bio-section hidden mx-auto">
+                    <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                        <div class="font-bold mb-4">Your Pictures</div>
+                        <div class="grid grid-cols-3 gap-2" id="pictureContainer">
+                            <label
+                                class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
+                                <span class="text-4xl text-gray-400">+</span>
+                            </label>
+                            <label
+                                class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
+                                <span class="text-4xl text-gray-400">+</span>
+                            </label>
+                            <label
+                                class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
+                                <span class="text-4xl text-gray-400">+</span>
+                            </label>
+                            <label
+                                class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
+                                <span class="text-4xl text-gray-400">+</span>
+                            </label>
+                            <label
+                                class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
+                                <span class="text-4xl text-gray-400">+</span>
+                            </label>
+                            <label
+                                class="aspect-square border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors uploadLabel">
+                                <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
+                                <span class="text-4xl text-gray-400">+</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button id="introducePicturesSubmit"
+                            class="rounded-full outline-double lg:w-20 lg:h-7 w-12 h-6  hover:bg-purple-100 transition-all"
+                            type="submit">
+                            Save
+                        </button>
                     </div>
 
                 </div>
@@ -421,7 +454,7 @@
                     <nav class="flex space-x-6 mt-6">
                         <a href="#"
                             class="px-4 py-2 text-black rounded-md hover-effect truncate settings-nav-general-link active"
-                            style="color:var(--primary-color)" data-target="changepassword">Change password</a>
+                            style="color:var(--primary-color)" data-target="changepassword-section">Change password</a>
                     </nav>
                 </div>
                 <hr class="mt-4" />
@@ -435,23 +468,20 @@
                         </div>
 
                         <div class="flex justify-end mt-4">
-                            <button class="rounded-full outline-double w-20 h-7 hover:bg-purple-100 transition-all"
+                            <button id="changePasswordSubmit" class="rounded-full outline-double w-20 h-7 hover:bg-purple-100 transition-all"
                                 type="submit">Save</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        </div>
-
-
-        </div>
     </main>
     <script src="./js/Profile.js"></script>
-    <script src="./js/DoubleSliders.js"></script>
     <script src="./js/HobbyTag.js"></script>
     <script src="./js/DropDownMenu.js"></script>
     <script src="./js/TransferPage.js"></script>
+    <script src="./js/ToggleSideBar.js"></script>
+    <script src="./js/HandleImageUpload.js"></script>
 </body>
 
 </html>
