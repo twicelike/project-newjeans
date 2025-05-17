@@ -20,7 +20,7 @@ function handleImageUpload(input) {
         reader.onload = function (e) {
             // Create image container
             const imageContainer = document.createElement('div');
-            imageContainer.className = 'image-container relative aspect-square w-[200px] h-[200px]';
+            imageContainer.className = 'image-container relative aspect-square w-full h-full';
 
             // Create a canvas to process the image
             const canvas = document.createElement('canvas');
