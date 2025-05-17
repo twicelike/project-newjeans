@@ -13,123 +13,127 @@ var swiper = new Swiper(".mySwiper", {
   },
 });
 
-//Interact icon click
-const interactIcon = document.getElementById('interactIcon');
-//Match Popup
-const matchPopup = document.getElementById('matchPopup');
-const popupBg = document.getElementById('popupBg');
-const closePopup = document.getElementById('closePopup');
-const matchBtn = document.getElementById('matchBtn');
-//Search Box
-const ctSearch = document.getElementById('ctSearch');
-const searchBox = document.getElementById('searchBox');
-const closeSearch = document.getElementById('closeSearch');
-const ctContent = document.getElementsByClassName('ct-content');
+document.addEventListener('DOMContentLoaded', () => {
+  const matchIcons = document.querySelectorAll('.inner-item .inner-match');
+  const popupBg = document.getElementById('popupBg');
+  const matchPopup = document.getElementById('matchPopup');
+  const popupAvatar = matchPopup.querySelector('.popup-profile img');
+  const popupName = matchPopup.querySelector('.popup-profile span');
+  const msgBox = matchPopup.querySelector('#messageBox');
+  const countChar = matchPopup.querySelector('#countCharacter');
+  const matchBtn = document.getElementById('matchBtn');
+  const closeBtn = matchPopup.querySelector('.close-icon');
+  let activeIcon = null;
 
-document.addEventListener('click', (e) => {
-  //Open Search Box
-  if(ctSearch.contains(e.target)) {
-      searchBox.classList.toggle('hidden');
-  }
-  //Open Match Popup
-  if(interactIcon.contains(e.target)) {
+  // Open popup
+  function openPopup(iconEl) {
+    activeIcon = iconEl;
+    const item = iconEl.closest('.inner-item');
+    const infoBox = item.querySelector('.inner-info-user');
+    // Lấy thông tin
+    const avatarSrc = infoBox.querySelector('img').src;
+    const userName = infoBox.querySelector('.inner-name').textContent.trim();
+
+    // Đổ vào popup
+    popupAvatar.src = avatarSrc;
+    popupName.textContent = userName;
+
+    // Reset phần message
+    msgBox.value = '';
+    countChar.textContent = '0/360 Characters';
+
+    // Hiển thị popup
     popupBg.classList.add('active');
     matchPopup.classList.add('active');
   }
-  //Choose Match Button
-  if(matchBtn.contains(e.target)){
+
+  // Close Popup
+  function closePopup() {
     popupBg.classList.remove('active');
     matchPopup.classList.remove('active');
-    interactIcon.classList.add('active');
   }
-  //Close SearchBox
-  if(searchBox.contains) {
-    if(closeSearch.contains(e.target)){
-      searchBox.classList.add('hidden');
+
+  // CLick Match => 
+  matchIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      if (icon.classList.contains('grayscale-0')) return;
+      openPopup(icon);
+    });
+  });
+
+  // Count characters
+  msgBox.addEventListener('input', () => {
+    countChar.textContent = `${msgBox.value.length}/360 Characters`;
+  });
+
+  // Click Match
+  matchBtn.addEventListener('click', () => {
+    if (activeIcon) {
+      activeIcon.classList.remove('grayscale');
+      activeIcon.classList.add('grayscale-0');
     }
-  }
-  if (!ctSearch.contains(e.target) && !searchBox.contains(e.target)) {
-    searchBox.classList.add('hidden');
-  }
+    closePopup();
+  });
 
-  //Close Match Popup
-  if ((!interactIcon.contains(e.target) && !matchPopup.contains(e.target)) || closePopup.contains(e.target)) {
-    popupBg.classList.remove('active');
-    matchPopup.classList.remove('active');
-  }
-})
+  // Close popup
+  closeBtn.addEventListener('click', closePopup);
+  popupBg.addEventListener('click', closePopup);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closePopup();
+  });
 
-//Count Characters
-const messageBox = document.getElementById('messageBox');
-const countCharacter = document.getElementById('countCharacter');
-messageBox.addEventListener('input', () => {
-  const count = messageBox.value.length;
-  countCharacter.textContent = `${count}/360 Characters`;
-})
+  document.querySelectorAll('.inner-desc').forEach(desc => {
+    const p = desc.querySelector('p');
+    const btn = desc.querySelector('.read-more');
 
+    //Kiểm tra số dòng
+    const lineHeight = parseFloat(getComputedStyle(p).lineHeight);
+    if (p.scrollHeight <= lineHeight * 2) {
+      btn.style.display = 'none';
+      return;
+    }
 
-//Up/Down Button
-document.addEventListener('DOMContentLoaded', function () {
-  const posts = document.querySelectorAll('.main-wrapper > div');
-  let currentIndex = 0;
+    btn.addEventListener('click', () => {
+      const expanded = p.classList.toggle('line-clamp-none');
 
-  function showPost(index) {
-    posts.forEach((post, i) => {
-      if (i === index) {
-        post.classList.add('active');
-      } else {
-        post.classList.remove('active');
-      }
+      p.classList.toggle('line-clamp-2', !expanded);
+      p.classList.toggle('overflow-hidden', !expanded);
+
+      btn.textContent = expanded ? 'Read less' : 'Read more';
     });
-  }
+  });
 
-  const upButton = document.querySelector('.up-button');
-  const downButton = document.querySelector('.down-button');
+  const boxMenu = document.getElementById('boxMenu');
+  const btnBars = document.getElementById('btnBars');
 
-  //Up Button
-  if (upButton) {
-    upButton.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        showPost(currentIndex);
-      }
-    });
-  }
-
-  //Down Button
-  if (downButton) {
-    downButton.addEventListener('click', () => {
-      if (currentIndex < posts.length - 1) {
-        currentIndex++;
-        showPost(currentIndex);
-      }
-    });
-  }
-
-  const mainWrapper = document.querySelector('.root');
-  let isScrolling = false;
-
-  mainWrapper.addEventListener('wheel', (e) => {
-    e.preventDefault();
-
-    if (isScrolling) return;
-    isScrolling = true;
-
-    if (e.deltaY > 0) {
-      if (currentIndex < posts.length - 1) {
-        currentIndex++;
-        showPost(currentIndex);
-      }
+  document.addEventListener('click', (e) => {
+    if (btnBars.contains(e.target)) {
+      //Click Toggle Top Menu Icon
+      boxMenu.classList.toggle('hidden');
     } else {
-      if (currentIndex > 0) {
-        currentIndex--;
-        showPost(currentIndex);
+      //Click outside from Toggle Top Menu Icon
+      if (!boxMenu.contains(e.target)) {
+        boxMenu.classList.add('hidden')
       }
     }
+  });
 
-    setTimeout(() => {
-      isScrolling = false;
-    }, 400); 
+  //Search Box
+  const searchTriggers = document.querySelectorAll('.inner-search');
+  const boxSearch = document.getElementById('boxSearch');
+
+  searchTriggers.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      boxSearch.classList.toggle('hidden');
+    });
+  });
+
+  // Close
+  document.addEventListener('click', e => {
+    if (!boxSearch.contains(e.target) &&
+      ![...searchTriggers].some(t => t.contains(e.target))) {
+      boxSearch.classList.add('hidden');
+    }
   });
 });
-

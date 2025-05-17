@@ -2,338 +2,507 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../home_page/assets/images/favicon.png">
-    <title>NewJeans</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../home_page/assets/js/tailwind-config.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="../home_page/assets/css/base.css">
-    <link rel="stylesheet" href="../home_page/assets/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="../home_page/assets/css/styles.css">
 </head>
 
-<body>
-    <div class="root">
-        <div class="content-wrapper flex flex-col sm:flex sm:flex-row relative">
-            <!-- Sidebar -->
-            <aside class="sidebar lg:basis-1/6 basis-1/12 sm:p-2 lg:border-0 border lg:border-r-gray-200 relative z-20">
-                <nav class="font-semibold flex justify-between items-center sm:block">
-                    <div class="ct-logo lg:block hidden mb-3">
-                        <a href="#" class="flex justify-start items-center">
-                            <img class="w-20 h-16 object-cover" src="../home_page/assets/images/logo.png" alt="Logo">
-                        </a>
-                    </div> <!-- End Logo -->
-                    <div id="ctSearch"
-                        class="ct-search lg:flex inline-flex lg:items-center bg-slate-100 lg:rounded-3xl rounded-full lg:w-full p-2 gap-3 cursor-pointer sm:mb-5">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-8 h-8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
-                        <span class="ct-content lg:block hidden">Search</span>
-                    </div> <!-- End Search -->
-                    <ul class="ct-menu sm:block flex items-center gap-5">
-                        <li class="">
-                            <a href="#"
-                                class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                </svg>
-                                <span class="ct-content lg:block hidden">Home</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#"
-                                class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
-                                <img src="assets/images/match.png" alt=""
-                                    class="max-w-[32px] max-h-[32px] object-cover">
-                                <span class="ct-content lg:block hidden">NewJeans</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#"
-                                class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-                                </svg>
-                                <span class="ct-content lg:block hidden">Message</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="#"
-                                class="lg:flex inline-flex items-center gap-3 sm:mb-5 p-2 rounded-lg hover:bg-slate-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-                                </svg>
-                                <span class="ct-content lg:block hidden">Notification</span>
-                            </a>
-                        </li>
-                    </ul> <!-- End Menu -->
-                    <ul class="ct-profile">
-                        <li class="">
-                            <a href="#"
-                                class="lg:flex inline-flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100">
-                                <img class="max-w-8 h-8 object-cover rounded-full"
-                                    src="../home_page/assets/images/avt.jpg" alt="Avatar">
-                                <span class="lg:block hidden">Name</span>
-                            </a>
-                        </li>
-                    </ul> <!-- End Profile -->
-                </nav>
-                <div id="searchBox"
-                    class="search-box hidden absolute top-full left-0 w-full sm:w-[208px] sm:top-0 sm:left-full bg-white border border-slate-300 p-4 z-50">
-                    <div class="search-input mb-4">
-                        <div class="flex justify-between my-4">
-                            <label for="searchInput" class="block text-xl font-bold">Search</label>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6 cursor-pointer hover:bg-slate-100 rounded-full"
-                                id="closeSearch">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                        </div>
-                        <input type="text" id="searchInput"
-                            class="block w-full text-base py-2 px-4 rounded-full bg-slate-100"
-                            placeholder="Tìm kiếm...">
-                    </div>
-                    <div class="search-content">
-                        <div
-                            class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
-                            <a href="#" class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                                <span class="">NewJeans</span>
-                            </a>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="close-item size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                        </div>
-                        <div
-                            class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
-                            <a href="#" class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                                <span class="">K-POP</span>
-                            </a>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="close-item size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                        </div>
-                        <div
-                            class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
-                            <a href="#" class="flex items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                                <span class="">Hanni</span>
-                            </a>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="close-item size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-            <!-- End Sidebar -->
-            <!-- Main -->
-            <main class="main-section sm:flex sm:ml-[20%] flex-1 relative overflow-y-hidden z-10">
-                <div class="main-wrapper sm:w-[360px] relative h-[calc(100vh-50px)] sm:h-screen">
-                    <div class="active">
-                        <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
-                            <div class="swiper mySwiper basis-11/12">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg1.webp" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg2.webp" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg3.webp" alt="">
-                                    </div>
-                                </div>
-                                <div
-                                    class="swiper-button-next after:content-['>'] after:absolute after:top-0 after:left-0 after:text-3xl after:font-semibold after:w-full after:h-full after:flex after:justify-center after:items-center hover:bg-stone-300 w-6 h-6 text-black p-4 rounded-full bg-slate-300 opacity-45">
-                                </div>
-                                <div
-                                    class="swiper-button-prev after:content-['<'] after:absolute after:top-0 after:left-0 after:text-3xl after:font-semibold after:w-full after:h-full after:flex after:justify-center after:items-center hover:bg-stone-300 w-6 h-6 text-black p-4 rounded-full bg-slate-300 opacity-45">
-                                </div>
-                                <div class="swiper-pagination"></div>
-                            </div>
-                            <div class="flex-1 bg-sky-100">
-                                <div class="shadow-lg shadow-gray-300 z-20 mb-2">
-                                    <a href="" class="flex items-center sm:gap-6 gap-2">
-                                        <span class="">Name</span>
-                                        <span class="">Age</span>
-                                    </a>
-                                </div>
-                                <div class="">
-                                    VietNam
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- Main Content -->
-                    <div class="">
-                        <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
-                            <div class="swiper mySwiper basis-11/12">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg3.webp" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg2.webp" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg4.webp" alt="">
-                                    </div>
-                                </div>
-                                <div
-                                    class="swiper-button-next after:content-['>'] after:absolute after:top-0 after:left-0 after:text-3xl after:font-semibold after:w-full after:h-full after:flex after:justify-center after:items-center hover:bg-stone-300 w-6 h-6 text-black p-4 rounded-full bg-slate-300 opacity-45">
-                                </div>
-                                <div
-                                    class="swiper-button-prev after:content-['<'] after:absolute after:top-0 after:left-0 after:text-3xl after:font-semibold after:w-full after:h-full after:flex after:justify-center after:items-center hover:bg-stone-300 w-6 h-6 text-black p-4 rounded-full bg-slate-300 opacity-45">
-                                </div>
-                                <div class="swiper-pagination"></div>
-                            </div>
-                            <div class="flex-1 bg-sky-100">
-                                <div class="shadow-lg shadow-gray-300 z-20 mb-2">
-                                    <a href="" class="flex items-center sm:gap-6 gap-2">
-                                        <span class="">Name</span>
-                                        <span class="">Age</span>
-                                    </a>
-                                </div>
-                                <div class="">
-                                    VietNam
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- Main Content -->
-                    <div class="">
-                        <div class="flex flex-col p-0.5 h-[calc(100vh-50px)] sm:h-screen border border-slate-300">
-                            <div class="swiper mySwiper basis-11/12">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg5.webp" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg6.webp" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover"
-                                            src="../home_page/assets/images/bg4.webp" alt="">
-                                    </div>
-                                </div>
-                                <div
-                                    class="swiper-button-next after:content-['>'] after:absolute after:top-0 after:left-0 after:text-3xl after:font-semibold after:w-full after:h-full after:flex after:justify-center after:items-center hover:bg-stone-300 w-6 h-6 text-black p-4 rounded-full bg-slate-300 opacity-45">
-                                </div>
-                                <div
-                                    class="swiper-button-prev after:content-['<'] after:absolute after:top-0 after:left-0 after:text-3xl after:font-semibold after:w-full after:h-full after:flex after:justify-center after:items-center hover:bg-stone-300 w-6 h-6 text-black p-4 rounded-full bg-slate-300 opacity-45">
-                                </div>
-                                <div class="swiper-pagination"></div>
-                            </div>
-                            <div class="flex-1 bg-sky-100">
-                                <div class="shadow-lg shadow-gray-300 z-20 mb-2">
-                                    <a href="" class="flex items-center sm:gap-6 gap-2">
-                                        <span class="">Name</span>
-                                        <span class="">Age</span>
-                                    </a>
-                                </div>
-                                <div class="">
-                                    VietNam
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- Main Content -->
-                </div>
-                <div
-                    class="flex flex-col justify-center items-center gap-6 mr-2 sm:p-1 sm:static absolute z-10 inset-y-2/3 right-0">
-                    <a href="#" class="flex items-center sm:p-5">
-                        <img class="w-12 h-12 object-cover rounded-full" src="../home_page/assets/images/avt.jpg"
-                            alt="Avatar">
-                    </a>
-                    <div id="interactIcon" class="interact-icon flex items-center grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer p-1">
-                        <img src="assets/images/match.png" alt="" class="w-12 h-12 object-cover">
-                    </div>
-                </div>
-            </main>
-            <!-- End Main -->
-            <div id="popupBg" class="popup-bg"></div>
-            <div id="matchPopup"
-                class="match-popup sm:w-[360px] absolute opacity-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[5] sm:h-[400px] p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
-                <div class="popup-title flex justify-between items-center mb-4">
-                    <p class="text-lg font-semibold">Information</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" id="closePopup" class="size-8 cursor-pointer">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                </div>
-                <div class="popup-profile mb-6">
-                    <a href="" class="flex items-center gap-6">
-                        <img src="assets/images/avt.jpg" alt=""
-                            class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500">
-                        <span class="">Name</span>
-                    </a>
-                </div>
-                <div class="popup-message bg-white border border-slate-300 p-2 mb-6">
-                    <textarea name="" id="messageBox" class="w-full p-2 outline-none resize-none" maxlength="360"
-                        placeholder="Hello! Date me <3..." rows="4"></textarea>
-                    <div id="countCharacter" class="count-char text-right text-xs text-gray-500">0/360 Characters</div>
-                </div>
-                <div class="popup-button flex justify-end gap-4">
-                    <a href="#" class="text-white p-[10px] w-[100px] rounded-lg font-semibold bg-[--color-one] hover:bg-[--color-two] hover:text-[--color-one] inline-block text-center">Profile</a>
-                    <a href="#" id="matchBtn" class="text-white p-[10px] w-[100px] rounded-lg font-semibold bg-[--color-one] hover:bg-[--color-two] hover:text-[--color-one] inline-block text-center">NewJeans</a>
-                </div>
-            </div>
+<body class="flex flex-col">
+  <!-- Header -->
+  <header class="header relative z-[50] px-[10px] py-[5px] shadow-[0px_1.75px_3.51px_0px_#0000001F] bg-[white]">
+    <div class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]">
+      <div class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]">
+        <div class="inner-logo">
+          <a href="#">
+            <img src="assets/images/logo.png" alt="" class="h-[40px] w-auto">
+          </a>
         </div>
         <div
-            class="updown-button hover:bg-[#ACA4A2] up-button md:inline-block hidden text-black font-semibold p-3 bg-slate-100 rounded-full fixed right-3 bottom-1/2 m-1 cursor-pointer z-20">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-8 h-8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-            </svg>
-        </div> <!-- Up Button -->
-        <div
-            class="updown-button hover:bg-[#ACA4A2] down-button md:inline-block hidden text-black font-semibold p-3 bg-slate-100 rounded-full fixed right-3 top-1/2 m-1 cursor-pointer z-20">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-8 h-8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-            </svg>
-        </div> <!-- Down Button -->
+          class="inner-search w-[200px] cursor-pointer flex items-center gap-[10px] bg-[var(--bg)] p-[5px] rounded-[20px] [@media(max-width:767.98px)]:hidden text-[var(--color-one)] text-[300] text-[14px]">
+          <i class="fa-solid fa-magnifying-glass text-[25px] text-[var(--color-one)]"></i>
+          Search
+        </div>
+      </div>
+      <div class="inner-menu [@media(max-width:767.98px)]:hidden">
+        <ul class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]">
+          <li>
+            <a href="#" class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-house"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="relative inline-block w-[28px] h-[28px]">
+              <img src="assets/images/match.png" alt="" class="w-full h-full object-cover">
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-message"></i>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-bell"></i>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <button id="btnBars"
+        class="inner-bars hidden [@media(max-width:767.98px)]:inline-flex [@media(max-width:767.98px)]:order-[0]">
+        <i class="fa-solid fa-bars text-[25px] text-[var(--color-one)]"></i>
+      </button>
+      <div
+        class="inner-profile flex items-center justify-end gap-[10px] cursor-pointer [@media(max-width:767.98px)]:order-[2]">
+        <div class="inner-image rounded-full overflow-hidden w-[30px] h-[30px]">
+          <img src="assets/images/avt.jpg" alt="" class="w-full h-full object-over">
+        </div>
+        <div class="inner-name">
+          User
+        </div>
+      </div>
     </div>
+    <!-- Search Box -->
+    <div id="boxSearch"
+      class="box-search hidden w-[400px] [@media(max-width:767.98px)]:w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-[100px] [@media(max-width:767.98px)]:left-0 z-[110] bg-white border-slate-300 rounded-[10px]">
+      <h2 class="inner-title text-[var(--color-one)] font-[600] text-[24px] mt-0 mb-[10px]">
+        Search
+      </h2>
+      <div class="inner-wrap flex flex-col gap-[10px]">
+        <div class="inner-input-search bg-slate-200 rounded-[10px] p-[5px] mb-[5px]">
+          <input type="text" class="outline-none bg-slate-200 text-[16px] px-[15px]" placeholder="Search something...">
+        </div>
+        <div class="inner-group w-full flex flex-col text-[var(--color-one)] ">
+          <div class="inner-label font-[300] text-[14px]">Gender:</div>
+          <div class="inner-input-group flex items-center gap-[40px]">
+            <label class="inline-flex items-center space-x-2">
+              <input type="radio" name="gender" value="male" class="">
+              <span class="">Male</span>
+            </label>
+            <label class="inline-flex items-center space-x-2">
+              <input type="radio" name="gender" value="female" class="">
+              <span class="">Female</span>
+            </label>
+            <label class="inline-flex items-center space-x-2">
+              <input type="radio" name="gender" value="male" class="">
+              <span class="">All</span>
+            </label>
+          </div>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Age:</div>
+          <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+            <option value="">-- Choose Age --</option>
+            <option value="">18-25</option>
+            <option value="">25-30</option>
+            <option value="">30-35</option>
+            <option value="">35+</option>
+          </select>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Location:</div>
+          <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+            <option value="">-- Choose Location --</option>
+            <option value="">VietNam</option>
+            <option value="">Thailand</option>
+            <option value="">Japan</option>
+            <option value="">China</option>
+          </select>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Education Level:</div>
+          <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+            <option value="">-- Choose Education Level --</option>
+            <option value="">High School</option>
+            <option value="">College</option>
+            <option value="">University</option>
+            <option value="">Post-graduate school</option>
+          </select>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Hobby Tags:</div>
+          <div class="inner-tags-list flex flex-wrap items-center gap-[10px_20px]">
+            <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+              Music
+            </div>
+            <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+              Music
+            </div>
+            <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+              Music
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Search Box -->
 
-    <!-- End Root -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="../home_page/assets/js/script.js"></script>
+    <!-- Menu Box -->
+    <div id="boxMenu"
+      class="box-menu hidden w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-0 z-[100] bg-white border-slate-300 rounded-[10px]">
+      <div class="inner-title text-[var(--color-one)] font-[600] text-[24px]">
+        Menu
+      </div>
+      <div class="inner-wrap">
+        <ul class="flex flex-col gap-[10px]">
+          <li>
+            <div
+              class="inner-search cursor-pointer text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)] flex items-center gap-[5px] bg-slate-200 p-[8px] rounded-[8px]">
+              <i class="fa-solid fa-magnifying-glass text-[25px]"></i>
+              Search
+            </div>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px]">
+            <a href="#"
+              class="w-full flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-house"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] inline-block text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <img src="assets/images/match.png" alt="" class="w-[28px] h-[28px] object-cover">
+              <span class="">Match</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-message"></i>
+              <span>Message</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notifications</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- End Menu Box -->
+  </header>
+  <!-- End Header -->
+
+  <!-- Section 1 -->
+  <section class="section-1 flex-1 relative z-[10]">
+    <div class="container w-[700px] mx-auto [@media(max-width:767.98px)]:w-full">
+      <div class="inner-list grid gap-[20px]">
+        <div
+          class="inner-item relative grid grid-cols-[600fr_100fr] [@media(max-width:767.98px)]:grid-cols-1 [@media(max-width:767.98px)]:gap-[10px]">
+          <div
+            class="inner-left relative z-[50] shadow-[0px_1.75px_3.51px_0px_#0000001F] rounded-[8px] flex flex-col gap-[10px] w-[600px] [@media(max-width:767.98px)]:w-full">
+            <div class="inner-images swiper w-full h-full mySwiper cursor-pointer [--swiper-navigation-size:20px]">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg1.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg2.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg3.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg4.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg5.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg6.webp" alt="" class="w-full h-full object-cover">
+                </div>
+              </div>
+              <div
+                class="swiper-button-next bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
+              </div>
+              <div
+                class="swiper-button-prev bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="inner-content flex-1 p-[8px]">
+              <div class="inner-info-user border-b border-slate-300 pb-[10px] flex gap-[12px] items-center mb-[15px]">
+                <div class="inner-avatar-user w-[50px] h-[50px] rounded-full overflow-hidden">
+                  <a href="#">
+                    <img src="assets/images/avt.jpg" alt="" class="w-full h-full">
+                  </a>
+                </div>
+                <div class="inner-info flex-1 flex flex-wrap gap-[10px_30px] items-center">
+                  <div
+                    class="inner-name font-[600] text-[var(--color-one)] text-[24px] leading-none w-full [@media(max-width:575.98px)]:text-[20px]">
+                    User 1
+                  </div>
+                  <div
+                    class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Gender: <b>Male</b>
+                  </div>
+                  <div
+                    class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Age: <b>26</b>
+                  </div>
+                  <div
+                    class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Country: <b>VietNam</b>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="inner-desc font-[300] text-[var(--color-one)] text-[16px] leading-none [@media(max-width:575.98px)]:text-[14px]">
+                <p class="line-clamp-2 overflow-hidden">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                </p>
+                <button class="read-more text-[12px] font-semibold">Read more</button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="inner-right flex flex-col items-center justify-center gap-[40px] [@media(max-width:767.98px)]:absolute right-[15px] top-1/2 z-[50]">
+            <div
+              class="inner-avatar-user [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden">
+              <a href="#">
+                <img src="assets/images/avt.jpg" alt="" class="w-full h-full">
+              </a>
+            </div>
+            <div id="matchIcon"
+              class="inner-match [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">
+              <img src="assets/images/match.png" alt="" class="w-full h-full">
+            </div>
+          </div>
+        </div>
+        <div
+          class="inner-item relative grid grid-cols-[600fr_100fr] [@media(max-width:767.98px)]:grid-cols-1 [@media(max-width:767.98px)]:gap-[10px]">
+          <div
+            class="inner-left relative z-[50] shadow-[0px_1.75px_3.51px_0px_#0000001F] rounded-[8px] flex flex-col gap-[10px] w-[600px] [@media(max-width:767.98px)]:w-full">
+            <div class="inner-images swiper w-full h-full mySwiper cursor-pointer [--swiper-navigation-size:20px]">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg1.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg2.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg3.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg4.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg5.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg6.webp" alt="" class="w-full h-full object-cover">
+                </div>
+              </div>
+              <div
+                class="swiper-button-next bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
+              </div>
+              <div
+                class="swiper-button-prev bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="inner-content flex-1 p-[8px]">
+              <div class="inner-info-user border-b border-slate-300 pb-[10px] flex gap-[12px] items-center mb-[15px]">
+                <div class="inner-avatar-user w-[50px] h-[50px] rounded-full overflow-hidden">
+                  <a href="#">
+                    <img src="assets/images/avt.jpg" alt="" class="w-full h-full">
+                  </a>
+                </div>
+                <div class="inner-info flex-1 flex flex-wrap gap-[10px_30px] items-center">
+                  <div
+                    class="inner-name font-[600] text-[var(--color-one)] text-[24px] leading-none w-full [@media(max-width:575.98px)]:text-[20px]">
+                    User 2
+                  </div>
+                  <div
+                    class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Gender: <b>Male</b>
+                  </div>
+                  <div
+                    class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Age: <b>25</b>
+                  </div>
+                  <div
+                    class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Country: <b>VietNam</b>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="inner-desc font-[300] text-[var(--color-one)] text-[16px] leading-none [@media(max-width:575.98px)]:text-[14px]">
+                <p class="line-clamp-2 overflow-hidden">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore fugit at unde, dicta, aliquam
+                  perspiciatis libero odit enim aut officiis dolores voluptas ab repudiandae necessitatibus ullam
+                  pariatur
+                  ut. Odit, soluta?
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore fugit at unde, dicta, aliquam
+                  perspiciatis libero odit enim aut officiis dolores voluptas ab repudiandae necessitatibus ullam
+                  pariatur
+                  ut. Odit, soluta?
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore fugit at unde, dicta, aliquam
+                  perspiciatis libero odit enim aut officiis dolores voluptas ab repudiandae necessitatibus ullam
+                  pariatur
+                  ut. Odit, soluta?
+                </p>
+                <button class="read-more text-[12px] font-semibold">Read more</button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="inner-right flex flex-col items-center justify-center gap-[40px] [@media(max-width:767.98px)]:absolute right-[15px] top-1/2 z-[50]">
+            <div
+              class="inner-avatar-user [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden">
+              <a href="#">
+                <img src="assets/images/avt.jpg" alt="" class="w-full h-full">
+              </a>
+            </div>
+            <div id="matchIcon"
+              class="inner-match [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">
+              <img src="assets/images/match.png" alt="" class="w-full h-full">
+            </div>
+          </div>
+        </div>
+        <div
+          class="inner-item relative grid grid-cols-[600fr_100fr] [@media(max-width:767.98px)]:grid-cols-1 [@media(max-width:767.98px)]:gap-[10px]">
+          <div
+            class="inner-left relative z-[50] shadow-[0px_1.75px_3.51px_0px_#0000001F] rounded-[8px] flex flex-col gap-[10px] w-[600px] [@media(max-width:767.98px)]:w-full">
+            <div class="inner-images swiper w-full h-full mySwiper cursor-pointer [--swiper-navigation-size:20px]">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg1.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg2.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg3.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg4.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg5.webp" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide flex items-center justify-center">
+                  <img src="assets/images/bg6.webp" alt="" class="w-full h-full object-cover">
+                </div>
+              </div>
+              <div
+                class="swiper-button-next bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
+              </div>
+              <div
+                class="swiper-button-prev bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="inner-content flex-1 p-[8px]">
+              <div class="inner-info-user border-b border-slate-300 pb-[10px] flex gap-[12px] items-center mb-[15px]">
+                <div class="inner-avatar-user w-[50px] h-[50px] rounded-full overflow-hidden">
+                  <a href="#">
+                    <img src="assets/images/avt.jpg" alt="" class="w-full h-full">
+                  </a>
+                </div>
+                <div class="inner-info flex-1 flex flex-wrap gap-[10px_30px] items-center">
+                  <div
+                    class="inner-name font-[600] text-[var(--color-one)] text-[24px] leading-none w-full [@media(max-width:575.98px)]:text-[20px]">
+                    User 3
+                  </div>
+                  <div
+                    class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Gender: <b>Male</b>
+                  </div>
+                  <div
+                    class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Age: <b>24</b>
+                  </div>
+                  <div
+                    class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Country: <b>VietNam</b>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="inner-desc font-[300] text-[var(--color-one)] text-[16px] leading-none [@media(max-width:575.98px)]:text-[14px]">
+                <p class="line-clamp-2 overflow-hidden">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore fugit at unde, dicta, aliquam
+                  perspiciatis libero odit enim aut officiis dolores voluptas ab repudiandae necessitatibus ullam
+                  pariatur
+                  ut. Odit, soluta?
+                </p>
+                <button class="read-more text-[12px] font-semibold">Read more</button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="inner-right flex flex-col items-center justify-center gap-[40px] [@media(max-width:767.98px)]:absolute right-[15px] top-1/2 z-[50]">
+            <div
+              class="inner-avatar-user [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden">
+              <a href="#">
+                <img src="assets/images/avt.jpg" alt="" class="w-full h-full">
+              </a>
+            </div>
+            <div id="matchIcon"
+              class="inner-match [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">
+              <img src="assets/images/match.png" alt="" class="w-full h-full">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Match Popup -->
+  <div id="popupBg" class="popup-bg fixed inset-0 bg-[black] opacity-0 z-[5]"></div>
+  <div id="matchPopup"
+    class="match-popup z-[5] fixed opacity-0 w-[400px] [@media(max-width:767.98px)]:w-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
+    <div class="popup-title flex justify-between items-center mb-4">
+      <p class="text-lg font-semibold">Match Request</p>
+      <i class="fa-solid fa-xmark cursor-pointer close-icon"></i>
+    </div>
+    <div class="popup-profile mb-6">
+      <a href="" class="flex items-center gap-6">
+        <img src="assets/images/avt.jpg" alt="" class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500">
+        <span class="">Name</span>
+      </a>
+    </div>
+    <div class="popup-message bg-white border border-slate-300 p-2 mb-6">
+      <textarea name="" id="messageBox" class="w-full p-2 outline-none resize-none" maxlength="360"
+        placeholder="Hello! Date me <3..." rows="4"></textarea>
+      <div id="countCharacter" class="count-char text-right text-xs text-gray-500">0/360 Characters</div>
+    </div>
+    <div class="popup-button flex justify-end gap-4">
+      <a href="#"
+        class="text-white p-[10px] w-[100px] rounded-lg font-semibold bg-[--color-one] hover:bg-[--color-two] hover:text-[--color-one] inline-block text-center">Profile</a>
+      <button id="matchBtn"
+        class="text-white p-[10px] w-[100px] rounded-lg font-semibold bg-[--color-one] hover:bg-[--color-two] hover:text-[--color-one] inline-block text-center">NewJeans</button>
+    </div>
+  </div>
+  <!-- End Match Popup -->
+  <!-- End Section 1 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="../home_page/assets/js/script.js"></script>
 </body>
 
 </html>
