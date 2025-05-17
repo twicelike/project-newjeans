@@ -7,24 +7,24 @@ participant UploadService
 participant Database
 
 == Change Gallery Images ==
-User -> WebUI            : Upload 1–6 file ảnh
-WebUI -> UserService     : Gửi các file ảnh
-UserService -> UploadService : Yêu cầu xử lý & upload nhiều ảnh
-alt ảnh hợp lệ
-UploadService --> UserService : Trả về list URL ảnh
-UserService -> Database  : Lấy list hiện tại từ Table User_Image với userID
-Database --> UserService : Trả về list URL cũ
-UserService -> Database  : Cập nhật list URL mới vào Table User_Image
-Database --> UserService : Xác nhận cập nhật
-UserService --> WebUI    : Trả kết quả thành công + list URL mới
-WebUI --> User           : Hiển thị gallery đã cập nhật
-note over of UploadService
-   File ảnh sẽ được lưu 
-   ở trong hệ thống backend
+User -> WebUI            : Upload 1–3 image files
+WebUI -> UserService     : Send image files
+UserService -> UploadService : Request processing & upload multiple images
+
+alt Valid images
+UploadService --> UserService : Return list of image URLs
+UserService -> Database  : Save into image fields in talbe User \nand save images into table User_Image
+Database --> UserService : Confirm update
+UserService --> WebUI    : Return success result + new URL list
+WebUI --> User           : Display updated gallery
+note over UploadService
+   Image files will be stored 
+   in the backend system
 end note
-else ảnh không hợp lệ
-UploadService --> UserService: không đúng yêu cầu
-UserService --> WebUI:ảnh không hợp lệ
+
+else Invalid images
+UploadService --> UserService: Invalid image(s)
+UserService --> WebUI: Image(s) not valid
 end
 @enduml
 ```

@@ -1,19 +1,23 @@
 ```uml
 @startuml
-actor User
+actor "Admin/User" as User
 participant WebUI
 participant UserService
 participant Database
 
-User -> WebUI : Enter login information (username, password)
-WebUI -> UserService : Send login info (username, password)
-UserService -> Database : Query User table (username, password)
-Database -> UserService : Return result (user exists and password matches)
+User -> WebUI : Enter login information (email, password)
+WebUI -> UserService : Send login info (email, password)
+UserService -> Database : Get User by email from table User
+Database -> UserService : Return result
 
-alt Valid login
-    UserService -> WebUI : Redirect to /home
-else Invalid login
-    UserService -> WebUI : Return error message (invalid credentials)
+alt User exists
+    alt Password matches
+        UserService -> WebUI : Redirect to /home
+    else Password does not match
+        UserService -> WebUI : Return error message (invalid credentials)
+    end
+else User does not exist
+    UserService -> WebUI : Return error message (user does not exist)
 end
 @enduml
 ```

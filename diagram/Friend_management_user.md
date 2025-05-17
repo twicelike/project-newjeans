@@ -8,18 +8,18 @@ participant WebUI
 participant FriendService
 participant Database
 
-== Gửi lời mời kết bạn ==
-User -> WebUI : Chọn người muốn kết bạn
-WebUI -> FriendService : Gửi userSenderId, userReceiverId
-FriendService -> Database : Kiểm tra trong Table Friends có tồn tại không
-alt Đã tồn tại
-    FriendService --> WebUI : Trả về "Đã gửi lời mời hoặc đã là bạn"
-else Chưa tồn tại
-    FriendService -> Database : Lưu vào Table Friends\nstatus = pending
+== Send Friend Request ==
+User -> WebUI : Select user to send friend request to
+WebUI -> FriendService : Send userSenderId, userReceiverId
+FriendService -> Database : Check if it exists in Friends table
+alt Already exists
+    FriendService --> WebUI : Return "Friend request already sent or already friends"
+else Does not exist
+    FriendService -> Database : Insert into Friends table\nstatus = pending
     Database --> FriendService : OK
-    FriendService --> WebUI : Trả kết quả thành công
+    FriendService --> WebUI : Return success result
 end
-WebUI --> User : Hiển thị kết quả
+WebUI --> User : Display result
 @enduml
 ```
 

@@ -6,19 +6,19 @@ participant HobbyTagService
 participant Database
 
 == Load Existing HobbyTags ==
-User -> WebUI                : Yêu cầu danh sách HobbyTags
-WebUI -> HobbyTagService     : Gửi request
-HobbyTagService -> Database  : Lấy list từ Table HobbyTag và user’s selections từ Table User_Hobby\ntừ user ID được truyền lên
-Database --> HobbyTagService : Trả về list tags & selections
-HobbyTagService --> WebUI    : Chuyển kết quả
-WebUI --> User               : Hiển thị danh sách & chọn/xoá tags
+User -> WebUI                : Request list of HobbyTags
+WebUI -> HobbyTagService     : Send request
+HobbyTagService -> Database  : Fetch list from HobbyTag table and user’s selections from User_Hobby table\nusing the provided user ID
+Database --> HobbyTagService : Return tags & selections list
+HobbyTagService --> WebUI    : Return result
+WebUI --> User               : Display list & allow selecting/removing tags
 
 == Update HobbyTags ==
-User -> WebUI                : Gửi list tags mới đã chọn/xoá
-WebUI -> HobbyTagService     : Gửi selections update
-HobbyTagService -> Database  : Cập nhật Table User_Hobby với userID
-Database --> HobbyTagService : Xác nhận cập nhật
-HobbyTagService --> WebUI    : Trả kết quả thành công
-WebUI --> User               : Hiển thị danh sách tags mới
+User -> WebUI                : Send updated list of selected/removed tags
+WebUI -> HobbyTagService     : Send selections update
+HobbyTagService -> Database  : Update User_Hobby table using userID
+Database --> HobbyTagService : Confirm update
+HobbyTagService --> WebUI    : Return success result
+WebUI --> User               : Display updated tag list
 @enduml
 ```
