@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../message_page/assets/images/favicon.png">
+  <title>Message</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../message_page/assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="../message_page/assets/css/base.css">
+  <link rel="stylesheet" href="../message_page/assets/css/styles.css">
+</head>
+
+<body>
+  <div class="root h-screen flex flex-col">
+    <!-- Header -->
+    <header class="header shadow-lg shadow-slate-200 relative">
+      <nav class="flex justify-between items-center sm:gap-2 gap-1 px-2">
+        <!-- Logo and Search -->
+        <div class="sm:basis-4/12 basis-1/4 flex items-center sm:gap-2 gap-1 relative">
+          <a href="#" class="w-16 h-16">
+            <img class="w-full h-full object-cover" src="images/logo.png" alt="Logo">
+          </a>
+          <div id="ctSearch" class="bg-slate-200 sm:w-[300px] rounded-3xl p-1 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Menu -->
+        <ul class="flex sm:basis-7/12 basis-2/4 items-center justify-between sm:justify-start sm:gap-20 lg:gap-36">
+          <li class="w-8 h-8">
+            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-full h-full">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12" />
+              </svg>
+            </a>
+          </li>
+          <li class="w-8 h-8">
+            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+              <img src="images/match.png" alt="" class="max-w-[32px] max-h-[32px] object-cover">
+            </a>
+          </li>
+          <li class="w-8 h-8">
+            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-full h-full">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48" />
+              </svg>
+            </a>
+          </li>
+          <li class="w-8 h-8">
+            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-full h-full">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022" />
+              </svg>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Profile -->
+        <a href="#" class="sm:basis-1/12 inline-flex items-center justify-end gap-2">
+          <img class="max-w-8 h-8 object-cover rounded-full" src="../message_page/assets/images/avt.jpg" alt="Avatar">
+          <span class="sm:inline-block hidden">Name</span>
+        </a>
+      </nav>
+    </header>
+
+ <!-- Start Content -->
+<main class="flex flex-1 bg-gray-100 p-4 gap-4 flex-col sm:flex-row">
+
+  <!-- Tab buttons -->
+  <div class="sm:hidden flex gap-2 mb-2">
+    <button id="btn-received" class="tab-btn bg-blue-500 text-white px-4 py-2 rounded">Received</button>
+    <button id="btn-sent" class="tab-btn bg-gray-300 text-black px-4 py-2 rounded">Sent</button>
+  </div>
+
+  <!-- Received Requests -->
+  <section id="received-section"
+    class="sm:w-1/2 w-full bg-white rounded-lg p-4 shadow overflow-y-auto max-h-[400px]">
+    <h2 class="text-xl font-bold mb-4">Friend Requests</h2>
+    <div class="flex items-center gap-4 border-b pb-4 mb-4">
+      <img src="images/avatar.jpg" class="w-16 h-16 rounded-full" alt="avatar">
+      <div class="flex-1">
+        <div class="font-semibold">Name</div>
+        <div class="text-sm text-gray-600">Request message content</div>
+        <div class="text-xs text-gray-400 invitation-date">Sent on: 2025-05-10</div>
+      </div>
+      <div class="flex flex-col gap-2"> 
+        <button class="bg-blue-500 text-white px-3 py-1 rounded">Accept</button>
+        <button class="bg-red-500 text-white px-3 py-1 rounded">Decline</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sent Requests -->
+ <section id="sent-section"
+  class="sm:w-1/2 w-full bg-white rounded-lg p-4 shadow overflow-y-auto max-h-[400px] sm:block hidden">
+  <h2 class="text-xl font-bold mb-4">Sent Requests</h2>
+  <div class="flex items-center gap-4 border-b pb-4 mb-4">
+    <img src="images/avatar.jpg" class="w-16 h-16 rounded-full" alt="avatar">
+    <div class="flex-1">
+      <div class="font-semibold">Name</div>
+      <div class="text-sm text-gray-600">Request message content</div>
+      <div class="text-xs text-gray-400">Sent on: 16/05/2025</div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <button class="edit-btn bg-blue-500 text-white px-3 py-1 rounded">Edit</button>
+      <button class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+    </div>
+  </div>
+</section>
+</main>
+ <!-- End Content -->
+
+  <script src="../message_page/assets/js/script.js"></script>
+<script>
+  const btnReceived = document.getElementById("btn-received");
+  const btnSent = document.getElementById("btn-sent");
+  const receivedSection = document.getElementById("received-section");
+  const sentSection = document.getElementById("sent-section");
+
+  function switchTab(showReceived) {
+    if (showReceived) {
+      receivedSection.classList.remove("hidden");
+      sentSection.classList.add("hidden");
+      btnReceived.classList.add("bg-blue-500", "text-white");
+      btnReceived.classList.remove("bg-gray-300", "text-black");
+      btnSent.classList.remove("bg-blue-500", "text-white");
+      btnSent.classList.add("bg-gray-300", "text-black");
+    } else {
+      sentSection.classList.remove("hidden");
+      receivedSection.classList.add("hidden");
+      btnSent.classList.add("bg-blue-500", "text-white");
+      btnSent.classList.remove("bg-gray-300", "text-black");
+      btnReceived.classList.remove("bg-blue-500", "text-white");
+      btnReceived.classList.add("bg-gray-300", "text-black");
+    }
+  }
+
+  btnReceived.addEventListener("click", () => switchTab(true));
+  btnSent.addEventListener("click", () => switchTab(false));
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 640) {
+      receivedSection.classList.remove("hidden");
+      sentSection.classList.remove("hidden");
+    } else {
+      switchTab(true); 
+    }
+  });
+
+  // ✅ Gán thời gian thực tế cho lời mời
+ function updateInvitationTimes() {
+  const now = new Date();
+  const formattedDate = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+  document.querySelectorAll(".invitation-date").forEach(el => {
+    el.textContent = `Ngày gửi: ${formattedDate}`;
+  });
+}
+
+updateInvitationTimes();
+</script>
+
+
+</body>
+
+</html>
