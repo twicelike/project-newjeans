@@ -17,4 +17,4 @@ function handleDropdown(buttonId, menuId) {
   }
 }
 
-handleDropdown('profileSetting','profileMenu');
+handleDropdown('avtUser','dropDownAVTUser');
