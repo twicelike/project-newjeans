@@ -9,10 +9,20 @@
   <link rel="stylesheet" href="./css/BGMoving.css">
   <link rel="stylesheet" href="./css/SwitchingWindow.css">
   <link rel="stylesheet" href="./css/Root.css">
+  
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+  </style>
 </head>
 
-<body class="overflow-hidden">
- 
+<body>
+
   <div class="fixed w-full h-full bg-[url('/template/register/img/11283131.png')] animate-bg"></div>
   <form method="post" action="" class="flex justify-center w-screen h-screen items-center" id="setUpProfileForm">
     <div
@@ -115,33 +125,30 @@
         </div>
       </div>
       <div class="flex justify-end mr-10 w-full mb-4">
-        <img src="./img/nextbutton.png" alt="button image"
-          class="hover:scale-110 active:scale-100 rounded-lg w-20 h-10" id="nextImagesSetup">
+        <img src="./img/nextbutton.png" alt="button image" class="hover:scale-110 active:scale-100 rounded-lg w-20 h-10"
+          id="nextImagesSetup">
       </div>
     </div>
-    <div class="relative hidden" id="addImages">
+    <div class="hidden" id="addImages">
       <div class="rounded-xl p-6 bg-black/75 backdrop-blur-sm">
-        <div class="relative flex font-bold text-white text-xl mb-4">Your Pictures</div>
-        <div class="grid md:grid-cols-3 grid-cols-2 gap-4" id="pictureContainer">
-          <label 
-            class="p-10 aspect-square border-2 border-dashed rounded-lg flex items-center
+        <div class="flex font-bold text-white text-xl mb-4">Your Pictures</div>
+        <div class="grid sm:grid-cols-3 grid-cols-1 gap-4" id="pictureContainer">
+          <label class="p-10 aspect-square border-2 border-dashed rounded-lg flex items-center
              justify-center cursor-pointer hover:bg-gray-50 transition-colors w-[200px] h-[200px] uploadLabel">
             <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
             <span class="text-4xl text-gray-400">+</span>
           </label>
-          <label 
-            class="p-10 aspect-square border-2 border-dashed rounded-lg flex items-center
+          <label class="p-10 aspect-square border-2 border-dashed rounded-lg flex items-center
              justify-center cursor-pointer hover:bg-gray-50 transition-colors w-[200px] h-[200px] uploadLabel">
             <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
             <span class="text-4xl text-gray-400">+</span>
           </label>
-          <label 
-            class="p-10 aspect-square border-2 border-dashed rounded-lg flex items-center
+          <label class="p-10 aspect-square border-2 border-dashed rounded-lg flex items-center
              justify-center cursor-pointer hover:bg-gray-50 transition-colors w-[200px] h-[200px] uploadLabel">
             <input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
             <span class="text-4xl text-gray-400">+</span>
           </label>
-         
+
         </div>
         <div class="relative flex justify-between mt-4 space-x-2 w-full">
           <img src="./img/backbutton.png" alt="button image"
@@ -157,7 +164,7 @@
       id="addHobbies">
       <div class="font-bold mb-4 text-white w-full">Interests/Hobbies</div>
 
-      <div class="flex flex-wrap gap-2 mb-4 w-4/5 justify-center min-h-[40px] p-2 bg-white/10 rounded-lg"
+      <div class="flex flex-wrap gap-2 mb-4 w-4/5 justify-center min-h-[40px] p-2 bg-white/10 rounded-lg max-h-[80px] overflow-y-scroll"
         id="setupSelectedTags">
       </div>
 
@@ -209,13 +216,17 @@
           data-emoji="🎨" data-interest="Art">
           <span class="text-xl">🎨</span>
           <span>Art</span>
-          <div>
-
-          </div>
+          </button>
+        <button type="button"
+          class="text-[--primary-color] hover:text-[--secondary-color] flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
+          data-emoji="" data-interest="Art">
+          <span class="text-xl"></span>
+          <span>More</span>
+          </button>
       </div>
       <div class="flex justify-between mt-4 space-x-2 w-full">
-        <img alt="button image" src="./img/backbutton.png"
-          class="hover:scale-110 active:scale-100 rounded-lg h-10 w-20" id="backImagesSetup">
+        <img alt="button image" src="./img/backbutton.png" class="hover:scale-110 active:scale-100 rounded-lg h-10 w-20"
+          id="backImagesSetup">
         <input type="image" src="./img/nextbutton.png" class="hover:scale-110 active:scale-100 rounded-lg h-10 w-20"
           id="submitButton">
       </div>
