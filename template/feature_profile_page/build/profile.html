@@ -11,81 +11,17 @@
 </head>
 
 <body class="h-auto flex bg-[url(./img/11283256.jpg)] w-screen bg-auto bg-no-repeat">
-    <header class="w-full bg-white/30 backdrop-blur-md shadow-lg fixed top-0 z-50">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex items-center justify-between">
+    <header class="w-full h-auto bg-white/30 backdrop-blur-md shadow-lg fixed top-0 z-50">
+        <div class="flex justify-between">
                 <button id="menuButton"
-                    class="fixed top-4 left-4 text-white p-2 rounded-md z-50 hover:bg-gray-700 transition-colors md:text-lg text-sm">☰
-                    <span class="hidden sm:inline">Menu</span>
-                </button>
-                <div class="sm:basis-4/12 basis-1/4 flex items-center sm:gap-2 gap-1 relative">
-                    <a href="#" class="w-16 h-16">
-                        <img class="w-full h-full object-cover" src="./img/logo.png" alt="Logo">
-                    </a>
-                    <div id="ctSearch" class="bg-slate-200 md:w-[300px] rounded-3xl p-1 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-8 h-8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
-                    </div>
-                </div> <!-- End Logo, Search-->
-                <ul
-                    class="flex sm:basis-7/12 basis-2/4 items-center justify-between sm:justify-start sm:gap-20 lg:gap-36">
-                    <li class="w-8 h-8">
-                        <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-full h-full">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="w-8 h-8">
-                        <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
-                            <img src="./img/match.png" alt="" class="max-w-[32px] max-h-[32px] object-cover">
-                        </a>
-                    </li>
-                    <li class="w-8 h-8">
-                        <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-full h-full">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="w-8 h-8">
-                        <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-full h-full">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-                            </svg>
-                        </a>
-                    </li>
-                </ul> <!-- End Menu -->
-                <div class="relative" id="profileSetting">
-                    <button class="flex items-center space-x-2 hover:bg-gray-100 rounded-full p-1">
-                        <img src="./img/bg-enwseajn.jpg" alt="Profile" class="h-8 w-8 rounded-full object-cover">
-                        <span class="text-gray-700 text-sm hidden md:block">Đỗ Quốc Huy</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24">
-                            <path d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div id="profileMenu" class="absolute hidden bg-white/80 shadow-md rounded-md w-full">
-                        <form action="@[/logout]" method="post" class="contents">
-                            <button type="submit" class="w-full py-2 flex items-center justify-center">
-                                <span class="fa-solid fa-right-from-bracket"></span> Logout</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    class="text-white px-3 py-4 rounded-md hover:bg-gray-700 transition-colors md:text-lg text-sm">☰
+                    <span>Menu</span>
+                </button>  
+                <img src="./img/logo.png" class="w-12 h-12 mx-4 my-auto" alt=""></div>
     </header>
 
     <aside id="sidebar"
-        class="w-3/5 lg:w-1/5 min-w-50 p-4 shadow-2xl text-white backdrop-blur-md fixed h-full transition-transform duration-300 -translate-x-full z-50">
+        class="w-3/5 sm:w-2/5 lg:w-1/5 min-w-50 p-4 shadow-2xl text-white backdrop-blur-md fixed h-full transition-transform duration-300 -translate-x-full z-50">
         <div class="flex justify-center">
             <div class="w-20 h-20 mt-4 rounded-full overflow-hidden relative group">
                 <input type="file" accept="image/*" id="fileInput" class="hidden">
@@ -109,9 +45,12 @@
                 data-target="settings">Changes</a>
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md main-nav-link hover-effect truncate"
                 data-target="general">General</a>
+            <a href="/home" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
+                >Return home</a>
         </nav>
     </aside>
-    <main id="mainContent" class="w-full h-full flex justify-center p-6 transition-all duration-300 my-16">
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    <main id="mainContent" class="w-full h-full flex justify-center p-6 z-10 transition-all duration-300 my-16">
 
         <div class="w-full p-6 rounded-xl h-full" style="color:var(--primary-color)">
             <div id="profile" class="content-section h-full">
@@ -323,7 +262,7 @@
                                     class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
                                     data-emoji="📸" data-interest="Photography">
                                     <span class="text-xl">📸</span>
-                                    <span>Photography</span>
+                                    <span class="truncate">Photography</span>
                                 </button>
                                 <button
                                     class="interest-btn flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 hover:bg-purple-100 transition-all"
