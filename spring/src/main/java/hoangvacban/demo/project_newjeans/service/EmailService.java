@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.Instant;
@@ -42,36 +40,22 @@ public class EmailService {
         this.mailFrom = mailFrom;
     }
 
-
-    // TODO: add logic if new device log in, and create new template
-    @Async
-    @Transactional
-    public void sendNotifyNewDeviceLogIn(String to, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(mailFrom);
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-        mailSender.send(message);
-    }
-
-
     // send otp code to new email to create account
-    @Async
-    @Transactional
-    public void sendOtpToVerifyEmail(String to, String subject) {
+    public String sendOtpToVerifyEmail(String to, String subject) {
         try {
             OtpCodeDTO otp = otpCache.getIfPresent(to);
             if (otp != null) {
                 if (getEpochTime() - otp.getTimeStamp() <= OTP_EXPIRY_MINUTES) {
                     // now < expiry time : can't send
-                    throw new BadCredentialsException("Otp code is still available");
+                    return "Otp code is still available";
                 } else {
                     // update / recreate a new otp code
                     updateAndResendOtpCode(otp, to, subject);
+                    return "OTP resent successfully!";
                 }
             } else {
                 createOtpCodeAndSendOtpCode(to, subject);
+                return "OTP sent successfully!";
             }
         } catch (MailException e) {
             throw new EmailException("Failed to send OTP email, please try again later", e);
@@ -112,7 +96,7 @@ public class EmailService {
     }
 
     public boolean verifyEmail(String email, String otpCode) {
-        OtpCodeDTO otp = otpCache.getIfPresent(otpCode);
+        OtpCodeDTO otp = otpCache.getIfPresent(email);
         if (otp != null) {
             if (getEpochTime() - otp.getTimeStamp() <= OTP_EXPIRY_MINUTES) {
                 if (passwordEncoder.matches(otpCode, otp.getOtpCode())) {

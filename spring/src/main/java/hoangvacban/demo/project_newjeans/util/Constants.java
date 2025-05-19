@@ -10,4 +10,5 @@ public class Constants {
     public final static String STATUS_PENDING = "PENDING";
     public final static String IS_FINISH_SET_UP_PROFILE_ATTRIBUTE = "isFinishSetUpProfile";
     public final static String SET_UP_PROFILE_ENDPOINT = "/set-up-profile";
+    public final static String USER_ID = "id";
 }

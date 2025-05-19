@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Survey Form Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Style for dropdown profile */
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 1rem;
+            top: 3.5rem;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+
+        .profile-dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .editable-title {
+            cursor: pointer;
+            border-bottom: 1px solid transparent;
+        }
+
+        .editable-title.edit-mode {
+            border-bottom: 1px dashed #8b5cf6;
+        }
+
+        /* Style for question types */
+        .paragraph-answer {
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 8px;
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .option-item:hover .remove-option {
+            display: block !important;
+        }
+
+        /* Style for disabled button */
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Logo styles */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            width: 3rem;
+            height: 3rem;
+            object-fit: contain;
+            transition: transform 0.2s;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <script type="module" src="/js/survey/survey.js"></script>
+</head>
+
+<body class="bg-purple-100">
+<!-- Form Builder View -->
+<div id="builderView">
+    <div class="flex justify-between items-center p-4 bg-white shadow relative">
+        <div class="logo-container">
+            <a href="#" class="bg-white p-1 rounded-full shadow">
+                <img src="/images/profile/logo.png" alt="Logo" class="logo-img">
+            </a>
+            <span id="formTitle" class="text-lg font-semibold editable-title" data-placeholder="Survey Title">Survey Title</span>
+        </div>
+
+        <!-- Profile section -->
+        <div class="relative">
+            <div id="profileBtn" class="flex items-center space-x-2 cursor-pointer">
+                <img th:src="@{/images/userImages/{img}(img=${avatar})}" alt="Profile" class="rounded-full h-8 w-8">
+                <span class="hidden md:inline" th:text="${username}"></span>
+                <i class="fas fa-chevron-down text-gray-600 text-xs"></i>
+            </div>
+
+            <div id="profileDropdown" class="profile-dropdown">
+                <a href="/profile"><i class="fas fa-user mr-2"></i> Profile</a>
+
+                <form th:action="@{/logout}" method="post">
+                    <button class="fas fa-sign-out-alt mr-2" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-4">
+        <div class="w-full max-w-4xl bg-white p-6 rounded shadow">
+            <div class="border-b-2 border-purple-600 pb-2 mb-4">
+                <h1 id="formMainTitle" class="text-2xl font-semibold editable-title" data-placeholder="Survey Title">
+                    Survey Title</h1>
+            </div>
+
+            <div id="questionsContainer">
+                <!-- Initial sample question -->
+                <div class="question-item border border-gray-300 rounded p-4 mb-4" data-question-type="radio">
+                    <div class="flex justify-between items-center mb-2">
+                        <input type="text" class="w-full border-none focus:outline-none text-lg question-title"
+                               placeholder="Question">
+                        <select
+                                class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
+                            <option value="radio">Multiple Choice</option>
+                            <option value="checkbox">Checkboxes</option>
+                            <option value="paragraph">Paragraph</option>
+                        </select>
+                    </div>
+
+                    <div class="options-container">
+                        <div class="flex items-center space-x-2 mb-2 option-item">
+                            <input type="radio" name="options-0"
+                                   class="form-radio h-5 w-5 text-purple-600 option-input">
+                            <input type="text" class="w-full border-none focus:outline-none option-text"
+                                   placeholder="Option" value="Option 1">
+                            <i class="fas fa-times text-gray-400 hover:text-red-500 cursor-pointer remove-option"
+                               style="display: none;"></i>
+                        </div>
+                    </div>
+
+                    <div class="add-options-container flex items-center space-x-2 text-purple-600 mt-4">
+                        <i class="fas fa-plus cursor-pointer add-option"></i>
+                        <span class="cursor-pointer add-option-text">Add option or</span>
+                        <span class="underline cursor-pointer add-other">add "Other"</span>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-4">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-trash text-gray-600 hover:text-purple-600 cursor-pointer delete-question"
+                               title="Delete question"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add new question button -->
+            <div class="mt-6 flex justify-center">
+                <button id="addQuestionBtn"
+                        class="flex items-center space-x-2 text-purple-600 hover:text-purple-800 cursor-pointer p-2 rounded hover:bg-purple-50">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add Question</span>
+                </button>
+            </div>
+
+            <!-- Publish button moved down -->
+            <div class="mt-8 flex justify-center">
+                <button id="publishBtn"
+                        class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition text-lg font-medium">
+                    Publish Survey
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

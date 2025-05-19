@@ -1,6 +1,5 @@
 package hoangvacban.demo.project_newjeans.config;
 
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,35 +10,25 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 
 import java.util.Properties;
 
-import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
-import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
-
 @Configuration
 public class DependencyConfig {
 
     private final String email;
     private final String password;
+    private final boolean mailDebugEnabled;
 
     public DependencyConfig(@Value("${mail.username}") String email,
-                            @Value("${mail.password}") String password
+                            @Value("${mail.password}") String password,
+                            @Value("${mail.debug.enabled:false}") boolean mailDebugEnabled
     ) {
         this.email = email;
         this.password = password;
+        this.mailDebugEnabled = mailDebugEnabled;
     }
 
     @Bean
     public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
-    }
-
-    @Bean
-    public UserAgentAnalyzer userAgentAnalyzer() {
-        return UserAgentAnalyzer
-                .newBuilder()
-                .withoutCache()
-                .withField(OPERATING_SYSTEM_NAME)
-                .withField(AGENT_NAME)
-                .build();
     }
 
     @Bean
@@ -56,6 +45,7 @@ public class DependencyConfig {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");
+        props.put("mail.debug", String.valueOf(this.mailDebugEnabled));
 
         return mailSender;
     }

@@ -6,9 +6,6 @@ import hoangvacban.demo.project_newjeans.repository.UserImagesRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class UserImagesService {
 
@@ -20,14 +17,13 @@ public class UserImagesService {
         this.uploadService = uploadService;
     }
 
-    public List<UserImage> saveUserImages(MultipartFile[] file, User user) {
-        List<UserImage> userImages = new ArrayList<>();
+    public void saveUserImages(User user, MultipartFile[] file) {
         for (MultipartFile fileImage : file) {
             UserImage userImage = new UserImage();
             userImage.setUser(user);
             userImage.setUrl(uploadService.saveUploadFile(fileImage, "userImages"));
-            userImages.add(imagesRepository.save(userImage));
+            imagesRepository.save(userImage);
         }
-        return userImages;
     }
+
 }

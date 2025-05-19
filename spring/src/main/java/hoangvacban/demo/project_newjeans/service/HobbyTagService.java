@@ -7,6 +7,7 @@ import hoangvacban.demo.project_newjeans.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,17 +28,17 @@ public class HobbyTagService {
         hobbyTagRepository.save(hobbyTag);
     }
 
+    public List<HobbyTag> getAll() {
+        return hobbyTagRepository.findAll();
+    }
+
     @Transactional
-    public void addHobbyToUser(long userId, int[] hobbyIds) {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            for (int hobbyId : hobbyIds) {
-                Optional<HobbyTag> hobbyTag = hobbyTagRepository.findById(hobbyId);
-                if (hobbyTag.isPresent()) {
-                    user.get().getHobbyTags().add(hobbyTag.get());
-                    hobbyTag.get().getUsers().add(user.get());
-                }
-            }
+    public void addHobbyToUser(User user, int[] hobbyIds) {
+        user.getHobbyTags().clear();
+        for (int hobbyId : hobbyIds) {
+            hobbyTagRepository.findById(hobbyId).ifPresent(hobbyTag -> {
+                user.addHobbyTag(hobbyTag);
+            });
         }
     }
 
@@ -62,7 +63,6 @@ public class HobbyTagService {
 
         hobbyTagRepository.save(hobbyTag);
         hobbyTagRepository.save(hobbyTag2);
-
     }
 
     public void addTagToUser() {

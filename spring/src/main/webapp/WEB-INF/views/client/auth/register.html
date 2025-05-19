@@ -1,16 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/auth/BGMoving.css">
+    <link rel="stylesheet" href="/css/auth/SwitchingWindow.css">
+    <link rel="stylesheet" href="/css/auth/Root.css">
+    <script type="text/html" src="/js/auth/MoveToSetup.js"></script>
+    <script type="module" src="/js/auth/register.js"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-<div class="bg-white p-6 rounded-lg shadow-lg w-96">
-    <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
-    <form th:action="@{/register}" th:object="${user}" method="post">
-        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Create account</button>
-    </form>
+
+<body class="overflow-hidden">
+<div class="fixed top-0 left-0 w-screen h-screen bg-[url('/images/auth/11283131.png')] animate-bg"></div>
+
+
+<div class="w-screen h-screen flex flex-col items-center justify-center">
+
+    <!-- Form Đăng ký -->
+    <div
+            class="flex flex-col justify-center items-center bg-black/75 z-10 rounded-lg sm:w-4/5 md:w-3/5 lg:w-2/5 w-full h-auto py-5"
+            id="signUpForm">
+        <div class="font-bold text-white text-xl mb-4 z-10 w-full ml-10">
+            <div>Sign up</div>
+        </div>
+
+        <form th:action="@{/register}" method="post"
+              th:object="${user}"
+              class="flex flex-col justify-center items-center w-full h-auto">
+            <input type="email" th:field="*{email}" class="rounded-lg max-w-sm w-full py-2 px-3 ml-4"
+                   placeholder="Email"
+                   id="email">
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-red-500"></div>
+            <input type="text" th:field="*{username}" class="rounded-lg max-w-sm w-full py-2 px-3 mt-4 ml-4"
+                   placeholder="Username"
+                   id="username">
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-red-500"></div>
+            <input type="password" th:field="*{password}" class="rounded-lg max-w-sm w-full py-2 px-3 mt-4 ml-4"
+                   id="password"
+                   placeholder="Password">
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-red-500"></div>
+            <input type="password" th:field="*{confirmPassword}" class="rounded-lg max-w-sm w-full p-2 mt-4 ml-4"
+                   id="re-password"
+                   placeholder="Re-enter the password">
+            <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                 class="text-red-500"></div>
+            <input type="text" th:field="*{otp}" class="rounded-lg max-w-sm w-full p-2 mt-4 ml-4"
+                   placeholder="OTP Code">
+
+            <div th:if="${otpMessage}"
+                 th:text="${otpMessage}"
+                 th:classappend="${otpMessage.contains('still')} ? ' text-red-500' : ' text-green-500'"
+                 class="mt-2 text-sm">
+            </div>
+
+            <button type="button" id="sendOtpBtn" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Send OTP
+            </button>
+
+            <div class="z-10 mt-2 mr-10 w-full flex justify-between flex-row-reverse">
+                <input type="image" alt="button image" src="./images/auth/nextbutton.png"
+                       class="hover:scale-110 active:scale-100 w-20 h-10 rounded-lg" id="submitSignUpButton">
+            </div>
+        </form>
+
+        <div class="relative md:flex ml-3 md:items-center md:justify-center">
+            <p class="text-[--primary-color] italic">already have an account? </p>
+            <a href="./SignIn.html" class="text-green-400 italic" id="signIn"> Sign in</a>
+        </div>
+
+    </div>
 </div>
+
 </body>
+
 </html>

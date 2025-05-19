@@ -5,27 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="./js/auth/register.js"></script>
+<!--    <script type="module" src=".js/config.js"></script>-->
 </head>
 <body class="bg-gray-100 flex justify-center items-center h-screen">
 
-<div class="bg-white shadow-md rounded-lg p-8 w-96 text-center">
-    <h2 class="text-2xl font-bold mb-6">Login</h2>
-
-    <form th:action="@{/create-user}" method="post" th:object="${user}"
-          class="max-w-sm mx-auto bg-white p-6 rounded-lg shadow-md">
-        <button type="submit"
-                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition duration-300">
-            Log in
-        </button>
-    </form>
-
-</div>
-
 <br/>
 
-<form th:action="@{/test-send-mail}" method="post">
-    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Let's go</button>
-</form>
+<input type="email" id="emailInput" placeholder="Enter your email" class="p-2 border rounded w-full" required>
 
+<div id="messageBox" class="mt-2 text-sm font-semibold"></div>
+
+<button type="button" id="sendOtpBtn" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Send OTP</button>
+
+<!--<div class="bg-white shadow-md rounded-lg p-8 w-96 text-center">-->
+<!--    <h2 class="text-2xl font-bold mb-6">Login</h2>-->
+
+<!--    <form th:action="@{/create-user}" method="post" th:object="${user}"-->
+<!--          class="max-w-sm mx-auto bg-white p-6 rounded-lg shadow-md">-->
+<!--        <button type="submit"-->
+<!--                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition duration-300">-->
+<!--            Log in-->
+<!--        </button>-->
+<!--    </form>-->
+
+<!--</div>-->
+
+<!--<form th:action="@{/send-mail}" method="post">-->
+<!--    <input type="email" name="email" placeholder="email">-->
+<!--    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Let's go</button>-->
+<!--</form>-->
+<!--<div th:if="${otpMessage}"-->
+<!--     th:text="${otpMessage}"-->
+<!--     th:classappend="${otpMessage.contains('still')} ? ' text-red-500' : ' text-green-500'"-->
+<!--     class="mt-2 text-sm">-->
+<!--</div>-->
 </body>
 </html>

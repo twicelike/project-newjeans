@@ -1,20 +1,23 @@
 package hoangvacban.demo.project_newjeans.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "otp_codes")
+@Table(name = "phases")
 @Getter
 @Setter
-public class OtpCode {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Phase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String otpPassword;
-    private long expiryTime;
-    private String email;
+    private String name;
+    private int level;
+    private String iconUrl;
 }
-

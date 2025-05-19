@@ -22,6 +22,7 @@ public class HobbyTag {
     private int id;
 
     private String name;
+    private String emoji;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -30,4 +31,9 @@ public class HobbyTag {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<User> users = new HashSet<>();
+
+    public void addUser(User user) {
+        this.users.add(user);
+        user.getHobbyTags().add(this);
+    }
 }

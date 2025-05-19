@@ -10,6 +10,6 @@ public class ProfileValidator implements ConstraintValidator<ProfileConstraint, 
 
     @Override
     public boolean isValid(ProfileDTO value, ConstraintValidatorContext context) {
-        return false;
+        return true;
     }
 }

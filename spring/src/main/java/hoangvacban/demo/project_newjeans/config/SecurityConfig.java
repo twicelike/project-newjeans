@@ -1,7 +1,6 @@
 package hoangvacban.demo.project_newjeans.config;
 
 import hoangvacban.demo.project_newjeans.service.CustomUserDetailService;
-import hoangvacban.demo.project_newjeans.service.DeviceMetadataService;
 import hoangvacban.demo.project_newjeans.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 @Configuration
@@ -51,10 +49,9 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationSuccessHandler successHandler(
-            UserService userService,
-            DeviceMetadataService metadataService
+            UserService userService
     ) {
-        return new CustomSuccessHandler(userService, metadataService);
+        return new CustomSuccessHandler(userService);
     }
 
     @Bean
@@ -65,26 +62,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
-            UserService userService,
-            DeviceMetadataService metadataService
+            UserService userService
     ) throws Exception {
         http
-                .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.addHeaderWriter(
-                        new XFrameOptionsHeaderWriter(
-                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN
-                        )
-                ))
+//                .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.addHeaderWriter(
+//                        new XFrameOptionsHeaderWriter(
+//                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN
+//                        )
+//                ))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/", "/css/**", "/js/**", "/login", "/register",
-                                "/logout", "/create-user", "/chat",
-                                "/create-admin", "/favicon.ico",
-                                "/favicon.ico.", "/test-send-mail").permitAll()
-                        .requestMatchers("/admin/*").hasRole("ADMIN")
-                        .anyRequest().authenticated())
+                        .requestMatchers(
+                                "/create-admin", "/favicon.ico", "/main", "/survey",
+                                "/profile", "/send-mail", "/api/send-otp/**", "/api/upload-survey",
+                                "/favicon.ico.", "/test-send-mail")
+                        .authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
+                )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .failureUrl("/login?error")
-                        .successHandler(successHandler(userService, metadataService))
+                        .successHandler(successHandler(userService))
                         .permitAll())
                 .rememberMe(rememberMe -> rememberMe
                         .key("36")
@@ -99,7 +97,16 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl("/")
-                        .permitAll());
+                        .permitAll())
+//                .exceptionHandling(ex -> {
+//                    ex.accessDeniedPage("/404");
+//                })
+        ;
+
+        http.csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/**")
+//                .ignoringRequestMatchers("/api/**", "/send-mail")
+        );
 
         return http.build();
     }

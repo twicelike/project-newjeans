@@ -25,16 +25,19 @@ public class User {
 
     // pre-set up
     private String username;
-    private String fullName;
     private String password;
     private String email;
     private long createdDate;
 
     // set up
+    private String bio;
+    private String firstName;
+    private String lastName;
     private boolean gender;
-    private String nation;
-    private String birthday;
+    private int age;
+    private String location;
     private String avatar;
+    private String educationLevel;
     private long updatedDate;
 
     // post set up
@@ -50,9 +53,6 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<DeviceMetadata> deviceMetadata = new ArrayList<>();
-
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private Set<NjzSend> njzSends = new HashSet<>();
 
@@ -62,6 +62,18 @@ public class User {
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<HobbyTag> hobbyTags = new HashSet<>();
 
+    @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY)
+    private Set<Post> posts = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Survey> surveys = new HashSet<>();
+
+    @OneToMany(mappedBy = "crusher", fetch = FetchType.LAZY)
+    private Set<Crush> crushes = new HashSet<>();
+
+    @OneToMany(mappedBy = "crushed", fetch = FetchType.LAZY)
+    private Set<Crush> crushesSendTo = new HashSet<>();
+
     @Override
     public String toString() {
         return "User{" +
@@ -70,8 +82,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", gender=" + gender +
-                ", location='" + nation + '\'' +
-                ", birthday='" + birthday + '\'' +
+                ", location='" + location + '\'' +
                 ", images=" + images +
                 ", role=" + role +
                 '}';
@@ -82,6 +93,11 @@ public class User {
         if (obj instanceof User user) {
             return this.getId() == user.getId();
         } else return false;
+    }
+
+    public void addHobbyTag(HobbyTag hobbyTag) {
+        this.hobbyTags.add(hobbyTag);
+        hobbyTag.getUsers().add(this);
     }
 }
 
