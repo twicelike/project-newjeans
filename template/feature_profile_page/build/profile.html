@@ -13,13 +13,13 @@
 <body class="h-auto flex bg-[url(./img/11283256.jpg)] w-screen bg-auto bg-no-repeat">
     <header class="w-full h-auto bg-white/30 backdrop-blur-md shadow-lg fixed top-0 z-50">
         <div class="flex justify-between">
-                <button id="menuButton"
-                    class="text-white px-3 py-4 rounded-md hover:bg-gray-700 transition-colors md:text-lg text-sm">☰
-                    <span>Menu</span>
-                </button>  
-                <img src="./img/logo.png" class="w-12 h-12 mx-4 my-auto" alt=""></div>
+            <button id="menuButton"
+                class="text-white px-3 py-4 rounded-md hover:bg-gray-700 transition-colors md:text-lg text-sm">☰
+                <span>Menu</span>
+            </button>
+            <img src="./img/logo.png" class="w-12 h-12 mx-4 my-auto" alt="">
+        </div>
     </header>
-
     <aside id="sidebar"
         class="w-3/5 sm:w-2/5 lg:w-1/5 min-w-50 p-4 shadow-2xl text-white backdrop-blur-md fixed h-full transition-transform duration-300 -translate-x-full z-50">
         <div class="flex justify-center">
@@ -40,13 +40,12 @@
         <div class="text-[#9C27B0] text-center mt-4">Đỗ Quốc Huy</div>
         <nav class="mt-6 flex flex-col space-y-4">
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md main-nav-link hover-effect truncate"
-                data-target="profile">Profile</a>
+                data-target="profile">Profile preview</a>
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md main-nav-link hover-effect truncate"
-                data-target="settings">Changes</a>
+                data-target="settings">Change</a>
             <a href="#" class="px-4 py-2 bg-white text-black rounded-md main-nav-link hover-effect truncate"
                 data-target="general">General</a>
-            <a href="/home" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate"
-                >Return home</a>
+            <a href="/home" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate">Return home</a>
         </nav>
     </aside>
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
@@ -55,10 +54,18 @@
         <div class="w-full p-6 rounded-xl h-full" style="color:var(--primary-color)">
             <div id="profile" class="content-section h-full">
                 <h1 class="text-2xl font-bold mb-6">Profile</h1>
+                <div class="w-full flex justify-center items-center">
+                    <nav class="flex space-x-6 mt-6">
+                        <a href="#" class="px-4 py-2 text-black rounded-md hover-effect profile-nav-link"
+                            style="color:var(--primary-color)" data-target="BasicInfoPreview">Basic Information</a>
+                        <a href="#" class="px-4 py-2 text-black rounded-md hover-effect profile-nav-link"
+                            style="color:var(--primary-color)" data-target="PicturesPreview">Your Pictures</a>
+                    </nav>
+                </div>
                 <hr class="my-4">
-                <div class="flex gap-6 justify-center items-start">
-                    <div class="w-full md:flex space-y-2 md:space-y-0 md:space-x-6">
-                        <div class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-auto m-auto">
+                <div class="flex gap-6 justify-center items-start profile-section" id="BasicInfoPreview">
+                        <div
+                            class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-auto m-auto">
                             <h2 class="text-xl font-semibold mb-4">Basic Information</h2>
                             <div class="space-y-4">
                                 <div class="flex flex-col">
@@ -88,13 +95,69 @@
                             </div>
 
                         </div>
-                    </div>
 
 
                 </div>
+                <div  id="PicturesPreview"
+                    class="bg-white/30 backdrop-blur-sm rounded-xl p-6 shadow-lg w-full md:w-1/2 h-[450px] overflow-y-auto hidden profile-section mx-auto">
+                    <div class="flex flex-col">
+                        <span class="font-medium text-gray-600">Images</span>
+                        <span id="profileImages" class="mt-1"></span>
+                    </div>
+                    <div class="relative bg-white/30 backdrop-blur-sm rounded-xl shadow-l space-y-2">
+                        <div class="relative w-full" style="padding-top: 56.25%;">
+                            <img src="./img/11283256.jpg"
+                                class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                            <label
+                                class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                14/5/2025
+                            </label>
+                        </div>
+                        <div class="relative w-full" style="padding-top: 56.25%;">
+                            <img src="./img/11283256.jpg"
+                                class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                            <label
+                                class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                14/5/2025
+                            </label>
+                        </div>
+                        <div class="relative w-full" style="padding-top: 56.25%;">
+                            <img src="./img/11283256.jpg"
+                                class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                            <label
+                                class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                14/5/2025
+                            </label>
+                        </div>
+                        <div class="relative w-full" style="padding-top: 56.25%;">
+                            <img src="./img/11283256.jpg"
+                                class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                            <label
+                                class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                14/5/2025
+                            </label>
+                        </div>
+                        <div class="relative w-full" style="padding-top: 56.25%;">
+                            <img src="./img/11283256.jpg"
+                                class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                            <label
+                                class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                14/5/2025
+                            </label>
+                        </div>
+                        <div class="relative w-full" style="padding-top: 56.25%;">
+                            <img src="./img/11283256.jpg"
+                                class="absolute top-0 left-0 w-full h-full object-cover rounded-xl" alt="Photo">
+                            <label
+                                class="absolute bottom-2 right-2 text-sm text-black bg-white/70 px-2 py-1 rounded shadow">
+                                14/5/2025
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="settings" class="content-section hidden" style="color:var(--primary-color)">
-                <h1 class="text-2xl font-bold">Changes</h1>
+                <h1 class="text-2xl font-bold">Change</h1>
                 <div class="w-full flex justify-center items-center">
                     <nav class="flex space-x-6 mt-6">
                         <a href="#" class="px-4 py-2 text-black rounded-md hover-effect settings-nav-link"

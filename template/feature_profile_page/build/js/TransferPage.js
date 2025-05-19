@@ -18,3 +18,4 @@ function TransPage(navButtons, sections) {
 
 TransPage('settings-nav-link', 'bio-section');
 TransPage('main-nav-link', 'content-section');
+TransPage('profile-nav-link', 'profile-section');
