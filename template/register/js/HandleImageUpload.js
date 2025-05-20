@@ -1,3 +1,14 @@
+document.getElementById("fileInput").addEventListener("change", function (event) {
+    let file = event.target.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("profilePic").src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
 function handleImageUpload(input) {
   const container = document.getElementById('pictureContainer');
   const uploadLabel = input.closest('.uploadLabel');
