@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="../home_page/assets/css/styles.css" />
+  </head>
+
+  <body class="flex flex-col w-screen h-screen">
+    <header
+      class="header relative z-[50] px-[10px] py-[5px] shadow-[0px_1.75px_3.51px_0px_#0000001F] bg-[white]"
+    >
+      <div
+        class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]"
+      >
+        <div
+          class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]"
+        >
+          <div class="inner-logo">
+            <a href="#">
+              <img src="./img/match.png" alt="" class="h-[40px] w-auto" />
+            </a>
+          </div>
+          <div
+            class="inner-search w-[200px] cursor-pointer flex items-center gap-[10px] bg-[var(--bg)] p-[5px] rounded-[20px] [@media(max-width:767.98px)]:hidden text-[var(--color-one)] text-[300] text-[14px]"
+          >
+            <i
+              class="fa-solid fa-magnifying-glass text-[25px] text-[var(--color-one)]"
+            ></i>
+            Search
+          </div>
+        </div>
+        <div class="inner-menu [@media(max-width:767.98px)]:hidden">
+          <ul
+            class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]"
+          >
+            <li>
+              <a
+                href="#"
+                class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]"
+              >
+                <i class="fa-solid fa-house"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="relative inline-block w-[28px] h-[28px]">
+                <img
+                  src="./img/match.png"
+                  alt=""
+                  class="w-full h-full object-cover"
+                />
+                <span
+                  class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"
+                  >0</span
+                >
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]"
+              >
+                <i class="fa-solid fa-message"></i>
+                <span
+                  class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"
+                  >0</span
+                >
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]"
+              >
+                <i class="fa-solid fa-bell"></i>
+                <span
+                  class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"
+                  >0</span
+                >
+              </a>
+            </li>
+          </ul>
+        </div>
+        <button
+          id="btnBars"
+          class="inner-bars hidden [@media(max-width:767.98px)]:inline-flex [@media(max-width:767.98px)]:order-[0]"
+        >
+          <i class="fa-solid fa-bars text-[25px] text-[var(--color-one)]"></i>
+        </button>
+        <div
+          class="inner-profile flex items-center justify-end gap-[10px] cursor-pointer [@media(max-width:767.98px)]:order-[2]"
+        >
+          <div
+            class="inner-image rounded-full overflow-hidden w-[30px] h-[30px]"
+          >
+            <img
+              src="./img/match.png"
+              alt=""
+              class="w-full h-full object-over"
+            />
+          </div>
+          <div class="inner-name">User</div>
+        </div>
+      </div>
+      <!-- Search Box -->
+      <div
+        id="boxSearch"
+        class="box-search hidden w-[400px] [@media(max-width:767.98px)]:w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-[100px] [@media(max-width:767.98px)]:left-0 z-[110] bg-white border-slate-300 rounded-[10px]"
+      >
+        <h2
+          class="inner-title text-[var(--color-one)] font-[600] text-[24px] mt-0 mb-[10px]"
+        >
+          Search
+        </h2>
+        <div class="inner-wrap flex flex-col gap-[10px]">
+          <div
+            class="inner-input-search bg-slate-200 rounded-[10px] p-[5px] mb-[5px]"
+          >
+            <input
+              type="text"
+              class="outline-none bg-slate-200 text-[16px] px-[15px]"
+              placeholder="Search something..."
+            />
+          </div>
+          <div class="inner-group w-full flex flex-col text-[var(--color-one)]">
+            <div class="inner-label font-[300] text-[14px]">Gender:</div>
+            <div class="inner-input-group flex items-center gap-[40px]">
+              <label class="inline-flex items-center space-x-2">
+                <input type="radio" name="gender" value="male" class="" />
+                <span class="">Male</span>
+              </label>
+              <label class="inline-flex items-center space-x-2">
+                <input type="radio" name="gender" value="female" class="" />
+                <span class="">Female</span>
+              </label>
+              <label class="inline-flex items-center space-x-2">
+                <input type="radio" name="gender" value="male" class="" />
+                <span class="">All</span>
+              </label>
+            </div>
+          </div>
+          <div class="inner-group flex flex-col text-[var(--color-one)]">
+            <div class="inner-label font-[300] text-[14px]">Age:</div>
+            <select
+              name=""
+              id=""
+              class="outline-none border border-slate-300 rounded-[10px] p-[10px]"
+            >
+              <option value="">-- Choose Age --</option>
+              <option value="">18-25</option>
+              <option value="">25-30</option>
+              <option value="">30-35</option>
+              <option value="">35+</option>
+            </select>
+          </div>
+          <div class="inner-group flex flex-col text-[var(--color-one)]">
+            <div class="inner-label font-[300] text-[14px]">Location:</div>
+            <select
+              name=""
+              id=""
+              class="outline-none border border-slate-300 rounded-[10px] p-[10px]"
+            >
+              <option value="">-- Choose Location --</option>
+              <option value="">VietNam</option>
+              <option value="">Thailand</option>
+              <option value="">Japan</option>
+              <option value="">China</option>
+            </select>
+          </div>
+          <div class="inner-group flex flex-col text-[var(--color-one)]">
+            <div class="inner-label font-[300] text-[14px]">
+              Education Level:
+            </div>
+            <select
+              name=""
+              id=""
+              class="outline-none border border-slate-300 rounded-[10px] p-[10px]"
+            >
+              <option value="">-- Choose Education Level --</option>
+              <option value="">High School</option>
+              <option value="">College</option>
+              <option value="">University</option>
+              <option value="">Post-graduate school</option>
+            </select>
+          </div>
+          <div class="inner-group flex flex-col text-[var(--color-one)]">
+            <div class="inner-label font-[300] text-[14px]">Hobby Tags:</div>
+            <div
+              class="inner-tags-list flex flex-wrap items-center gap-[10px_20px]"
+            >
+              <div
+                class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]"
+              >
+                Music
+              </div>
+              <div
+                class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]"
+              >
+                Music
+              </div>
+              <div
+                class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]"
+              >
+                Music
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Search Box -->
+
+      <!-- Menu Box -->
+      <div
+        id="boxMenu"
+        class="box-menu hidden w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-0 z-[100] bg-white border-slate-300 rounded-[10px]"
+      >
+        <div class="inner-title text-[var(--color-one)] font-[600] text-[24px]">
+          Menu
+        </div>
+        <div class="inner-wrap">
+          <ul class="flex flex-col gap-[10px]">
+            <li>
+              <div
+                class="inner-search cursor-pointer text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)] flex items-center gap-[5px] bg-slate-200 p-[8px] rounded-[8px]"
+              >
+                <i class="fa-solid fa-magnifying-glass text-[25px]"></i>
+                Search
+              </div>
+            </li>
+            <li class="bg-slate-200 rounded-[8px] p-[8px]">
+              <a
+                href="#"
+                class="w-full flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]"
+              >
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li
+              class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]"
+            >
+              <a
+                href="#"
+                class="w-full relative flex items-center gap-[10px] inline-block text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]"
+              >
+                <img
+                  src="assets/images/match.png"
+                  alt=""
+                  class="w-[28px] h-[28px] object-cover"
+                />
+                <span class="">Match</span>
+                <span
+                  class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"
+                  >0</span
+                >
+              </a>
+            </li>
+            <li
+              class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]"
+            >
+              <a
+                href="#"
+                class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]"
+              >
+                <i class="fa-solid fa-message"></i>
+                <span>Message</span>
+                <span
+                  class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"
+                  >0</span
+                >
+              </a>
+            </li>
+            <li
+              class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]"
+            >
+              <a
+                href="#"
+                class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]"
+              >
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+                <span
+                  class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"
+                  >0</span
+                >
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- End Menu Box -->
+    </header>
+
+    <div
+      class="w-full sm:w-4/5 md:w-3/5 lg:w-2/5 bg-black/50 h-full mx-auto rounded-lg p-3"
+    >
+      <div class="text-2xl font-bold">Notifications</div>
+      <hr class="text-black mb-1" />
+      <div class="w-full h-10">
+        <div class="rounded-lg cursor-pointer hover:shadow-lg p-2 rounded-md">
+          <div class="flex w-full">
+            <img
+              src="./img/z6550535097269_c041946d51259df847587068c62fadea.jpg"
+              alt=""
+              class="h-12 w-12 rounded-full object-cover"
+            />
+            <div class="ml-1 w-full ">
+              <div class="text-sm font-bold">Username</div>
+              <div class="text-xs break-normal">content</div>
+              <div class="flex justify-end text-xs">21/5/2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="../home_page/assets/js/script.js"></script>
+  </body>
+</html>
