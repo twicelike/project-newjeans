@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="icon" type="image/x-icon" href="../message_page/assets/images/favicon.png">
   <title>Message</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../message_page/assets/js/tailwind-config.js"></script>
@@ -16,123 +15,193 @@
 <body>
   <div class="root h-screen flex flex-col">
     <!-- Header -->
-    <header class="header shadow-lg shadow-slate-200 relative">
-      <nav class="flex justify-between items-center sm:gap-2 gap-1 px-2">
-        <div class="sm:basis-4/12 basis-1/4 flex items-center sm:gap-2 gap-1 relative">
-          <a href="#" class="w-16 h-16">
-            <img class="w-full h-full object-cover" src="../message_page/assets/images/logo.png" alt="Logo">
+    <header class="header relative z-[50] px-[10px] py-[5px] shadow-[0px_1.75px_3.51px_0px_#0000001F] bg-[white]">
+    <div class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]">
+      <div class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]">
+        <div class="inner-logo">
+          <a href="#">
+            <img src="assets/images/logo.png" alt="" class="h-[40px] w-auto">
           </a>
-          <div id="ctSearch" class="bg-slate-200 sm:w-[300px] rounded-3xl p-1 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
-          </div>
-        </div> <!-- End Logo, Search-->
-        <ul class="flex sm:basis-7/12 basis-2/4 items-center justify-between sm:justify-start sm:gap-20 lg:gap-36">
-          <li class="w-8 h-8">
-            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-full h-full">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-              </svg>
-            </a>
-          </li>
-          <li class="w-8 h-8">
-            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block relative">
-              <img src="assets/images/match.png" alt="" class="max-w-[32px] max-h-[32px] object-cover">
-              <span class="absolute text-[#FFFFFF] text-[12px] left-3/4 top-0 bg-[#DD2334] rounded-full size-4 flex items-center justify-center p-[8px]">1</span>
-            </a>
-          </li>
-          <li class="w-8 h-8">
-            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block relative">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-full h-full">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-              </svg>
-              <span class="absolute text-[#FFFFFF] text-[12px] left-3/4 top-0 bg-[#DD2334] rounded-full size-4 flex items-center justify-center p-[8px]">1</span>
-            </a>
-          </li>
-          <li class="w-8 h-8">
-            <a href="#" class="rounded-lg hover:bg-slate-100 inline-block relative">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-              </svg>
-              <span class="absolute text-[#FFFFFF] text-[12px] left-3/4 top-0 bg-[#DD2334] rounded-full size-4 flex items-center justify-center p-[8px]">1</span>
-            </a>
-          </li>
-        </ul> <!-- End Menu -->
-        <a href="#" class="sm:basis-1/12 inline-flex items-center justify-end gap-2">
-          <img class="max-w-8 h-8 object-cover rounded-full" src="../message_page/assets/images/avt.jpg" alt="Avatar">
-          <span class="sm:inline-block hidden">Name</span>
-        </a> <!-- End Profile -->
-      </nav>
-      <div id="searchBox"
-        class="search-box absolute hidden top-full left-0 w-full sm:w-[300px] sm:top-full sm:left-[80px] bg-white border border-slate-300 p-4 z-50">
-        <div class="search-input mb-4">
-          <div class="flex justify-between my-4">
-            <label for="searchInput" class="block text-xl font-bold">Search</label>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="size-6 cursor-pointer hover:bg-slate-100 rounded-full" id="closeSearch">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-          </div>
-          <input type="text" id="searchInputBox" class="block w-full text-base py-2 px-4 rounded-full bg-slate-100"
-            placeholder="Tìm kiếm...">
         </div>
-        <div class="search-content">
-          <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
-            <a href="#" class="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
-              <span class="">NewJeans</span>
+        <div
+          class="inner-search w-[200px] cursor-pointer flex items-center gap-[10px] bg-[var(--bg)] p-[5px] rounded-[20px] [@media(max-width:767.98px)]:hidden text-[var(--color-one)] text-[300] text-[14px]">
+          <i class="fa-solid fa-magnifying-glass text-[25px] text-[var(--color-one)]"></i>
+          Search
+        </div>
+      </div>
+      <div class="inner-menu [@media(max-width:767.98px)]:hidden">
+        <ul class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]">
+          <li>
+            <a href="#" class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-house"></i>
             </a>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="close-item size-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
+          </li>
+          <li>
+            <a href="#" class="relative inline-block w-[28px] h-[28px]">
+              <img src="assets/images/match.png" alt="" class="w-full h-full object-cover">
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-message"></i>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-bell"></i>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <button id="btnBars"
+        class="inner-bars hidden [@media(max-width:767.98px)]:inline-flex [@media(max-width:767.98px)]:order-[0]">
+        <i class="fa-solid fa-bars text-[25px] text-[var(--color-one)]"></i>
+      </button>
+      <div
+        class="inner-profile flex items-center justify-end gap-[10px] cursor-pointer [@media(max-width:767.98px)]:order-[2]">
+        <div class="inner-image rounded-full overflow-hidden w-[30px] h-[30px]">
+          <img src="assets/images/avt.jpg" alt="" class="w-full h-full object-over">
+        </div>
+        <div class="inner-name">
+          User
+        </div>
+      </div>
+    </div>
+    <!-- Search Box -->
+    <div id="boxSearch"
+      class="box-search hidden w-[400px] [@media(max-width:767.98px)]:w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-[100px] [@media(max-width:767.98px)]:left-0 z-[110] bg-white border-slate-300 rounded-[10px]">
+      <h2 class="inner-title text-[var(--color-one)] font-[600] text-[24px] mt-0 mb-[10px]">
+        Search
+      </h2>
+      <div class="inner-wrap flex flex-col gap-[10px]">
+        <div class="inner-input-search bg-slate-200 rounded-[10px] p-[5px] mb-[5px]">
+          <input type="text" class="outline-none bg-slate-200 text-[16px] px-[15px]" placeholder="Search something...">
+        </div>
+        <div class="inner-group w-full flex flex-col text-[var(--color-one)] ">
+          <div class="inner-label font-[300] text-[14px]">Gender:</div>
+          <div class="inner-input-group flex items-center gap-[40px]">
+            <label class="inline-flex items-center space-x-2">
+              <input type="radio" name="gender" value="male" class="">
+              <span class="">Male</span>
+            </label>
+            <label class="inline-flex items-center space-x-2">
+              <input type="radio" name="gender" value="female" class="">
+              <span class="">Female</span>
+            </label>
+            <label class="inline-flex items-center space-x-2">
+              <input type="radio" name="gender" value="male" class="">
+              <span class="">All</span>
+            </label>
           </div>
-          <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
-            <a href="#" class="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
-              <span class="">K-POP</span>
-            </a>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="close-item size-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-          </div>
-          <div class="flex justify-between items-center py-2 cursor-pointer rounded-lg hover:bg-slate-100">
-            <a href="#" class="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
-              <span class="">Hanni</span>
-            </a>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="close-item size-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Age:</div>
+          <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+            <option value="">-- Choose Age --</option>
+            <option value="">18-25</option>
+            <option value="">25-30</option>
+            <option value="">30-35</option>
+            <option value="">35+</option>
+          </select>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Location:</div>
+          <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+            <option value="">-- Choose Location --</option>
+            <option value="">VietNam</option>
+            <option value="">Thailand</option>
+            <option value="">Japan</option>
+            <option value="">China</option>
+          </select>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Education Level:</div>
+          <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+            <option value="">-- Choose Education Level --</option>
+            <option value="">High School</option>
+            <option value="">College</option>
+            <option value="">University</option>
+            <option value="">Post-graduate school</option>
+          </select>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Hobby Tags:</div>
+          <div class="inner-tags-list flex flex-wrap items-center gap-[10px_20px]">
+            <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+              Music
+            </div>
+            <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+              Music
+            </div>
+            <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+              Music
+            </div>
           </div>
         </div>
       </div>
-    </header>
+    </div>
+    <!-- End Search Box -->
+
+    <!-- Menu Box -->
+    <div id="boxMenu"
+      class="box-menu hidden w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-0 z-[100] bg-white border-slate-300 rounded-[10px]">
+      <div class="inner-title text-[var(--color-one)] font-[600] text-[24px]">
+        Menu
+      </div>
+      <div class="inner-wrap">
+        <ul class="flex flex-col gap-[10px]">
+          <li>
+            <div
+              class="inner-search cursor-pointer text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)] flex items-center gap-[5px] bg-slate-200 p-[8px] rounded-[8px]">
+              <i class="fa-solid fa-magnifying-glass text-[25px]"></i>
+              Search
+            </div>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px]">
+            <a href="#"
+              class="w-full flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-house"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] inline-block text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <img src="assets/images/match.png" alt="" class="w-[28px] h-[28px] object-cover">
+              <span class="">Match</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-message"></i>
+              <span>Message</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notifications</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- End Menu Box -->
+  </header>
     <!-- End Header -->
     <div class="message-container flex flex-1 overflow-y-hidden relative">
       <!-- Sidebar Contact -->
