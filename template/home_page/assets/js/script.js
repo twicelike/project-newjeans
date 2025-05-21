@@ -13,6 +13,15 @@ var swiper = new Swiper(".mySwiper", {
   },
 });
 
+const users = [
+  { name: 'User 1' },
+  { name: 'User 2' },
+  { name: 'User 3' },
+  { name: 'User 4' },
+  { name: 'User 5' },
+  { name: 'User 6' },
+];
+
 document.addEventListener('DOMContentLoaded', () => {
   const matchIcons = document.querySelectorAll('.inner-item .inner-match');
   const popupBg = document.getElementById('popupBg');
@@ -135,5 +144,61 @@ document.addEventListener('DOMContentLoaded', () => {
       ![...searchTriggers].some(t => t.contains(e.target))) {
       boxSearch.classList.add('hidden');
     }
+  });
+
+  //Search
+  const searchInput = boxSearch.querySelector('.inner-input-search input');
+  const innerWrap   = boxSearch.querySelector('.inner-wrap');
+
+  const resultsDiv     = document.createElement('div');
+  resultsDiv.className = 'search-results mt-4 max-h-60 overflow-y-auto text-[var(--color-one)]';
+  innerWrap.append(resultsDiv);
+
+  function renderSearch(q) {
+    if (!q) {
+      resultsDiv.innerHTML = '';
+      resultsDiv.style.display = 'none';
+      return;
+    }
+    const lc = q.toLowerCase();
+    const matches = users.filter(u => u.name.toLowerCase().includes(lc));
+
+    if (matches.length === 0) {
+      resultsDiv.innerHTML = `<p class="py-2">No results.</p>`;
+    } else {
+      resultsDiv.innerHTML = '<ul class="space-y-1">' +
+        matches.map(u => `<li class="py-1 border-b">${u.name}</li>`).join('') +
+        '</ul>';
+    }
+    resultsDiv.style.display = 'block';
+  }
+
+  searchInput.addEventListener('input', e => {
+    renderSearch(e.target.value.trim());
+  });
+
+  document.addEventListener('click', e => {
+    if (!boxSearch.contains(e.target)) {
+      resultsDiv.style.display = 'none';
+    }
+  });
+
+  //Logout
+  const profileToggle = document.querySelector('.inner-profile');
+  const logoutBox     = document.querySelector('.log-out-box');
+
+  profileToggle.addEventListener('click', e => {
+    e.stopPropagation();       
+    logoutBox.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', () => {
+    if (!logoutBox.classList.contains('hidden')) {
+      logoutBox.classList.add('hidden');
+    }
+  });
+
+  logoutBox.addEventListener('click', e => {
+    e.stopPropagation();
   });
 });

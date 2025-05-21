@@ -15,7 +15,7 @@
 
 <body class="flex flex-col">
   <!-- Header -->
-  <header class="header relative z-[50] px-[10px] py-[5px] shadow-[0px_1.75px_3.51px_0px_#0000001F] bg-[white]">
+  <header class="header sticky top-0 left-0 z-[50] px-[10px] py-[5px] shadow-[0px_1.75px_3.51px_0px_#0000001F] bg-[white]">
     <div class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]">
       <div class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]">
         <div class="inner-logo">
@@ -71,6 +71,7 @@
         <div class="inner-name">
           User
         </div>
+        <i class="fa-solid fa-caret-down"></i>
       </div>
     </div>
     <!-- Search Box -->
@@ -81,7 +82,7 @@
       </h2>
       <div class="inner-wrap flex flex-col gap-[10px]">
         <div class="inner-input-search bg-slate-200 rounded-[10px] p-[5px] mb-[5px]">
-          <input type="text" class="outline-none bg-slate-200 text-[16px] px-[15px]" placeholder="Search something...">
+          <input type="text" class="outline-none bg-slate-200 text-[16px] px-[15px] w-full" placeholder="Search something...">
         </div>
         <div class="inner-group w-full flex flex-col text-[var(--color-one)] ">
           <div class="inner-label font-[300] text-[14px]">Gender:</div>
@@ -93,10 +94,6 @@
             <label class="inline-flex items-center space-x-2">
               <input type="radio" name="gender" value="female" class="">
               <span class="">Female</span>
-            </label>
-            <label class="inline-flex items-center space-x-2">
-              <input type="radio" name="gender" value="male" class="">
-              <span class="">All</span>
             </label>
           </div>
         </div>
@@ -120,7 +117,7 @@
             <option value="">China</option>
           </select>
         </div>
-        <div class="inner-group flex flex-col text-[var(--color-one)]">
+        <!-- <div class="inner-group flex flex-col text-[var(--color-one)]">
           <div class="inner-label font-[300] text-[14px]">Education Level:</div>
           <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
             <option value="">-- Choose Education Level --</option>
@@ -143,10 +140,22 @@
               Music
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- End Search Box -->
+
+    <!-- Log out box -->
+    <div class="log-out-box bg-white hidden absolute right-0 top-full rounded-[10px] shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] w-[100px]">
+      <div class="inner-wrap flex flex-col gap-[5px]">
+        <a href="#" class="inner-profile border border-slate-300 rounded-[10px] p-[5px] text-[14px]">
+          My profile
+        </a>
+        <button class="inner-log-out border border-slate-300 rounded-[10px] p-[5px] text-[14px] cursor-pointer">
+          Log out
+        </button>
+      </div>
+    </div>
 
     <!-- Menu Box -->
     <div id="boxMenu"
@@ -207,11 +216,11 @@
   <!-- Section 1 -->
   <section class="section-1 flex-1 relative z-[10]">
     <div class="container w-[700px] mx-auto [@media(max-width:767.98px)]:w-full">
-      <div class="inner-list grid gap-[20px]">
+      <div class="inner-list py-[25px] grid gap-[20px]">
         <div
           class="inner-item relative grid grid-cols-[600fr_100fr] [@media(max-width:767.98px)]:grid-cols-1 [@media(max-width:767.98px)]:gap-[10px]">
           <div
-            class="inner-left relative z-[50] shadow-[0px_1.75px_3.51px_0px_#0000001F] rounded-[8px] flex flex-col gap-[10px] w-[600px] [@media(max-width:767.98px)]:w-full">
+            class="inner-left relative z-[50] shadow-[0px_1.75px_3.51px_0px_#0000001F] rounded-[8px] overflow-hidden flex flex-col gap-[10px] w-[600px] [@media(max-width:767.98px)]:w-full">
             <div class="inner-images swiper w-full h-full mySwiper cursor-pointer [--swiper-navigation-size:20px]">
               <div class="swiper-wrapper">
                 <div class="swiper-slide flex items-center justify-center">
