@@ -1,3 +1,11 @@
+const users = [
+  { name: 'User 1' },
+  { name: 'User 2' },
+  { name: 'User 3' },
+  { name: 'User 4' },
+  { name: 'User 5' },
+  { name: 'User 6' },
+];
 document.addEventListener('DOMContentLoaded', () => {
   const messageInput    = document.getElementById('messageInput');
   const sendButton      = document.getElementById('sendButton');
@@ -140,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Di chuyển vào trong DOMContentLoaded
   contactItems.forEach(item => {
     item.addEventListener('click', () => {
       const avatarSrc = item.querySelector('.contact-avatar img').src;
@@ -204,46 +211,65 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  //Search
+  const searchBoxInput = boxSearch.querySelector('.inner-input-search input');
+  const innerWrap   = boxSearch.querySelector('.inner-wrap');
+
+  const resultsDiv     = document.createElement('div');
+  resultsDiv.className = 'search-results mt-4 max-h-60 overflow-y-auto text-[var(--color-one)]';
+  innerWrap.append(resultsDiv);
+
+  function renderSearch(q) {
+    if (!q) {
+      resultsDiv.innerHTML = '';
+      resultsDiv.style.display = 'none';
+      return;
+    }
+    const lc = q.toLowerCase();
+    const matches = users.filter(u => u.name.toLowerCase().includes(lc));
+
+    if (matches.length === 0) {
+      resultsDiv.innerHTML = `<p class="py-2">No results.</p>`;
+    } else {
+      resultsDiv.innerHTML = '<ul class="space-y-1">' +
+        matches.map(u => `<li class="py-1 border-b">${u.name}</li>`).join('') +
+        '</ul>';
+    }
+    resultsDiv.style.display = 'block';
+  }
+
+  searchBoxInput.addEventListener('input', e => {
+    renderSearch(e.target.value.trim());
+  });
+
+  document.addEventListener('click', e => {
+    if (!boxSearch.contains(e.target)) {
+      resultsDiv.style.display = 'none';
+    }
+  });
+
+  //Logout
+  const profileToggle = document.querySelector('.inner-profile');
+  const logoutBox     = document.querySelector('.log-out-box');
+
+  profileToggle.addEventListener('click', e => {
+    e.stopPropagation();       
+    logoutBox.classList.toggle('hidden');
+  });
+
+  document.addEventListener('click', () => {
+    if (!logoutBox.classList.contains('hidden')) {
+      logoutBox.classList.add('hidden');
+    }
+  });
+
+  logoutBox.addEventListener('click', e => {
+    e.stopPropagation();
+  });
 });
 
-//
-const messagesByUser = {
-  "User 1": [
-    { type: 'receive', text: 'Hello!', time: '09:53' },
-    { type: 'send',    text: 'Hi, how are you?', time: '09:55' },
-    // ...
-  ],
-  "User 2": [
-    { type: 'receive', text: 'Hi!', time: '09:53' },
-    { type: 'send',    text: 'How are you?', time: '09:55' },
-    // ...
-  ],
-  "User 3": [
-    { type: 'receive', text: 'Hello!', time: '09:53' },
-    { type: 'send',    text: '???', time: '09:55' },
-    // ...
-  ],
-  "User 4": [
-    { type: 'receive', text: 'Hello!', time: '09:53' },
-    { type: 'send',    text: '...', time: '09:55' },
-    // ...
-  ],
-  "User 5": [
-    { type: 'receive', text: 'Sport?', time: '09:53' },
-    { type: 'send',    text: 'Football', time: '09:55' },
-    // ...
-  ],
-  "User 6": [
-    { type: 'receive', text: 'Hold on', time: '09:53' },
-    { type: 'send',    text: 'Okay', time: '09:55' },
-    // ...
-  ],
-  "User 7": [
-    { type: 'receive', text: 'Where are you?', time: '09:53' },
-    { type: 'send',    text: 'VietNam', time: '09:55' },
-    // ...
-  ],
-};
+
 function renderMessages(messages) {
   return messages.map(msg => `
     <div class="message ${msg.type === 'send' ? 'send-message self-end bg-blue-300' : 'reveice-message self-start bg-slate-200'} 

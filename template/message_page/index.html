@@ -148,6 +148,18 @@
     </div>
     <!-- End Search Box -->
 
+    <!-- Log out box -->
+    <div class="log-out-box bg-white hidden absolute right-0 top-full rounded-[10px] shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] w-[100px]">
+      <div class="inner-wrap flex flex-col gap-[5px]">
+        <a href="#" class="inner-profile border border-slate-300 rounded-[10px] p-[5px] text-[14px]">
+          My profile
+        </a>
+        <button class="inner-log-out border border-slate-300 rounded-[10px] p-[5px] text-[14px] cursor-pointer">
+          Log out
+        </button>
+      </div>
+    </div>
+
     <!-- Menu Box -->
     <div id="boxMenu"
       class="box-menu hidden w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-0 z-[100] bg-white border-slate-300 rounded-[10px]">
@@ -206,7 +218,10 @@
     <div class="message-container flex flex-1 overflow-y-hidden relative">
       <!-- Sidebar Contact -->
       <aside id="chatList" class="sm:basis-3/12 sm:flex-none flex-1 border-r p-2 overflow-y-auto relative">
-        <h2 class="text-2xl font-semibold py-4 pl-2">Chats</h2>
+        <div class="inner-head flex justify-between items-center">
+          <h2 class="text-2xl font-semibold py-4 pl-2">Chats</h2>
+          <button class="survey-button"><i class="fa-solid fa-clipboard-list inline-block text-[#002275] text-2xl"></i></button>
+        </div>
         <input type="text" name="" id="searchInput" class="w-full outline-none rounded-full p-2 bg-slate-100 mb-4"
           placeholder="Search...">
         <ul class="contact-list">
@@ -228,51 +243,6 @@
               <div class="lastest-message text-[12px] text-black opacity-70"></div>
             </div>
           </li>
-          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
-            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
-              <img src="assets/images/avt.jpg" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="contact-info">
-              <div class="contact-name">User 3</div>
-              <div class="lastest-message text-[12px] text-black opacity-70"></div>
-            </div>
-          </li>
-          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
-            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
-              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="contact-info">
-              <div class="contact-name">User 4</div>
-              <div class="lastest-message text-[12px] text-black opacity-70"></div>
-            </div>
-          </li>
-          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
-            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
-              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="contact-info">
-              <div class="contact-name">User 5</div>
-              <div class="lastest-message text-[12px] text-black opacity-70"></div>
-            </div>
-          </li>
-          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
-            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
-              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="contact-info">
-              <div class="contact-name">User 6</div>
-              <div class="lastest-message text-[12px] text-black opacity-70"></div>
-            </div>
-          </li>
-          <li class="flex gap-2 items-center p-2 mb-2 rounded-xl hover:bg-gray-200 cursor-pointer">
-            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
-              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="contact-info">
-              <div class="contact-name">User 7</div>
-              <div class="lastest-message text-[12px] text-black opacity-70"></div>
-            </div>
-          </li>
         </ul>
         <p id="noResultMessage" class="text-center text-gray-400 hidden">No result</p>
       </aside>
@@ -290,17 +260,25 @@
         </div>
         <div class="hidden chat-container flex flex-col flex-1 p-4 border-b overflow-y-auto">
           <div class="message reveice-message relative max-w-[60%] my-[10px] p-4 rounded-[10px] bg-slate-200 self-start">
-            <p class="content-message whitespace-pre-wrap"></p>
+            <p class="content-message whitespace-pre-wrap">Alo 123</p>
+            <span class="time absolute text-[12px] text-black opacity-70 bottom-[-20px] left-[5px]">09:53</span>
+          </div>
+          <div class="message reveice-message relative max-w-[60%] my-[10px] p-4 rounded-[10px] bg-slate-200 self-start">
+            <img src="assets/images/avt.jpg" alt="">
             <span class="time absolute text-[12px] text-black opacity-70 bottom-[-20px] left-[5px]">09:53</span>
           </div>
           <div class="message send-message relative max-w-[60%] my-[10px] p-4 rounded-[10px] bg-blue-300 self-end">
             <p class="content-message">Can you call me?</p>
             <span class="time absolute text-[12px] text-black opacity-70 bottom-[-20px] left-[5px]">10:00</span>
           </div>
+          <div class="message send-message relative max-w-[60%] my-[10px] p-4 rounded-[10px] bg-blue-300 self-end">
+            <img src="assets/images/avt.jpg" alt="">
+            <span class="time absolute text-[12px] text-black opacity-70 bottom-[-20px] left-[5px]">10:00</span>
+          </div>
         </div>
         <div class="hidden input-message flex items-center p-[10px] gap-2">
           <div id="createSurvey" class="create-survey cursor-pointer size-8 p-1 flex items-center justify-center">
-            <i class="fa-solid fa-clipboard-list inline-block text-[#002275] text-2xl"></i>
+            <button><i class="fa-solid fa-clipboard-list inline-block text-[#002275] text-2xl"></i></button>
           </div>
           <div class="upload-image cursor-pointer p-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -321,28 +299,6 @@
         </div>
       </main>
       <!-- End Main Chat Area -->
-
-      <!-- SideBar Profile Contact -->
-      <!-- <aside id="profileContact" class="profile-contact hidden basis-3/12 p-4">
-        <div class="flex justify-center mb-4">
-          <a href="#" class="inline-flex gap-2 items-center p-2 hover:bg-gray-100">
-            <div class="contact-avatar w-[60px] h-[60px] rounded-full border-2 border-slate-500 overflow-hidden">
-              <img src="assets/images/hanni.webp" alt="" class="w-full h-full object-cover">
-            </div>
-            <div class="contact-name">Hanni</div>
-          </a>
-        </div>
-        <ul class="list-operation">
-          <li class="p-2 bg-slate-100 rounded-lg hover:bg-gray-200 mb-4">
-            <a href="#" class="w-full">Profile</a>
-          </li>
-          <li class="p-2 bg-slate-100 rounded-lg hover:bg-gray-200 mb-4">
-            Delete Match
-          </li>
-        </ul>
-      </aside> -->
-      <!-- End SideBar Profile Contact -->
-
       <div id="chatToggle"
         class="chat-toggle hidden absolute z-[45] top-[8px] right-[10px] p-2 bg-slate-200 rounded-full cursor-pointer hover:bg-slate-400">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
