@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find User Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header
+    class="header sticky top-0 left-0 z-[50] px-[10px] py-[5px] shadow-[0px_1.75px_3.51px_0px_#0000001F] bg-[white]">
+    <div class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]">
+      <div class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]">
+        <div class="inner-logo">
+          <a href="#">
+            <img src="assets/images/logo.png" alt="" class="h-[40px] w-auto">
+          </a>
+        </div>
+        <div
+          class="inner-search w-[200px] cursor-pointer flex items-center gap-[10px] bg-[var(--bg)] p-[5px] rounded-[20px] [@media(max-width:767.98px)]:hidden text-[var(--color-one)] text-[300] text-[14px]">
+          <i class="fa-solid fa-magnifying-glass text-[25px] text-[var(--color-one)]"></i>
+          Search
+        </div>
+      </div>
+      <div class="inner-menu [@media(max-width:767.98px)]:hidden">
+        <ul class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]">
+          <li>
+            <a href="#" class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-house"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="relative inline-block w-[28px] h-[28px]">
+              <img src="assets/images/match.png" alt="" class="w-full h-full object-cover">
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-message"></i>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-bell"></i>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <button id="btnBars"
+        class="inner-bars hidden [@media(max-width:767.98px)]:inline-flex [@media(max-width:767.98px)]:order-[0]">
+        <i class="fa-solid fa-bars text-[25px] text-[var(--color-one)]"></i>
+      </button>
+      <div
+        class="inner-profile flex items-center justify-end gap-[10px] cursor-pointer [@media(max-width:767.98px)]:order-[2]">
+        <div class="inner-image rounded-full overflow-hidden w-[30px] h-[30px]">
+          <img src="assets/images/avt.jpg" alt="" class="w-full h-full object-over">
+        </div>
+        <div class="inner-name">
+          User
+        </div>
+        <i class="fa-solid fa-caret-down"></i>
+      </div>
+    </div>
+    <!-- Search Box -->
+    <div id="boxSearch"
+      class="box-search hidden w-[400px] [@media(max-width:767.98px)]:w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-[100px] [@media(max-width:767.98px)]:left-0 z-[110] bg-white border-slate-300 rounded-[10px]">
+      <h2 class="inner-title text-[var(--color-one)] font-[600] text-[24px] mt-0 mb-[10px]">
+        Search
+      </h2>
+      <div class="inner-wrap flex flex-col gap-[10px]">
+        <div class="inner-input-search bg-slate-200 rounded-[10px] p-[5px] mb-[5px]">
+          <input type="text" class="outline-none bg-slate-200 text-[16px] px-[15px] w-full"
+            placeholder="Search something...">
+        </div>
+        <div class="inner-group w-full flex flex-col text-[var(--color-one)] ">
+          <div class="inner-label font-[300] text-[14px]">Gender:</div>
+          <div class="inner-input-group flex items-center gap-[40px]">
+            <label class="inline-flex items-center space-x-2">
+              <input type="radio" name="gender" value="male" class="">
+              <span class="">Male</span>
+            </label>
+            <label class="inline-flex items-center space-x-2">
+              <input type="radio" name="gender" value="female" class="">
+              <span class="">Female</span>
+            </label>
+          </div>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Age:</div>
+          <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+            <option value="">-- Choose Age --</option>
+            <option value="">18-25</option>
+            <option value="">25-30</option>
+            <option value="">30-35</option>
+            <option value="">35+</option>
+          </select>
+        </div>
+        <div class="inner-group flex flex-col text-[var(--color-one)]">
+          <div class="inner-label font-[300] text-[14px]">Location:</div>
+          <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+            <option value="">-- Choose Location --</option>
+            <option value="">VietNam</option>
+            <option value="">Thailand</option>
+            <option value="">Japan</option>
+            <option value="">China</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- End Search Box -->
+
+    <!-- Log out box -->
+    <div
+      class="log-out-box bg-white hidden absolute right-0 top-full rounded-[10px] shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] w-[100px]">
+      <div class="inner-wrap flex flex-col gap-[5px]">
+        <a href="#" class="inner-profile border border-slate-300 rounded-[10px] p-[5px] text-[14px]">
+          My profile
+        </a>
+        <button class="inner-log-out border border-slate-300 rounded-[10px] p-[5px] text-[14px] cursor-pointer">
+          Log out
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu Box -->
+    <div id="boxMenu"
+      class="box-menu hidden w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-0 z-[100] bg-white border-slate-300 rounded-[10px]">
+      <div class="inner-title text-[var(--color-one)] font-[600] text-[24px]">
+        Menu
+      </div>
+      <div class="inner-wrap">
+        <ul class="flex flex-col gap-[10px]">
+          <li>
+            <div
+              class="inner-search cursor-pointer text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)] flex items-center gap-[5px] bg-slate-200 p-[8px] rounded-[8px]">
+              <i class="fa-solid fa-magnifying-glass text-[25px]"></i>
+              Search
+            </div>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px]">
+            <a href="#"
+              class="w-full flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-house"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] inline-block text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <img src="assets/images/match.png" alt="" class="w-[28px] h-[28px] object-cover">
+              <span class="">Match</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-message"></i>
+              <span>Message</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+          <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+            <a href="#"
+              class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notifications</span>
+              <span
+                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- End Menu Box -->
+  </header>
+  <!-- End Header -->
+
+  <!-- Section 1 -->
+  <section class="section-1 relative z-[10] py-[60px] max-sm:py-[45px]">
+    <div class="w-[1184px] mx-auto max-xl:w-[960px]
+           max-lg:w-[720px]
+           max-md:w-[540px]
+           max-sm:w-full">
+      <div class="inner-wrap grid grid-cols-[279fr_882fr] gap-[23px] [@media(max-width:991.98px)]:grid-cols-1">
+        <div class="inner-left">
+          <div class="box-filter p-[15px] bg-slate-200 rounded-[10px] shadow-[0px_1.75px_3.51px_0px_#0000001F]">
+            <div class="inner-head mb-[15px] flex items-center justify-between text-[var(--color-one)]">
+              <div class="inner-title font-[600] text-[18px] text-[var(--color-one)]">
+                Filter
+              </div>
+              <i class="fa-solid fa-filter text-[20px]"></i>
+            </div>
+            <div class="inner-body flex flex-col gap-[15px]">
+              <div class="inner-group flex flex-col text-[var(--color-one)] ">
+                <div class="inner-label font-[300] text-[14px]">Gender:</div>
+                <div class="inner-input-group flex items-center gap-[40px]">
+                  <label class="inline-flex items-center space-x-2">
+                    <input type="radio" name="gender" value="male" class="">
+                    <span class="">Male</span>
+                  </label>
+                  <label class="inline-flex items-center space-x-2">
+                    <input type="radio" name="gender" value="female" class="">
+                    <span class="">Female</span>
+                  </label>
+                </div>
+              </div>
+              <div class="inner-group flex flex-col text-[var(--color-one)]">
+                <div class="inner-label font-[300] text-[14px]">Age:</div>
+                <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px] w-full">
+                  <option value="">-- Choose Age --</option>
+                  <option value="">18-25</option>
+                  <option value="">25-30</option>
+                  <option value="">30-35</option>
+                  <option value="">35+</option>
+                </select>
+              </div>
+              <div class="inner-group flex flex-col text-[var(--color-one)]">
+                <div class="inner-label font-[300] text-[14px]">Location:</div>
+                <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+                  <option value="">-- Choose Location --</option>
+                  <option value="">VietNam</option>
+                  <option value="">Thailand</option>
+                  <option value="">Japan</option>
+                  <option value="">China</option>
+                </select>
+              </div>
+              <div class="inner-group flex flex-col text-[var(--color-one)]">
+                <div class="inner-label font-[300] text-[14px]">Education Level:</div>
+                <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+                  <option value="">-- Choose Education Level --</option>
+                  <option value="">High School</option>
+                  <option value="">College</option>
+                  <option value="">University</option>
+                  <option value="">Post-graduate school</option>
+                </select>
+              </div>
+              <div class="inner-group flex flex-col text-[var(--color-one)]">
+                <div class="inner-label font-[300] text-[14px]">Hobby Tags:</div>
+                <div class="inner-tags-list flex flex-wrap items-center gap-[10px_20px]">
+                  <div
+                    class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+                    Music
+                  </div>
+                  <div
+                    class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+                    Music
+                  </div>
+                  <div
+                    class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+                    Music
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="inner-right">
+          <div class="inner-list grid gap-[20px]">
+            <div
+              class="inner-item flex items-center justify-between p-[15px] bg-slate-200 rounded-[10px] shadow-[0px_1.75px_3.51px_0px_#0000001F]">
+              <div class="inner-profile flex gap-[10px] items-center">
+                <div
+                  class="inner-image w-[70px] h-[70px] [@media(max-width:991.98px)]:w-[50px] [@media(max-width:991.98px)]:h-[50px] rounded-full overflow-hidden">
+                  <a href="#">
+                    <img src="assets/images/avt.jpg" alt="" class="w-full h-full object-cover">
+                  </a>
+                </div>
+                <div
+                  class="inner-info font-[600] text-[20px] flex flex-wrap gap-[10px_20px] [@media(max-width:991.98px)]:gap-[10px] items-center">
+                  <a href="#" class="inner-name inline-block w-full text-[var(--color-one)]">
+                    User
+                  </a>
+                  <div
+                    class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Gender: <b>Male</b>
+                  </div>
+                  <div
+                    class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Age: <b>25</b>
+                  </div>
+                  <div
+                    class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Country: <b>VietNam</b>
+                  </div>
+                </div>
+              </div>
+              <div id="matchIcon"
+                class="inner-match [@media(max-width:991.98px)]:w-[40px] [@media(max-width:991.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">
+                <img src="assets/images/match.png" alt="" class="w-full h-full">
+              </div>
+            </div>
+            <div
+              class="inner-item flex items-center justify-between p-[15px] bg-slate-200 rounded-[10px] shadow-[0px_1.75px_3.51px_0px_#0000001F]">
+              <div class="inner-profile flex gap-[10px] items-center">
+                <div
+                  class="inner-image w-[70px] h-[70px] [@media(max-width:991.98px)]:w-[50px] [@media(max-width:991.98px)]:h-[50px] rounded-full overflow-hidden">
+                  <a href="#">
+                    <img src="assets/images/avt.jpg" alt="" class="w-full h-full object-cover">
+                  </a>
+                </div>
+                <div
+                  class="inner-info font-[600] text-[20px] flex flex-wrap gap-[10px_20px] [@media(max-width:991.98px)]:gap-[10px] items-center">
+                  <a href="#" class="inner-name inline-block w-full text-[var(--color-one)]">
+                    Jack
+                  </a>
+                  <div
+                    class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Gender: <b>Male</b>
+                  </div>
+                  <div
+                    class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Age: <b>30</b>
+                  </div>
+                  <div
+                    class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                    Country: <b>VietNam</b>
+                  </div>
+                </div>
+              </div>
+              <div id="matchIcon"
+                class="inner-match [@media(max-width:991.98px)]:w-[40px] [@media(max-width:991.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">
+                <img src="assets/images/match.png" alt="" class="w-full h-full">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Match Popup -->
+  <div id="popupBg" class="popup-bg fixed inset-0 bg-[black] opacity-0 z-[5]"></div>
+  <div id="matchPopup"
+    class="match-popup z-[5] fixed opacity-0 w-[400px] [@media(max-width:767.98px)]:w-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
+    <div class="popup-title flex justify-between items-center mb-4">
+      <p class="text-lg font-semibold">Match Request</p>
+      <i class="fa-solid fa-xmark cursor-pointer close-icon"></i>
+    </div>
+    <div class="popup-profile mb-6">
+      <a href="" class="flex items-center gap-6">
+        <img src="assets/images/avt.jpg" alt="" class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500">
+        <span class="">Name</span>
+      </a>
+    </div>
+    <div class="popup-message bg-white border border-slate-300 p-2 mb-6">
+      <textarea name="" id="messageBox" class="w-full p-2 outline-none resize-none" maxlength="360"
+        placeholder="Hello! Date me <3..." rows="4"></textarea>
+      <div id="countCharacter" class="count-char text-right text-xs text-gray-500">0/360 Characters</div>
+    </div>
+    <div class="popup-button flex justify-end gap-4">
+      <a href="#"
+        class="text-white p-[10px] w-[100px] rounded-lg font-semibold bg-[--color-one] hover:bg-[--color-two] hover:text-[--color-one] inline-block text-center">Profile</a>
+      <button id="matchBtn"
+        class="text-white p-[10px] w-[100px] rounded-lg font-semibold bg-[--color-one] hover:bg-[--color-two] hover:text-[--color-one] inline-block text-center">NewJeans</button>
+    </div>
+  </div>
+  <!-- End Match Popup -->
+  <!-- End Section 1 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>
