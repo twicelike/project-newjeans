@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @ToString
 public class ProfileDTO {
-    private String username;
     private String bio;
     private String gender;
     private String location;
@@ -20,6 +19,7 @@ public class ProfileDTO {
     private String age;
     private String firstName;
     private String lastName;
+    private MultipartFile avatar;
     private MultipartFile image1;
     private MultipartFile image2;
     private MultipartFile image3;

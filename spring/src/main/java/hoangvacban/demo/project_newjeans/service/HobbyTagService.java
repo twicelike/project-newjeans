@@ -1,5 +1,6 @@
 package hoangvacban.demo.project_newjeans.service;
 
+import hoangvacban.demo.project_newjeans.dto.HobbyTagDTO;
 import hoangvacban.demo.project_newjeans.entity.HobbyTag;
 import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.repository.HobbyTagRepository;
@@ -22,9 +23,10 @@ public class HobbyTagService {
         this.userRepository = userRepository;
     }
 
-    public void addHobby(String name) {
+    public void addHobby(HobbyTagDTO tag) {
         HobbyTag hobbyTag = new HobbyTag();
-        hobbyTag.setName(name);
+        hobbyTag.setName(tag.getName());
+        hobbyTag.setEmoji(tag.getEmoji());
         hobbyTagRepository.save(hobbyTag);
     }
 
@@ -36,9 +38,7 @@ public class HobbyTagService {
     public void addHobbyToUser(User user, int[] hobbyIds) {
         user.getHobbyTags().clear();
         for (int hobbyId : hobbyIds) {
-            hobbyTagRepository.findById(hobbyId).ifPresent(hobbyTag -> {
-                user.addHobbyTag(hobbyTag);
-            });
+            hobbyTagRepository.findById(hobbyId).ifPresent(user::addHobbyTag);
         }
     }
 
@@ -51,40 +51,6 @@ public class HobbyTagService {
                 user.getHobbyTags().remove(hobbyTag.get());
             }
             hobbyTagRepository.delete(hobbyTag.get());
-        }
-    }
-
-    public void addTestHobby() {
-        HobbyTag hobbyTag = new HobbyTag();
-        hobbyTag.setName("test1");
-
-        HobbyTag hobbyTag2 = new HobbyTag();
-        hobbyTag2.setName("test2");
-
-        hobbyTagRepository.save(hobbyTag);
-        hobbyTagRepository.save(hobbyTag2);
-    }
-
-    public void addTagToUser() {
-        Optional<HobbyTag> hobbyTag = hobbyTagRepository.findById(1);
-        Optional<User> user = userRepository.findByEmail("abc@gmail.com");
-        Optional<User> user1 = userRepository.findByEmail("mhoanga1@gmail.com");
-        if (hobbyTag.isPresent() && user.isPresent() && user1.isPresent()) {
-            hobbyTag.get().getUsers().add(user.get());
-            user.get().getHobbyTags().add(hobbyTag.get());
-
-            hobbyTag.get().getUsers().add(user1.get());
-            user1.get().getHobbyTags().add(hobbyTag.get());
-        }
-    }
-
-    public void fetch() {
-        Optional<User> user = userRepository.findByEmail("abc@gmail.com");
-        if (user.isPresent()) {
-            Set<HobbyTag> hobbyTags = user.get().getHobbyTags();
-            for (HobbyTag tag : hobbyTags) {
-                System.out.println(tag.getName());
-            }
         }
     }
 }

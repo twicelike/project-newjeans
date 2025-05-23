@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(email)
 
+        alert('Sent OTP to your Email')
+
         fetch(`${AppConfig.SEND_OTP_URL}/${email}`, {
             method: "POST",
             headers: {
@@ -23,7 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({email: email})
         })
             .then(response => {
-                console.log(response)
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(text);
+                    });
+                }
+                return response.text();
+            })
+            .then(message => {
+                console.log("OTP Message:", message);
+                if (message.includes("!")) {
+                    messageBox.textContent = message;
+                    messageBox.className = "text-red-500";
+                } else {
+                    messageBox.textContent = message;
+                    messageBox.className = "text-green-500";
+                }
             })
             .catch(error => {
                 messageBox.textContent = "Error sending OTP";

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +28,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private long createdDate;
+    private LocalDateTime createdDate;
 
     // set up
     private String bio;
@@ -38,7 +39,9 @@ public class User {
     private String location;
     private String avatar;
     private String educationLevel;
-    private long updatedDate;
+    private String image1;
+    private String image2;
+    private String image3;
 
     // post set up
     private String school;
@@ -53,10 +56,10 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<NjzSend> njzSends = new HashSet<>();
 
-    @OneToMany(mappedBy = "crushId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "crush", fetch = FetchType.LAZY)
     private Set<NjzSend> njzCrushes = new HashSet<>();
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)

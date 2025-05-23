@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     const bioSelectedTags = document.getElementById('bioSelectedTags');
     const findSelectedTags = document.getElementById('findSelectedTags');
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const tags = container.getElementsByTagName('div');
             for (let tag of tags) {
                 if (tag.textContent.includes(interest)) {
-                    tag.remove();   
+                    tag.remove();
                     break;
                 }
             }

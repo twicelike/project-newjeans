@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +46,7 @@ public class EmailService {
             if (otp != null) {
                 if (getEpochTime() - otp.getTimeStamp() <= OTP_EXPIRY_MINUTES) {
                     // now < expiry time : can't send
-                    return "Otp code is still available";
+                    return "Otp code is still available!";
                 } else {
                     // update / recreate a new otp code
                     updateAndResendOtpCode(otp, to, subject);
@@ -55,10 +54,10 @@ public class EmailService {
                 }
             } else {
                 createOtpCodeAndSendOtpCode(to, subject);
-                return "OTP sent successfully!";
+                return "OTP sent successfully";
             }
         } catch (MailException e) {
-            throw new EmailException("Failed to send OTP email, please try again later", e);
+            throw new EmailException("Failed to send OTP email, please try again later!", e);
         }
     }
 
@@ -95,22 +94,22 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    public boolean verifyEmail(String email, String otpCode) {
+    public String verifyEmail(String email, String otpCode) {
         OtpCodeDTO otp = otpCache.getIfPresent(email);
         if (otp != null) {
             if (getEpochTime() - otp.getTimeStamp() <= OTP_EXPIRY_MINUTES) {
                 if (passwordEncoder.matches(otpCode, otp.getOtpCode())) {
                     // ok
-                    return true;
+                    return "Yes sir";
                 } else {
-                    throw new BadCredentialsException("Otp code is not match");
+                    return "Otp code is not match!";
                 }
             } else {
                 // expire
-                throw new BadCredentialsException("Otp code expired");
+                return "Otp code expired!";
             }
         } else {
-            throw new BadCredentialsException("Send OTP code before verify email");
+            return "Send OTP code before verify email!";
         }
     }
 

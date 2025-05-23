@@ -18,6 +18,10 @@ public class UserValidator implements ConstraintValidator<UserConstraint, UserDT
         this.userRepository = userRepository;
     }
 
+    private boolean isUsernameValid(char c) {
+        return Character.isLetterOrDigit(c) || c == '-' || c == '_';
+    }
+
     @Override
     public boolean isValid(UserDTO user, ConstraintValidatorContext context) {
         boolean valid = true;
@@ -35,7 +39,7 @@ public class UserValidator implements ConstraintValidator<UserConstraint, UserDT
             valid = false;
         } else {
             for (char ch : user.getUsername().toCharArray()) {
-                if (ch < 'A' || ch > 'z') {
+                if (!isUsernameValid(ch)) {
                     context.buildConstraintViolationWithTemplate("Username mustn't contain special characters")
                             .addPropertyNode("username").addConstraintViolation()
                             .disableDefaultConstraintViolation();

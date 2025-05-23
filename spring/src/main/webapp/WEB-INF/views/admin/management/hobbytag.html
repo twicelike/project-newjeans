@@ -7,7 +7,6 @@
     <title>Hobby Tags | Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css">
     <style>
         .dropdown-content {
             display: none;
@@ -64,7 +63,6 @@
         <nav>
             <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
             <ul class="mb-6">
-                <!-- TODO: Thêm c:forEach ở đây nếu danh sách task lấy từ server -->
                 <li class="mb-2">
                     <a href="/admin/hobbytag" class="flex items-center text-gray-400 hover:text-blue-300 transition">
                         <i class="fas fa-tasks mr-2"></i> Hobby Tags
@@ -96,7 +94,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-2xl font-semibold">Hobby Tags</h1>
                 <div class="flex items-center">
-                    <a href="create.html"
+                    <a href="/admin/create-hobby-tag"
                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition flex items-center">
                         <i class="fas fa-plus mr-2"></i> Create Hobby Tag
                     </a>
@@ -112,8 +110,25 @@
                     <th class="py-3 px-4 border text-left">Actions</th>
                 </tr>
                 </thead>
-                <tbody id="tagsTableBody">
-                <!-- TODO: Dùng c:forEach để lặp qua danh sách các tag và hiển thị -->
+                <tbody id="tagsTableBody" th:each="tag : ${list}">
+                <tr>
+                    <td class="py-3 px-4 border text-left" th:text="${tag.id}"></td>
+                    <td class="py-3 px-4 border text-left" th:text="${tag.name}"></td>
+                    <td class="py-3 px-4 border text-left">
+                        <img th:src="${tag.emoji}" alt="emoji" class="w-6 h-6 object-contain rounded-full" />
+                    </td>
+                    <td class="py-3 px-4 border text-left">Actions</td>
+                    <td>
+                        <a th:href="@{'/admin/hobbytag/update/' + ${tag.id}}"
+                           class="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                            Update
+                        </a>
+                        <a th:href="@{'/admin/hobbytag/delete/' + ${tag.id}}"
+                           class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
 

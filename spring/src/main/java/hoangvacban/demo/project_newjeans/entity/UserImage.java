@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "user_images")
 @Getter
@@ -17,6 +19,7 @@ public class UserImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String url;
+    private LocalDateTime created;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -2,11 +2,11 @@ package hoangvacban.demo.project_newjeans.service;
 
 import hoangvacban.demo.project_newjeans.dto.ProfileDTO;
 import hoangvacban.demo.project_newjeans.dto.UserDTO;
+import hoangvacban.demo.project_newjeans.dto.request.ChangePasswordDTO;
+import hoangvacban.demo.project_newjeans.dto.request.ResetPasswordDTO;
 import hoangvacban.demo.project_newjeans.entity.Role;
 import hoangvacban.demo.project_newjeans.entity.User;
-import hoangvacban.demo.project_newjeans.repository.UserImagesRepository;
 import hoangvacban.demo.project_newjeans.repository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,32 +25,26 @@ public class UserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final RoleService roleService;
-    private final ModelMapper modelMapper;
     private final UploadService uploadService;
     private final UserImagesService userImagesService;
     private final EmailService emailService;
     private final HobbyTagService hobbyTagService;
-    private final UserImagesRepository imagesRepository;
     private final PasswordEncoder passwordEncoder;
 
     public UserService(
             UserRepository userRepository,
             RoleService roleService,
-            ModelMapper modelMapper,
             UploadService uploadService,
             UserImagesService userImagesService,
             EmailService emailService,
             HobbyTagService hobbyTagService,
-            UserImagesRepository imagesRepository,
             PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleService = roleService;
-        this.modelMapper = modelMapper;
         this.uploadService = uploadService;
         this.userImagesService = userImagesService;
         this.emailService = emailService;
         this.hobbyTagService = hobbyTagService;
-        this.imagesRepository = imagesRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -57,21 +52,28 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public boolean isEmailExist(String email) {
         return userRepository.existsByEmail(email);
     }
 
+    public List<User> getUserList() {
+        return userRepository.getUserList();
+    }
 
     @Transactional
-    public boolean signUpUser(UserDTO userDTO) {
+    public User signUpUser(UserDTO userDTO) {
         try {
-            boolean valid1, valid2;
-            valid1 = validatePasswordMatch(userDTO);
-            valid2 = verifyAndRegisterNewUser(userDTO);
-            return (valid1 && valid2);
+            return verifyAndRegisterNewUser(userDTO);
         } catch (Exception e) {
-            log.atError().log(e.getMessage());
-            return false;
+            return null;
         }
     }
 
@@ -79,16 +81,14 @@ public class UserService {
         return userDTO.getPassword().equals(userDTO.getConfirmPassword());
     }
 
-    private boolean verifyAndRegisterNewUser(UserDTO userDTO) {
-        if (emailService.verifyEmail(userDTO.getEmail(), userDTO.getOtp())) {
-            registerNewUser(userDTO);
-            return true;
+    private User verifyAndRegisterNewUser(UserDTO userDTO) {
+        if (validatePasswordMatch(userDTO)) {
+            return registerNewUser(userDTO);
         }
-        return false;
+        return null;
     }
 
-
-    private void registerNewUser(UserDTO userDTO) {
+    private User registerNewUser(UserDTO userDTO) {
         User signupUser = new User();
         Role role = roleService.findByName("USER");
 
@@ -96,26 +96,56 @@ public class UserService {
         signupUser.setEmail(userDTO.getEmail());
         signupUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         signupUser.setRole(role);
-        signupUser.setCreatedDate(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+        signupUser.setUsername(userDTO.getUsername());
+        signupUser.setCreatedDate(LocalDateTime.now());
 
-        userRepository.save(signupUser);
+        return userRepository.save(signupUser);
     }
 
     @Transactional
     public void saveProfile(ProfileDTO profileDTO, long userId) {
         Optional<User> user = userRepository.findById(userId);
         user.ifPresent(userDTO -> {
-            userDTO.setUsername(profileDTO.getUsername());
-            userDTO.setGender(profileDTO.getGender().equals("maie"));
-            userDTO.setLocation(profileDTO.getLocation());
-            userDTO.setEducationLevel(profileDTO.getEducationLevel());
-            userDTO.setAge(Integer.parseInt(profileDTO.getAge()));
-            userDTO.setBio(profileDTO.getBio());
-            userDTO.getHobbyTags().clear();
+            userDTO.setGender(profileDTO.getGender().equals("male"));
+            userDTO.setLocation(profileDTO.getLocation().isBlank() ? "" : profileDTO.getLocation());
+            userDTO.setEducationLevel(profileDTO.getEducationLevel().isBlank() ? "" : profileDTO.getLocation());
+            userDTO.setAge(Integer.parseInt(profileDTO.getAge().isBlank() ? "" : profileDTO.getAge()));
+            userDTO.setBio(profileDTO.getBio().isBlank() ? "" : profileDTO.getBio());
+            userDTO.setFirstName(profileDTO.getFirstName().isBlank() ? "" : profileDTO.getFirstName());
+            userDTO.setLastName(profileDTO.getLastName().isBlank() ? "" : profileDTO.getLastName());
 
-            hobbyTagService.addHobbyToUser(userDTO, profileDTO.getHobbies());
-            userImagesService.saveUserImages(userDTO,
-                    new MultipartFile[]{profileDTO.getImage1(), profileDTO.getImage2(), profileDTO.getImage3()});
+            if (profileDTO.getHobbies() != null) {
+                hobbyTagService.addHobbyToUser(userDTO, profileDTO.getHobbies());
+            }
+
+            List<MultipartFile> files = new ArrayList<>();
+
+            if (profileDTO.getImage1() != null) {
+                files.add(profileDTO.getImage1());
+            }
+
+            if (profileDTO.getImage2() != null) {
+                files.add(profileDTO.getImage2());
+            }
+
+            if (profileDTO.getImage3() != null) {
+                files.add(profileDTO.getImage3());
+            }
+
+            List<String> images = userImagesService.saveUserImages(userDTO, files);
+
+            userDTO.setAvatar(uploadService.saveUploadFile(profileDTO.getAvatar(), "userImages"));
+
+            if (images.size() == 1) {
+                userDTO.setImage1(images.getFirst());
+            } else if (images.size() == 2) {
+                userDTO.setImage1(images.getFirst());
+                userDTO.setImage2(images.getLast());
+            } else if (images.size() == 3) {
+                userDTO.setImage1(images.getFirst());
+                userDTO.setImage2(images.get(1));
+                userDTO.setImage3(images.getLast());
+            }
 
             userDTO.setFinishSetUpProfile(true);
 
@@ -123,56 +153,46 @@ public class UserService {
         });
     }
 
-//    public void createUser() {
-//        User admin = new User();
-//        admin.setUsername("admin cac lon");
-//        admin.setEmail("mhoanga1@gmail.com");
-//        admin.setGender(true);
-//        admin.setNation("");
-//        admin.setBirthday("123");
-//        admin.setFinishSetUpProfile(false);
-//        admin.setRole(roleService.findByName("USER"));
-//        admin.setPassword(passwordEncoder.encode("123123"));
-//        userRepository.save(admin);
-//    }
-//
-//    public void createUser1() {
-//        User admin = new User();
-//        admin.setUsername("admin cac lon");
-//        admin.setEmail("abc@gmail.com");
-//        admin.setGender(true);
-//        admin.setNation("");
-//        admin.setBirthday("123");
-//        admin.setFinishSetUpProfile(true);
-//        admin.setRole(roleService.findByName("USER"));
-//        admin.setPassword(passwordEncoder.encode("123123"));
-//        userRepository.save(admin);
-//    }
-//
-//    public void createUserMulti() {
-//        for (int i = 1; i <= 10; i++) {
-//            User admin = new User();
-//            admin.setUsername("admin cac lon " + i);
-//            admin.setEmail("abc" + i + "@gmail.com");
-//            admin.setGender(true);
-//            admin.setBirthday("123");
-//            admin.setFinishSetUpProfile(true);
-//            admin.setRole(roleService.findByName("USER"));
-//            admin.setPassword(passwordEncoder.encode("123123"));
-//            userRepository.save(admin);
-//        }
-//    }
-//
-//    public void createAdmin() {
-//        User admin = new User();
-//        admin.setUsername("admin cac lon");
-//        admin.setEmail("admin@gmail.com");
-//        admin.setGender(true);
-//        admin.setNation("");
-//        admin.setBirthday("123");
-//        admin.setRole(roleService.findByName("ADMIN"));
-//        admin.setPassword(passwordEncoder.encode("123123"));
-//        userRepository.save(admin);
-//    }
+    public boolean changePassword(long userId, ChangePasswordDTO passwordDTO) {
+        if (!passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
+            return false;
+        }
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            return false;
+        }
+
+        User user = optionalUser.get();
+
+        if (!passwordEncoder.matches(passwordDTO.getOldPassword(), user.getPassword())) {
+            return false;
+        }
+
+        user.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
+        userRepository.save(user);
+        return true;
+    }
+
+    public String resetPassword(ResetPasswordDTO resetPasswordDTO) {
+        if (!resetPasswordDTO.getPassword().equals(resetPasswordDTO.getConfirmPassword())) {
+            return "Passwords do not match!";
+        }
+
+        String emailMessage = emailService.verifyEmail(resetPasswordDTO.getEmail(), resetPasswordDTO.getOtp());
+        if (emailMessage.contains("!")) {
+            return emailMessage;
+        }
+
+        Optional<User> user = userRepository.findByEmail(resetPasswordDTO.getEmail());
+
+        if (user.isPresent()) {
+            user.get().setPassword(passwordEncoder.encode(resetPasswordDTO.getPassword()));
+            userRepository.save(user.get());
+            return "Yes sir";
+        }
+
+        return "Email is not registered!";
+    }
 
 }

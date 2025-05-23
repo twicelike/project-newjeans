@@ -65,17 +65,14 @@ public class SecurityConfig {
             UserService userService
     ) throws Exception {
         http
-//                .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.addHeaderWriter(
-//                        new XFrameOptionsHeaderWriter(
-//                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN
-//                        )
-//                ))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(
-                                "/create-admin", "/favicon.ico", "/main", "/survey",
-                                "/profile", "/send-mail", "/api/send-otp/**", "/api/upload-survey",
-                                "/favicon.ico.", "/test-send-mail")
-                        .authenticated()
+                                "/main", "/njz-request", "/message", "/notification",
+                                "/find-njz/**",
+                                "/survey", "answer-survey", "/api/upload-survey",
+                                "/profile/**",
+                                "set-up-profile"
+                        ).authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
@@ -96,16 +93,12 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll())
-//                .exceptionHandling(ex -> {
-//                    ex.accessDeniedPage("/404");
-//                })
         ;
 
         http.csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/**")
-//                .ignoringRequestMatchers("/api/**", "/send-mail")
+                .ignoringRequestMatchers("/api/**")
         );
 
         return http.build();

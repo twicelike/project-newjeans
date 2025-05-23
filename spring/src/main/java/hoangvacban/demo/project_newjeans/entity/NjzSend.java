@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "njz_sends")
 @Getter
@@ -13,17 +15,17 @@ public class NjzSend {
     @EmbeddedId
     private NjzKey njzKey;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("crushId")
     @JoinColumn(name = "crush_id")
-    private User crushId;
+    private User crush;
 
-    private long sendDate;
+    private LocalDateTime sendDate;
     private String content;
     private String status;
 }

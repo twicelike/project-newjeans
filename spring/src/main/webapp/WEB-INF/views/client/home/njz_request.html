@@ -220,123 +220,103 @@
 </header>
 <!-- End Header -->
 
-<!-- Section 1 -->
-<section class="section-1 flex-1 relative z-[10]">
-    <div class="container w-[700px] mx-auto [@media(max-width:767.98px)]:w-full">
-        <div class="inner-list py-[25px] grid gap-[20px]" th:each="user: ${users}">
 
-            <div class="inner-item relative grid grid-cols-[600fr_100fr] [@media(max-width:767.98px)]:grid-cols-1 [@media(max-width:767.98px)]:gap-[10px]">
-                <div class="inner-left relative z-[50] shadow-[0px_1.75px_3.51px_0px_#00000099] rounded-[8px] overflow-hidden flex flex-col gap-[10px] w-[600px] [@media(max-width:767.98px)]:w-full">
-                    <div class="inner-images swiper w-full h-full mySwiper cursor-pointer [--swiper-navigation-size:20px]">
+<!-- Start Content -->
+<main class="flex flex-1 bg-gray-100 p-4 gap-4 flex-col sm:flex-row">
 
-                        <!-- images -->
-                        <div class="swiper-wrapper">
-                            <div th:if="${user.image1 != null}" class="swiper-slide flex items-center justify-center">
-                                <img th:src="@{'/images/userImages/' + ${user.image1}}" alt=""
-                                     class="w-full h-full object-cover">
-                            </div>
-                            <div th:if="${user.image2 != null}" class="swiper-slide flex items-center justify-center">
-                                <img th:src="@{'/images/userImages/' + ${user.image2}}" alt=""
-                                     class="w-full h-full object-cover">
-                            </div>
-                            <div th:if="${user.image3 != null}" class="swiper-slide flex items-center justify-center">
-                                <img th:src="@{'/images/userImages/' + ${user.image3}}" alt=""
-                                     class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                        <div
-                                class="swiper-button-next bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
-                        </div>
-                        <div
-                                class="swiper-button-prev bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
+    <!-- Tab buttons -->
+    <div class="sm:hidden flex gap-2 mb-2">
+        <button id="btn-received" class="tab-btn bg-blue-500 text-white px-4 py-2 rounded">Received</button>
+        <button id="btn-sent" class="tab-btn bg-gray-300 text-black px-4 py-2 rounded">Sent</button>
+    </div>
 
-                    <div class="inner-content flex-1 p-[8px]">
-                        <div class="inner-info-user border-b border-slate-300 pb-[10px] flex gap-[12px] items-center mb-[15px]">
-                            <div class="inner-avatar-user w-[50px] h-[50px] rounded-full overflow-hidden">
-                                <a th:href="@{'/profile/' + ${user.username}}">
-                                    <img th:src="@{'/images/userImages/' + ${user.avatar}}" alt=""
-                                         class="w-full h-full">
-                                </a>
-                            </div>
-                            <div class="inner-info flex-1 flex flex-wrap gap-[10px_30px] items-center">
-                                <div class="inner-name font-[600] text-[var(--color-one)] text-[24px] leading-none w-full [@media(max-width:575.98px)]:text-[20px]"
-                                     th:text="@{${user.firstName} + ' ' + ${user.lastName}}"
-                                >
-                                </div>
-                                <div
-                                        class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
-                                    <b th:text="'Gender: ' + (${user.gender == 1} ? 'Male' : 'Female')"></b>
-                                </div>
-                                <div
-                                        class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
-                                    <b th:text="@{'Age: ' + ${user.age}}"></b>
-                                </div>
-                                <div
-                                        class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
-                                    <b th:text="@{'Location: ' + ${user.location}}"></b>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                                class="inner-desc font-[300] text-[var(--color-one)] text-[16px] leading-none [@media(max-width:575.98px)]:text-[14px]">
-                            <p class="line-clamp-2 overflow-hidden" th:text="@{${user.bio}}">
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <!--                <div-->
-                <!--                        class="inner-right flex flex-col items-center justify-center gap-[40px] [@media(max-width:767.98px)]:absolute right-[15px] top-1/2 z-[50]">-->
-                <!--                    <div-->
-                <!--                            class="inner-avatar-user [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden">-->
-                <!--                        <a href="#">-->
-                <!--                            <img th:src="@{'/images/userImages/' + ${user.avatar}}" alt="" class="w-full h-full">-->
-                <!--                        </a>-->
-                <!--                    </div>-->
-
-                <!--                    <div th:id="@{'matchIcon-' + ${user.username}}"-->
-                <!--                         class="inner-match [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">-->
-                <!--                        <img src="/images/home/match.png" alt="" class="w-full h-full">-->
-                <!--                    </div>-->
-                <!--                </div>-->
+    <!-- Received Requests -->
+    <section id="received-section"
+             class="sm:w-1/2 w-full bg-white rounded-lg p-4 shadow overflow-y-auto max-h-[400px]">
+        <h2 class="text-xl font-bold mb-4">Friend Requests</h2>
+        <!--        come        -->
+        <div class="flex items-center gap-4 border-b pb-4 mb-4" th:each="c: ${come}">
+            <img th:src="@{'/images/userImages/' + ${c.avatar}}" class="w-16 h-16 rounded-full" alt="avatar">
+            <div class="flex-1">
+                <div class="font-semibold">Name</div>
+                <div class="text-sm text-gray-600">Request message content</div>
+                <div class="text-xs text-gray-400 invitation-date">Sent on: 2025-05-10</div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <button class="bg-blue-500 text-white px-3 py-1 rounded">Accept</button>
+                <button class="bg-red-500 text-white px-3 py-1 rounded">Decline</button>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Match Popup -->
-<div id="popupBg" class="popup-bg fixed inset-0 bg-[black] opacity-0 z-[5]"></div>
-<div id="matchPopup"
-     class="match-popup z-[5] fixed opacity-0 w-[400px] [@media(max-width:767.98px)]:w-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
-    <div class="popup-title flex justify-between items-center mb-4">
-        <p class="text-lg font-semibold">Match Request</p>
-        <i class="fa-solid fa-xmark cursor-pointer close-icon"></i>
-    </div>
-    <div class="popup-profile mb-6">
-        <a href="" class="flex items-center gap-6">
-            <img src="/images/home/avt.jpg" alt=""
-                 class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500">
-            <span class="">Name</span>
-        </a>
-    </div>
-    <div class="popup-message bg-white border border-slate-300 p-2 mb-6">
-      <textarea name="" id="messageBox" class="w-full p-2 outline-none resize-none" maxlength="360"
-                placeholder="Hello! Date me <3..." rows="4"></textarea>
-        <div id="countCharacter" class="count-char text-right text-xs text-gray-500">0/360 Characters</div>
-    </div>
-    <div class="popup-button flex justify-end gap-4">
-        <a href="#"
-           class="text-white p-[10px] w-[100px] rounded-lg font-semibold bg-[--color-one] hover:bg-[--color-two] hover:text-[--color-one] inline-block text-center">Profile</a>
-        <button id="matchBtn"
-                class="text-white p-[10px] w-[100px] rounded-lg font-semibold bg-[--color-one] hover:bg-[--color-two] hover:text-[--color-one] inline-block text-center">
-            NewJeans
-        </button>
-    </div>
-</div>
-<!-- End Match Popup -->
-<!-- End Section 1 -->
+    <!-- Sent Requests -->
+    <section id="sent-section"
+             class="sm:w-1/2 w-full bg-white rounded-lg p-4 shadow overflow-y-auto max-h-[400px] sm:block hidden">
+        <h2 class="text-xl font-bold mb-4">Sent Requests</h2>
+        <div class="flex items-center gap-4 border-b pb-4 mb-4" th:each="c: ${send}">
+            <img th:src="@{'/images/userImages/' + ${c.avatar}}" class="w-16 h-16 rounded-full" alt="avatar">
+            <div class="flex-1">
+                <div class="font-semibold" th:text="@{${user.firstName} + ' ' + ${user.lastName}}"></div>
+                <div class="text-sm text-gray-600">Request message content</div>
+                <div class="text-xs text-gray-400">Sent on: 16/05/2025</div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <button class="edit-btn bg-blue-500 text-white px-3 py-1 rounded">Edit</button>
+                <button class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    const btnReceived = document.getElementById("btn-received");
+    const btnSent = document.getElementById("btn-sent");
+    const receivedSection = document.getElementById("received-section");
+    const sentSection = document.getElementById("sent-section");
+
+    function switchTab(showReceived) {
+        if (showReceived) {
+            receivedSection.classList.remove("hidden");
+            sentSection.classList.add("hidden");
+            btnReceived.classList.add("bg-blue-500", "text-white");
+            btnReceived.classList.remove("bg-gray-300", "text-black");
+            btnSent.classList.remove("bg-blue-500", "text-white");
+            btnSent.classList.add("bg-gray-300", "text-black");
+        } else {
+            sentSection.classList.remove("hidden");
+            receivedSection.classList.add("hidden");
+            btnSent.classList.add("bg-blue-500", "text-white");
+            btnSent.classList.remove("bg-gray-300", "text-black");
+            btnReceived.classList.remove("bg-blue-500", "text-white");
+            btnReceived.classList.add("bg-gray-300", "text-black");
+        }
+    }
+
+    btnReceived.addEventListener("click", () => switchTab(true));
+    btnSent.addEventListener("click", () => switchTab(false));
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 640) {
+            receivedSection.classList.remove("hidden");
+            sentSection.classList.remove("hidden");
+        } else {
+            switchTab(true);
+        }
+    });
+
+    // ✅ Gán thời gian thực tế cho lời mời
+    function updateInvitationTimes() {
+        const now = new Date();
+        const formattedDate = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+        document.querySelectorAll(".invitation-date").forEach(el => {
+            el.textContent = `Ngày gửi: ${formattedDate}`;
+        });
+    }
+
+    updateInvitationTimes();
+</script>
+
+<!-- End Content -->
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="/js/home/script.js"></script>

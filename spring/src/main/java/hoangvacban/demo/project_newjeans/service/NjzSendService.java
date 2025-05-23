@@ -1,5 +1,6 @@
 package hoangvacban.demo.project_newjeans.service;
 
+import hoangvacban.demo.project_newjeans.dto.UserNjz;
 import hoangvacban.demo.project_newjeans.entity.NjzKey;
 import hoangvacban.demo.project_newjeans.entity.NjzSend;
 import hoangvacban.demo.project_newjeans.entity.User;
@@ -8,12 +9,9 @@ import hoangvacban.demo.project_newjeans.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import static hoangvacban.demo.project_newjeans.util.Constants.STATUS_PENDING;
 
 @Service
 public class NjzSendService {
@@ -27,33 +25,68 @@ public class NjzSendService {
     }
 
 
-    public void addCrush() {
-        List<User> users = userRepository.findAll();
-        for (long i = 5; i <= 12; i++) {
-            Optional<User> user = userRepository.findById(i);
-            user.ifPresent(users::add);
+    public boolean addCrush(long userId, long crushId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return false;
         }
-        for (int i = 0; i <= 3; i++) {
-            for (int j = i + 1; j <= 5; j++) {
-                NjzSend njzSend = new NjzSend();
-                njzSend.setUserId(users.get(i));
-                njzSend.setCrushId(users.get(j));
-                njzSend.setSendDate(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-                njzSend.setContent(i + " : " + j);
-                njzSend.setStatus(STATUS_PENDING);
-                njzSend.setNjzKey(new NjzKey(users.get(i).getId(), users.get(j).getId()));
-                njzSendRepository.save(njzSend);
-            }
+        Optional<User> crush = userRepository.findById(crushId);
+        if (crush.isEmpty()) {
+            return false;
         }
+
+        if (njzSendRepository.existsNjz(user.get(), crush.get())) {
+            return false;
+        }
+
+        NjzKey key = new NjzKey(userId, crushId);
+        NjzSend njzSend = new NjzSend();
+        njzSend.setNjzKey(key);
+        njzSend.setCrush(crush.get());
+
+
+        njzSend.setUser(user.get());
+        njzSend.setSendDate(LocalDateTime.now());
+        njzSend.setStatus("PENDING");
+        njzSend.setContent("Hi! I'm " + user.get().getFirstName() + " " + user.get().getLastName() + ", let's get down");
+
+        njzSendRepository.save(njzSend);
+        return true;
     }
 
-    public void getCrushList() {
-        Optional<User> user = userRepository.findById(1L);
+    public List<UserNjz> getNjzSend(long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        List<UserNjz> userNjz = new ArrayList<>();
         if (user.isPresent()) {
-            Set<NjzSend> users = user.get().getNjzSends();
-            users.forEach(u -> {
-                System.out.println(u.getCrushId().getUsername());
-            });
+            for (NjzSend njzSend : user.get().getNjzCrushes()) {
+                UserNjz njz = new UserNjz();
+                njz.setAvatar(njzSend.getCrush().getAvatar());
+                njz.setFirstName(njzSend.getCrush().getFirstName());
+                njz.setLastName(njzSend.getCrush().getLastName());
+                njz.setSentDate(njzSend.getSendDate());
+                njz.setContent(njzSend.getContent());
+                userNjz.add(njz);
+            }
+            return userNjz;
         }
+        return null;
+    }
+
+    public List<UserNjz> getNjzCome(long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        List<UserNjz> userNjz = new ArrayList<>();
+        if (user.isPresent()) {
+            for (NjzSend njzSend : user.get().getNjzSends()) {
+                UserNjz njz = new UserNjz();
+                njz.setAvatar(njzSend.getUser().getAvatar());
+                njz.setFirstName(njzSend.getUser().getFirstName());
+                njz.setLastName(njzSend.getUser().getLastName());
+                njz.setSentDate(njzSend.getSendDate());
+                njz.setContent(njzSend.getContent());
+                userNjz.add(njz);
+            }
+            return userNjz;
+        }
+        return null;
     }
 }

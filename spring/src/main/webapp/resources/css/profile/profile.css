@@ -64,3 +64,9 @@
 .bg-purple-500 {
     background-color: #8b5cf6;
 }
+.custom-scroll-hide {
+    -ms-overflow-style: none;
+}
+.custom-scroll-hide::-webkit-scrollbar {
+    display: none;
+}
