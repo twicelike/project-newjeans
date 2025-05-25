@@ -10,7 +10,7 @@
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="/css/home/styles.css">
+    <link rel="stylesheet" href="/css/search/style.css">
 </head>
 
 <body class="flex flex-col">
@@ -154,79 +154,122 @@
 <!-- End Header -->
 
 <!-- Section 1 -->
-<section class="section-1 flex-1 relative z-[10]">
-    <div class="container w-[700px] mx-auto [@media(max-width:767.98px)]:w-full">
-        <div class="inner-list py-[25px] grid gap-[20px]" th:each="u: ${users}">
-
-            <div class="inner-item relative grid grid-cols-[600fr_100fr] [@media(max-width:767.98px)]:grid-cols-1 [@media(max-width:767.98px)]:gap-[10px]">
-                <div class="inner-left relative z-[50] shadow-[0px_1.75px_3.51px_0px_#00000099] rounded-[8px] overflow-hidden flex flex-col gap-[10px] w-[600px] [@media(max-width:767.98px)]:w-full">
-                    <div class="inner-images swiper w-full h-full mySwiper cursor-pointer [--swiper-navigation-size:20px]">
-
-                        <!-- images -->
-                        <div class="swiper-wrapper">
-                            <div th:if="${u.image1 != null}" class="swiper-slide flex items-center justify-center">
-                                <img th:src="@{'/images/userImages/' + ${u.image1}}" alt=""
-                                     class="w-full h-full object-cover">
-                            </div>
-                            <div th:if="${u.image2 != null}" class="swiper-slide flex items-center justify-center">
-                                <img th:src="@{'/images/userImages/' + ${u.image2}}" alt=""
-                                     class="w-full h-full object-cover">
-                            </div>
-                            <div th:if="${u.image3 != null}" class="swiper-slide flex items-center justify-center">
-                                <img th:src="@{'/images/userImages/' + ${u.image3}}" alt=""
-                                     class="w-full h-full object-cover">
-                            </div>
+<section class="section-1 relative z-[10] py-[60px] max-sm:py-[45px]">
+    <div class="w-[1184px] mx-auto max-xl:w-[960px]
+           max-lg:w-[720px]
+           max-md:w-[540px]
+           max-sm:w-full">
+        <div class="inner-wrap grid grid-cols-[279fr_882fr] gap-[23px] [@media(max-width:991.98px)]:grid-cols-1">
+            <div class="inner-left">
+                <div class="box-filter p-[15px] bg-slate-200 rounded-[10px] shadow-[0px_1.75px_3.51px_0px_#0000001F]">
+                    <div class="inner-head mb-[15px] flex items-center justify-between text-[var(--color-one)]">
+                        <div class="inner-title font-[600] text-[18px] text-[var(--color-one)]">
+                            Filter
                         </div>
-                        <div
-                                class="swiper-button-next bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
-                        </div>
-                        <div
-                                class="swiper-button-prev bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
-                        </div>
-                        <div class="swiper-pagination"></div>
+                        <i class="fa-solid fa-filter text-[20px]"></i>
                     </div>
-
-                    <div class="inner-content flex-1 p-[8px]">
-                        <div class="inner-info-user border-b border-slate-300 pb-[10px] flex gap-[12px] items-center mb-[15px]">
-                            <div class="inner-avatar-user w-[50px] h-[50px] rounded-full overflow-hidden">
-                                <a th:href="@{'/profile/' + ${u.username}}">
-                                    <img th:src="@{'/images/userImages/' + ${u.avatar}}" alt=""
-                                         class="w-full h-full">
-                                </a>
-                            </div>
-                            <div class="inner-info flex-1 flex flex-wrap gap-[10px_30px] items-center">
-                                <div class="inner-name font-[600] text-[var(--color-one)] text-[24px] leading-none w-full [@media(max-width:575.98px)]:text-[20px]"
-                                     th:text="@{${u.firstName} + ' ' + ${u.lastName}}"
-                                >
-                                </div>
-                                <div
-                                        class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
-                                    <b th:text="'Gender: ' + (${u.gender == 1} ? 'Male' : 'Female')"></b>
-                                </div>
-                                <div
-                                        class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
-                                    <b th:text="@{'Age: ' + ${u.age}}"></b>
-                                </div>
-                                <div
-                                        class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
-                                    <b th:text="@{'Location: ' + ${u.location}}"></b>
-                                </div>
+                    <div class="inner-body flex flex-col gap-[15px]">
+                        <div class="inner-group flex flex-col text-[var(--color-one)] ">
+                            <div class="inner-label font-[300] text-[14px]">Gender:</div>
+                            <div class="inner-input-group flex items-center gap-[40px]">
+                                <label class="inline-flex items-center space-x-2">
+                                    <input type="radio" name="gender" value="male" class="">
+                                    <span class="">Male</span>
+                                </label>
+                                <label class="inline-flex items-center space-x-2">
+                                    <input type="radio" name="gender" value="female" class="">
+                                    <span class="">Female</span>
+                                </label>
                             </div>
                         </div>
-                        <div
-                                class="inner-desc font-[300] text-[var(--color-one)] text-[16px] leading-none [@media(max-width:575.98px)]:text-[14px]">
-                            <p class="line-clamp-2 overflow-hidden" th:text="@{${u.bio}}">
-                            </p>
+                        <div class="inner-group flex flex-col text-[var(--color-one)]">
+                            <div class="inner-label font-[300] text-[14px]">Age:</div>
+                            <select name="" id="age"
+                                    class="outline-none border border-slate-300 rounded-[10px] p-[10px] w-full">
+                                <option value="">-- Choose Age --</option>
+                                <option value="">18-25</option>
+                                <option value="">25-30</option>
+                                <option value="">30-35</option>
+                                <option value="">35+</option>
+                            </select>
+                        </div>
+                        <div class="inner-group flex flex-col text-[var(--color-one)]">
+                            <div class="inner-label font-[300] text-[14px]">Location:</div>
+                            <select name="" id="location"
+                                    class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+                                <option value="">-- Choose Location --</option>
+                                <option value="">VietNam</option>
+                                <option value="">Thailand</option>
+                                <option value="">Japan</option>
+                                <option value="">China</option>
+                            </select>
+                        </div>
+                        <div class="inner-group flex flex-col text-[var(--color-one)]">
+                            <div class="inner-label font-[300] text-[14px]">Education Level:</div>
+                            <select name="" id="education-level"
+                                    class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+                                <option value="">-- Choose Education Level --</option>
+                                <option value="">High School</option>
+                                <option value="">College</option>
+                                <option value="">University</option>
+                                <option value="">Post-graduate school</option>
+                            </select>
+                        </div>
+                        <div class="inner-group flex flex-col text-[var(--color-one)]">
+                            <div class="inner-label font-[300] text-[14px]">Hobby Tags:</div>
+                            <!--    hobby tags  -->
+                            <div class="inner-tags-list flex flex-wrap items-center gap-[10px_20px]">
+                                <div
+                                        class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+                                    Music
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="inner-right flex flex-col items-center justify-center gap-[40px] [@media(max-width:767.98px)]:absolute right-[15px] top-1/2 z-[50]">
-                    <div th:id="@{'match-' + ${u.id}}"
-                         th:data-id="${u.id}"
-                         th:data-name="${u.firstName + ' ' + u.lastName}"
-                         th:data-avatar="@{'/images/userImages/' + ${u.avatar}}"
-                         class="inner-match [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">
-                        <img src="/images/home/match.png" alt="" class="w-full h-full">
+            </div>
+            <div class="inner-right">
+                <div class="inner-list grid gap-[20px]" th:each="u: ${users}">
+                    <div class="inner-item flex mb-5 items-center justify-between p-[15px] bg-slate-200 rounded-[10px] shadow-[0px_1.75px_3.51px_0px_#0000001F]">
+                        <div class="inner-profile flex gap-[10px] items-center">
+                            <div
+                                    class="inner-image w-[70px] h-[70px] [@media(max-width:991.98px)]:w-[50px] [@media(max-width:991.98px)]:h-[50px] rounded-full overflow-hidden">
+                                <a th:href="@{'/profile/' + ${u.username}}">
+                                    <img th:src="@{'/images/userImages/' + ${u.avatar}}" alt=""
+                                         class="w-full h-full object-cover">
+                                </a>
+                            </div>
+                            <div
+                                    class="inner-info font-[600] text-[20px] flex flex-wrap gap-[10px_20px] [@media(max-width:991.98px)]:gap-[10px] items-center">
+                                <a
+                                        class="inner-name inline-block w-full text-[var(--color-one)]"
+                                        th:if="${u.firstName != null && u.lastName != null}"
+                                        th:href="@{'/profile/' + ${u.username}}"
+                                        th:text="${u.firstName} + ' ' + ${u.lastName}"
+                                >
+                                </a>
+                                <div
+                                        class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                                    Gender: <b th:text="${u.gender} ? 'Male':'Female'"></b>
+                                </div>
+                                <div
+                                        class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                                    Age: <b th:text="${u.age}"></b>
+                                </div>
+                                <div
+                                        class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                                    Location: <b th:text="${u.location}"></b>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:id="@{'match-' + ${u.id}}"
+                             th:data-id="${u.id}"
+                             th:data-name="${u.firstName + ' ' + u.lastName}"
+                             th:data-avatar="@{'/images/userImages/' + ${u.avatar}}"
+                             class="inner-match [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">
+                            <img src="/images/home/match.png" alt="" class="w-full h-full">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -234,7 +277,6 @@
     </div>
 </section>
 
-<!-- Match Popup -->
 <div id="popupBg" class="popup-bg fixed inset-0 bg-[black] opacity-0 z-[5]"></div>
 <div id="matchPopup"
      class="match-popup z-[5] fixed opacity-0 w-[400px] [@media(max-width:767.98px)]:w-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
@@ -251,7 +293,8 @@
     </div>
     <div class="popup-message bg-white border border-slate-300 p-2 mb-6">
       <textarea name="" id="messageBox" class="w-full p-2 outline-none resize-none" maxlength="360"
-                placeholder="Hello! Date me <3..." rows="4"></textarea>
+                placeholder="Hello! Date me <3..." rows="4">
+      </textarea>
         <div id="countCharacter" class="count-char text-right text-xs text-gray-500">0/360 Characters</div>
     </div>
     <div class="popup-button flex justify-end gap-4">
@@ -265,11 +308,9 @@
         </button>
     </div>
 </div>
-<!-- End Match Popup -->
-<!-- End Section 1 -->
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script type="module" src="/js/home/script.js"></script>
+<script type="module" src="/js/search/script.js"></script>
 </body>
 
 </html>

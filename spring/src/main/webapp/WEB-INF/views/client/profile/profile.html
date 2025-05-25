@@ -44,7 +44,6 @@
                          class="w-full h-full object-cover hover:opacity-30">
                     <div
                             class="fa-solid fa-image text-2xl absolute inset-0 flex items-center justify-center text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-
                     </div>
                 </label>
             </div>
@@ -63,7 +62,7 @@
             <a href="/main" class="px-4 py-2 bg-white text-black rounded-md hover-effect truncate">Return home</a>
         </nav>
         <form action="/logout" method="post" class="w-full absolute bottom-2">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <div class="flex justify-center">
                 <button type="submit" class="px-4 py-2 rounded-md sm:text-[#9C27B0] truncate hover-effect"><span
                         class="fa-solid fa-right-from-bracket"></span> Log out
@@ -83,7 +82,7 @@
                     <a href="#" class="px-4 py-2 text-black rounded-md hover-effect profile-nav-link"
                        style="color:var(--primary-color)" data-target="BasicInfoPreview">Basic Information</a>
                     <a href="#" class="px-4 py-2 text-black rounded-md hover-effect profile-nav-link"
-                       style="color:var(--primary-color)" data-target="PicturesPreview">Your Pictures</a>
+                       style="color:var(--primary-color)" data-target="PicturesPreview">My Pictures</a>
                 </nav>
             </div>
             <hr class="my-4">
@@ -101,7 +100,8 @@
                         </div>
                         <div class="flex flex-col">
                             <span class="font-medium text-gray-600">Location</span>
-                            <span id="profileLocation" class="mt-1" th:if="${user.location != null}" th:text="${user.location}"></span>
+                            <span id="profileLocation" class="mt-1" th:if="${user.location != null}"
+                                  th:text="${user.location}"></span>
                         </div>
                         <div class="flex flex-col">
                             <span class="font-medium text-gray-600">Age</span>
@@ -109,7 +109,8 @@
                         </div>
                         <div class="flex flex-col">
                             <span class="font-medium text-gray-600">Education</span>
-                            <span id="profileEducation" class="mt-1" th:if="${user.educationLevel != null}" th:text="${user.educationLevel}"></span>
+                            <span id="profileEducation" class="mt-1" th:if="${user.educationLevel != null}"
+                                  th:text="${user.educationLevel}"></span>
                         </div>
                         <div class="flex flex-col">
                             <span class="font-medium text-gray-600">Hobby:</span>

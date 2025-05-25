@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -24,7 +25,6 @@ public class NjzSendService {
         this.userRepository = userRepository;
     }
 
-
     public boolean addCrush(long userId, long crushId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
@@ -32,10 +32,6 @@ public class NjzSendService {
         }
         Optional<User> crush = userRepository.findById(crushId);
         if (crush.isEmpty()) {
-            return false;
-        }
-
-        if (njzSendRepository.existsNjz(user.get(), crush.get())) {
             return false;
         }
 
@@ -54,13 +50,64 @@ public class NjzSendService {
         return true;
     }
 
+    public boolean acceptCrush(long userId, long crushId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return false;
+        }
+
+        Optional<User> crush = userRepository.findById(crushId);
+        if (crush.isEmpty()) {
+            return false;
+        }
+
+        Optional<NjzSend> njzSend = njzSendRepository.getNjz(user.get(), crush.get());
+
+        if (njzSend.isEmpty()) {
+            return false;
+        }
+
+        njzSend.get().setStatus("ACCEPT");
+
+        njzSendRepository.save(njzSend.get());
+
+        return true;
+    }
+
+    public boolean deleteCrush(long userId, long crushId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return false;
+        }
+
+        Optional<User> crush = userRepository.findById(crushId);
+        if (crush.isEmpty()) {
+            return false;
+        }
+
+        Optional<NjzSend> njzSend = njzSendRepository.getNjz(user.get(), crush.get());
+
+        if (njzSend.isEmpty()) {
+            return false;
+        }
+
+        njzSendRepository.delete(njzSend.get());
+
+        return true;
+    }
+
     public List<UserNjz> getNjzSend(long userId) {
         Optional<User> user = userRepository.findById(userId);
         List<UserNjz> userNjz = new ArrayList<>();
         if (user.isPresent()) {
-            for (NjzSend njzSend : user.get().getNjzCrushes()) {
+            for (NjzSend njzSend : user.get().getNjzSends()) {
+                if (!Objects.equals(njzSend.getStatus(), "PENDING")) {
+                    continue;
+                }
                 UserNjz njz = new UserNjz();
+                njz.setId(njzSend.getCrush().getId());
                 njz.setAvatar(njzSend.getCrush().getAvatar());
+                njz.setUsername(njzSend.getCrush().getUsername());
                 njz.setFirstName(njzSend.getCrush().getFirstName());
                 njz.setLastName(njzSend.getCrush().getLastName());
                 njz.setSentDate(njzSend.getSendDate());
@@ -76,10 +123,15 @@ public class NjzSendService {
         Optional<User> user = userRepository.findById(userId);
         List<UserNjz> userNjz = new ArrayList<>();
         if (user.isPresent()) {
-            for (NjzSend njzSend : user.get().getNjzSends()) {
+            for (NjzSend njzSend : user.get().getNjzCrushes()) {
+                if (!Objects.equals(njzSend.getStatus(), "PENDING")) {
+                    continue;
+                }
                 UserNjz njz = new UserNjz();
+                njz.setId(njzSend.getUser().getId());
                 njz.setAvatar(njzSend.getUser().getAvatar());
                 njz.setFirstName(njzSend.getUser().getFirstName());
+                njz.setUsername(njzSend.getUser().getUsername());
                 njz.setLastName(njzSend.getUser().getLastName());
                 njz.setSentDate(njzSend.getSendDate());
                 njz.setContent(njzSend.getContent());

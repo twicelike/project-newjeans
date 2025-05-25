@@ -4,4 +4,7 @@ export default class AppConfig {
     static SEND_OTP_URL = `${this.BASE_URL}/api/send-otp`;
     static UPLOAD_SURVEY = `${this.BASE_URL}/api/upload-survey`;
     static ADD_FRIEND = `${this.BASE_URL}/api/add-friend`;
+    static UNFRIEND = `${this.BASE_URL}/api/unfriend`;
+    static ACCEPT = `${this.BASE_URL}/api/accept`;
+    static DELETE = `${this.BASE_URL}/api/delete`;
 }

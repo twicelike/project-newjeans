@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserNjz {
+    private long id;
     private String firstName;
     private String lastName;
+    private String username;
     private String avatar;
     private String content;
     private LocalDateTime sentDate;

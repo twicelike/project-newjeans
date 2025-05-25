@@ -10,12 +10,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface NjzSendRepository extends JpaRepository<NjzSend, NjzKey> {
 
-    @Query("SELECT COUNT(n) > 0 FROM NjzSend n WHERE " +
+    @Query("SELECT n FROM NjzSend n WHERE " +
             "(n.user = :user AND n.crush = :crush) OR " +
             "(n.user = :crush AND n.crush = :user)")
-    boolean existsNjz(@Param("user") User user, @Param("crush") User crush);
+    Optional<NjzSend> getNjz(@Param("user") User user, @Param("crush") User crush);
+
 }

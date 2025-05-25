@@ -26,39 +26,37 @@
     <div class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]">
         <div class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]">
             <div class="inner-logo">
-                <a href="#">
+                <a href="/main">
                     <img src="/images/user-profile/logo.png" alt="" class="h-16 w-16">
                 </a>
             </div>
-            <div
-                    class="inner-search w-[200px] cursor-pointer flex items-center gap-[10px] bg-[var(--bg)] p-[5px] rounded-[20px] [@media(max-width:767.98px)]:hidden text-[var(--color-one)] text-[300] text-[14px]">
-                <i class="fa-solid fa-magnifying-glass text-[25px] text-[var(--color-one)]"></i>
-                Search
-            </div>
+
         </div>
         <div class="inner-menu [@media(max-width:767.98px)]:hidden">
             <ul class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]">
                 <li>
-                    <a href="#" class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                    <a href="/main" class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
                         <i class="fa-solid fa-house"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="relative inline-block w-[28px] h-[28px]">
+                    <a href="/njz-request" class="relative inline-block w-[28px] h-[28px]">
                         <img src="/images/user-profile/match.png" alt="" class="w-full h-full object-cover">
                         <span
                                 class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                    <a href="/message"
+                       class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
                         <i class="fa-solid fa-message"></i>
                         <span
                                 class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                    <a href="/notification"
+                       class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
                         <i class="fa-solid fa-bell"></i>
                         <span
                                 class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"></span>
@@ -75,89 +73,10 @@
             <a href="/profile" class="inner-image rounded-full overflow-hidden w-[30px] h-[30px]">
                 <img th:src="@{'/images/userImages/' + ${avatar}}" alt="" class="w-full h-full object-over">
             </a>
-            <div class="inner-name">
-                User
+            <div class="inner-name" th:text="${user.username}">
             </div>
         </div>
     </div>
-    <!-- Search Box -->
-    <div id="boxSearch"
-         class="box-search hidden w-[400px] [@media(max-width:767.98px)]:w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-[100px] [@media(max-width:767.98px)]:left-0 z-[110] bg-white border-slate-300 rounded-[10px]">
-        <h2 class="inner-title text-[var(--color-one)] font-[600] text-[24px] mt-0 mb-[10px]">
-            Search
-        </h2>
-        <div class="inner-wrap flex flex-col gap-[10px]">
-            <div class="inner-input-search bg-slate-200 rounded-[10px] p-[5px] mb-[5px]">
-                <input type="text" class="outline-none bg-slate-200 text-[16px] px-[15px]"
-                       placeholder="Search something...">
-            </div>
-            <div class="inner-group w-full flex flex-col text-[var(--color-one)] ">
-                <div class="inner-label font-[300] text-[14px]">Gender:</div>
-                <div class="inner-input-group flex items-center gap-[40px]">
-                    <label class="inline-flex items-center space-x-2">
-                        <input type="radio" name="gender" value="male" class="">
-                        <span class="">Male</span>
-                    </label>
-                    <label class="inline-flex items-center space-x-2">
-                        <input type="radio" name="gender" value="female" class="">
-                        <span class="">Female</span>
-                    </label>
-                    <label class="inline-flex items-center space-x-2">
-                        <input type="radio" name="gender" value="male" class="">
-                        <span class="">All</span>
-                    </label>
-                </div>
-            </div>
-            <div class="inner-group flex flex-col text-[var(--color-one)]">
-                <div class="inner-label font-[300] text-[14px]">Age:</div>
-                <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
-                    <option value="">-- Choose Age --</option>
-                    <option value="">18-25</option>
-                    <option value="">25-30</option>
-                    <option value="">30-35</option>
-                    <option value="">35+</option>
-                </select>
-            </div>
-            <div class="inner-group flex flex-col text-[var(--color-one)]">
-                <div class="inner-label font-[300] text-[14px]">Location:</div>
-                <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
-                    <option value="">-- Choose Location --</option>
-                    <option value="">VietNam</option>
-                    <option value="">Thailand</option>
-                    <option value="">Japan</option>
-                    <option value="">China</option>
-                </select>
-            </div>
-            <div class="inner-group flex flex-col text-[var(--color-one)]">
-                <div class="inner-label font-[300] text-[14px]">Education Level:</div>
-                <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
-                    <option value="">-- Choose Education Level --</option>
-                    <option value="">High School</option>
-                    <option value="">College</option>
-                    <option value="">University</option>
-                    <option value="">Post-graduate school</option>
-                </select>
-            </div>
-            <div class="inner-group flex flex-col text-[var(--color-one)]">
-                <div class="inner-label font-[300] text-[14px]">Hobby Tags:</div>
-                <div class="inner-tags-list flex flex-wrap items-center gap-[10px_20px]">
-                    <div
-                            class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
-                        Music
-                    </div>
-                    <div
-                            class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
-                        Music
-                    </div>
-                    <div
-                            class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
-                        Music
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Search Box -->
 
     <!-- Menu Box -->
     <div id="boxMenu"

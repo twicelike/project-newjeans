@@ -59,11 +59,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         Optional<User> user = userService.getUserByEmail(email);
         boolean isFinishedProfile = false;
         if (user.isPresent()) {
-            session.setAttribute(IS_FINISH_SET_UP_PROFILE_ATTRIBUTE, user.get().isFinishSetUpProfile());
+            isFinishedProfile = user.get().isFinishSetUpProfile();
+            session.setAttribute(IS_FINISH_SET_UP_PROFILE_ATTRIBUTE, isFinishedProfile);
             session.setAttribute(USER_ID, user.get().getId());
             session.setAttribute("username", user.get().getUsername());
             session.setAttribute("avatar", user.get().getAvatar());
-            isFinishedProfile = user.get().isFinishSetUpProfile();
         }
 
         try {

@@ -41,14 +41,58 @@ public class ApiController {
     }
 
     @PostMapping("/add-friend/{id}")
-    public ResponseEntity<String> addFriend(@PathVariable String id, HttpSession session) {
+    public ResponseEntity<String> addFriend(@PathVariable String id, HttpSession session, @RequestBody String content) {
         long userId = (long) session.getAttribute(USER_ID);
 
         if (njzSendService.addCrush(userId, Long.parseLong(id))) {
             return ResponseEntity.ok("Yes sir");
         }
 
-        return ResponseEntity.badRequest().body("Yes sir");
+        return ResponseEntity.badRequest().body("No sir");
+    }
+
+    @PostMapping("/unfriend/{id}")
+    public ResponseEntity<String> unfriend(@PathVariable String id, HttpSession session) {
+        long userId = (long) session.getAttribute(USER_ID);
+
+        if (njzSendService.deleteCrush(userId, Long.parseLong(id))) {
+            return ResponseEntity.ok("Yes sir");
+        }
+
+        return ResponseEntity.badRequest().body("No sir");
+    }
+
+    @PostMapping("/accept/{id}")
+    public ResponseEntity<String> accept(@PathVariable String id, HttpSession session) {
+        long userId = (long) session.getAttribute(USER_ID);
+
+        if (njzSendService.acceptCrush(userId, Long.parseLong(id))) {
+            return ResponseEntity.ok("Yes sir");
+        }
+
+        return ResponseEntity.badRequest().body("No sir");
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable String id, HttpSession session) {
+        long userId = (long) session.getAttribute(USER_ID);
+
+        if (njzSendService.deleteCrush(userId, Long.parseLong(id))) {
+            return ResponseEntity.ok("Yes sir");
+        }
+
+        return ResponseEntity.badRequest().body("No sir");
+    }
+
+    @PostMapping("/reject/{id}")
+    public ResponseEntity<String> reject(@PathVariable String id, HttpSession session) {
+        long userId = (long) session.getAttribute(USER_ID);
+
+        if (njzSendService.deleteCrush(userId, Long.parseLong(id))) {
+            return ResponseEntity.ok("Yes sir");
+        }
+
+        return ResponseEntity.badRequest().body("No sir");
     }
 
     @PostMapping("/upload-survey")

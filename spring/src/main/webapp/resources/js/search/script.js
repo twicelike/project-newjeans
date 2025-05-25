@@ -1,29 +1,5 @@
 import AppConfig from "../config.js";
 
-//Swiper slider image
-var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    loop: true,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-});
-
-const users = [
-    {name: 'User 1'},
-    {name: 'User 2'},
-    {name: 'User 3'},
-    {name: 'User 4'},
-    {name: 'User 5'},
-    {name: 'User 6'},
-];
-
 document.addEventListener('DOMContentLoaded', () => {
     const popup = document.getElementById('matchPopup');
     const popupBg = document.getElementById('popupBg');
@@ -59,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const userId = matchBtn.dataset.id;
             const userName = matchBtn.dataset.name;
             const userAvatar = matchBtn.dataset.avatar;
+            const messageBox = document.getElementById('messageBox');
             if (matchBtn.classList.contains('grayscale-0')) {
                 matchBtn.classList.remove('grayscale-0');
                 matchBtn.classList.add('grayscale');
@@ -69,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        toUserId: userId
+                        content: messageBox.value
                     })
                 })
                     .then(response => {
@@ -124,25 +101,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error("Error:", err);
             });
     });
-
-
-    //Logout
-    const profileToggle = document.querySelector('.inner-profile');
-    const logoutBox = document.querySelector('.log-out-box');
-
-    profileToggle.addEventListener('click', e => {
-        e.stopPropagation();
-        logoutBox.classList.toggle('hidden');
-    });
-
-    document.addEventListener('click', () => {
-        if (!logoutBox.classList.contains('hidden')) {
-            logoutBox.classList.add('hidden');
-        }
-    });
-
-    logoutBox.addEventListener('click', e => {
-        e.stopPropagation();
-    });
 });
-

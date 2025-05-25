@@ -236,15 +236,28 @@
         <h2 class="text-xl font-bold mb-4">Friend Requests</h2>
         <!--        come        -->
         <div class="flex items-center gap-4 border-b pb-4 mb-4" th:each="c: ${come}">
-            <img th:src="@{'/images/userImages/' + ${c.avatar}}" class="w-16 h-16 rounded-full" alt="avatar">
-            <div class="flex-1">
-                <div class="font-semibold">Name</div>
-                <div class="text-sm text-gray-600">Request message content</div>
-                <div class="text-xs text-gray-400 invitation-date">Sent on: 2025-05-10</div>
-            </div>
-            <div class="flex flex-col gap-2">
-                <button class="bg-blue-500 text-white px-3 py-1 rounded">Accept</button>
-                <button class="bg-red-500 text-white px-3 py-1 rounded">Decline</button>
+            <div th:id="@{'usercome-' + ${c.id}}" class="flex justify-between w-full">
+                <a th:href="@{'/profile/' + ${c.username}}">
+                    <img th:src="@{'/images/userImages/' + ${c.avatar}}" class="w-16 h-16 rounded-full" alt="avatar">
+                </a>
+                <div class="flex-1 px-3">
+                    <div class="font-semibold" th:text="@{${c.firstName} + ' ' + ${c.lastName}}"></div>
+                    <div class="text-sm text-gray-600" th:text="${c.content}"></div>
+                    <div class="text-xs text-gray-400 invitation-date"
+                         th:text="${#temporals.format(c.sentDate, 'dd/MM/yyyy HH:mm')}">
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <button
+                            th:id="@{'accept-' + ${c.id}}"
+                            th:data-id="${c.id}"
+                            class="bg-blue-500 text-white px-3 py-1 rounded">Accept
+                    </button>
+                    <button th:id="@{'reject-' + ${c.id}}"
+                            th:data-id="${c.id}"
+                            class="bg-red-500 text-white px-3 py-1 rounded">Reject
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -254,15 +267,29 @@
              class="sm:w-1/2 w-full bg-white rounded-lg p-4 shadow overflow-y-auto max-h-[400px] sm:block hidden">
         <h2 class="text-xl font-bold mb-4">Sent Requests</h2>
         <div class="flex items-center gap-4 border-b pb-4 mb-4" th:each="c: ${send}">
-            <img th:src="@{'/images/userImages/' + ${c.avatar}}" class="w-16 h-16 rounded-full" alt="avatar">
-            <div class="flex-1">
-                <div class="font-semibold" th:text="@{${user.firstName} + ' ' + ${user.lastName}}"></div>
-                <div class="text-sm text-gray-600">Request message content</div>
-                <div class="text-xs text-gray-400">Sent on: 16/05/2025</div>
-            </div>
-            <div class="flex flex-col gap-2">
-                <button class="edit-btn bg-blue-500 text-white px-3 py-1 rounded">Edit</button>
-                <button class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+            <div th:id="@{'usersend-' + ${c.id}}" class="flex justify-between w-full">
+                <a th:href="@{'/profile/' + ${c.username}}">
+                    <img th:src="@{'/images/userImages/' + ${c.avatar}}" class="w-16 h-16 rounded-full" alt="avatar">
+                </a>
+                <div class="flex-1 px-3">
+                    <div class="font-semibold" th:text="@{${c.firstName} + ' ' + ${c.lastName}}"></div>
+                    <div class="text-sm text-gray-600" th:text="${c.content}"></div>
+                    <div class="text-xs text-gray-400 invitation-date"
+                         th:text="${#temporals.format(c.sentDate, 'dd/MM/yyyy HH:mm')}">
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <button
+                            th:id="@{'edit-' + ${c.id}}"
+                            th:data-id="${c.id}"
+                            class="edit-btn bg-blue-500 text-white px-3 py-1 rounded">Edit
+                    </button>
+                    <button
+                            th:id="@{'delete-' + ${c.id}}"
+                            th:data-id="${c.id}"
+                            class="bg-red-500 text-white px-3 py-1 rounded" id="delete">Delete
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -319,7 +346,7 @@
 <!-- End Content -->
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="/js/home/script.js"></script>
+<script type="module" src="/js/home/njz.js"></script>
 </body>
 
 </html>

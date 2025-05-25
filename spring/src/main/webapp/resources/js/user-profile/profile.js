@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                fromUserId: currentId,
                 toUserId: targetId
             })
         })
