@@ -1,5 +1,6 @@
 package hoangvacban.demo.project_newjeans.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int questionType;
+    private String questionType;
     private String question;
     private String option1;
     private String option2;
@@ -28,5 +29,6 @@ public class Question {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "survey_id")
+    @JsonBackReference
     private Survey survey;
 }

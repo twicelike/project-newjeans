@@ -1,12 +1,13 @@
 package hoangvacban.demo.project_newjeans.controller;
 
+import hoangvacban.demo.project_newjeans.dto.MessageDTO;
 import hoangvacban.demo.project_newjeans.dto.SurveyDTO;
 import hoangvacban.demo.project_newjeans.dto.request.ResetPasswordDTO;
+import hoangvacban.demo.project_newjeans.dto.response.QuestionResponse;
+import hoangvacban.demo.project_newjeans.dto.response.SurveyResponse;
 import hoangvacban.demo.project_newjeans.entity.Post;
-import hoangvacban.demo.project_newjeans.service.EmailService;
-import hoangvacban.demo.project_newjeans.service.NjzSendService;
-import hoangvacban.demo.project_newjeans.service.PostService;
-import hoangvacban.demo.project_newjeans.service.UserService;
+import hoangvacban.demo.project_newjeans.entity.Survey;
+import hoangvacban.demo.project_newjeans.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,24 +28,30 @@ public class ApiController {
     private final PostService postService;
     private final UserService userService;
     private final NjzSendService njzSendService;
+    private final SurveyService surveyService;
+    private final ChatMessageService messageService;
 
     public ApiController(
             EmailService emailService,
             PostService postService,
             UserService userService,
-            NjzSendService njzSendService
+            NjzSendService njzSendService,
+            SurveyService surveyService,
+            ChatMessageService messageService
     ) {
         this.emailService = emailService;
         this.postService = postService;
         this.userService = userService;
         this.njzSendService = njzSendService;
+        this.surveyService = surveyService;
+        this.messageService = messageService;
     }
 
     @PostMapping("/add-friend/{id}")
     public ResponseEntity<String> addFriend(@PathVariable String id, HttpSession session, @RequestBody String content) {
         long userId = (long) session.getAttribute(USER_ID);
 
-        if (njzSendService.addCrush(userId, Long.parseLong(id))) {
+        if (njzSendService.addCrush(userId, Long.parseLong(id), content)) {
             return ResponseEntity.ok("Yes sir");
         }
 
@@ -96,9 +103,11 @@ public class ApiController {
     }
 
     @PostMapping("/upload-survey")
-    public ResponseEntity<String> addSurvey(@RequestBody SurveyDTO surveyDTO) {
+    public ResponseEntity<String> addSurvey(@RequestBody SurveyDTO surveyDTO, HttpSession session) {
+        long userId = (long) session.getAttribute(USER_ID);
         System.out.println(surveyDTO.getTitle());
         surveyDTO.getQuestions().forEach(System.out::println);
+        surveyService.createSurvey(userId, surveyDTO.getQuestions(), surveyDTO.getTitle());
         return ResponseEntity.ok("ok");
     }
 
@@ -141,5 +150,51 @@ public class ApiController {
         return ResponseEntity.ok(message);
     }
 
+    @GetMapping("/survey/{id}")
+    @ResponseBody
+    public ResponseEntity<SurveyResponse> getSurvey(@PathVariable String id) {
+        long userId = Long.parseLong(id);
+        Survey survey = surveyService.getSurveyByUser(userId);
 
+        List<QuestionResponse> questionDTOS = surveyService.convertQuestion(survey);
+
+        return ResponseEntity.ok(new SurveyResponse(
+                survey.getId(),
+                survey.getTitle(),
+                survey.getTimestamp(),
+                survey.getUser().getId(),
+                questionDTOS
+        ));
+    }
+
+
+    @GetMapping("/message/{userId}/{receiverId}")
+    @ResponseBody
+    public ResponseEntity<List<MessageDTO>> getMessage(
+            @PathVariable(name = "userId") String userId,
+            @PathVariable(name = "receiverId") String receiverId,
+            HttpSession session
+    ) {
+        long userIdLong = Long.parseLong(userId);
+        long receiverIdLong = Long.parseLong(receiverId);
+        long id = (long) session.getAttribute(USER_ID);
+        if (userIdLong != id) {
+            return ResponseEntity.badRequest().build();
+        }
+        List<MessageDTO> messageList = messageService.getAllMessage(userIdLong, receiverIdLong);
+        if (messageList == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(messageList);
+    }
+
+    @GetMapping("/exists-survey/{userId}")
+    @ResponseBody
+    public ResponseEntity<Boolean> isSurveyExists(@PathVariable(name = "userId") String userId) {
+        long userIdLong = Long.parseLong(userId);
+        if (surveyService.isExistSurvey(userIdLong)) {
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.badRequest().build();
+    }
 }

@@ -77,6 +77,7 @@ public class ProfileController {
             model.addAttribute("images", images);
             model.addAttribute("hobbies", userOptional.get().getHobbyTags());
             model.addAttribute("avatar", session.getAttribute("avatar"));
+            model.addAttribute("username", session.getAttribute("username"));
         } else {
             return "error/404";
         }

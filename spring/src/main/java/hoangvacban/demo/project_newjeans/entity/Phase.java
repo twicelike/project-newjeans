@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "phases")
 @Getter
@@ -20,4 +22,7 @@ public class Phase {
     private String name;
     private int level;
     private String iconUrl;
+
+    @OneToMany(mappedBy = "phase")
+    private List<NjzSend> njzs;
 }

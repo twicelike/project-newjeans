@@ -71,12 +71,6 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Survey> surveys = new HashSet<>();
 
-    @OneToMany(mappedBy = "crusher", fetch = FetchType.LAZY)
-    private Set<Crush> crushes = new HashSet<>();
-
-    @OneToMany(mappedBy = "crushed", fetch = FetchType.LAZY)
-    private Set<Crush> crushesSendTo = new HashSet<>();
-
     @Override
     public String toString() {
         return "User{" +

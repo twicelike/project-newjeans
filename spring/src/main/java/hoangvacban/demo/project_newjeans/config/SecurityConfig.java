@@ -66,13 +66,13 @@ public class SecurityConfig {
     ) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(
-                                "/main", "/njz-request", "/message", "/notification",
-                                "/find-njz/**",
-                                "/survey", "answer-survey", "/api/upload-survey",
-                                "/profile/**",
-                                "set-up-profile"
-                        ).authenticated()
+//                        .requestMatchers(
+//                                "/main", "/njz-request", "/message", "/notification.html",
+//                                "/find-njz/**",
+//                                "/survey", "answer-survey", "/api/upload-survey",
+//                                "/profile/**",
+//                                "set-up-profile"
+//                        ).authenticated()
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )

@@ -28,6 +28,7 @@
                 <i class="fa-solid fa-magnifying-glass text-[18px] text-[var(--color-one)]"></i>
                 <form th:action="@{/search}" method="post" class="w-full">
                     <input type="text" name="query"
+                           autocomplete="off"
                            class="w-full outline-none bg-transparent placeholder-gray-400 text-gray-700"
                            placeholder="Search something..."/>
                 </form>

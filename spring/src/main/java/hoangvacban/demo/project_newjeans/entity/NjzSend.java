@@ -28,4 +28,8 @@ public class NjzSend {
     private LocalDateTime sendDate;
     private String content;
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "phase_id")
+    private Phase phase;
 }

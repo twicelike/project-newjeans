@@ -102,15 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         targetMatch.classList.add('grayscale-0');
         targetMatch.classList.remove('grayscale');
+        const content = document.getElementById('messageBox')
 
         fetch(`${AppConfig.ADD_FRIEND}/${selectedUserId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                toUserId: selectedUserId
-            })
+            body: JSON.stringify(content.value)
         })
             .then(response => {
                 if (response.ok) {

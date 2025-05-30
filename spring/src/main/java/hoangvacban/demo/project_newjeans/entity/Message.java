@@ -19,6 +19,7 @@ public class Message {
 
     private String content;
     private long timestamp;
+    private String type;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")

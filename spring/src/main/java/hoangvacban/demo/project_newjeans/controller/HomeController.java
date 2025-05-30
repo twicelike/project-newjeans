@@ -1,6 +1,7 @@
 package hoangvacban.demo.project_newjeans.controller;
 
 import hoangvacban.demo.project_newjeans.dto.UserNjz;
+import hoangvacban.demo.project_newjeans.entity.HobbyTag;
 import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.service.HobbyTagService;
 import hoangvacban.demo.project_newjeans.service.NjzSendService;
@@ -9,7 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -52,8 +52,20 @@ public class HomeController {
         model.addAttribute("users", userService.getUserList());
 
         System.out.println("Query: " + query);
-        model.addAttribute("query", query); // Nếu muốn hiển thị lại từ khóa tìm kiếm
+        model.addAttribute("query", query);
+        List<HobbyTag> hobbyTagList = hobbyTagService.getAll();
+        model.addAttribute("tags", hobbyTagList);
         return "client/search/search";
+    }
+
+    @GetMapping("/notification")
+    public String notification(Model model, HttpSession session) {
+        long id = (long) session.getAttribute(USER_ID);
+
+        Optional<User> userOptional = userService.getUserById(id);
+        userOptional.ifPresent(user -> model.addAttribute("user", user));
+
+        return "client/home/notification";
     }
 
     @GetMapping("/")

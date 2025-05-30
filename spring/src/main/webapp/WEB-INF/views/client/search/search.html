@@ -215,16 +215,16 @@
                                 <option value="">Post-graduate school</option>
                             </select>
                         </div>
-                        <div class="inner-group flex flex-col text-[var(--color-one)]">
-                            <div class="inner-label font-[300] text-[14px]">Hobby Tags:</div>
-                            <!--    hobby tags  -->
-                            <div class="inner-tags-list flex flex-wrap items-center gap-[10px_20px]">
-                                <div
-                                        class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
-                                    Music
-                                </div>
-                            </div>
 
+                        <div class="inner-label font-[300] text-[14px] text-[var(--color-one)]">Hobby Tags:</div>
+                        <div class="inner-group flex flex-row flex-wrap gap-2 text-[var(--color-one)]">
+                            <!--    hobby tags  -->
+                            <th:block th:each="tag : ${tags}">
+                                <label class="px-3 py-1 text-[--primary-color] hover:text-[--secondary-color] hover:bg-purple-100 flex items-center gap-2 rounded-lg border-2 border-purple-200 transition duration-200 cursor-pointer">
+                                    <img th:src="${tag.emoji}" alt="emoji" class="w-6 h-6 rounded-full">
+                                    <span th:text="${tag.name}">Art</span>
+                                </label>
+                            </th:block>
                         </div>
                     </div>
                 </div>

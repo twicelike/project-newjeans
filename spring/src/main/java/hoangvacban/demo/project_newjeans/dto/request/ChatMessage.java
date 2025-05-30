@@ -6,7 +6,11 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class ChatMessage {
-    private String sender;
+    private long senderId;
+    private long receiverId;
     private String content;
+    private String type;
+    private long timestamp;
 }

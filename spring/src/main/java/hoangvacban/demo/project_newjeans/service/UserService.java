@@ -60,10 +60,6 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public boolean isEmailExist(String email) {
-        return userRepository.existsByEmail(email);
-    }
-
     public List<User> getUserList() {
         return userRepository.getUserList();
     }

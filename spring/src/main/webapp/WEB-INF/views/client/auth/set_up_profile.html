@@ -48,27 +48,23 @@
         </div>
 
         <div class="flex grid grid-cols-2 space-x-1 w-4/5">
-
-            <select th:field="*{gender}" class="rounded-lg w-full h-8 py-1 px-2 mt-3" name="gender" id="gender">
-                <option value="hehe">--Gender--</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-
-
-        </div>
-
-        <textarea th:field="*{bio}" class="rounded-md w-4/5 h-16 py-1 px-2 mt-3" placeholder="Bio">
-
-        </textarea>
-
-
-        <div class="flex grid grid-cols-2 space-x-1 w-4/5">
             <input th:field="*{firstName}" type="text" class="rounded-lg w-full h-8 py-1 px-2 mt-3"
                    placeholder="First name">
             <input th:field="*{lastName}" type="text" class="rounded-lg w-full h-8 py-1 px-2 mt-3"
                    placeholder="Last name">
         </div>
+
+        <div class="flex space-x-1 w-4/5 justify-center">
+            <select th:field="*{gender}" class="rounded-lg w-2/5 h-8 py-1 px-2 mt-3" name="gender" id="gender">
+                <option value="hehe">--Gender--</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <textarea th:field="*{bio}" class="rounded-md w-4/5 h-16 py-1 px-2 mt-3" placeholder="Bio">
+
+        </textarea>
 
         <select th:field="*{location}"
                 class="rounded-md w-4/5 h-8 mt-2"

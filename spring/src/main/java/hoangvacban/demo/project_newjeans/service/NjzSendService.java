@@ -3,8 +3,10 @@ package hoangvacban.demo.project_newjeans.service;
 import hoangvacban.demo.project_newjeans.dto.UserNjz;
 import hoangvacban.demo.project_newjeans.entity.NjzKey;
 import hoangvacban.demo.project_newjeans.entity.NjzSend;
+import hoangvacban.demo.project_newjeans.entity.Phase;
 import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.repository.NjzSendRepository;
+import hoangvacban.demo.project_newjeans.repository.PhaseRepository;
 import hoangvacban.demo.project_newjeans.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +21,19 @@ public class NjzSendService {
 
     private final NjzSendRepository njzSendRepository;
     private final UserRepository userRepository;
+    private final PhaseRepository phaseRepository;
 
-    public NjzSendService(NjzSendRepository njzSendRepository, UserRepository userRepository) {
+    public NjzSendService(
+            NjzSendRepository njzSendRepository,
+            UserRepository userRepository,
+            PhaseRepository phaseRepository
+    ) {
         this.njzSendRepository = njzSendRepository;
         this.userRepository = userRepository;
+        this.phaseRepository = phaseRepository;
     }
 
-    public boolean addCrush(long userId, long crushId) {
+    public boolean addCrush(long userId, long crushId, String content) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
             return false;
@@ -44,7 +52,7 @@ public class NjzSendService {
         njzSend.setUser(user.get());
         njzSend.setSendDate(LocalDateTime.now());
         njzSend.setStatus("PENDING");
-        njzSend.setContent("Hi! I'm " + user.get().getFirstName() + " " + user.get().getLastName() + ", let's get down");
+        njzSend.setContent(content);
 
         njzSendRepository.save(njzSend);
         return true;
@@ -68,7 +76,8 @@ public class NjzSendService {
         }
 
         njzSend.get().setStatus("ACCEPT");
-
+        Optional<Phase> phase = phaseRepository.findByLevel(1);
+        phase.ifPresent(value -> njzSend.get().setPhase(value));
         njzSendRepository.save(njzSend.get());
 
         return true;

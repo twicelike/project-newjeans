@@ -1,6 +1,10 @@
 package hoangvacban.demo.project_newjeans.controller;
 
 import hoangvacban.demo.project_newjeans.dto.request.ChatMessage;
+import hoangvacban.demo.project_newjeans.entity.User;
+import hoangvacban.demo.project_newjeans.service.ChatMessageService;
+import hoangvacban.demo.project_newjeans.service.NjzSendService;
+import hoangvacban.demo.project_newjeans.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -12,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import static hoangvacban.demo.project_newjeans.util.Constants.USER_ID;
 
@@ -19,15 +24,36 @@ import static hoangvacban.demo.project_newjeans.util.Constants.USER_ID;
 public class MessageController {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
+    private final UserService userService;
+    private final NjzSendService njzSendService;
+    private final ChatMessageService messageService;
 
-    public MessageController(SimpMessagingTemplate simpMessagingTemplate) {
+    public MessageController(
+            SimpMessagingTemplate simpMessagingTemplate,
+            UserService userService,
+            NjzSendService njzSendService,
+            ChatMessageService messageService
+    ) {
         this.simpMessagingTemplate = simpMessagingTemplate;
+        this.userService = userService;
+        this.njzSendService = njzSendService;
+        this.messageService = messageService;
     }
 
-    @GetMapping("/chat")
+    @GetMapping("/message")
     public String chat(Model model, HttpSession session) {
-        model.addAttribute(USER_ID, session.getAttribute(USER_ID));
-        return "client/chat/chat";
+        long userId = Long.parseLong(session.getAttribute(USER_ID).toString());
+
+        Optional<User> optionalUser = userService.getUserById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("user", user);
+        }
+
+        model.addAttribute("users", messageService.getFriendList(userId));
+
+        return "client/message/message";
     }
 
     @MessageMapping("/chat.sendMessage")
@@ -41,7 +67,10 @@ public class MessageController {
                                @DestinationVariable("userId") String userId,
                                Principal principal) {
 //        message.setSender(principal.getName());
-        simpMessagingTemplate.convertAndSend("/topic/chat.privateMessage/" + userId, message);
+        System.out.println(message);
+        if (messageService.saveMessage(message)) {
+            simpMessagingTemplate.convertAndSend("/topic/chat.privateMessage/" + userId, message);
+        }
     }
 
 }

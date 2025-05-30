@@ -63,6 +63,7 @@
         <nav>
             <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
             <ul class="mb-6">
+                <!-- TODO: Thêm c:forEach nếu danh sách task lấy từ server -->
                 <li class="mb-2">
                     <a href="/admin/hobbytag" class="flex items-center text-gray-400 hover:text-blue-300 transition">
                         <i class="fas fa-tasks mr-2"></i> Hobby Tags
@@ -74,8 +75,13 @@
                     </a>
                 </li>
                 <li class="mb-2">
+                    <a href="/admin/report" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-flag mr-2"></i> Reports
+                    </a>
+                </li>
+                <li class="mb-2">
                     <a href="/admin/suspend" class="flex items-center text-gray-400 hover:text-blue-300 transition">
-                        <i class="fas fa-ban mr-2"></i> Suspended Users & Reports
+                        <i class="fas fa-ban mr-2"></i> Suspended Users
                     </a>
                 </li>
                 <li class="mb-2">
