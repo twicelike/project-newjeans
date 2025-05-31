@@ -65,9 +65,6 @@ public class User {
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<HobbyTag> hobbyTags = new HashSet<>();
 
-    @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY)
-    private Set<Post> posts = new HashSet<>();
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Survey> surveys = new HashSet<>();
 

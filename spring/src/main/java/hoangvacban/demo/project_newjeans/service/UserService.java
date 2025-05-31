@@ -60,8 +60,29 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> getUserList() {
-        return userRepository.getUserList();
+    public List<User> getUserList(long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            return userRepository.getUserList(userOptional.get());
+        }
+        return new ArrayList<>();
+    }
+
+    public List<User> getSearchList(String query) {
+        String[] criteria = query.split(" ");
+        String firstName;
+        String lastName;
+        if (criteria.length > 1) {
+            firstName = criteria[0];
+            lastName = criteria[1];
+        } else {
+            firstName = criteria[0];
+            lastName = criteria[0];
+        }
+        List<User> searchUsers = userRepository.getSearchList(firstName, lastName);
+
+
+        return searchUsers;
     }
 
     @Transactional
@@ -191,4 +212,16 @@ public class UserService {
         return "Email is not registered!";
     }
 
+    public void createAdmin() {
+        User user = new User();
+        Role role = roleService.findByName("ADMIN");
+        user.setFinishSetUpProfile(true);
+        user.setRole(role);
+        user.setUsername("admin");
+        user.setPassword(passwordEncoder.encode("123123"));
+        user.setAvatar("1747838259862-1.jpg");
+        user.setGender(true);
+        user.setEmail("admin@gmail.com");
+        userRepository.save(user);
+    }
 }

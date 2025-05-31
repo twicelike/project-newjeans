@@ -3,6 +3,7 @@ package hoangvacban.demo.project_newjeans.controller;
 import hoangvacban.demo.project_newjeans.dto.MessageDTO;
 import hoangvacban.demo.project_newjeans.dto.SurveyDTO;
 import hoangvacban.demo.project_newjeans.dto.request.ResetPasswordDTO;
+import hoangvacban.demo.project_newjeans.dto.response.PostPageResponse;
 import hoangvacban.demo.project_newjeans.dto.response.QuestionResponse;
 import hoangvacban.demo.project_newjeans.dto.response.SurveyResponse;
 import hoangvacban.demo.project_newjeans.entity.Post;
@@ -45,6 +46,19 @@ public class ApiController {
         this.njzSendService = njzSendService;
         this.surveyService = surveyService;
         this.messageService = messageService;
+    }
+
+    @PostMapping("/level-up/{id}/{receiverId}")
+    public ResponseEntity<String> levelUp(
+            @PathVariable(name = "id") String id,
+            @PathVariable(name = "receiverId") String receiverIdString) {
+        long userId = Long.parseLong(id);
+        long receiverId = Long.parseLong(receiverIdString);
+        if (njzSendService.levelUp(userId, receiverId)) {
+            return ResponseEntity.ok("level up success");
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/add-friend/{id}")
@@ -113,7 +127,7 @@ public class ApiController {
 
 
     @GetMapping("/admin/post")
-    public ResponseEntity<List<Post>> getPostPage(
+    public ResponseEntity<PostPageResponse> getPostPage(
             @RequestParam("page") Optional<String> pageOptional
     ) {
         int page = 1;
@@ -125,11 +139,16 @@ public class ApiController {
             e.printStackTrace();
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 10);
+        Pageable pageable = PageRequest.of(page - 1, 3);
         Page<Post> postPage = postService.getPosts(pageable);
         List<Post> posts = postPage.getContent();
 
-        return ResponseEntity.ok(posts);
+        return ResponseEntity.ok(new PostPageResponse(
+                posts,
+                postPage.getTotalPages(),
+                postPage.getTotalElements(),
+                page
+        ));
     }
 
     @PostMapping("/send-otp/{email}")

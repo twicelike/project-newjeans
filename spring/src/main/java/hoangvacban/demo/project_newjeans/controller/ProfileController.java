@@ -6,6 +6,7 @@ import hoangvacban.demo.project_newjeans.entity.HobbyTag;
 import hoangvacban.demo.project_newjeans.entity.User;
 import hoangvacban.demo.project_newjeans.entity.UserImage;
 import hoangvacban.demo.project_newjeans.service.HobbyTagService;
+import hoangvacban.demo.project_newjeans.service.NjzSendService;
 import hoangvacban.demo.project_newjeans.service.UserImagesService;
 import hoangvacban.demo.project_newjeans.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static hoangvacban.demo.project_newjeans.util.Constants.SET_UP_PROFILE_ENDPOINT;
@@ -37,15 +39,17 @@ public class ProfileController {
     private final HobbyTagService hobbyTagService;
     private final UserService userService;
     private final UserImagesService userImagesService;
+    private final NjzSendService njzSendService;
 
     public ProfileController(
             HobbyTagService hobbyTagService,
             UserService userService,
-            UserImagesService userImagesService
-    ) {
+            UserImagesService userImagesService,
+            NjzSendService njzSendService) {
         this.hobbyTagService = hobbyTagService;
         this.userService = userService;
         this.userImagesService = userImagesService;
+        this.njzSendService = njzSendService;
     }
 
     @GetMapping("/profile")
@@ -60,7 +64,9 @@ public class ProfileController {
             List<UserImage> images = userImagesService.getAllUserImages(user);
             model.addAttribute("images", images);
             model.addAttribute("hobbies", user.getHobbyTags());
+
         });
+
 
         return "client/profile/profile";
     }
@@ -78,6 +84,11 @@ public class ProfileController {
             model.addAttribute("hobbies", userOptional.get().getHobbyTags());
             model.addAttribute("avatar", session.getAttribute("avatar"));
             model.addAttribute("username", session.getAttribute("username"));
+            if (njzSendService.isFriend(id, userOptional.get().getId())) {
+                model.addAttribute("isFriend", true);
+            } else {
+                model.addAttribute("isFriend", false);
+            }
         } else {
             return "error/404";
         }

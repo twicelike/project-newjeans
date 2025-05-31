@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Create admin</title>
+</head>
+<body>
+<div class="header">
+    <a href="/">
+        <img src="/images/home/logo.png" alt="NewJeans">
+    </a>
+    <h1>Safety & Reporting</h1>
+</div>
+
+<div class="container">
+    <form th:action="@{/createadmin}" method="post">
+        <button type="submit">Create</button>
+    </form>
+</div>
+</body>
+</html>

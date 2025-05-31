@@ -148,9 +148,9 @@
     <!-- Sidebar -->
     <div class="bg-gray-800 text-white w-64 p-6 relative">
         <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
-            <img src="https://placehold.co/50x50" alt="Profile" class="rounded-full mr-4">
+            <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile" class="w-10 h-10 object-contain rounded-full mr-4">
             <div>
-                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition">DatPhan</h2>
+                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition" th:text="${username}"></h2>
                 <p class="text-xs text-gray-400">Admin</p>
             </div>
             <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
@@ -168,7 +168,6 @@
         <nav>
             <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
             <ul class="mb-6">
-                <!-- TODO: Thêm c:forEach nếu danh sách task lấy từ server -->
                 <li class="mb-2">
                     <a href="/admin/hobbytag" class="flex items-center text-gray-400 hover:text-blue-300 transition">
                         <i class="fas fa-tasks mr-2"></i> Hobby Tags
@@ -224,71 +223,11 @@
                     <th class="py-3 px-4 border text-left">Title</th>
                     <th class="py-3 px-4 border text-left">Author</th>
                     <th class="py-3 px-4 border text-left">Date</th>
-                    <th class="py-3 px-4 border text-left">Image</th>
                     <th class="py-3 px-4 border text-left">Actions</th>
                 </tr>
                 </thead>
                 <tbody id="postsTableBody">
-                <tr>
-                    <td class="py-4 px-4 border">1</td>
-                    <td class="py-4 px-4 border">My First Blog Post</td>
-                    <td class="py-4 px-4 border">John Doe</td>
-                    <td class="py-4 px-4 border">2024-05-26</td>
-                    <td class="py-4 px-4 border">
-                        <img src="https://placehold.co/60x40/007bff/ffffff?text=Blog1" alt="Blog Post 1 Image"
-                             class="table-image"
-                             onerror="this.onerror=null;this.src='https://placehold.co/60x40/cccccc/ffffff?text=Error';">
-                    </td>
-                    <td class="py-4 px-4 border">
-                        <button class="action-button edit-button">Edit</button>
-                        <button class="action-button delete-button">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-4 px-4 border">2</td>
-                    <td class="py-4 px-4 border">Tailwind CSS for Beginners</td>
-                    <td class="py-4 px-4 border">Jane Smith</td>
-                    <td class="py-4 px-4 border">2024-05-25</td>
-                    <td class="py-4 px-4 border">
-                        <img src="https://placehold.co/60x40/28a745/ffffff?text=Tailwind" alt="Tailwind CSS Image"
-                             class="table-image"
-                             onerror="this.onerror=null;this.src='https://placehold.co/60x40/cccccc/ffffff?text=Error';">
-                    </td>
-                    <td class="py-4 px-4 border">
-                        <button class="action-button edit-button">Edit</button>
-                        <button class="action-button delete-button">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-4 px-4 border">3</td>
-                    <td class="py-4 px-4 border">Understanding JavaScript Promises</td>
-                    <td class="py-4 px-4 border">Alice Brown</td>
-                    <td class="py-4 px-4 border">2024-05-24</td>
-                    <td class="py-4 px-4 border">
-                        <img src="https://placehold.co/60x40/ffc107/000000?text=JS" alt="JavaScript Promises Image"
-                             class="table-image"
-                             onerror="this.onerror=null;this.src='https://placehold.co/60x40/cccccc/ffffff?text=Error';">
-                    </td>
-                    <td class="py-4 px-4 border">
-                        <button class="action-button edit-button">Edit</button>
-                        <button class="action-button delete-button">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-4 px-4 border">4</td>
-                    <td class="py-4 px-4 border">Responsive Web Design Tips</td>
-                    <td class="py-4 px-4 border">Bob Green</td>
-                    <td class="py-4 px-4 border">2024-05-23</td>
-                    <td class="py-4 px-4 border">
-                        <img src="https://placehold.co/60x40/17a2b8/ffffff?text=Responsive"
-                             alt="Responsive Design Image" class="table-image"
-                             onerror="this.onerror=null;this.src='https://placehold.co/60x40/cccccc/ffffff?text=Error';">
-                    </td>
-                    <td class="py-4 px-4 border">
-                        <button class="action-button edit-button">Edit</button>
-                        <button class="action-button delete-button">Delete</button>
-                    </td>
-                </tr>
+
                 </tbody>
             </table>
 
@@ -314,6 +253,88 @@
         </div>
     </div>
 </div>
+<script>
+    let currentPage = 1;
+    let totalPages = 1;
+    const postsPerPage = 3;
+
+    async function fetchAndRenderPosts(page = 1) {
+        const res = await fetch(`http://localhost:8080/api/admin/post?page=${page}`);
+        const data = await res.json();
+
+        currentPage = data.currentPage;
+        totalPages = data.totalPages;
+
+        renderPosts(data.posts);
+        updatePagination(data);
+    }
+
+    function renderPosts(posts) {
+        const tbody = document.getElementById('postsTableBody');
+        tbody.innerHTML = '';
+
+        posts.forEach((post, index) => {
+            const row = document.createElement('tr');
+            row.className = 'border-b';
+
+            row.innerHTML = `
+        <td class="p-2">${post.id}</td>
+        <td class="p-2">${post.title}</td>
+        <td class="p-2">${post.author}</td>
+        <td class="p-2">${new Date(post.createdAt).toLocaleString()}</td>
+        <td>
+            <a
+               class="me-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                Update
+            </a>
+            <a
+               class="ms-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                Delete
+            </a>
+        </td>
+      `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function updatePagination(data) {
+        const start = (data.currentPage - 1) * postsPerPage + 1;
+        const end = start + data.posts.length - 1;
+
+        document.getElementById('posts-pagination-start').textContent = start;
+        document.getElementById('posts-pagination-end').textContent = end;
+        document.getElementById('posts-pagination-total').textContent = data.totalItems;
+
+        // Prev/Next button
+        document.getElementById('posts-prev-page').disabled = data.currentPage === 1;
+        document.getElementById('posts-next-page').disabled = data.currentPage === totalPages;
+
+        // Page number buttons
+        const pageNumbersDiv = document.getElementById('posts-page-numbers');
+        pageNumbersDiv.innerHTML = '';
+
+        for (let i = 1; i <= data.totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            btn.className = `px-3 py-1 border rounded-md ${i === currentPage ? 'bg-gray-300' : 'bg-white'}`;
+            btn.addEventListener('click', () => fetchAndRenderPosts(i));
+            pageNumbersDiv.appendChild(btn);
+        }
+    }
+
+    // Add event listeners
+    document.getElementById('posts-prev-page').addEventListener('click', () => {
+        if (currentPage > 1) fetchAndRenderPosts(currentPage - 1);
+    });
+
+    document.getElementById('posts-next-page').addEventListener('click', () => {
+        if (currentPage < totalPages) fetchAndRenderPosts(currentPage + 1);
+    });
+
+    // Initial load
+    fetchAndRenderPosts();
+</script>
+
 
 <!-- Edit Post Modal -->
 <div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
@@ -381,24 +402,29 @@
             </button>
         </div>
 
-        <form id="createPostForm" class="space-y-4">
+        <form id="createPostForm" th:action="@{/post}" method="post" th:object="${postDTO}" class="space-y-4">
             <div>
                 <label for="postTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
                 <input type="text" id="postTitle" name="postTitle"
+                       th:field="*{title}"
                        class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
                        placeholder="Enter post title" required>
             </div>
 
             <div>
                 <label for="postContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                <textarea id="postContent" name="postContent" rows="4"
+                <textarea id="postContent"
+                          th:field="*{content}"
+                          name="postContent" rows="4"
                           class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Enter post content" required></textarea>
             </div>
 
             <div>
                 <label for="postAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
-                <input type="text" id="postAuthor" name="postAuthor"
+                <input type="text"
+                       th:field="*{author}"
+                       id="postAuthor" name="postAuthor"
                        class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
                        placeholder="Enter author name" required>
             </div>

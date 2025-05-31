@@ -59,9 +59,10 @@
     <!-- Sidebar -->
     <div class="bg-gray-800 text-white w-64 p-6 relative">
         <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
-            <img src="https://placehold.co/50x50" alt="Profile" class="rounded-full mr-4">
+            <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile"
+                 class="w-10 h-10 object-contain rounded-full mr-4">
             <div>
-                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition">DatPhan</h2>
+                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition" th:text="${username}"></h2>
                 <p class="text-xs text-gray-400">Admin</p>
             </div>
             <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
@@ -128,13 +129,24 @@
                 <tr class="bg-gray-50">
                     <th class="py-3 px-4 border text-left">ID</th>
                     <th class="py-3 px-4 border text-left">Email</th>
-                    <th class="py-3 px-4 border text-left">Comment</th>
                     <th class="py-3 px-4 border text-left">Date</th>
                     <th class="py-3 px-4 border text-left">Actions</th>
                 </tr>
                 </thead>
-                <tbody id="feedbackTableBody">
-                <!-- TODO: Thêm c:forEach nếu danh sách reports lấy từ server -->
+                <tbody id="feedbackTableBody" th:each="feedback : ${feedbacks}">
+                    <td class="py-3 px-4 border text-left" th:text="${feedback.id}"></td>
+                    <td class="py-3 px-4 border text-left" th:text="${feedback.email}"></td>
+                    <td class="py-3 px-4 border text-left" th:text="${feedback.date}"></td>
+                    <td>
+                        <a th:href="@{'/admin/hobbytag/update/' + ${feedback.id}}"
+                           class="me-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                            Resolve
+                        </a>
+                        <a th:href="@{'/admin/hobbytag/delete/' + ${feedback.id}}"
+                           class="ms-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                            Delete
+                        </a>
+                    </td>
                 </tbody>
             </table>
 
@@ -197,131 +209,156 @@
         </div>
     </div>
 </div>
-<script>
-    const allFeedback = [
-        { id: 1, email: "user1@example.com", comment: "The new feature is great, but it loads slowly.", date: "2025-05-20" },
-        { id: 2, email: "user2@example.com", comment: "I found a bug in the login process.", date: "2025-05-21" },
-        { id: 3, email: "user3@example.com", comment: "Could you add a dark mode option?", date: "2025-05-22" },
-        { id: 4, email: "user4@example.com", comment: "The UI needs some improvements, it's a bit clunky.", date: "2025-05-23" },
-        { id: 5, email: "user5@example.com", comment: "Excellent customer support! Very helpful.", date: "2025-05-24" },
-        { id: 6, email: "user6@example.com", comment: "The search functionality is not working correctly.", date: "2025-05-25" },
-        { id: 7, email: "user7@example.com", comment: "Please update the documentation.", date: "2025-05-26" },
-        { id: 8, email: "user8@example.com", comment: "I appreciate the quick bug fixes.", date: "2025-05-27" },
-        { id: 9, email: "user9@example.com", comment: "The mobile app crashes frequently.", date: "2025-05-28" },
-        { id: 10, email: "user10@example.com", comment: "Suggesting a new integration with Zapier.", date: "2025-05-29" },
-        { id: 11, email: "user11@example.com", comment: "The payment gateway is sometimes unresponsive.", date: "2025-05-30" },
-        { id: 12, email: "user12@example.com", comment: "Great user experience overall, keep up the good work!", date: "2025-05-31" }
-    ];
+<!--<script>-->
+<!--    const allFeedback = [-->
+<!--        {-->
+<!--            id: 1,-->
+<!--            email: "user1@example.com",-->
+<!--            comment: "The new feature is great, but it loads slowly.",-->
+<!--            date: "2025-05-20"-->
+<!--        },-->
+<!--        {id: 2, email: "user2@example.com", comment: "I found a bug in the login process.", date: "2025-05-21"},-->
+<!--        {id: 3, email: "user3@example.com", comment: "Could you add a dark mode option?", date: "2025-05-22"},-->
+<!--        {-->
+<!--            id: 4,-->
+<!--            email: "user4@example.com",-->
+<!--            comment: "The UI needs some improvements, it's a bit clunky.",-->
+<!--            date: "2025-05-23"-->
+<!--        },-->
+<!--        {id: 5, email: "user5@example.com", comment: "Excellent customer support! Very helpful.", date: "2025-05-24"},-->
+<!--        {-->
+<!--            id: 6,-->
+<!--            email: "user6@example.com",-->
+<!--            comment: "The search functionality is not working correctly.",-->
+<!--            date: "2025-05-25"-->
+<!--        },-->
+<!--        {id: 7, email: "user7@example.com", comment: "Please update the documentation.", date: "2025-05-26"},-->
+<!--        {id: 8, email: "user8@example.com", comment: "I appreciate the quick bug fixes.", date: "2025-05-27"},-->
+<!--        {id: 9, email: "user9@example.com", comment: "The mobile app crashes frequently.", date: "2025-05-28"},-->
+<!--        {id: 10, email: "user10@example.com", comment: "Suggesting a new integration with Zapier.", date: "2025-05-29"},-->
+<!--        {-->
+<!--            id: 11,-->
+<!--            email: "user11@example.com",-->
+<!--            comment: "The payment gateway is sometimes unresponsive.",-->
+<!--            date: "2025-05-30"-->
+<!--        },-->
+<!--        {-->
+<!--            id: 12,-->
+<!--            email: "user12@example.com",-->
+<!--            comment: "Great user experience overall, keep up the good work!",-->
+<!--            date: "2025-05-31"-->
+<!--        }-->
+<!--    ];-->
 
-    let currentPage = 1;
-    const itemsPerPage = 5;
-    let filteredFeedback = [...allFeedback]; // Start with all feedback
+<!--    let currentPage = 1;-->
+<!--    const itemsPerPage = 5;-->
+<!--    let filteredFeedback = [...allFeedback]; // Start with all feedback-->
 
-    const feedbackTableBody = document.getElementById('feedbackTableBody');
-    const feedbackSearchInput = document.getElementById('feedbackSearch');
-    const prevPageBtn = document.getElementById('feedback-prev-page');
-    const nextPageBtn = document.getElementById('feedback-next-page');
-    const pageNumbersContainer = document.getElementById('feedback-page-numbers');
-    const paginationStartSpan = document.getElementById('feedback-pagination-start');
-    const paginationEndSpan = document.getElementById('feedback-pagination-end');
-    const paginationTotalSpan = document.getElementById('feedback-pagination-total');
+<!--    const feedbackTableBody = document.getElementById('feedbackTableBody');-->
+<!--    const feedbackSearchInput = document.getElementById('feedbackSearch');-->
+<!--    const prevPageBtn = document.getElementById('feedback-prev-page');-->
+<!--    const nextPageBtn = document.getElementById('feedback-next-page');-->
+<!--    const pageNumbersContainer = document.getElementById('feedback-page-numbers');-->
+<!--    const paginationStartSpan = document.getElementById('feedback-pagination-start');-->
+<!--    const paginationEndSpan = document.getElementById('feedback-pagination-end');-->
+<!--    const paginationTotalSpan = document.getElementById('feedback-pagination-total');-->
 
-    // --- Functions ---
+<!--    // -&#45;&#45; Functions -&#45;&#45;-->
 
-    function displayFeedback() {
-        feedbackTableBody.innerHTML = ''; // Clear current table rows
+<!--    function displayFeedback() {-->
+<!--        feedbackTableBody.innerHTML = ''; // Clear current table rows-->
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = Math.min(startIndex + itemsPerPage, filteredFeedback.length);
-        const feedbackToDisplay = filteredFeedback.slice(startIndex, endIndex);
+<!--        const startIndex = (currentPage - 1) * itemsPerPage;-->
+<!--        const endIndex = Math.min(startIndex + itemsPerPage, filteredFeedback.length);-->
+<!--        const feedbackToDisplay = filteredFeedback.slice(startIndex, endIndex);-->
 
-        if (feedbackToDisplay.length === 0 && filteredFeedback.length > 0 && currentPage > 1) {
-            // If the current page is empty after filtering, go to the previous page
-            currentPage--;
-            displayFeedback();
-            return;
-        } else if (feedbackToDisplay.length === 0 && filteredFeedback.length === 0) {
-            // No results found
-            feedbackTableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-gray-500">No feedback found.</td></tr>`;
-        }
+<!--        if (feedbackToDisplay.length === 0 && filteredFeedback.length > 0 && currentPage > 1) {-->
+<!--            // If the current page is empty after filtering, go to the previous page-->
+<!--            currentPage&#45;&#45;;-->
+<!--            displayFeedback();-->
+<!--            return;-->
+<!--        } else if (feedbackToDisplay.length === 0 && filteredFeedback.length === 0) {-->
+<!--            // No results found-->
+<!--            feedbackTableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-gray-500">No feedback found.</td></tr>`;-->
+<!--        }-->
 
 
-        feedbackToDisplay.forEach(feedback => {
-            const row = document.createElement('tr');
-            row.className = 'hover:bg-gray-50';
-            row.innerHTML = `
-                    <td class="py-2 px-4 border">${feedback.id}</td>
-                    <td class="py-2 px-4 border">${feedback.email}</td>
-                    <td class="py-2 px-4 border">${feedback.comment}</td>
-                    <td class="py-2 px-4 border">${feedback.date}</td>
-                    <td class="py-2 px-4 border">
-                        <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded text-sm mr-2">View</button>
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm">Delete</button>
-                    </td>
-                `;
-            feedbackTableBody.appendChild(row);
-        });
+<!--        feedbackToDisplay.forEach(feedback => {-->
+<!--            const row = document.createElement('tr');-->
+<!--            row.className = 'hover:bg-gray-50';-->
+<!--            row.innerHTML = `-->
+<!--                    <td class="py-2 px-4 border">${feedback.id}</td>-->
+<!--                    <td class="py-2 px-4 border">${feedback.email}</td>-->
+<!--                    <td class="py-2 px-4 border">${feedback.comment}</td>-->
+<!--                    <td class="py-2 px-4 border">${feedback.date}</td>-->
+<!--                    <td class="py-2 px-4 border">-->
+<!--                        <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded text-sm mr-2">View</button>-->
+<!--                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm">Delete</button>-->
+<!--                    </td>-->
+<!--                `;-->
+<!--            feedbackTableBody.appendChild(row);-->
+<!--        });-->
 
-        updatePaginationControls();
-        updatePaginationInfo(startIndex, endIndex);
-    }
+<!--        updatePaginationControls();-->
+<!--        updatePaginationInfo(startIndex, endIndex);-->
+<!--    }-->
 
-    function updatePaginationControls() {
-        const totalPages = Math.ceil(filteredFeedback.length / itemsPerPage);
+<!--    function updatePaginationControls() {-->
+<!--        const totalPages = Math.ceil(filteredFeedback.length / itemsPerPage);-->
 
-        prevPageBtn.disabled = currentPage === 1;
-        nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+<!--        prevPageBtn.disabled = currentPage === 1;-->
+<!--        nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;-->
 
-        pageNumbersContainer.innerHTML = ''; // Clear existing page numbers
-        for (let i = 1; i <= totalPages; i++) {
-            const pageButton = document.createElement('button');
-            pageButton.textContent = i;
-            pageButton.className = `px-3 py-1 border rounded-md ${currentPage === i ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`;
-            pageButton.addEventListener('click', () => {
-                currentPage = i;
-                displayFeedback();
-            });
-            pageNumbersContainer.appendChild(pageButton);
-        }
-    }
+<!--        pageNumbersContainer.innerHTML = ''; // Clear existing page numbers-->
+<!--        for (let i = 1; i <= totalPages; i++) {-->
+<!--            const pageButton = document.createElement('button');-->
+<!--            pageButton.textContent = i;-->
+<!--            pageButton.className = `px-3 py-1 border rounded-md ${currentPage === i ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`;-->
+<!--            pageButton.addEventListener('click', () => {-->
+<!--                currentPage = i;-->
+<!--                displayFeedback();-->
+<!--            });-->
+<!--            pageNumbersContainer.appendChild(pageButton);-->
+<!--        }-->
+<!--    }-->
 
-    function updatePaginationInfo(startIndex, endIndex) {
-        paginationStartSpan.textContent = filteredFeedback.length > 0 ? startIndex + 1 : 0;
-        paginationEndSpan.textContent = filteredFeedback.length > 0 ? endIndex : 0;
-        paginationTotalSpan.textContent = filteredFeedback.length;
-    }
+<!--    function updatePaginationInfo(startIndex, endIndex) {-->
+<!--        paginationStartSpan.textContent = filteredFeedback.length > 0 ? startIndex + 1 : 0;-->
+<!--        paginationEndSpan.textContent = filteredFeedback.length > 0 ? endIndex : 0;-->
+<!--        paginationTotalSpan.textContent = filteredFeedback.length;-->
+<!--    }-->
 
-    // --- Event Listeners ---
+<!--    // -&#45;&#45; Event Listeners -&#45;&#45;-->
 
-    feedbackSearchInput.addEventListener('keyup', function() {
-        const searchTerm = this.value.toLowerCase();
-        filteredFeedback = allFeedback.filter(feedback =>
-            feedback.email.toLowerCase().includes(searchTerm) ||
-            feedback.comment.toLowerCase().includes(searchTerm) ||
-            feedback.date.toLowerCase().includes(searchTerm)
-        );
-        currentPage = 1; // Reset to first page on new search
-        displayFeedback();
-    });
+<!--    feedbackSearchInput.addEventListener('keyup', function () {-->
+<!--        const searchTerm = this.value.toLowerCase();-->
+<!--        filteredFeedback = allFeedback.filter(feedback =>-->
+<!--            feedback.email.toLowerCase().includes(searchTerm) ||-->
+<!--            feedback.comment.toLowerCase().includes(searchTerm) ||-->
+<!--            feedback.date.toLowerCase().includes(searchTerm)-->
+<!--        );-->
+<!--        currentPage = 1; // Reset to first page on new search-->
+<!--        displayFeedback();-->
+<!--    });-->
 
-    prevPageBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            displayFeedback();
-        }
-    });
+<!--    prevPageBtn.addEventListener('click', () => {-->
+<!--        if (currentPage > 1) {-->
+<!--            currentPage&#45;&#45;;-->
+<!--            displayFeedback();-->
+<!--        }-->
+<!--    });-->
 
-    nextPageBtn.addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredFeedback.length / itemsPerPage);
-        if (currentPage < totalPages) {
-            currentPage++;
-            displayFeedback();
-        }
-    });
+<!--    nextPageBtn.addEventListener('click', () => {-->
+<!--        const totalPages = Math.ceil(filteredFeedback.length / itemsPerPage);-->
+<!--        if (currentPage < totalPages) {-->
+<!--            currentPage++;-->
+<!--            displayFeedback();-->
+<!--        }-->
+<!--    });-->
 
-    // --- Initial Display ---
-    displayFeedback();
-</script>
+<!--    // -&#45;&#45; Initial Display -&#45;&#45;-->
+<!--    displayFeedback();-->
+<!--</script>-->
 <script src="/js/admin/main.js"></script>
 </body>
 

@@ -1,21 +1,24 @@
-const navButtons = document.querySelectorAll('.nav-btn');
-const sections = document.querySelectorAll('.section');
+document.addEventListener('DOMContentLoaded', () => {
 
-function TransPage(navButtons, sections) {
-  navButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const targetId = button.getAttribute('data-target');
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.section');
 
-      sections.forEach(section => {
-        section.classList.add('hidden');
-      });
+    function TransPage(navButtons, sections) {
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
 
-      const targetSection = document.getElementById(targetId);
-      if (targetSection) {
-        targetSection.classList.remove('hidden');
-      }
-    });
-  });
-}
+                sections.forEach(section => {
+                    section.classList.add('hidden');
+                });
 
-TransPage(navButtons, sections);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+            });
+        });
+    }
+
+    TransPage(navButtons, sections);
+})

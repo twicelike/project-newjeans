@@ -1,18 +1,21 @@
-const images = document.querySelectorAll(".introduceImage");
-const postDate = document.querySelectorAll(".dateTime");
-let currentIndex = 0;
+document.addEventListener('DOMContentLoaded', () => {
 
-function TransImage(button) {
-  images[currentIndex].classList.add("hidden");
-  postDate[currentIndex].classList.add("hidden");
+    const images = document.querySelectorAll(".introduceImage");
+    const postDate = document.querySelectorAll(".dateTime");
+    let currentIndex = 0;
 
-  if (button.id === "btnNext") {
-    currentIndex = (currentIndex + 1) % images.length; // qua phải
-  } else {
-    currentIndex = (currentIndex - 1 + images.length) % images.length; // qua trái
-  }
+    function TransImage(button) {
+        images[currentIndex].classList.add("hidden");
+        postDate[currentIndex].classList.add("hidden");
 
-  images[currentIndex].classList.remove("hidden");
-  postDate[currentIndex].classList.remove("hidden");
-}
+        if (button.id === "btnNext") {
+            currentIndex = (currentIndex + 1) % images.length; // qua phải
+        } else {
+            currentIndex = (currentIndex - 1 + images.length) % images.length; // qua trái
+        }
 
+        images[currentIndex].classList.remove("hidden");
+        postDate[currentIndex].classList.remove("hidden");
+    }
+
+})

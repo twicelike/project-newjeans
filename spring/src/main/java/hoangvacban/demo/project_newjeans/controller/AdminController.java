@@ -1,8 +1,11 @@
 package hoangvacban.demo.project_newjeans.controller;
 
 import hoangvacban.demo.project_newjeans.dto.HobbyTagDTO;
+import hoangvacban.demo.project_newjeans.dto.PostDTO;
 import hoangvacban.demo.project_newjeans.entity.HobbyTag;
+import hoangvacban.demo.project_newjeans.service.FeedbackService;
 import hoangvacban.demo.project_newjeans.service.HobbyTagService;
+import hoangvacban.demo.project_newjeans.service.PostService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +19,20 @@ import java.util.List;
 public class AdminController {
 
     private final HobbyTagService hobbyTagService;
+    private final PostService postService;
+    private final FeedbackService feedbackService;
 
-    public AdminController(HobbyTagService hobbyTagService) {
+    public AdminController(HobbyTagService hobbyTagService, PostService postService, FeedbackService feedbackService) {
         this.hobbyTagService = hobbyTagService;
+        this.postService = postService;
+        this.feedbackService = feedbackService;
     }
 
     @GetMapping("/admin")
     public String getAdminPage(Model model, HttpSession session) {
         model.addAttribute("username", session.getAttribute("username"));
         model.addAttribute("avatar", session.getAttribute("avatar"));
-        return "admin/management/hobbytag";
+        return "admin/management/main";
     }
 
     @PostMapping("/admin/create-hobby-tag")
@@ -45,6 +52,7 @@ public class AdminController {
     public String getFeedbackPage(Model model, HttpSession session) {
         model.addAttribute("username", session.getAttribute("username"));
         model.addAttribute("avatar", session.getAttribute("avatar"));
+        model.addAttribute("feedbacks", feedbackService.getAllFeedback());
         return "admin/management/feedback";
     }
 
@@ -61,7 +69,14 @@ public class AdminController {
     public String getPostPage(Model model, HttpSession session) {
         model.addAttribute("username", session.getAttribute("username"));
         model.addAttribute("avatar", session.getAttribute("avatar"));
+        model.addAttribute("postDTO", new PostDTO());
         return "admin/management/post";
+    }
+
+    @PostMapping("/post")
+    public String createPost(@ModelAttribute(name = "postDTO") PostDTO postDTO) {
+        postService.addNewPost(postDTO);
+        return "redirect:/admin/post";
     }
 
     @GetMapping("/admin/suspend")
@@ -71,4 +86,10 @@ public class AdminController {
         return "admin/management/suspend";
     }
 
+    @GetMapping("/admin/report")
+    public String getReportPage(Model model, HttpSession session) {
+        model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("avatar", session.getAttribute("avatar"));
+        return "admin/management/report";
+    }
 }

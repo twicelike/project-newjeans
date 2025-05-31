@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const avatarImg = popup.querySelector('.popup-profile img');
     const newJeansBtn = document.getElementById('matchBtn');
     let selectedUserId = null; // <<== lưu ID user hiện tại
+    const messageBox = document.getElementById('messageBox');
 
     // Hiển thị popup
     function showPopup(name, avatar, id) {
@@ -35,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const userId = matchBtn.dataset.id;
             const userName = matchBtn.dataset.name;
             const userAvatar = matchBtn.dataset.avatar;
-            const messageBox = document.getElementById('messageBox');
             if (matchBtn.classList.contains('grayscale-0')) {
                 matchBtn.classList.remove('grayscale-0');
                 matchBtn.classList.add('grayscale');
@@ -45,9 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({
-                        content: messageBox.value
-                    })
+                    body: JSON.stringify(messageBox.value)
                 })
                     .then(response => {
                         if (response.ok) {
@@ -85,9 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                toUserId: selectedUserId
-            })
+            body: JSON.stringify(messageBox.value)
         })
             .then(response => {
                 if (response.ok) {

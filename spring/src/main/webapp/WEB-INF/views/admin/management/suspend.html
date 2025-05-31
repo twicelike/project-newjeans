@@ -192,9 +192,9 @@
     <!-- Sidebar -->
     <div class="bg-gray-800 text-white w-64 p-6 relative">
         <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
-            <img src="https://placehold.co/50x50" alt="Profile" class="rounded-full mr-4">
+            <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile" class="w-10 h-10 object-contain rounded-full mr-4">
             <div>
-                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition">DatPhan</h2>
+                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition" th:text="${username}"></h2>
                 <p class="text-xs text-gray-400">Admin</p>
             </div>
             <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
@@ -340,10 +340,12 @@
         </form>
     </div>
 </div>
-To fill the <tbody> with data, you'll need JavaScript. Below is an example of how you can do this, including some sample data.
+To fill the
+<tbody> with data, you'll need JavaScript. Below is an example of how you can do this, including some sample data.
 
 Populating the Suspended Users Table with JavaScript
-Here's the JavaScript code that will add data to your table. You can embed this script at the end of your <body> tag or in a separate .js file.
+Here's the JavaScript code that will add data to your table. You can embed this script at the end of your
+<body> tag or in a separate .js file.
 
 HTML
 
@@ -373,7 +375,8 @@ HTML
         <th class="py-3 px-4 border text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
         <th class="py-3 px-4 border text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
         <th class="py-3 px-4 border text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reason</th>
-        <th class="py-3 px-4 border text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Suspended By</th>
+        <th class="py-3 px-4 border text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Suspended By
+        </th>
         <th class="py-3 px-4 border text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
         <th class="py-3 px-4 border text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
         <th class="py-3 px-4 border text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -447,7 +450,7 @@ HTML
     populateTable(suspendedUsers);
 
     // Search functionality
-    document.getElementById('suspendedUserSearch').addEventListener('keyup', function() {
+    document.getElementById('suspendedUserSearch').addEventListener('keyup', function () {
         const searchTerm = this.value.toLowerCase();
         const filteredUsers = suspendedUsers.filter(user =>
             user.username.toLowerCase().includes(searchTerm) ||

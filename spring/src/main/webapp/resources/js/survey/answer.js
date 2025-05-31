@@ -1,6 +1,6 @@
 import AppConfig from "../config.js";
 
-fetch(`${AppConfig.GET_SURVEY}/3`)
+fetch(`${AppConfig.GET_SURVEY}/${userId}`)
     .then(res => res.json())
     .then(data => {
         console.log(data)

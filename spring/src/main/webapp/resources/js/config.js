@@ -11,4 +11,5 @@ export default class AppConfig {
     static GET_SURVEY = `${this.BASE_URL}/api/survey`;
     static GET_MESSAGE = `${this.BASE_URL}/api/message`;
     static IS_SURVEY_EXISTS = `${this.BASE_URL}/api/exists-survey`;
+    static LEVEL_UP = `${this.BASE_URL}/api/level-up`;
 }

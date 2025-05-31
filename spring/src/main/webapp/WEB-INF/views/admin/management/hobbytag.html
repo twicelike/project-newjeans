@@ -44,9 +44,9 @@
     <div class="bg-gray-800 text-white w-64 p-6 relative">
         <!-- Same sidebar as main.html -->
         <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
-            <img src="https://placehold.co/50x50" alt="Profile" class="rounded-full mr-4">
+            <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile" class="w-10 h-10 object-contain rounded-full mr-4">
             <div>
-                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition">DatPhan</h2>
+                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition" th:text="${username}"></h2>
                 <p class="text-xs text-gray-400">Admin</p>
             </div>
             <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
@@ -126,11 +126,11 @@
                     <td class="py-3 px-4 border text-left">Actions</td>
                     <td>
                         <a th:href="@{'/admin/hobbytag/update/' + ${tag.id}}"
-                           class="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                           class="me-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
                             Update
                         </a>
                         <a th:href="@{'/admin/hobbytag/delete/' + ${tag.id}}"
-                           class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                           class="ms-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
                             Delete
                         </a>
                     </td>

@@ -92,9 +92,9 @@
     <!-- Sidebar -->
     <div class="bg-gray-800 text-white w-64 p-6 relative">
         <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
-            <img src="https://placehold.co/50x50" alt="Profile" class="rounded-full mr-4">
+            <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile" class="w-10 h-10 object-contain rounded-full mr-4">
             <div>
-                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition">DatPhan</h2>
+                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition" th:text="${username}"></h2>
                 <p class="text-xs text-gray-400">Admin</p>
             </div>
             <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
@@ -149,132 +149,6 @@
     </div>
 </div>
 
-<!-- Common Modals -->
-<!-- Suspend User Modal -->
-<div id="suspendModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded shadow w-full max-w-md">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">Suspend User</h3>
-            <button onclick="closeModal('suspendModal')" class="text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <form id="suspendForm" class="space-y-4">
-            <input type="hidden" id="suspendUserId">
-            <div>
-                <label for="suspendDuration" class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-                <select id="suspendDuration" name="suspendDuration"
-                        class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-                        required>
-                    <option value="">Select duration</option>
-                    <!-- TODO: Thêm c:forEach ở đây nếu danh sách duration lấy từ server -->
-                    <option value="1">1 day</option>
-                    <option value="3">3 days</option>
-                    <option value="7">1 week</option>
-                    <option value="30">1 month</option>
-                    <option value="0">Permanent</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="suspendReason" class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
-                <textarea id="suspendReason" name="suspendReason" rows="3"
-                          class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-                          placeholder="Enter reason for suspension" required></textarea>
-            </div>
-
-            <div class="flex justify-end space-x-3 pt-4">
-                <button type="button" onclick="closeModal('suspendModal')"
-                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Cancel
-                </button>
-                <button type="submit"
-                        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                    Suspend User
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- View Feedback Modal -->
-<div id="viewFeedbackModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded shadow w-full max-w-md">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">Feedback Details</h3>
-            <button onclick="closeModal('viewFeedbackModal')" class="text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <div class="space-y-4">
-            <!-- TODO: Thêm c:forEach nếu duyệt qua nhiều feedback -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <p id="feedbackEmail" class="font-medium"></p>
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
-                <p id="feedbackComment" class="whitespace-pre-line"></p>
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                <p id="feedbackDate"></p>
-            </div>
-
-            <div class="flex justify-end pt-4">
-                <button onclick="closeModal('viewFeedbackModal')"
-                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Tag Modal -->
-<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded shadow w-full max-w-md">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">Edit Tag</h3>
-            <button onclick="closeModal('editModal')" class="text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <form id="editTagForm" class="space-y-4">
-            <input type="hidden" id="editTagId">
-            <div>
-                <label for="editTagName" class="block text-sm font-medium text-gray-700 mb-1">Tag Name</label>
-                <input type="text" id="editTagName" name="editTagName"
-                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-                       placeholder="Enter tag name" required>
-            </div>
-
-            <div>
-                <label for="editTagIcon" class="block text-sm font-medium text-gray-700 mb-1">Icon URL</label>
-                <!-- TODO: Thêm c:forEach ở đây nếu muốn thay input bằng danh sách icon -->
-                <input type="text" id="editTagIcon" name="editTagIcon"
-                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
-                       placeholder="Enter icon URL" required>
-            </div>
-
-            <div class="flex justify-end space-x-3 pt-4">
-                <button type="button" onclick="closeModal('editModal')"
-                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Cancel
-                </button>
-                <button type="submit"
-                        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Save Changes
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
 
 <script src="/js/admin/main.js"></script>
 </body>

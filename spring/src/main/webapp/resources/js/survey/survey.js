@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="flex justify-between items-center mb-2">
                         <input type="text" class="w-full border-none focus:outline-none text-lg question-title" placeholder="Question" value="New Question">
                         <select class="question-type border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-purple-200">
-                            <option value="radio">Multiple Choice</option>
+                            <option value="radio">Single Choice</option>
                             <option value="checkbox">Checkboxes</option>
                             <option value="paragraph">Paragraph</option>
                         </select>
@@ -323,11 +323,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (index < 5) {
                         question[`option${index + 1}`] = optionText?.value || `Option ${index + 1}`;
                     }
-                    // const optionText = optionElement.querySelector('.option-text');
-                    // question.options.push({
-                    //     text: optionText.value || 'Untitled Option',
-                    //     isOther: optionText.classList.contains('text-gray-400')
-                    // });
                 });
             }
 
@@ -351,7 +346,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // localStorage.setItem('surveyFormData', JSON.stringify(formData));
         console.log(JSON.stringify(formData))
 
-        alert('Survey published successfully! You can now create an answer page.');
+        alert('Survey published successfully!');
+        window.location.href = "/message";
     }
 
     publishBtn.addEventListener('click', publishForm);

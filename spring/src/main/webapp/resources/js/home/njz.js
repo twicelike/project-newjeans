@@ -1,6 +1,5 @@
 import AppConfig from "../config.js";
 
-
 document.addEventListener("DOMContentLoaded", function () {
     // Xử lý nút Accept
     document.querySelectorAll("button[id^='accept-']").forEach(button => {

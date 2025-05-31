@@ -33,6 +33,43 @@ public class NjzSendService {
         this.phaseRepository = phaseRepository;
     }
 
+    public boolean levelUp(long userId, long crushId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<User> crushOptional = userRepository.findById(crushId);
+
+        if (userOptional.isPresent() && crushOptional.isPresent()) {
+            Optional<NjzSend> njzSend = njzSendRepository.getNjz(userOptional.get(), crushOptional.get());
+            if (njzSend.isPresent()) {
+                if (njzSend.get().getPhase().getLevel() == 1) {
+                    Optional<Phase> phase = phaseRepository.findByLevel(2);
+                    if (phase.isPresent()) {
+                        njzSend.get().setPhase(phase.get());
+                        njzSendRepository.save(njzSend.get());
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean isFriend(long userId, long crushId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<User> crushOptional = userRepository.findById(crushId);
+
+        if (userOptional.isPresent() && crushOptional.isPresent()) {
+            Optional<NjzSend> njzSend = njzSendRepository.getNjz(userOptional.get(), crushOptional.get());
+            return njzSend.isPresent() && njzSend.get().getStatus().equalsIgnoreCase("accept");
+        }
+        return false;
+    }
+
     public boolean addCrush(long userId, long crushId, String content) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
@@ -47,7 +84,6 @@ public class NjzSendService {
         NjzSend njzSend = new NjzSend();
         njzSend.setNjzKey(key);
         njzSend.setCrush(crush.get());
-
 
         njzSend.setUser(user.get());
         njzSend.setSendDate(LocalDateTime.now());

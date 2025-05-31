@@ -30,12 +30,11 @@ public class SurveyController {
 
     @GetMapping("/survey/{userId}")
     public String survey(@PathVariable String userId, Model model, HttpSession session) {
-        System.out.println("CAC: " + userId);
-//        Optional<User> user = userService.getUserById(Long.valueOf(userId));
-//        if (user.isPresent()) {
-//            model.addAttribute("username", user.get().getUsername());
-//            model.addAttribute("avatar", user.get().getAvatar());
-//        }
+        Optional<User> user = userService.getUserById(Long.valueOf(userId));
+        if (user.isPresent()) {
+            model.addAttribute("username", user.get().getUsername());
+            model.addAttribute("avatar", user.get().getAvatar());
+        }
         model.addAttribute("userId", userId);
         return "client/survey/answer";
     }

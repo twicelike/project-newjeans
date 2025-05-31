@@ -85,12 +85,11 @@
     <div class="flex items-center space-x-4">
         <!-- Profile section -->
         <div class="relative">
-            <!--            <div id="profileBtn" class="flex items-center space-x-2 cursor-pointer">-->
-            <!--                <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile" class="rounded-full h-8 w-8">-->
-            <!--                <span class="hidden md:inline" th:text="${username}"></span>-->
-            <!--                <i class="fas fa-chevron-down text-gray-600 text-xs"></i>-->
-            <!--            </div>-->
-
+            <div id="profileBtn" class="flex items-center space-x-2 cursor-pointer">
+                <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile" class="rounded-full h-8 w-8">
+                <span class="hidden md:inline" th:text="${username}"></span>
+                <i class="fas fa-chevron-down text-gray-600 text-xs"></i>
+            </div>
             <div id="profileDropdown" class="profile-dropdown">
                 <a href="/profile"><i class="fas fa-user mr-2"></i> Profile</a>
                 <a href="#"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>

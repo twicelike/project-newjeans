@@ -30,7 +30,6 @@
                     <img src="/images/user-profile/logo.png" alt="" class="h-16 w-16">
                 </a>
             </div>
-
         </div>
         <div class="inner-menu [@media(max-width:767.98px)]:hidden">
             <ul class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]">
@@ -42,24 +41,18 @@
                 <li>
                     <a href="/njz-request" class="relative inline-block w-[28px] h-[28px]">
                         <img src="/images/user-profile/match.png" alt="" class="w-full h-full object-cover">
-                        <span
-                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"></span>
                     </a>
                 </li>
                 <li>
                     <a href="/message"
                        class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
                         <i class="fa-solid fa-message"></i>
-                        <span
-                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"></span>
                     </a>
                 </li>
                 <li>
                     <a href="/notification"
                        class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
                         <i class="fa-solid fa-bell"></i>
-                        <span
-                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]"></span>
                     </a>
                 </li>
             </ul>
@@ -78,58 +71,6 @@
         </div>
     </div>
 
-    <!-- Menu Box -->
-    <div id="boxMenu"
-         class="box-menu hidden w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-0 z-[100] bg-white border-slate-300 rounded-[10px]">
-        <div class="inner-title text-[var(--color-one)] font-[600] text-[24px]">
-            Menu
-        </div>
-        <div class="inner-wrap">
-            <ul class="flex flex-col gap-[10px]">
-                <li>
-                    <div
-                            class="inner-search cursor-pointer text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)] flex items-center gap-[5px] bg-slate-200 p-[8px] rounded-[8px]">
-                        <i class="fa-solid fa-magnifying-glass text-[25px]"></i>
-                        Search
-                    </div>
-                </li>
-                <li class="bg-slate-200 rounded-[8px] p-[8px]">
-                    <a href="#"
-                       class="w-full flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
-                    <a href="#"
-                       class="w-full relative flex items-center gap-[10px] inline-block text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
-                        <img src="/images/user-profile/match.png" alt="" class="w-[28px] h-[28px] object-cover">
-                        <span class="">Match</span>
-                        <span
-                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
-                    </a>
-                </li>
-                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
-                    <a href="#"
-                       class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
-                        <i class="fa-solid fa-message"></i>
-                        <span>Message</span>
-                        <span
-                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
-                    </a>
-                </li>
-                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
-                    <a href="#"
-                       class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
-                        <i class="fa-solid fa-bell"></i>
-                        <span>Notifications</span>
-                        <span
-                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
 </header>
 
 <main id="mainContent" class="w-full h-full">
@@ -151,35 +92,36 @@
                         th:text="${user.bio}"></h5>
                 </div>
 
-                <input type="text" class="hidden" th:value="${user.id}" id="targetId">
-
                 <div class="w-1/5 xl:my-auto md:ml-10 ml-4" th:if="${user.id != id}">
                     <button
                             id="addFriend"
-                            class="bg-purple-300 rounded-lg px-3 py-1 text-md whitespace-nowrap"
+                            class="bg-purple-300 rounded-lg px-3 py-1 text-md whitespace-nowrap cursor-pointer"
                             th:data-user-id="${user.id}"
                             th:data-current-id="${id}"
+                            th:data-user-avatar="${user.avatar}"
+                            th:data-user-name="${user.username}"
                     >
-                        <span
-                                class="fa-solid fa-add text-lg sm:text-sm">
-                         </span>
-                        <span class="hidden sm:inline"> Add <span
-                                class="hidden lg:block">NJZ</span>
-                        </span>
+                        <span id="addornot" class="sm:inline" th:text="${isFriend} ? 'REMOVE NJZ':'ADD NJZ'"}></span>
                     </button>
                 </div>
             </div>
-
         </div>
+
         <div class="h-auto w-full backdrop-blur-lg shadow-md rounded-lg mt-2">
             <nav class="flex justify-center space-x-2">
-                <a href="#" data-target="info" id="nav-info"
-                   class="p-2 hover:bg-black/20 font-semibold hover:rounded-md items-center text-black/50 focus:border-b-2 border-black nav-btn">About
-                    me</a>
-                <a href="#" data-target="gallery" id="nav-gallery"
-                   class="p-2 hover:bg-black/20 hover:rounded-md items-center text-black/50 nav-btn focus:border-b-2 border-black border-box font-semibold">Gallery</a>
+                <button id="nav-info"
+                        class="p-2 hover:bg-black/20 font-semibold hover:rounded-md items-center text-black/50 focus:border-b-2 border-black nav-btn">
+                    About
+                    me
+                </button>
+
+                <button id="nav-gallery"
+                        class="p-2 hover:bg-black/20 hover:rounded-md items-center text-black/50 nav-btn focus:border-b-2 border-black border-box font-semibold">
+                    Gallery
+                </button>
             </nav>
-            <hr class="">
+            <hr>
+
             <div id="gallery"
                  class="h-auto w-full backdrop-blur-md p-3 section relative flex justify-around items-center hidden gap-4">
                 <div th:each="image : ${images}"
@@ -190,6 +132,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="info" class="sm:ml-6 p-5 h-auto w-full backdrop-blur-md space-y-2 section">
                 <div class="xl:hidden">Biography:</div>
                 <div th:if="${user.location != null}" th:text="'Location: '+ ${user.location}"></div>
@@ -204,16 +147,66 @@
                         <span th:text="${hobby.name}"></span>
                     </div>
                 </div>
-                <!--                <div th:if="${user.createdDate != null}" th:text="'Joined date: ' + ${#temporals.format(user.joinedDate, 'dd/MM/yyyy')}"></div>-->
             </div>
         </div>
     </div>
 </main>
+
+<div id="popupBg" class="hidden popup-bg fixed inset-0 bg-[black] opacity-0 z-[5]"></div>
+<div id="matchPopup"
+     class="hidden match-popup z-[5] fixed opacity-0 w-[400px] [@media(max-width:767.98px)]:w-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
+    <div class="popup-title flex justify-between items-center mb-4">
+        <p class="text-lg font-semibold">Match Request</p>
+        <i class="fa-solid fa-xmark cursor-pointer close-icon"></i>
+    </div>
+    <div class="popup-profile mb-6">
+        <a href="" class="flex items-center gap-6">
+            <img src="assets/images/avt.jpg" alt=""
+                 class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500">
+            <span class="">Name</span>
+        </a>
+    </div>
+    <div class="popup-message bg-white border border-slate-300 p-2 mb-6">
+      <textarea name="" id="messageBox" class="w-full p-2 outline-none resize-none" maxlength="360"
+                placeholder="Hello! Date me <3..." rows="4"></textarea>
+        <div id="countCharacter" class="count-char text-right text-xs text-gray-500">0/360 Characters</div>
+    </div>
+    <div class="popup-button flex justify-end gap-4">
+        <a href="#"
+           class="bg-[--color-two] px-4 py-2 rounded-lg font-semibold hover:bg-[#000000] hover:text-[#ffffff] text-center w-[100px]">
+            Profile
+        </a>
+        <button id="matchBtn"
+                class="bg-[--color-two] px-4 py-2 rounded-lg font-semibold hover:bg-[#000000] hover:text-[#ffffff] text-center w-[100px]">
+            NewJeans
+        </button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const info = document.getElementById('nav-info')
+        const gallery = document.getElementById('nav-gallery')
+
+        info.addEventListener('click', (e) => {
+            document.getElementById("info").classList.remove("hidden");
+            document.getElementById("nav-info").classList.add("text-black", "border-b-2");
+
+            document.getElementById("gallery").classList.add("hidden");
+            document.getElementById("nav-gallery").classList.remove("text-black", "border-b-2");
+        })
+
+        gallery.addEventListener('click', (e) => {
+            document.getElementById("info").classList.add("hidden");
+            document.getElementById("nav-info").classList.remove("text-black", "border-b-2");
+
+            document.getElementById("gallery").classList.remove("hidden");
+            document.getElementById("nav-gallery").classList.add("text-black", "border-b-2");
+        })
+    });
+</script>
+
+
 </body>
-<script src="/js/user-profile/NavOption.js"></script>
-<script src="/js/user-profile/TransitImages.js"></script>
-<script src="/js/user-profile/DropDownMenu.js"></script>
-<script src="/js/user-profile/ToggleMenu.js"></script>
-<script src="/js/user-profile/Search.js"></script>
 
 </html>
