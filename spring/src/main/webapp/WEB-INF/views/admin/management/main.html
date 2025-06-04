@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Hobbyy Tags Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        /* CSS chung */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 4px;
+            left: 1.5rem;
+            top: 5rem;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hover-row:hover {
+            background-color: #f8fafc;
+        }
+
+        #editModal,
+        #suspendModal,
+        #reportModal,
+        #createPostModal,
+        #createTagModal {
+            z-index: 100;
+        }
+
+        /* Phân trang */
+        .pagination button {
+            min-width: 2rem;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background-color: #f3f4f6;
+        }
+
+        /* Image preview styles */
+        #imagePreview img,
+        #editImagePreview img,
+        #currentImagePreview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 4px;
+            border: 1px solid #e5e7eb;
+        }
+
+        #removeImageBtn,
+        #removeEditImageBtn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        #removeImageBtn:hover,
+        #removeEditImageBtn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="bg-gray-800 text-white w-64 p-6 relative">
+        <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
+            <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile" class="w-10 h-10 object-contain rounded-full mr-4">
+            <div>
+                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition" th:text="${username}"></h2>
+                <p class="text-xs text-gray-400">Admin</p>
+            </div>
+            <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
+        </div>
+
+        <!-- Profile dropdown -->
+        <div id="profileDropdown" class="dropdown-content">
+            <!-- TODO: Thêm c:forEach ở đây nếu các mục dropdown lấy từ dữ liệu động -->
+            <a href="#" class="hover:bg-gray-100"><i class="fas fa-user mr-2 text-gray-600"></i> Profile</a>
+            <a href="#" class="hover:bg-gray-100"><i class="fas fa-cog mr-2 text-gray-600"></i> Settings</a>
+            <a href="#" class="hover:bg-gray-100 text-red-500" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i>
+                Logout</a>
+        </div>
+
+        <nav>
+            <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
+            <ul class="mb-6">
+                <!-- TODO: Thêm c:forEach nếu danh sách task lấy từ server -->
+                <li class="mb-2">
+                    <a href="/admin/hobbytag" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-tasks mr-2"></i> Hobby Tags
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/admin/post" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-newspaper mr-2"></i> Posts
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/admin/report" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-flag mr-2"></i> Reports
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/admin/suspend" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-ban mr-2"></i> Suspended Users
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/admin/feedback" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-comment mr-2"></i> User Feedback
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main content will be loaded from other HTML files -->
+    <div class="flex-1 p-6" id="main-content">
+        <h1 class="text-2xl font-bold text-gray-800">Welcome to Admin Dashboard</h1>
+        <p class="text-gray-600 mt-2">Select a section from the sidebar to get started</p>
+    </div>
+</div>
+
+
+<script src="/js/admin/main.js"></script>
+</body>
+
+</html>

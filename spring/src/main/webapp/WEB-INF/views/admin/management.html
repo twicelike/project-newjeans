@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hobbyy Tags Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        /* CSS chung */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 4px;
+            left: 1.5rem;
+            top: 5rem;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hover-row:hover {
+            background-color: #f8fafc;
+        }
+
+        #editModal,
+        #suspendModal,
+        #reportModal,
+        #createPostModal,
+        #createTagModal {
+            z-index: 100;
+        }
+
+        /* Phân trang */
+        .pagination button {
+            min-width: 2rem;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="bg-gray-800 text-white w-64 p-6 relative">
+        <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
+            <img src="https://placehold.co/50x50" alt="Profile" class="rounded-full mr-4">
+            <div>
+                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition">DatPhan</h2>
+                <p class="text-xs text-gray-400">Admin</p>
+            </div>
+            <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
+        </div>
+
+        <!-- Profile dropdown -->
+        <div id="profileDropdown" class="dropdown-content">
+            <a href="#" class="hover:bg-gray-100"><i class="fas fa-user mr-2 text-gray-600"></i> Profile</a>
+            <a href="#" class="hover:bg-gray-100"><i class="fas fa-cog mr-2 text-gray-600"></i> Settings</a>
+            <a href="#" class="hover:bg-gray-100 text-red-500" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i>
+                Logout</a>
+        </div>
+
+        <nav>
+            <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
+            <ul class="mb-6">
+                <li class="mb-2">
+                    <a href="#" class="flex items-center text-gray-400 hover:text-blue-300 transition"
+                       onclick="showSection('tasks')">
+                        <i class="fas fa-tasks mr-2"></i> Hobby Tags
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="#" class="flex items-center text-gray-400 hover:text-blue-300 transition"
+                       onclick="showSection('posts')">
+                        <i class="fas fa-newspaper mr-2"></i> Posts
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="#" class="flex items-center text-gray-400 hover:text-blue-300 transition"
+                       onclick="showSection('suspended-users')">
+                        <i class="fas fa-ban mr-2"></i> Suspended Users & Reports
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="#" class="flex items-center text-gray-400 hover:text-blue-300 transition"
+                       onclick="showSection('feedback')">
+                        <i class="fas fa-comment mr-2"></i> User Feedback
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 p-6">
+        <!-- H0bby Tags Section -->
+        <div id="tasks-section">
+            <div class="container mx-auto bg-white p-6 rounded shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="text-2xl font-semibold">Hobby Tags</h1>
+                    <div class="flex items-center">
+                        <a href="create.html"
+                           class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition flex items-center">
+                            <i class="fas fa-plus mr-2"></i> Create Hobby Tag
+                        </a>
+                    </div>
+                </div>
+
+                <table class="min-w-full bg-white border">
+                    <thead>
+                    <tr class="bg-gray-50">
+                        <th class="py-3 px-4 border text-left">ID</th>
+                        <th class="py-3 px-4 border text-left">Name</th>
+                        <th class="py-3 px-4 border text-left">Icon</th>
+                        <th class="py-3 px-4 border text-left">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tagsTableBody">
+                    <!-- Data will be loaded by JavaScript -->
+                    </tbody>
+                </table>
+
+                <div class="flex items-center justify-between mt-4">
+                    <div class="text-sm text-gray-600">
+                        Showing <span id="tags-pagination-start">1</span> to <span id="tags-pagination-end">5</span> of <span
+                            id="tags-pagination-total">0</span> items
+                    </div>
+                    <div class="flex space-x-1 pagination">
+                        <button id="tags-prev-page" class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50"
+                                disabled>
+                            Previous
+                        </button>
+                        <div id="tags-page-numbers" class="flex space-x-1">
+                            <!-- Page numbers will be inserted here by JavaScript -->
+                        </div>
+                        <button id="tags-next-page" class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50"
+                                disabled>
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Posts Section -->
+        <div id="posts-section" class="hidden">
+            <div class="container mx-auto bg-white p-6 rounded shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="text-2xl font-semibold">Posts</h1>
+                    <div class="flex items-center">
+                        <button onclick="openCreatePostModal()"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition flex items-center">
+                            <i class="fas fa-plus mr-2"></i> Create Post
+                        </button>
+                    </div>
+                </div>
+
+                <table class="min-w-full bg-white border">
+                    <thead>
+                    <tr class="bg-gray-50">
+                        <th class="py-3 px-4 border text-left">ID</th>
+                        <th class="py-3 px-4 border text-left">Title</th>
+                        <th class="py-3 px-4 border text-left">Author</th>
+                        <th class="py-3 px-4 border text-left">Date</th>
+                        <th class="py-3 px-4 border text-left">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="postsTableBody">
+                    <!-- Data will be loaded by JavaScript -->
+                    </tbody>
+                </table>
+
+                <div class="flex items-center justify-between mt-4">
+                    <div class="text-sm text-gray-600">
+                        Showing <span id="posts-pagination-start">1</span> to <span id="posts-pagination-end">5</span> of
+                        <span id="posts-pagination-total">0</span> items
+                    </div>
+                    <div class="flex space-x-1 pagination">
+                        <button id="posts-prev-page"
+                                class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+                            Previous
+                        </button>
+                        <div id="posts-page-numbers" class="flex space-x-1">
+                            <!-- Page numbers will be inserted here by JavaScript -->
+                        </div>
+                        <button id="posts-next-page"
+                                class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suspended Users & Reports Section -->
+        <div id="suspended-users-section" class="hidden">
+            <div class="container mx-auto">
+                <!-- Reports Tab -->
+                <div class="bg-white p-6 rounded shadow mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-2xl font-semibold">User Reports</h1>
+                        <div class="flex items-center space-x-2">
+                            <div class="relative">
+                                <input type="text" id="reportSearch" placeholder="Search reports..."
+                                       class="border border-gray-300 rounded-md px-3 py-1 pl-8 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <i class="fas fa-search absolute left-2 top-2 text-gray-400"></i>
+                            </div>
+                            <select id="reportFilter"
+                                    class="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="all">All Reports</option>
+                                <option value="pending">Pending</option>
+                                <option value="reviewed">Reviewed</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="min-w-full bg-white border">
+                        <thead>
+                        <tr class="bg-gray-50">
+                            <th class="py-3 px-4 border text-left">ID</th>
+                            <th class="py-3 px-4 border text-left">Reported User</th>
+                            <th class="py-3 px-4 border text-left">Reporter</th>
+                            <th class="py-3 px-4 border text-left">Reason</th>
+                            <th class="py-3 px-4 border text-left">Status</th>
+                            <th class="py-3 px-4 border text-left">Date</th>
+                            <th class="py-3 px-4 border text-left">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="reportsTableBody">
+                        <!-- Data will be loaded by JavaScript -->
+                        </tbody>
+                    </table>
+
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="text-sm text-gray-600">
+                            Showing <span id="reports-pagination-start">1</span> to <span id="reports-pagination-end">5</span> of
+                            <span id="reports-pagination-total">0</span> items
+                        </div>
+                        <div class="flex space-x-1 pagination">
+                            <button id="reports-prev-page"
+                                    class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+                                Previous
+                            </button>
+                            <div id="reports-page-numbers" class="flex space-x-1">
+                                <!-- Page numbers will be inserted here by JavaScript -->
+                            </div>
+                            <button id="reports-next-page"
+                                    class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suspended Users Tab -->
+                <div class="bg-white p-6 rounded shadow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-2xl font-semibold">Suspended Users</h1>
+                        <div class="flex items-center space-x-2">
+                            <div class="relative">
+                                <input type="text" id="suspendedUserSearch" placeholder="Search suspended users..."
+                                       class="border border-gray-300 rounded-md px-3 py-1 pl-8 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <i class="fas fa-search absolute left-2 top-2 text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="min-w-full bg-white border">
+                        <thead>
+                        <tr class="bg-gray-50">
+                            <th class="py-3 px-4 border text-left">ID</th>
+                            <th class="py-3 px-4 border text-left">Username</th>
+                            <th class="py-3 px-4 border text-left">Reason</th>
+                            <th class="py-3 px-4 border text-left">Suspended By</th>
+                            <th class="py-3 px-4 border text-left">Date</th>
+                            <th class="py-3 px-4 border text-left">Duration</th>
+                            <th class="py-3 px-4 border text-left">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="suspendedUsersTableBody">
+                        <!-- Data will be loaded by JavaScript -->
+                        </tbody>
+                    </table>
+
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="text-sm text-gray-600">
+                            Showing <span id="suspended-users-pagination-start">1</span> to <span
+                                id="suspended-users-pagination-end">5</span> of
+                            <span id="suspended-users-pagination-total">0</span> items
+                        </div>
+                        <div class="flex space-x-1 pagination">
+                            <button id="suspended-users-prev-page"
+                                    class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+                                Previous
+                            </button>
+                            <div id="suspended-users-page-numbers" class="flex space-x-1">
+                                <!-- Page numbers will be inserted here by JavaScript -->
+                            </div>
+                            <button id="suspended-users-next-page"
+                                    class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div id="feedback-section" class="hidden">
+            <div class="container mx-auto bg-white p-6 rounded shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="text-2xl font-semibold">User Feedback</h1>
+                    <div class="flex items-center space-x-2">
+                        <div class="relative">
+                            <input type="text" id="feedbackSearch" placeholder="Search feedback..."
+                                   class="border border-gray-300 rounded-md px-3 py-1 pl-8 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <i class="fas fa-search absolute left-2 top-2 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="min-w-full bg-white border">
+                    <thead>
+                    <tr class="bg-gray-50">
+                        <th class="py-3 px-4 border text-left">ID</th>
+                        <th class="py-3 px-4 border text-left">Email</th>
+                        <th class="py-3 px-4 border text-left">Comment</th>
+                        <th class="py-3 px-4 border text-left">Date</th>
+                        <th class="py-3 px-4 border text-left">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="feedbackTableBody">
+                    <!-- Data will be loaded by JavaScript -->
+                    </tbody>
+                </table>
+
+                <div class="flex items-center justify-between mt-4">
+                    <div class="text-sm text-gray-600">
+                        Showing <span id="feedback-pagination-start">1</span> to <span id="feedback-pagination-end">5</span> of
+                        <span id="feedback-pagination-total">0</span> items
+                    </div>
+                    <div class="flex space-x-1 pagination">
+                        <button id="feedback-prev-page"
+                                class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+                            Previous
+                        </button>
+                        <div id="feedback-page-numbers" class="flex space-x-1">
+                            <!-- Page numbers will be inserted here by JavaScript -->
+                        </div>
+                        <button id="feedback-next-page"
+                                class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50" disabled>
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Tag Modal -->
+<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Edit Hoppy Tag</h3>
+            <button onclick="closeModal('editModal')" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="editTagForm" class="space-y-4">
+            <input type="hidden" id="editTagId">
+            <div>
+                <label for="editTagName" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input type="text" id="editTagName" name="editTagName"
+                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Enter tag name" required>
+            </div>
+
+            <div>
+                <label for="editTagIcon" class="block text-sm font-medium text-gray-700 mb-1">Icon URL</label>
+                <input type="text" id="editTagIcon" name="editTagIcon"
+                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Enter icon URL" required>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-4">
+                <button type="button" onclick="closeModal('editModal')"
+                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Update Tag
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Suspend User Modal -->
+<div id="suspendModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Suspend User</h3>
+            <button onclick="closeModal('suspendModal')" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="suspendForm" class="space-y-4">
+            <input type="hidden" id="suspendUserId">
+            <div>
+                <label for="suspendDuration" class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+                <select id="suspendDuration" name="suspendDuration"
+                        class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                        required>
+                    <option value="">Select duration</option>
+                    <option value="1">1 day</option>
+                    <option value="3">3 days</option>
+                    <option value="7">1 week</option>
+                    <option value="30">1 month</option>
+                    <option value="0">Permanent</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="suspendReason" class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
+                <textarea id="suspendReason" name="suspendReason" rows="3"
+                          class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Enter reason for suspension" required></textarea>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-4">
+                <button type="button" onclick="closeModal('suspendModal')"
+                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    Suspend User
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Create Post Modal -->
+<div id="createPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Create New Post</h3>
+            <button onclick="closeModal('createPostModal')" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="createPostForm" class="space-y-4">
+            <div>
+                <label for="postTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <input type="text" id="postTitle" name="postTitle"
+                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Enter post title" required>
+            </div>
+
+            <div>
+                <label for="postContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                <textarea id="postContent" name="postContent" rows="4"
+                          class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Enter post content" required></textarea>
+            </div>
+
+            <div>
+                <label for="postAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                <input type="text" id="postAuthor" name="postAuthor"
+                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Enter author name" required>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-4">
+                <button type="button" onclick="closeModal('createPostModal')"
+                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Create Post
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Post Modal -->
+<div id="editPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow w-full max-w-2xl">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Edit Post</h3>
+            <button onclick="closeModal('editPostModal')" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="editPostForm" class="space-y-4">
+            <input type="hidden" id="editPostId">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="editPostTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                    <input type="text" id="editPostTitle" name="editPostTitle"
+                           class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                           placeholder="Post title" required>
+                </div>
+
+                <div>
+                    <label for="editPostAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                    <input type="text" id="editPostAuthor" name="editPostAuthor"
+                           class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                           placeholder="Author name" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="editPostContent" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                <textarea id="editPostContent" name="editPostContent" rows="6"
+                          class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Post content" required></textarea>
+            </div>
+
+            <div>
+                <label for="editPostDate" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <input type="date" id="editPostDate" name="editPostDate"
+                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                       required>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-4">
+                <button type="button" onclick="closeModal('editPostModal')"
+                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- View Feedback Modal -->
+<div id="viewFeedbackModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Feedback Details</h3>
+            <button onclick="closeModal('viewFeedbackModal')" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <p id="feedbackEmail" class="font-medium"></p>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
+                <p id="feedbackComment" class="whitespace-pre-line"></p>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <p id="feedbackDate"></p>
+            </div>
+
+            <div class="flex justify-end pt-4">
+                <button onclick="closeModal('viewFeedbackModal')"
+                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+
+</html>

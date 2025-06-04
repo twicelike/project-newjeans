@@ -1,0 +1,36 @@
+@keyframes Fade{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+@keyframes SlideIn{
+  0%{
+    transform: translateX(50%);
+  }
+  100%{
+    transform: translateX(0);
+  }
+}
+@keyframes SlideOut{
+  0%{
+    transform: translateX(0);
+  }
+  100%{
+    transform: translateX(-50%);
+  }
+}
+.SlideAndFadeM2L{
+  animation: Fade 0.5s ease, SlideOut 0.5s ease;
+}
+.SlideAndAppearR2M{
+  animation: Fade 0.5s ease reverse, SlideIn 0.5s ease;
+}
+.SlideAndFadeM2R{
+  animation: Fade 0.5s ease, SlideIn 0.5s ease reverse;
+}
+.SlideAndAppearL2M{
+  animation: Fade 0.5s ease reverse, SlideOut 0.5s ease reverse;
+}

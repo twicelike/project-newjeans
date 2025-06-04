@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/css/home/styles.css">
+</head>
+
+<body class="flex flex-col">
+<!-- Header -->
+<header
+        class="header sticky top-0 left-0 z-[50] px-[10px] py-[5px] shadow-[0px_1.75px_3.51px_0px_#0000001F] bg-[white]">
+    <div class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]">
+        <div class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]">
+            <div class="inner-logo">
+                <a href="/main">
+                    <img src="/images/home/logo.png" alt="" class="h-[40px] w-auto">
+                </a>
+            </div>
+            <div
+                    class="inner-search w-[200px] cursor-pointer flex items-center gap-[10px] bg-[var(--bg)] p-[5px] rounded-[20px] [@media(max-width:767.98px)]:hidden text-[var(--color-one)] text-[300] text-[14px]">
+                <i class="fa-solid fa-magnifying-glass text-[25px] text-[var(--color-one)]"></i>
+                Search
+            </div>
+        </div>
+        <div class="inner-menu [@media(max-width:767.98px)]:hidden">
+            <ul class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]">
+                <li>
+                    <a href="/main" class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/njz-request" class="relative inline-block w-[28px] h-[28px]">
+                        <img src="/images/home/match.png" alt="" class="w-full h-full object-cover">
+                    </a>
+                </li>
+                <li>
+                    <a href="/message"
+                       class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-message"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/notification"
+                       class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-bell"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button id="btnBars"
+                class="inner-bars hidden [@media(max-width:767.98px)]:inline-flex [@media(max-width:767.98px)]:order-[0]">
+            <i class="fa-solid fa-bars text-[25px] text-[var(--color-one)]"></i>
+        </button>
+        <div
+                class="inner-profile flex items-center justify-end gap-[10px] cursor-pointer [@media(max-width:767.98px)]:order-[2]">
+            <div class="inner-image rounded-full overflow-hidden w-[30px] h-[30px]">
+                <img th:src="@{'/images/userImages/' + ${user.avatar}}" alt="" class="w-full h-full object-over">
+            </div>
+            <div class="inner-name" th:text="${user.username}"></div>
+            <i class="fa-solid fa-caret-down"></i>
+        </div>
+    </div>
+    <!-- Search Box -->
+    <div id="boxSearch"
+         class="box-search hidden w-[400px] [@media(max-width:767.98px)]:w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-[100px] [@media(max-width:767.98px)]:left-0 z-[110] bg-white border-slate-300 rounded-[10px]">
+        <h2 class="inner-title text-[var(--color-one)] font-[600] text-[24px] mt-0 mb-[10px]">
+            Search
+        </h2>
+        <div class="inner-wrap flex flex-col gap-[10px]">
+            <div class="inner-input-search bg-slate-200 rounded-[10px] p-[5px] mb-[5px]">
+                <input type="text" class="outline-none bg-slate-200 text-[16px] px-[15px] w-full"
+                       placeholder="Search something...">
+            </div>
+            <div class="inner-group w-full flex flex-col text-[var(--color-one)] ">
+                <div class="inner-label font-[300] text-[14px]">Gender:</div>
+                <div class="inner-input-group flex items-center gap-[40px]">
+                    <label class="inline-flex items-center space-x-2">
+                        <input type="radio" name="gender" value="male" class="">
+                        <span class="">Male</span>
+                    </label>
+                    <label class="inline-flex items-center space-x-2">
+                        <input type="radio" name="gender" value="female" class="">
+                        <span class="">Female</span>
+                    </label>
+                </div>
+            </div>
+            <div class="inner-group flex flex-col text-[var(--color-one)]">
+                <div class="inner-label font-[300] text-[14px]">Age:</div>
+                <select name="" id="1" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+                    <option value="">-- Choose Age --</option>
+                    <option value="">18-25</option>
+                    <option value="">25-30</option>
+                    <option value="">30-35</option>
+                    <option value="">35+</option>
+                </select>
+            </div>
+            <div class="inner-group flex flex-col text-[var(--color-one)]">
+                <div class="inner-label font-[300] text-[14px]">Location:</div>
+                <select name="" id="2" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+                    <option value="">-- Choose Location --</option>
+                    <option value="">VietNam</option>
+                    <option value="">Thailand</option>
+                    <option value="">Japan</option>
+                    <option value="">China</option>
+                </select>
+            </div>
+            <!-- <div class="inner-group flex flex-col text-[var(--color-one)]">
+              <div class="inner-label font-[300] text-[14px]">Education Level:</div>
+              <select name="" id="" class="outline-none border border-slate-300 rounded-[10px] p-[10px]">
+                <option value="">-- Choose Education Level --</option>
+                <option value="">High School</option>
+                <option value="">College</option>
+                <option value="">University</option>
+                <option value="">Post-graduate school</option>
+              </select>
+            </div>
+            <div class="inner-group flex flex-col text-[var(--color-one)]">
+              <div class="inner-label font-[300] text-[14px]">Hobby Tags:</div>
+              <div class="inner-tags-list flex flex-wrap items-center gap-[10px_20px]">
+                <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+                  Music
+                </div>
+                <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+                  Music
+                </div>
+                <div class="inner-tag cursor-pointer inline-flex bg-[var(--color-one)] text-white rounded-[15px] p-[5px_10px] hover:bg-[var(--color-two)] hover:text-[var(--color-one)]">
+                  Music
+                </div>
+              </div>
+            </div> -->
+        </div>
+    </div>
+    <!-- End Search Box -->
+
+    <!-- Log out box -->
+    <div
+            class="log-out-box bg-white hidden absolute right-0 top-full rounded-[10px] shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] w-[100px]">
+        <div class="inner-wrap flex flex-col gap-[15px]">
+            <a href="/profile" class="inner-profile border border-slate-300 rounded-[10px] p-[5px] text-[14px]">
+                My profile
+            </a>
+            <form th:action="@{/logout}" method="post" class="w-full bottom-2">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <div class="flex justify-center">
+                    <button type="submit" class="rounded-md sm:text-[#9C27B0] truncate hover-effect"><span
+                            class="fa-solid fa-right-from-bracket"></span> Log out
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Menu Box -->
+    <div id="boxMenu"
+         class="box-menu hidden w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-0 z-[100] bg-white border-slate-300 rounded-[10px]">
+        <div class="inner-title text-[var(--color-one)] font-[600] text-[24px]">
+            Menu
+        </div>
+        <div class="inner-wrap">
+            <ul class="flex flex-col gap-[10px]">
+                <li>
+                    <div
+                            class="inner-search cursor-pointer text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)] flex items-center gap-[5px] bg-slate-200 p-[8px] rounded-[8px]">
+                        <i class="fa-solid fa-magnifying-glass text-[25px]"></i>
+                        Search
+                    </div>
+                </li>
+                <li class="bg-slate-200 rounded-[8px] p-[8px]">
+                    <a href="#"
+                       class="w-full flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+                    <a href="#"
+                       class="w-full relative flex items-center gap-[10px] inline-block text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <img src="/images/home/match.png" alt="" class="w-[28px] h-[28px] object-cover">
+                        <span class="">Match</span>
+                        <span
+                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+                    </a>
+                </li>
+                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+                    <a href="#"
+                       class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Message</span>
+                        <span
+                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+                    </a>
+                </li>
+                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+                    <a href="#"
+                       class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>Notifications</span>
+                        <span
+                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- End Menu Box -->
+</header>
+<!-- End Header -->
+
+
+<!-- Start Content -->
+<main class="flex flex-1 bg-gray-100 p-4 gap-4 flex-col sm:flex-row">
+
+    <!-- Tab buttons -->
+    <div class="sm:hidden flex gap-2 mb-2">
+        <button id="btn-received" class="tab-btn bg-blue-500 text-white px-4 py-2 rounded">Received</button>
+        <button id="btn-sent" class="tab-btn bg-gray-300 text-black px-4 py-2 rounded">Sent</button>
+    </div>
+
+    <!-- Received Requests -->
+    <section id="received-section"
+             class="sm:w-1/2 w-full bg-white rounded-lg p-4 shadow overflow-y-auto max-h-[400px]">
+        <h2 class="text-xl font-bold mb-4">Friend Requests</h2>
+        <!--        come        -->
+        <div class="flex items-center gap-4 border-b pb-4 mb-4" th:each="c: ${come}">
+            <div th:id="@{'usercome-' + ${c.id}}" class="flex justify-between w-full">
+                <a th:href="@{'/profile/' + ${c.username}}">
+                    <img th:src="@{'/images/userImages/' + ${c.avatar}}" class="w-16 h-16 rounded-full" alt="avatar">
+                </a>
+                <div class="flex-1 px-3">
+                    <div class="font-semibold" th:text="@{${c.firstName} + ' ' + ${c.lastName}}"></div>
+                    <div class="text-sm text-gray-600" th:text="${c.content}"></div>
+                    <div class="text-xs text-gray-400 invitation-date"
+                         th:text="${#temporals.format(c.sentDate, 'dd/MM/yyyy HH:mm')}">
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <button
+                            th:id="@{'accept-' + ${c.id}}"
+                            th:data-id="${c.id}"
+                            class="bg-blue-500 text-white px-3 py-1 rounded">Accept
+                    </button>
+                    <button th:id="@{'reject-' + ${c.id}}"
+                            th:data-id="${c.id}"
+                            class="bg-red-500 text-white px-3 py-1 rounded">Reject
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sent Requests -->
+    <section id="sent-section"
+             class="sm:w-1/2 w-full bg-white rounded-lg p-4 shadow overflow-y-auto max-h-[400px] sm:block hidden">
+        <h2 class="text-xl font-bold mb-4">Sent Requests</h2>
+        <div class="flex items-center gap-4 border-b pb-4 mb-4" th:each="c: ${send}">
+            <div th:id="@{'usersend-' + ${c.id}}" class="flex justify-between w-full">
+                <a th:href="@{'/profile/' + ${c.username}}">
+                    <img th:src="@{'/images/userImages/' + ${c.avatar}}" class="w-16 h-16 rounded-full" alt="avatar">
+                </a>
+                <div class="flex-1 px-3">
+                    <div class="font-semibold" th:text="@{${c.firstName} + ' ' + ${c.lastName}}"></div>
+                    <div class="text-sm text-gray-600" th:text="${c.content}"></div>
+                    <div class="text-xs text-gray-400 invitation-date"
+                         th:text="${#temporals.format(c.sentDate, 'dd/MM/yyyy HH:mm')}">
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <button
+                            th:id="@{'edit-' + ${c.id}}"
+                            th:data-id="${c.id}"
+                            class="edit-btn bg-blue-500 text-white px-3 py-1 rounded">Edit
+                    </button>
+                    <button
+                            th:id="@{'delete-' + ${c.id}}"
+                            th:data-id="${c.id}"
+                            class="bg-red-500 text-white px-3 py-1 rounded" id="delete">Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    const btnReceived = document.getElementById("btn-received");
+    const btnSent = document.getElementById("btn-sent");
+    const receivedSection = document.getElementById("received-section");
+    const sentSection = document.getElementById("sent-section");
+
+    function switchTab(showReceived) {
+        if (showReceived) {
+            receivedSection.classList.remove("hidden");
+            sentSection.classList.add("hidden");
+            btnReceived.classList.add("bg-blue-500", "text-white");
+            btnReceived.classList.remove("bg-gray-300", "text-black");
+            btnSent.classList.remove("bg-blue-500", "text-white");
+            btnSent.classList.add("bg-gray-300", "text-black");
+        } else {
+            sentSection.classList.remove("hidden");
+            receivedSection.classList.add("hidden");
+            btnSent.classList.add("bg-blue-500", "text-white");
+            btnSent.classList.remove("bg-gray-300", "text-black");
+            btnReceived.classList.remove("bg-blue-500", "text-white");
+            btnReceived.classList.add("bg-gray-300", "text-black");
+        }
+    }
+
+    btnReceived.addEventListener("click", () => switchTab(true));
+    btnSent.addEventListener("click", () => switchTab(false));
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 640) {
+            receivedSection.classList.remove("hidden");
+            sentSection.classList.remove("hidden");
+        } else {
+            switchTab(true);
+        }
+    });
+
+    // ✅ Gán thời gian thực tế cho lời mời
+    function updateInvitationTimes() {
+        const now = new Date();
+        const formattedDate = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+        document.querySelectorAll(".invitation-date").forEach(el => {
+            el.textContent = `Ngày gửi: ${formattedDate}`;
+        });
+    }
+
+    updateInvitationTimes();
+</script>
+
+<!-- End Content -->
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script type="module" src="/js/home/njz.js"></script>
+</body>
+
+</html>

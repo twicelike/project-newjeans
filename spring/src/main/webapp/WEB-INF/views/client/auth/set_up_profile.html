@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/auth/BGMoving.css">
+    <link rel="stylesheet" href="/css/auth/SwitchingWindow.css">
+    <link rel="stylesheet" href="/css/auth/Root.css">
+</head>
+
+<body class="overflow-hidden">
+
+<div class="fixed w-full h-full bg-[url('/images/auth/11283131.png')] animate-bg"></div>
+<form
+        method="post"
+        th:action="@{/save-profile}"
+        th:object="${profileDTO}"
+        enctype="multipart/form-data"
+        class="flex justify-center w-screen h-screen items-center"
+        id="setUpProfileForm">
+
+
+    <!--    basic info -->
+    <div
+            class="flex-col flex rounded-lg bg-black/75 sm:w-4/5 md:w-3/5 lg:w-2/5 w-full h-auto backdrop-blur-sm items-center"
+            id="setUpBasicInfo">
+        <div class="flex font-bold text-white text-xl my-4 ml-10 w-full">Basic Information</div>
+
+        <div class="flex justify-center">
+            <div class="w-24 h-24 rounded-full overflow-hidden relative group">
+                <input th:field="*{avatar}"
+                       type="file"
+                       accept="image/*"
+                       id="fileInput"
+                       class="hidden hover:fa-solid hover:fa-image"
+                >
+                <label for="fileInput" class="cursor-pointer w-full h-full block">
+                    <img id="profilePic" src="/images/auth/11283256.jpg" alt="Image"
+                         class="w-full h-full object-cover hover:opacity-30">
+                    <div
+                            class="text-2xl text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="flex grid grid-cols-2 space-x-1 w-4/5">
+            <input th:field="*{firstName}" type="text" class="rounded-lg w-full h-8 py-1 px-2 mt-3"
+                   placeholder="First name">
+            <input th:field="*{lastName}" type="text" class="rounded-lg w-full h-8 py-1 px-2 mt-3"
+                   placeholder="Last name">
+        </div>
+
+        <div class="flex space-x-1 w-4/5 justify-center">
+            <select th:field="*{gender}" class="rounded-lg w-2/5 h-8 py-1 px-2 mt-3" name="gender" id="gender">
+                <option value="hehe">--Gender--</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <textarea th:field="*{bio}" class="rounded-md w-4/5 h-16 py-1 px-2 mt-3" placeholder="Bio">
+
+        </textarea>
+
+        <select th:field="*{location}"
+                class="rounded-md w-4/5 h-8 mt-2"
+                name="address" id="address" placeholder="address">
+            <option value="">--Location--</option>
+            <option value="An Giang">An Giang</option>
+            <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+            <option value="Bắc Giang">Bắc Giang</option>
+            <option value="Bắc Kạn">Bắc Kạn</option>
+            <option value="Bạc Liêu">Bạc Liêu</option>
+            <option value="Bắc Ninh">Bắc Ninh</option>
+            <option value="Bến Tre">Bến Tre</option>
+            <option value="Bình Định">Bình Định</option>
+            <option value="Bình Dương">Bình Dương</option>
+            <option value="Bình Phước">Bình Phước</option>
+            <option value="Bình Thuận">Bình Thuận</option>
+            <option value="Cà Mau">Cà Mau</option>
+            <option value="Cần Thơ">Cần Thơ</option>
+            <option value="Cao Bằng">Cao Bằng</option>
+            <option value="Đà Nẵng">Đà Nẵng</option>
+            <option value="Đắk Lắk">Đắk Lắk</option>
+            <option value="Đắk Nông">Đắk Nông</option>
+            <option value="Điện Biên">Điện Biên</option>
+            <option value="Đồng Nai">Đồng Nai</option>
+            <option value="Đồng Tháp">Đồng Tháp</option>
+            <option value="Gia Lai">Gia Lai</option>
+            <option value="Hà Giang">Hà Giang</option>
+            <option value="Hà Nam">Hà Nam</option>
+            <option value="Hà Nội">Hà Nội</option>
+            <option value="Hà Tĩnh">Hà Tĩnh</option>
+            <option value="Hải Dương">Hải Dương</option>
+            <option value="Hải Phòng">Hải Phòng</option>
+            <option value="Hậu Giang">Hậu Giang</option>
+            <option value="Hòa Bình">Hòa Bình</option>
+            <option value="Hưng Yên">Hưng Yên</option>
+            <option value="Khánh Hòa">Khánh Hòa</option>
+            <option value="Kiên Giang">Kiên Giang</option>
+            <option value="Kon Tum">Kon Tum</option>
+            <option value="Lai Châu">Lai Châu</option>
+            <option value="Lâm Đồng">Lâm Đồng</option>
+            <option value="Lạng Sơn">Lạng Sơn</option>
+            <option value="Lào Cai">Lào Cai</option>
+            <option value="Long An">Long An</option>
+            <option value="Nam Định">Nam Định</option>
+            <option value="Nghệ An">Nghệ An</option>
+            <option value="Ninh Bình">Ninh Bình</option>
+            <option value="Ninh Thuận">Ninh Thuận</option>
+            <option value="Phú Thọ">Phú Thọ</option>
+            <option value="Phú Yên">Phú Yên</option>
+            <option value="Quảng Bình">Quảng Bình</option>
+            <option value="Quảng Nam">Quảng Nam</option>
+            <option value="Quảng Ngãi">Quảng Ngãi</option>
+            <option value="Quảng Ninh">Quảng Ninh</option>
+            <option value="Quảng Trị">Quảng Trị</option>
+            <option value="Sóc Trăng">Sóc Trăng</option>
+            <option value="Sơn La">Sơn La</option>
+            <option value="Tây Ninh">Tây Ninh</option>
+            <option value="Thái Bình">Thái Bình</option>
+            <option value="Thái Nguyên">Thái Nguyên</option>
+            <option value="Thanh Hóa">Thanh Hóa</option>
+            <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
+            <option value="Tiền Giang">Tiền Giang</option>
+            <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+            <option value="Trà Vinh">Trà Vinh</option>
+            <option value="Tuyên Quang">Tuyên Quang</option>
+            <option value="Vĩnh Long">Vĩnh Long</option>
+            <option value="Vĩnh Phúc">Vĩnh Phúc</option>
+            <option value="Yên Bái">Yên Bái</option>
+        </select>
+        <select th:field="*{educationLevel}" class="rounded-md w-4/5 h-8 mt-2"
+                name="edu-level" id="edu-level" placeholder="edu-level">
+            <option value="">--Education level--</option>
+            <option value="High school">High school</option>
+            <option value="College">College</option>
+            <option value="University">University</option>
+            <option value="Master">Master</option>
+            <option value="Doctor">Doctor</option>
+        </select>
+
+        <div class="my-3 w-4/5">
+            <label for="userAge" class="block text-sm text-[--primary-color] mb-1 text-center">
+                Age: <span id="ageDisplay" th:text="*{age}">18</span>
+            </label>
+            <div class="flex items-center">
+                <input th:field="*{age}"
+                       type="range" id="userAge" min="18" max="99"
+                       class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                       oninput="document.getElementById('ageDisplay').textContent = this.value">
+            </div>
+        </div>
+
+        <div class="flex justify-end mr-10 w-full mb-4">
+            <img src="/images/auth/nextbutton.png" alt="button image"
+                 class="hover:scale-110 active:scale-100 rounded-lg w-20 h-10" id="nextImagesSetup">
+        </div>
+    </div>
+
+    <!--    user images-->
+    <div class="relative hidden" id="addImages">
+        <div class="rounded-xl p-6 bg-black/75 backdrop-blur-sm">
+            <div class="relative flex font-bold text-white text-xl mb-4">Your Pictures</div>
+            <div class="grid md:grid-cols-3 grid-cols-2 gap-4" id="pictureContainer">
+                <!-- Image 1 -->
+                <div class="w-32 h-32 overflow-hidden relative group">
+                    <input th:field="*{image1}" id="image1" type="file" accept="image/*"
+                           class="hidden form-control">
+                    <label for="image1" class="cursor-pointer w-full h-full block">
+                        <img id="preview1" src="/images/auth/backbutton.png" alt="Image"
+                             class="w-full h-full object-cover hover:opacity-30">
+                    </label>
+                </div>
+
+                <!-- Image 2 -->
+                <div class="w-32 h-32 overflow-hidden relative group">
+                    <input th:field="*{image2}" id="image2" type="file" accept="image/*"
+                           class="hidden form-control">
+                    <label for="image2" class="cursor-pointer w-full h-full block">
+                        <img id="preview2" src="/images/auth/backbutton.png" alt="Image"
+                             class="w-full h-full object-cover hover:opacity-30">
+                    </label>
+                </div>
+
+                <!-- Image 3 -->
+                <div class="w-32 h-32 overflow-hidden relative group">
+                    <input th:field="*{image3}" id="image3" type="file" accept="image/*"
+                           class="hidden form-control">
+                    <label for="image3" class="cursor-pointer w-full h-full block">
+                        <img id="preview3" src="/images/auth/backbutton.png" alt="Image"
+                             class="w-full h-full object-cover hover:opacity-30">
+                    </label>
+                </div>
+            </div>
+
+            <script>
+                function setupImagePreview(inputId, previewId) {
+                    const input = document.getElementById(inputId);
+                    const preview = document.getElementById(previewId);
+
+                    input.addEventListener('change', function () {
+                        const file = input.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                preview.src = e.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+
+                // Gọi hàm cho từng cặp input - preview
+                setupImagePreview('image1', 'preview1');
+                setupImagePreview('image2', 'preview2');
+                setupImagePreview('image3', 'preview3');
+            </script>
+
+            <div class="relative flex justify-between mt-4 space-x-2 w-full">
+                <img src="/images/auth/backbutton.png" alt="button image"
+                     class="hover:scale-110 active:scale-100 rounded-lg h-10 w-20" id="backSetup">
+                <img src="/images/auth/nextbutton.png" alt="button image"
+                     class="hover:scale-110 active:scale-100 rounded-lg h-10 w-20" id="nextHobbiesSetup">
+            </div>
+        </div>
+    </div>
+
+    <!--    hobby tags-->
+    <div
+            class="flex-col flex p-5 rounded-lg bg-black/75 sm:w-4/5 md:w-3/5 lg:w-2/5 w-full h-auto backdrop-blur-sm items-center hidden "
+            id="addHobbies">
+        <div class="font-bold mb-4 text-white w-full">Interests/Hobbies</div>
+
+        <div class="flex flex-wrap gap-2 mb-4 w-4/5 justify-center min-h-[40px] p-2 bg-white/10 rounded-lg"
+             id="setupSelectedTags">
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <th:block th:each="tag : ${hobbyTagList}">
+                <!-- Thêm div wrapper và sử dụng peer class -->
+                <div class="relative">
+                    <input
+                            type="checkbox"
+                            th:field="*{hobbies}"
+                            th:value="${tag.id}"
+                            th:id="${'tag-' + tag.id}"
+                            class="absolute opacity-0 peer">
+
+                    <label
+                            th:for="${'tag-' + tag.id}"
+                            class="interest-btn text-[--primary-color] hover:text-[--secondary-color] hover:bg-purple-100 flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-purple-200 transition duration-200 cursor-pointer
+                      peer-checked:border-purple-600
+                      peer-checked:bg-purple-300
+                      peer-checked:text-white">
+                        <img th:src="${tag.emoji}" alt="emoji" class="w-6 h-6 rounded-full">
+                        <span th:text="${tag.name}">Art</span>
+                    </label>
+                </div>
+            </th:block>
+        </div>
+
+
+        <div class="flex justify-between mt-4 space-x-2 w-full">
+            <img alt="button image" src="/images/auth/backbutton.png"
+                 class="hover:scale-110 active:scale-100 rounded-lg h-10 w-20" id="backImagesSetup">
+            <input type="image" src="/images/auth/nextbutton.png"
+                   class="hover:scale-110 active:scale-100 rounded-lg h-10 w-20"
+                   id="nextHobbiesSetup1">
+        </div>
+    </div>
+</form>
+<!-- </form> -->
+<script src="/js/auth/SwitchingWindow.js"></script>
+<script src="/js/auth/HandleImageUpload.js"></script>
+<script src="/js/auth/HandleHobbiesSelect.js"></script>
+</body>
+
+</html>

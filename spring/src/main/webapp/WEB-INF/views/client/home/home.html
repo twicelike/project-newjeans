@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/css/home/styles.css">
+</head>
+
+<body class="flex flex-col">
+<!-- Header -->
+<header
+        class="header sticky top-0 left-0 z-[50] px-[10px] py-[5px] shadow-[0px_1.75px_3.51px_0px_#0000001F] bg-[white]">
+    <div class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]">
+        <div class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]">
+            <div class="inner-logo">
+                <a href="/main">
+                    <img src="/images/home/logo.png" alt="" class="h-[40px] w-auto">
+                </a>
+            </div>
+            <div class="inner-search w-[250px] flex items-center gap-2 bg-white border border-slate-300 rounded-full px-4 py-2 shadow-md transition focus-within:shadow-lg hover:shadow-lg text-sm text-gray-700 [@media(max-width:767.98px)]:hidden">
+                <i class="fa-solid fa-magnifying-glass text-[18px] text-[var(--color-one)]"></i>
+                <form th:action="@{/search}" method="post" class="w-full">
+                    <input type="text" name="query"
+                           autocomplete="off"
+                           class="w-full outline-none bg-transparent placeholder-gray-400 text-gray-700"
+                           placeholder="Search something..."/>
+                </form>
+            </div>
+
+        </div>
+        <div class="inner-menu [@media(max-width:767.98px)]:hidden">
+            <ul class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]">
+                <li>
+                    <a href="/main" class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/njz-request" class="relative inline-block w-[28px] h-[28px]">
+                        <img src="/images/home/match.png" alt="" class="w-full h-full object-cover">
+                    </a>
+                </li>
+                <li>
+                    <a href="/message"
+                       class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-message"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/notification"
+                       class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-bell"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button id="btnBars"
+                class="inner-bars hidden [@media(max-width:767.98px)]:inline-flex [@media(max-width:767.98px)]:order-[0]">
+            <i class="fa-solid fa-bars text-[25px] text-[var(--color-one)]"></i>
+        </button>
+        <div
+                class="inner-profile flex items-center justify-end gap-[10px] cursor-pointer [@media(max-width:767.98px)]:order-[2]">
+            <div class="inner-image rounded-full overflow-hidden w-[30px] h-[30px]">
+                <img th:src="@{'/images/userImages/' + ${user.avatar}}" alt="" class="w-full h-full object-over">
+            </div>
+            <div class="inner-name" th:text="${user.username}"></div>
+            <i class="fa-solid fa-caret-down"></i>
+        </div>
+    </div>
+
+    <!-- Log out box -->
+    <div
+            class="log-out-box bg-white hidden absolute right-0 top-full rounded-[10px] shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] w-[100px]">
+        <div class="inner-wrap flex flex-col gap-[15px]">
+            <a href="/profile" class="border border-slate-300 rounded-[10px] p-[5px] text-[14px]">
+                My profile
+            </a>
+            <form th:action="@{/logout}" method="post" class="w-full bottom-2">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <div class="flex justify-center">
+                    <button type="submit" class="rounded-md sm:text-[#9C27B0] truncate hover-effect"><span
+                            class="fa-solid fa-right-from-bracket"></span> Log out
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Menu Box -->
+    <div id="boxMenu"
+         class="box-menu hidden w-full shadow-[4px_1.75px_3.51px_4px_#0000001F] p-[10px] absolute top-full left-0 z-[100] bg-white border-slate-300 rounded-[10px]">
+        <div class="inner-title text-[var(--color-one)] font-[600] text-[24px]">
+            Menu
+        </div>
+        <div class="inner-wrap">
+            <ul class="flex flex-col gap-[10px]">
+                <li>
+                    <div
+                            class="inner-search cursor-pointer text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)] flex items-center gap-[5px] bg-slate-200 p-[8px] rounded-[8px]">
+                        <i class="fa-solid fa-magnifying-glass text-[25px]"></i>
+                        Search
+                    </div>
+                </li>
+                <li class="bg-slate-200 rounded-[8px] p-[8px]">
+                    <a href="#"
+                       class="w-full flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+                    <a href="#"
+                       class="w-full relative flex items-center gap-[10px] inline-block text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <img src="/images/home/match.png" alt="" class="w-[28px] h-[28px] object-cover">
+                        <span class="">Match</span>
+                        <span class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+                    </a>
+                </li>
+                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+                    <a href="#"
+                       class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Message</span>
+                        <span
+                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+                    </a>
+                </li>
+                <li class="bg-slate-200 rounded-[8px] p-[8px] flex items-center gap-[10px]">
+                    <a href="#"
+                       class="w-full relative flex items-center gap-[10px] text-[18px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>Notifications</span>
+                        <span
+                                class="absolute inline-block bg-[red] rounded-full w-[18px] h-[18px] text-[12px] flex items-center justify-center text-[white] top-[-8px] right-[-12px]">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- End Menu Box -->
+</header>
+<!-- End Header -->
+
+<!-- Section 1 -->
+<section class="section-1 flex-1 relative z-[10]">
+    <div class="container w-[700px] mx-auto [@media(max-width:767.98px)]:w-full">
+        <div class="inner-list py-[25px] grid gap-[20px]" th:each="u: ${users}">
+
+            <div class="inner-item relative grid grid-cols-[600fr_100fr] [@media(max-width:767.98px)]:grid-cols-1 [@media(max-width:767.98px)]:gap-[10px]">
+                <div class="inner-left relative z-[50] shadow-[0px_1.75px_3.51px_0px_#00000099] rounded-[8px] overflow-hidden flex flex-col gap-[10px] w-[600px] [@media(max-width:767.98px)]:w-full">
+                    <div class="inner-images swiper w-full h-full mySwiper cursor-pointer [--swiper-navigation-size:20px]">
+
+                        <!-- images -->
+                        <div class="swiper-wrapper">
+                            <div th:if="${u.image1 != null}" class="swiper-slide flex items-center justify-center">
+                                <img th:src="@{'/images/userImages/' + ${u.image1}}" alt=""
+                                     class="w-full h-full object-cover">
+                            </div>
+                            <div th:if="${u.image2 != null}" class="swiper-slide flex items-center justify-center">
+                                <img th:src="@{'/images/userImages/' + ${u.image2}}" alt=""
+                                     class="w-full h-full object-cover">
+                            </div>
+                            <div th:if="${u.image3 != null}" class="swiper-slide flex items-center justify-center">
+                                <img th:src="@{'/images/userImages/' + ${u.image3}}" alt=""
+                                     class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div
+                                class="swiper-button-next bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
+                        </div>
+                        <div
+                                class="swiper-button-prev bg-slate-200 text-[black] font-semibold hover:bg-slate-300 rounded-full w-[30px] h-[30px] flex items-center justify-center p-[10px]">
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                    <div class="inner-content flex-1 p-[8px]">
+                        <div class="inner-info-user border-b border-slate-300 pb-[10px] flex gap-[12px] items-center mb-[15px]">
+                            <div class="inner-avatar-user w-[50px] h-[50px] rounded-full overflow-hidden">
+                                <a th:href="@{'/profile/' + ${u.username}}">
+                                    <img th:src="@{'/images/userImages/' + ${u.avatar}}" alt=""
+                                         class="w-full h-full">
+                                </a>
+                            </div>
+                            <div class="inner-info flex-1 flex flex-wrap gap-[10px_30px] items-center">
+                                <div class="inner-name font-[600] text-[var(--color-one)] text-[24px] leading-none w-full [@media(max-width:575.98px)]:text-[20px]"
+                                     th:text="@{${u.firstName} + ' ' + ${u.lastName}}"
+                                >
+                                </div>
+                                <div
+                                        class="inner-gender font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                                    <b th:text="'Gender: ' + (${u.gender == 1} ? 'Male' : 'Female')"></b>
+                                </div>
+                                <div
+                                        class="inner-age font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                                    <b th:text="@{'Age: ' + ${u.age}}"></b>
+                                </div>
+                                <div
+                                        class="inner-address font-[300] text-[var(--color-one)] text-[14px] leading-none [@media(max-width:575.98px)]:text-[12px] bg-slate-200 rounded-[10px] p-[5px]">
+                                    <b th:text="@{'Location: ' + ${u.location}}"></b>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                                class="inner-desc font-[300] text-[var(--color-one)] text-[16px] leading-none [@media(max-width:575.98px)]:text-[14px]">
+                            <p class="line-clamp-2 overflow-hidden" th:text="@{${u.bio}}">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="inner-right flex flex-col items-center justify-center gap-[40px] [@media(max-width:767.98px)]:absolute right-[15px] top-1/2 z-[50]">
+                    <div th:id="@{'match-' + ${u.id}}"
+                         th:data-id="${u.id}"
+                         th:data-name="${u.firstName + ' ' + u.lastName}"
+                         th:data-avatar="@{'/images/userImages/' + ${u.avatar}}"
+                         class="inner-match [@media(max-width:767.98px)]:w-[40px] [@media(max-width:767.98px)]:h-[40px] w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer grayscale hover:grayscale-0 transition duration-700 hover:duration-700 cursor-pointer">
+                        <img src="/images/home/match.png" alt="" class="w-full h-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Match Popup -->
+<div id="popupBg" class="popup-bg fixed inset-0 bg-[black] opacity-0 z-[5]"></div>
+<div id="matchPopup"
+     class="match-popup z-[5] fixed opacity-0 w-[400px] [@media(max-width:767.98px)]:w-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
+    <div class="popup-title flex justify-between items-center mb-4">
+        <p class="text-lg font-semibold">Match Request</p>
+        <i class="fa-solid fa-xmark cursor-pointer close-icon"></i>
+    </div>
+    <div class="popup-profile mb-6">
+        <a href="" class="flex items-center gap-6">
+            <img src="assets/images/avt.jpg" alt=""
+                 class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500">
+            <span class="">Name</span>
+        </a>
+    </div>
+    <div class="popup-message bg-white border border-slate-300 p-2 mb-6">
+      <textarea name="" id="messageBox" class="w-full p-2 outline-none resize-none" maxlength="360"
+                placeholder="Hello! Date me <3..." rows="4"></textarea>
+        <div id="countCharacter" class="count-char text-right text-xs text-gray-500">0/360 Characters</div>
+    </div>
+    <div class="popup-button flex justify-end gap-4">
+        <a href="#"
+           class="bg-[--color-two] px-4 py-2 rounded-lg font-semibold hover:bg-[#000000] hover:text-[#ffffff] text-center w-[100px]">
+            Profile
+        </a>
+        <button id="matchBtn"
+                class="bg-[--color-two] px-4 py-2 rounded-lg font-semibold hover:bg-[#000000] hover:text-[#ffffff] text-center w-[100px]">
+            NewJeans
+        </button>
+    </div>
+</div>
+<!-- End Match Popup -->
+<!-- End Section 1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script type="module" src="/js/home/script.js"></script>
+</body>
+
+</html>

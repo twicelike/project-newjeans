@@ -1,0 +1,58 @@
+/* Popup */
+.match-popup.active {
+    opacity: 1;
+    z-index: 35;
+    transform: translate(-50%, -50%);
+}
+.popup-bg.active {
+    opacity: 0.5;
+    z-index: 34;
+    transition: opacity 300ms ease-in-out;
+}
+.popup-bg {
+    position: absolute;
+    content: "";
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    opacity: 0;
+}
+
+.interact-icon.active {
+    filter: grayscale(0);
+}
+
+/* Swiper slider */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Main Wrapper */
+.main-wrapper > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.main-wrapper > div.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}

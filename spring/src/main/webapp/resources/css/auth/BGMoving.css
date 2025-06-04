@@ -1,0 +1,28 @@
+
+@keyframes moveBg {
+  0% {
+      transform: scale(1.7) translate(0%, 0%);
+  }
+  20% {
+      transform: scale(1.7) translate(-20%, -20%);
+  }
+  40% {
+      transform: scale(1.7) translate(20%, -20%);
+  }
+  60% {
+      transform: scale(1.7) translate(-20%, 20%);
+  }
+  80% {
+      transform: scale(1.7) translate(-10%, -10%);
+  }
+  90% {
+      transform: scale(1.7) translate(5%, 5%);
+  }
+  100% {
+      transform: scale(1.7) translate(0%, 0%);
+  }
+}
+
+.animate-bg {
+  animation: moveBg 60s linear infinite;
+}

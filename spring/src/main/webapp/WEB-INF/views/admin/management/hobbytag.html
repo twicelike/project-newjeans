@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Hobby Tags | Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 4px;
+            left: 1.5rem;
+            top: 5rem;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="bg-gray-800 text-white w-64 p-6 relative">
+        <!-- Same sidebar as main.html -->
+        <div class="flex items-center mb-8 cursor-pointer group" id="profileDropdownBtn">
+            <img th:src="@{'/images/userImages/' + ${avatar}}" alt="Profile" class="w-10 h-10 object-contain rounded-full mr-4">
+            <div>
+                <h2 class="text-lg font-semibold group-hover:text-blue-300 transition" th:text="${username}"></h2>
+                <p class="text-xs text-gray-400">Admin</p>
+            </div>
+            <i class="fas fa-chevron-down ml-auto text-gray-400 text-xs group-hover:text-white transition"></i>
+        </div>
+
+        <div id="profileDropdown" class="dropdown-content">
+            <!-- TODO: Thêm c:forEach ở đây nếu các mục dropdown lấy từ dữ liệu động -->
+            <a href="#" class="hover:bg-gray-100"><i class="fas fa-user mr-2 text-gray-600"></i> Profile</a>
+            <a href="#" class="hover:bg-gray-100"><i class="fas fa-cog mr-2 text-gray-600"></i> Settings</a>
+            <a href="#" class="hover:bg-gray-100 text-red-500" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i>
+                Logout</a>
+        </div>
+
+        <nav>
+            <h3 class="text-gray-400 uppercase text-xs mb-2">Tasks</h3>
+            <ul class="mb-6">
+                <!-- TODO: Thêm c:forEach nếu danh sách task lấy từ server -->
+                <li class="mb-2">
+                    <a href="/admin/hobbytag" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-tasks mr-2"></i> Hobby Tags
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/admin/post" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-newspaper mr-2"></i> Posts
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/admin/report" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-flag mr-2"></i> Reports
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/admin/suspend" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-ban mr-2"></i> Suspended Users
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <a href="/admin/feedback" class="flex items-center text-gray-400 hover:text-blue-300 transition">
+                        <i class="fas fa-comment mr-2"></i> User Feedback
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <!-- Hobby Tags Content -->
+    <div class="flex-1 p-6">
+        <div class="container mx-auto bg-white p-6 rounded shadow">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-2xl font-semibold">Hobby Tags</h1>
+                <div class="flex items-center">
+                    <a href="/admin/create-hobby-tag"
+                       class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Create Hobby Tag
+                    </a>
+                </div>
+            </div>
+
+            <table class="min-w-full bg-white border">
+                <thead>
+                <tr class="bg-gray-50">
+                    <th class="py-3 px-4 border text-left">ID</th>
+                    <th class="py-3 px-4 border text-left">Name</th>
+                    <th class="py-3 px-4 border text-left">Icon</th>
+                    <th class="py-3 px-4 border text-left">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="tagsTableBody" th:each="tag : ${list}">
+                <tr>
+                    <td class="py-3 px-4 border text-left" th:text="${tag.id}"></td>
+                    <td class="py-3 px-4 border text-left" th:text="${tag.name}"></td>
+                    <td class="py-3 px-4 border text-left">
+                        <img th:src="${tag.emoji}" alt="emoji" class="w-6 h-6 object-contain rounded-full" />
+                    </td>
+                    <td class="py-3 px-4 border text-left">Actions</td>
+                    <td>
+                        <a th:href="@{'/admin/hobbytag/update/' + ${tag.id}}"
+                           class="me-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                            Update
+                        </a>
+                        <a th:href="@{'/admin/hobbytag/delete/' + ${tag.id}}"
+                           class="ms-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="flex items-center justify-between mt-4">
+                <div class="text-sm text-gray-600">
+                    Showing <span id="tags-pagination-start">1</span> to <span id="tags-pagination-end">5</span> of
+                    <span
+                            id="tags-pagination-total">0</span> items
+                </div>
+                <div class="flex space-x-1 pagination">
+                    <button id="tags-prev-page"
+                            class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50"
+                            disabled>
+                        Previous
+                    </button>
+                    <div id="tags-page-numbers" class="flex space-x-1">
+                        <!-- TODO: Dùng c:forEach để tạo các nút số trang nếu dữ liệu phân trang được backend xử lý -->
+                    </div>
+                    <button id="tags-next-page"
+                            class="px-3 py-1 border rounded-md bg-white text-gray-700 disabled:opacity-50"
+                            disabled>
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Tag Modal -->
+<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">Edit Tag</h3>
+            <button onclick="closeModal('editModal')" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="editTagForm" class="space-y-4">
+            <input type="hidden" id="editTagId">
+            <div>
+                <label for="editTagName" class="block text-sm font-medium text-gray-700 mb-1">Tag Name</label>
+                <input type="text" id="editTagName" name="editTagName"
+                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Enter tag name" required>
+            </div>
+
+            <div>
+                <label for="editTagIcon" class="block text-sm font-medium text-gray-700 mb-1">Icon URL</label>
+                <input type="text" id="editTagIcon" name="editTagIcon"
+                       class="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Enter icon URL" required>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-4">
+                <button type="button" onclick="closeModal('editModal')"
+                        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancel
+                </button>
+                <button type="submit"
+                        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/js/admin/main.js"></script>
+</body>
+
+</html>

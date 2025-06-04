@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewJeans Dating</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/introduce.js" defer></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-r from-[#ff7e5f] to-[#ff5864] text-[#333] font-[Roboto]">
+<!-- Header -->
+<header class="bg-white/70 shadow-md h-[60px] fixed top-0 left-0 w-full z-[1000]">
+    <div class="m-auto flex justify-between items-center">
+        <div class="flex items-center space-x-6 mt-2">
+            <img src="/images/introduce/logo.jpeg" alt="logo" class="h-12 cursor-pointer rounded-full pt-1" id="logo">
+            <nav class="flex gap-4 items-center">
+                <div id="safetyBtn">
+                    <a href="#" class="text-gray-700 hover:text-gray-900 hover:underline">Safety</a>
+                    <div id="safetyMenu" class="absolute hidden bg-white/80 shadow-md p-2 rounded-md z-50">
+                        <a href="/community-guidelines" class="block px-4 py-2 hover:bg-gray-100">Community
+                            Guidelines</a>
+                        <a href="/safety-tips" class="block px-4 py-2 hover:bg-gray-100">Safety Tips</a>
+                        <a href="/safety-policy" class="block px-4 py-2 hover:bg-gray-100">Safety & Policy</a>
+                        <a href="/safety-reporting" class="block px-4 py-2 hover:bg-gray-100">Safety &
+                            Reporting</a>
+                        <a href="/security" class="block px-4 py-2 hover:bg-gray-100">Security</a>
+                    </div>
+                </div>
+                <a href="learn.html" class="text-gray-700 hover:text-gray-900 hover:underline">Learn</a>
+                <a href="support.html" class="text-gray-700 hover:text-gray-900 hover:underline">Support</a>
+                <a href="/feedback" class="text-gray-700 hover:text-gray-900 hover:underline">Feedback</a>
+            </nav>
+        </div>
+
+        <div class="flex items-center space-x-4 h-full">
+            <!-- Login Button -->
+            <a href="\login">
+                <button type="submit" class="h-full w-20 bg-[--button-color] text-white rounded-md mr-5">Log
+                    in
+                </button>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Main Section -->
+<main class="relative h-screen flex flex-col justify-center items-center">
+    <img src="/images/introduce/bg.jpg" class="absolute inset-0 w-full h-full object-cover z-0">
+    <a href="/main" class="text-center z-10">
+        <h1 id="mainTitle" class="text-5xl font-bold mb-4 text-white">Find your NJZ.<sup>®</sup></h1>
+    </a>
+</main>
+
+<!-- Testimonials Section -->
+<section class="py-12 bg-gray-50 z-10">
+    <div class="max-w-4xl mx-auto px-4 space-y-8" th:each="post: ${posts}">
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 m-5">
+            <h3 class="text-xl font-bold mb-2" th:text="${post.author}"></h3>
+            <p class="text-gray-700" th:text="${post.content}"></p><span class="text-red-500">❤️</span>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12 z-10">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Legal -->
+            <div>
+                <h4 class="font-bold mb-4">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Privacy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Consumer Health Data
+                        Privacy Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Terms</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Cookie Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Intellectual Property</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Careers -->
+            <div>
+                <h4 class="font-bold mb-4">Careers</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Careers Portal</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white hover:underline">Tech Blog</a></li>
+                </ul>
+            </div>
+            <!-- Social -->
+            <div>
+                <h4 class="font-bold mb-4">Social</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+            <!-- App Download -->
+            <div>
+                <h4 class="font-bold mb-4">Get the app!</h4>
+                <div class="space-y-4">
+                    <a href="#"><img alt="App Store" class="h-10" src="/images/introduce/apstore.png"/></a>
+                    <a href="#"><img alt="Google Play" class="h-10" src="/images/introduce/ggplay.png"/></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+</body>
+
+</html>

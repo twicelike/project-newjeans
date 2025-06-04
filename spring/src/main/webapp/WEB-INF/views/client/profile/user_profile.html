@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script type="module" src="/js/user-profile/profile.js"></script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body class="flex bg-[url(/images/user-profile/11283256.jpg)] bg-auto bg-no-repeat">
+<header class="w-full bg-white/30 backdrop-blur-md shadow-lg fixed top-0 z-50">
+    <div class="inner-wrap flex justify-between items-center gap-[50px] [@media(max-width:767.98px)]:gap-[10px]">
+        <div class="inner-logo-search flex items-center gap-[10px] [@media(max-width:767.98px)]:order-[1]">
+            <div class="inner-logo">
+                <a href="/main">
+                    <img src="/images/user-profile/logo.png" alt="" class="h-16 w-16">
+                </a>
+            </div>
+        </div>
+        <div class="inner-menu [@media(max-width:767.98px)]:hidden">
+            <ul class="flex items-center justify-between gap-[150px] [@media(max-width:1199.98px)]:gap-[100px]">
+                <li>
+                    <a href="/main" class="text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/njz-request" class="relative inline-block w-[28px] h-[28px]">
+                        <img src="/images/user-profile/match.png" alt="" class="w-full h-full object-cover">
+                    </a>
+                </li>
+                <li>
+                    <a href="/message"
+                       class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-message"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/notification"
+                       class="relative text-[25px] text-[var(--color-one)] hover:text-[var(--color-two)]">
+                        <i class="fa-solid fa-bell"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button id="btnBars"
+                class="inner-bars hidden [@media(max-width:767.98px)]:inline-flex [@media(max-width:767.98px)]:order-[0] ml-2">
+            <i class="fa-solid fa-bars text-[25px] text-[var(--color-one)]"></i>
+        </button>
+        <div id="avtUser"
+             class="inner-profile flex items-center justify-end gap-[10px] cursor-pointer [@media(max-width:767.98px)]:order-[2] relative mr-4 p-2">
+            <a href="/profile" class="inner-image rounded-full overflow-hidden w-[30px] h-[30px]">
+                <img th:src="@{'/images/userImages/' + ${avatar}}" alt="" class="w-full h-full object-over">
+            </a>
+            <div class="inner-name" th:text="${username}">
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<main id="mainContent" class="w-full h-full">
+    <div class="lg:w-3/5 md:w-4/5 w-full mt-10 h-full m-auto">
+        <div class="h-auto p-10 w-full flex backdrop-blur-md shadow-lg rounded-lg">
+            <div class="md:w-[200px] md:h-[200px] w-[100px] h-[100px] overflow-hidden">
+                <img th:src="@{'/images/userImages/' + ${user.avatar}}" alt=""
+                     class="w-full h-full object-cover m-auto w-32 h-32 lg:w-40 lg:h-40 md:w-36 md:h-36 rounded-full">
+            </div>
+            <div class=" w-2/3 h-auto md:flex">
+                <div class="w-4/5 flex flex-col  ml-5">
+                    <h1 class="text-2xl text-black font-bold"
+                        th:if="${user.firstName != null && user.lastName != null}"
+                        th:text="${user.firstName} + ' ' + ${user.lastName}">
+                        <span th:class="${user.gender == 1} ? 'fa-solid fa-mars text-blue-400' : 'fa-solid fa-venus text-pink-400'"
+                              class="rounded-full"></span>
+                    </h1>
+                    <h5 class="text-black/50 break-all hidden xl:block" th:if="${user.bio != null}"
+                        th:text="${user.bio}"></h5>
+                </div>
+
+                <div class="w-1/5 xl:my-auto md:ml-10 ml-4" th:if="${user.id != id}">
+                    <button
+                            id="addFriend"
+                            class="bg-purple-300 rounded-lg px-3 py-1 text-md whitespace-nowrap cursor-pointer"
+                            th:data-user-id="${user.id}"
+                            th:data-current-id="${id}"
+                            th:data-user-avatar="${user.avatar}"
+                            th:data-user-name="${user.username}"
+                    >
+                        <span id="addornot" class="sm:inline" th:text="${isFriend} ? 'REMOVE NJZ':'ADD NJZ'"}></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-auto w-full backdrop-blur-lg shadow-md rounded-lg mt-2">
+            <nav class="flex justify-center space-x-2">
+                <button id="nav-info"
+                        class="p-2 hover:bg-black/20 font-semibold hover:rounded-md items-center text-black/50 focus:border-b-2 border-black nav-btn">
+                    About
+                    me
+                </button>
+
+                <button id="nav-gallery"
+                        class="p-2 hover:bg-black/20 hover:rounded-md items-center text-black/50 nav-btn focus:border-b-2 border-black border-box font-semibold">
+                    Gallery
+                </button>
+            </nav>
+            <hr>
+
+            <div id="gallery"
+                 class="h-auto w-full backdrop-blur-md p-3 section relative flex justify-around items-center hidden gap-4">
+                <div th:each="image : ${images}"
+                     class="bg-white/30 backdrop-blur-sm rounded-xl shadow-l space-y-2">
+                    <div class="flex flex-col items-center">
+                        <img th:src="@{'/images/userImages/' + ${image.url}}" alt="" class="introduceImage w4/5 h4/5">
+                        <span th:text="${#temporals.format(image.created, 'dd-MM-yyyy')}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="info" class="sm:ml-6 p-5 h-auto w-full backdrop-blur-md space-y-2 section">
+                <div class="xl:hidden">Biography:</div>
+                <div th:if="${user.location != null}" th:text="'Location: '+ ${user.location}"></div>
+                <div th:if="${user.age != null}" th:text="'Age: ' + ${user.age}"></div>
+                <div th:if="${user.educationLevel != null}"
+                     th:text="'Education level: ' + ${user.educationLevel}"></div>
+                <div>Hobby:</div>
+                <div class="mt-1 flex flex-wrap gap-2 items-center">
+                    <div th:each="hobby : ${hobbies}"
+                         class="flex items-center space-x-1 bg-white/50 px-2 py-1 rounded shadow text-sm">
+                        <img th:src="${hobby.emoji}" alt="emoji" class="w-5 h-5">
+                        <span th:text="${hobby.name}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div id="popupBg" class="hidden popup-bg fixed inset-0 bg-[black] opacity-0 z-[5]"></div>
+<div id="matchPopup"
+     class="hidden match-popup z-[5] fixed opacity-0 w-[400px] [@media(max-width:767.98px)]:w-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform p-4 border border-slate-300 bg-slate-100 rounded-xl transition transition-all ease-in-out duration-300">
+    <div class="popup-title flex justify-between items-center mb-4">
+        <p class="text-lg font-semibold">Match Request</p>
+        <i class="fa-solid fa-xmark cursor-pointer close-icon"></i>
+    </div>
+    <div class="popup-profile mb-6">
+        <a href="" class="flex items-center gap-6">
+            <img src="assets/images/avt.jpg" alt=""
+                 class="w-[64px] h-[64px] rounded-full border border-2 border-blue-500">
+            <span class="">Name</span>
+        </a>
+    </div>
+    <div class="popup-message bg-white border border-slate-300 p-2 mb-6">
+      <textarea name="" id="messageBox" class="w-full p-2 outline-none resize-none" maxlength="360"
+                placeholder="Hello! Date me <3..." rows="4"></textarea>
+        <div id="countCharacter" class="count-char text-right text-xs text-gray-500">0/360 Characters</div>
+    </div>
+    <div class="popup-button flex justify-end gap-4">
+        <a href="#"
+           class="bg-[--color-two] px-4 py-2 rounded-lg font-semibold hover:bg-[#000000] hover:text-[#ffffff] text-center w-[100px]">
+            Profile
+        </a>
+        <button id="matchBtn"
+                class="bg-[--color-two] px-4 py-2 rounded-lg font-semibold hover:bg-[#000000] hover:text-[#ffffff] text-center w-[100px]">
+            NewJeans
+        </button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const info = document.getElementById('nav-info')
+        const gallery = document.getElementById('nav-gallery')
+
+        info.addEventListener('click', (e) => {
+            document.getElementById("info").classList.remove("hidden");
+            document.getElementById("nav-info").classList.add("text-black", "border-b-2");
+
+            document.getElementById("gallery").classList.add("hidden");
+            document.getElementById("nav-gallery").classList.remove("text-black", "border-b-2");
+        })
+
+        gallery.addEventListener('click', (e) => {
+            document.getElementById("info").classList.add("hidden");
+            document.getElementById("nav-info").classList.remove("text-black", "border-b-2");
+
+            document.getElementById("gallery").classList.remove("hidden");
+            document.getElementById("nav-gallery").classList.add("text-black", "border-b-2");
+        })
+    });
+</script>
+
+
+</body>
+
+</html>
