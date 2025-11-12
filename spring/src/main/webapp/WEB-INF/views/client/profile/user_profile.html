@@ -123,11 +123,11 @@
             <hr>
 
             <div id="gallery"
-                 class="h-auto w-full backdrop-blur-md p-3 section relative flex justify-around items-center hidden gap-4">
+                 class="h-full w-full backdrop-blur-md p-3 section relative flex flex-wrap justify-around items-center hidden gap-4">
                 <div th:each="image : ${images}"
-                     class="bg-white/30 backdrop-blur-sm rounded-xl shadow-l space-y-2">
+                     class="bg-white/30 backdrop-blur-sm rounded-xl shadow-lg space-y-2">
                     <div class="flex flex-col items-center">
-                        <img th:src="@{'/images/userImages/' + ${image.url}}" alt="" class="introduceImage w4/5 h4/5">
+                        <img th:src="@{'/images/userImages/' + ${image.url}}" alt="" class="introduceImage w-full h-full">
                         <span th:text="${#temporals.format(image.created, 'dd-MM-yyyy')}"></span>
                     </div>
                 </div>
