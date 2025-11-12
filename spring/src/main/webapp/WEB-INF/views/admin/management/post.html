@@ -253,6 +253,7 @@
         </div>
     </div>
 </div>
+
 <script>
     let currentPage = 1;
     let totalPages = 1;
@@ -273,27 +274,63 @@
         const tbody = document.getElementById('postsTableBody');
         tbody.innerHTML = '';
 
-        posts.forEach((post, index) => {
+        posts.forEach((post) => {
             const row = document.createElement('tr');
             row.className = 'border-b';
+            row.dataset.postId = post.id; // lưu ID để xóa/sửa
 
             row.innerHTML = `
-        <td class="p-2">${post.id}</td>
-        <td class="p-2">${post.title}</td>
-        <td class="p-2">${post.author}</td>
-        <td class="p-2">${new Date(post.createdAt).toLocaleString()}</td>
-        <td>
-            <a
-               class="me-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
-                Update
-            </a>
-            <a
-               class="ms-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
-                Delete
-            </a>
-        </td>
-      `;
+                <td class="p-2">${post.id}</td>
+                <td class="p-2">${post.title}</td>
+                <td class="p-2">${post.author}</td>
+                <td class="p-2">${new Date(post.createdAt).toLocaleString()}</td>
+                <td>
+                    <button class="update-btn me-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                        Update
+                    </button>
+                    <button class="delete-btn ms-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
+                        Delete
+                    </button>
+                </td>
+            `;
             tbody.appendChild(row);
+        });
+
+        // 👇 Gắn event sau khi render
+        attachActionEvents();
+    }
+
+    function attachActionEvents() {
+        // 🗑️ Xóa post
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const row = this.closest('tr');
+                const title = row.querySelector('td:nth-child(2)').textContent.trim();
+
+                if (confirm(`🗑️ Do you want to delete the post "${title}"?`)) {
+                    // hiệu ứng mờ rồi xóa
+                    row.style.transition = 'opacity 0.3s';
+                    row.style.opacity = '0';
+                    setTimeout(() => row.remove(), 300);
+
+                    alert(`✅ Post "${title}" deleted (frontend only).`);
+                }
+            });
+        });
+
+        // ✏️ Cập nhật post
+        document.querySelectorAll('.update-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const row = this.closest('tr');
+                const titleCell = row.querySelector('td:nth-child(2)');
+                const oldTitle = titleCell.textContent.trim();
+
+                const newTitle = prompt(`✏️ Edit post title:`, oldTitle);
+                if (newTitle && newTitle.trim() !== '') {
+                    titleCell.textContent = newTitle.trim();
+                    alert(`✅ Updated "${oldTitle}" → "${newTitle}"`);
+                }
+            });
         });
     }
 
@@ -322,7 +359,7 @@
         }
     }
 
-    // Add event listeners
+    // Pagination controls
     document.getElementById('posts-prev-page').addEventListener('click', () => {
         if (currentPage > 1) fetchAndRenderPosts(currentPage - 1);
     });
@@ -334,6 +371,7 @@
     // Initial load
     fetchAndRenderPosts();
 </script>
+
 
 
 <!-- Edit Post Modal -->

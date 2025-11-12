@@ -94,8 +94,7 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl("/login?logout")
-                        .permitAll())
-        ;
+                        .permitAll());
 
         http.csrf(csrf -> csrf
                 .ignoringRequestMatchers("/api/**")

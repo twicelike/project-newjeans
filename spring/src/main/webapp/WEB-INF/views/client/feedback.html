@@ -6,13 +6,11 @@
     <title>NewJeans Feedback</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Pastel gradient in NewJeans colors */
         .nj-gradient {
             background: linear-gradient(135deg,
             #FFC1CC 0%,
-                /* soft pink */ #B2EBF2 50%,
-                /* light cyan */ #FFEFA3 100% /* pale yellow */
-            );
+            #B2EBF2 50%,
+            #FFEFA3 100%);
         }
     </style>
 </head>
@@ -38,6 +36,7 @@
             <label for="content" class="block text-sm font-medium text-gray-800 mb-1">Your Feedback</label>
             <textarea th:field="*{content}" id="content" rows="5" placeholder="Tell us your thoughts…" required
                       class="w-full px-4 py-2 border-2 border-indigo-200 rounded-lg resize-y focus:outline-none focus:ring-2 focus:ring-indigo-300 transition"></textarea>
+            <p id="wordCount" class="text-sm text-gray-500 mt-1 text-right">0 / 200 words</p>
         </div>
 
         <!-- Submit button -->
@@ -49,17 +48,36 @@
         </div>
     </form>
 </div>
-<script>
-    document
-        .getElementById('feedbackForm')
-        .addEventListener('submit', function (e) {
-            // Optionally prevent the actual submit to test the alert:
-            // e.preventDefault();
 
-            alert('Thank you! Your feedback has been submitted.');
-            // The form will then submit as normal, unless you called e.preventDefault()
-        });
+<script>
+    const form = document.getElementById('feedbackForm');
+    const textarea = document.getElementById('content');
+    const wordCountDisplay = document.getElementById('wordCount');
+
+    // Đếm từ khi người dùng nhập
+    textarea.addEventListener('input', () => {
+        const words = textarea.value.trim().split(/\s+/).filter(w => w.length > 0);
+        const count = words.length;
+        wordCountDisplay.textContent = `${count} / 200 words`;
+
+        if (count > 200) {
+            wordCountDisplay.classList.add('text-red-500');
+        } else {
+            wordCountDisplay.classList.remove('text-red-500');
+        }
+    });
+
+    // Kiểm tra khi submit
+    form.addEventListener('submit', function (e) {
+        const words = textarea.value.trim().split(/\s+/).filter(w => w.length > 0);
+        if (words.length > 200) {
+            e.preventDefault();
+            alert('Your feedback must not exceed 200 words.');
+            return;
+        }
+
+        alert('Thank you! Your feedback has been submitted.');
+    });
 </script>
 </body>
-
 </html>

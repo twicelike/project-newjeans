@@ -108,6 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function sendPrivateMessage(event) {
             const message = messageInput.value.trim();
+            if(message.length > 200) {
+                event.preventDefault();
+                alert("Message could not be greater than 200 characters, sir!");
+                return;
+            }
             if (message && receiverId && stompClient) {  // Added message check
                 const chatMessage = {
                     senderId: id,

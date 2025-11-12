@@ -125,11 +125,11 @@
                     </td>
                     <td class="py-3 px-4 border text-left">Actions</td>
                     <td>
-                        <a th:href="@{'/admin/hobbytag/update/' + ${tag.id}}"
+                        <a
                            class="me-2 bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-1 px-4 rounded transition duration-200">
                             Update
                         </a>
-                        <a th:href="@{'/admin/hobbytag/delete/' + ${tag.id}}"
+                        <a
                            class="ms-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded transition duration-200">
                             Delete
                         </a>
@@ -163,6 +163,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1️⃣ Xử lý nút Delete
+        document.querySelectorAll('a.bg-red-500').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault(); // Không chuyển trang thật
+                const row = this.closest('tr');
+                const tagName = row.querySelector('td:nth-child(2)').textContent.trim();
+
+                if (confirm(`Are you sure you want to delete "${tagName}"?`)) {
+                    row.remove(); // Xóa dòng khỏi bảng
+                    alert(`"${tagName}" has been removed from the table.`);
+                }
+            });
+        });
+
+        // 2️⃣ Xử lý nút Update
+        document.querySelectorAll('a.bg-yellow-400').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const row = this.closest('tr');
+                const nameCell = row.querySelector('td:nth-child(2)');
+                const oldName = nameCell.textContent.trim();
+
+                const newName = prompt(`Edit hobby tag name:`, oldName);
+                if (newName && newName.trim() !== '') {
+                    nameCell.textContent = newName.trim();
+                    alert(`Updated "${oldName}" → "${newName}"`);
+                }
+            });
+        });
+    });
+</script>
+
 <!-- Edit Tag Modal -->
 <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded shadow w-full max-w-md">
@@ -190,9 +225,9 @@
             </div>
 
             <div class="flex justify-end space-x-3 pt-4">
-                <button type="button" onclick="closeModal('editModal')"
+                <button type="button"
                         class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Cancel
+                    <a href="/admin">Cancel</a>
                 </button>
                 <button type="submit"
                         class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">

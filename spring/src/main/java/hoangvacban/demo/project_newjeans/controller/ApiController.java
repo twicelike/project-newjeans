@@ -209,9 +209,9 @@ public class ApiController {
 
     @GetMapping("/exists-survey/{userId}")
     @ResponseBody
-    public ResponseEntity<Boolean> isSurveyExists(@PathVariable(name = "userId") String userId) {
-        long userIdLong = Long.parseLong(userId);
-        if (surveyService.isExistSurvey(userIdLong)) {
+    public ResponseEntity<Boolean> isSurveyExists(HttpSession session) {
+        long userId = (long) session.getAttribute(USER_ID);
+        if (surveyService.isExistSurvey(userId)) {
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.badRequest().build();

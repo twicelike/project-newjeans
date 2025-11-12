@@ -21,8 +21,6 @@
         enctype="multipart/form-data"
         class="flex justify-center w-screen h-screen items-center"
         id="setUpProfileForm">
-
-
     <!--    basic info -->
     <div
             class="flex-col flex rounded-lg bg-black/75 sm:w-4/5 md:w-3/5 lg:w-2/5 w-full h-auto backdrop-blur-sm items-center"
@@ -274,6 +272,69 @@
         </div>
     </div>
 </form>
+
+<script>
+    document.getElementById("nextImagesSetup").addEventListener("click", function () {
+        // Lấy các giá trị input
+        const firstName = document.querySelector('[name="firstName"]').value.trim();
+        const lastName = document.querySelector('[name="lastName"]').value.trim();
+        const gender = document.querySelector('[name="gender"]').value;
+        const bio = document.querySelector('[name="bio"]').value.trim();
+        const location = document.querySelector('[name="location"]').value;
+        const education = document.querySelector('[name="educationLevel"]').value;
+        const age = parseInt(document.querySelector('[name="age"]').value);
+        const avatar = document.querySelector('[name="avatar"]').value;
+
+        // Kiểm tra lần lượt
+        if (!avatar) {
+            alert("❌ Please upload your avatar image.");
+            return;
+        }
+
+        if (firstName.length === 0 || lastName.length === 0) {
+            alert("❌ Please enter your first and last name.");
+            return;
+        }
+
+        if (gender === "" || gender === "hehe") {
+            alert("❌ Please select your gender.");
+            return;
+        }
+
+        if (bio.length < 10) {
+            alert("❌ Your bio must have at least 10 characters.");
+            return;
+        }
+
+        if (bio.length > 200) {
+            alert("❌ Your bio must not exceed 200 characters.");
+            return;
+        }
+
+        if (location === "") {
+            alert("❌ Please select your location.");
+            return;
+        }
+
+        if (education === "") {
+            alert("❌ Please select your education level.");
+            return;
+        }
+
+        if (isNaN(age) || age < 18 || age > 99) {
+            alert("❌ Age must be between 18 and 99.");
+            return;
+        }
+
+        // Nếu tất cả đều hợp lệ
+        alert("✅ All information looks good! Proceeding to the next step...");
+        // TODO: thêm logic để chuyển sang bước tiếp theo, ví dụ:
+        // document.getElementById("setUpBasicInfo").style.display = "none";
+        // document.getElementById("nextStepDiv").style.display = "block";
+    });
+</script>
+
+
 <!-- </form> -->
 <script src="/js/auth/SwitchingWindow.js"></script>
 <script src="/js/auth/HandleImageUpload.js"></script>

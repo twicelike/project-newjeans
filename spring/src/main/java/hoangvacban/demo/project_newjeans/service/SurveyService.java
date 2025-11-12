@@ -135,9 +135,7 @@ public class SurveyService {
         if (userOptional.isEmpty()) return false;
 
         Optional<Survey> surveyOptional = surveyRepository.findByUser(userOptional.get());
-        if (surveyOptional.isEmpty()) return false;
-
-        return true;
+        return surveyOptional.isPresent();
     }
 
     // handle websocket
