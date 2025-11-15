@@ -121,5 +121,47 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const submitBtn = document.getElementById('submitAnswersBtn');
+        const saveDraftBtn = document.getElementById('saveDraftBtn');
+        const answersContainer = document.getElementById('answersContainer');
+        const surveyTitle = document.getElementById('surveyTitle');
+
+        // Gắn tiêu đề tạm (đại đại rứa thôi 😄)
+        // surveyTitle.textContent = "NewJeans Fan Survey 💜";
+
+        // Xử lý nút Submit
+        submitBtn.addEventListener('click', () => {
+            // Giả lập lấy dữ liệu từ answersContainer
+            const answers = [];
+            const inputs = answersContainer.querySelectorAll('input, textarea, select');
+
+            inputs.forEach(input => {
+                answers.push({
+                    name: input.name || '(no name)',
+                    value: input.value || '(empty)'
+                });
+            });
+
+            // Hiển thị “kết quả giả” ra console
+            console.log("📦 Submitted answers:", answers);
+
+            // Thông báo cho user
+            alert("Your answers have been submitted successfully!\n(Just a demo, not sent to server 😄)");
+
+            // Làm hiệu ứng giả là “đã gửi xong”
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitted!";
+            submitBtn.classList.add("bg-gray-400");
+        });
+
+        // Xử lý nút Save Draft
+        saveDraftBtn.addEventListener('click', () => {
+            alert("Draft saved (locally only, demo mode).");
+        });
+    });
+</script>
+
 </body>
 </html>

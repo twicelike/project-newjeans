@@ -313,7 +313,7 @@
                     row.style.opacity = '0';
                     setTimeout(() => row.remove(), 300);
 
-                    alert(`✅ Post "${title}" deleted (frontend only).`);
+                    alert(`Post "${title}" deleted (frontend only).`);
                 }
             });
         });
@@ -328,7 +328,7 @@
                 const newTitle = prompt(`✏️ Edit post title:`, oldTitle);
                 if (newTitle && newTitle.trim() !== '') {
                     titleCell.textContent = newTitle.trim();
-                    alert(`✅ Updated "${oldTitle}" → "${newTitle}"`);
+                    alert(`Updated "${oldTitle}" → "${newTitle}"`);
                 }
             });
         });

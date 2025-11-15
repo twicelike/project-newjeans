@@ -83,9 +83,24 @@ document.addEventListener('DOMContentLoaded', function () {
         const optionInput = optionElement.querySelector('.option-text');
         const removeBtn = optionElement.querySelector('.remove-option');
 
+        // Show remove only when more than 1 option in container
+        const container = optionElement.closest('.options-container');
+
+        function updateRemoveButtons() {
+            const items = container.querySelectorAll('.option-item');
+            items.forEach(it => {
+                const rb = it.querySelector('.remove-option');
+                if (items.length > 1) rb.style.display = 'block';
+                else rb.style.display = 'none';
+            });
+        }
+
+        updateRemoveButtons();
+
         // Handle option removal
         removeBtn.addEventListener('click', function () {
             optionElement.remove();
+            updateRemoveButtons();
         });
     }
 
@@ -110,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
         newOption.innerHTML = `
                     ${inputElement}
                     <input type="text" class="w-full border-none focus:outline-none option-text" value="${value}" placeholder="Option">
-                    <i class="fas fa-times text-gray-400 hover:text-red-500 cursor-pointer remove-option" style="display: none;"></i>
+                    <i class="fas fa-times text-gray-400 hover:text-red-500 cursor-pointer remove-option"></i>
                 `;
         container.appendChild(newOption);
         setupOptionEvents(newOption);
@@ -259,6 +274,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             <i class="fas fa-trash text-gray-600 hover:text-purple-600 cursor-pointer delete-question" title="Delete question"></i>
                         </div>
                     </div>
+
+                    <p class="error-msg text-red-500 text-sm mt-2" style="display:none;"></p>
                 `;
 
         questionsContainer.appendChild(newQuestion);
@@ -272,13 +289,23 @@ document.addEventListener('DOMContentLoaded', function () {
         const optionItems = questionElement.querySelectorAll('.option-item');
         optionItems.forEach(item => {
             item.addEventListener('mouseenter', function () {
-                this.querySelector('.remove-option').style.display = 'block';
+                const rem = this.querySelector('.remove-option');
+                if (rem) rem.style.display = 'block';
             });
 
             item.addEventListener('mouseleave', function () {
-                this.querySelector('.remove-option').style.display = 'none';
+                const rem = this.querySelector('.remove-option');
+                if (rem) rem.style.display = 'none';
             });
         });
+
+        // Ensure error container exists
+        if (!questionElement.querySelector('.error-msg')) {
+            const err = document.createElement('p');
+            err.className = 'error-msg text-red-500 text-sm mt-2';
+            err.style.display = 'none';
+            questionElement.appendChild(err);
+        }
     }
 
     addQuestionBtn.addEventListener('click', function () {
@@ -292,12 +319,96 @@ document.addEventListener('DOMContentLoaded', function () {
         updateAddButtonState();
     });
 
-    // ========== Publish form handling ==========
+    // ========== Publish form handling with validation ==========
     const publishBtn = document.getElementById('publishBtn');
 
-    function publishForm() {
-        // Collect form data
+    function clearQuestionError(questionElement) {
+        const err = questionElement.querySelector('.error-msg');
+        if (err) {
+            err.style.display = 'none';
+            err.textContent = '';
+        }
+        questionElement.classList.remove('border-red-400');
+    }
 
+    function setQuestionError(questionElement, message) {
+        const err = questionElement.querySelector('.error-msg');
+        if (err) {
+            err.style.display = 'block';
+            err.textContent = message;
+        } else {
+            const p = document.createElement('p');
+            p.className = 'error-msg text-red-500 text-sm mt-2';
+            p.textContent = message;
+            questionElement.appendChild(p);
+        }
+        questionElement.classList.add('border-red-400');
+    }
+
+    function validateForm() {
+        // Clear global errors
+        const titleText = formTitle.textContent.trim();
+        if (!titleText || titleText.length < 3) {
+            alert('Form title must be at least 3 characters.');
+            formTitle.scrollIntoView({behavior: 'smooth', block: 'center'});
+            return {valid: false, focusEl: formTitle};
+        }
+
+        const questionElements = document.querySelectorAll('.question-item');
+        if (questionElements.length === 0) {
+            alert('Please add at least one question.');
+            return {valid: false, focusEl: addQuestionBtn};
+        }
+
+        let firstInvalid = null;
+
+        // Validate each question
+        questionElements.forEach(questionElement => {
+            clearQuestionError(questionElement);
+
+            const qTitleInput = questionElement.querySelector('.question-title');
+            const qTitle = qTitleInput ? qTitleInput.value.trim() : '';
+            const qType = questionElement.dataset.questionType;
+
+            if (!qTitle || qTitle.length < 3) {
+                setQuestionError(questionElement, 'Question title must be at least 3 characters.');
+                if (!firstInvalid) firstInvalid = qTitleInput || questionElement;
+                return;
+            }
+
+            if (qType === 'radio' || qType === 'checkbox') {
+                const optionItems = questionElement.querySelectorAll('.option-item');
+                const validOptions = Array.from(optionItems).filter(opt => {
+                    const txt = opt.querySelector('.option-text');
+                    return txt && txt.value.trim().length > 0;
+                });
+
+                if (validOptions.length < 2) {
+                    setQuestionError(questionElement, 'Please provide at least 2 non-empty options.');
+                    if (!firstInvalid) firstInvalid = questionElement;
+                    return;
+                }
+            }
+        });
+
+        if (firstInvalid) {
+            // focus the invalid element
+            if (firstInvalid.focus) firstInvalid.focus();
+            firstInvalid.scrollIntoView({behavior: 'smooth', block: 'center'});
+            return {valid: false, focusEl: firstInvalid};
+        }
+
+        return {valid: true};
+    }
+
+    function publishForm() {
+        // Validate first
+        const validation = validateForm();
+        if (!validation.valid) {
+            return;
+        }
+
+        // Collect form data
         formData = {
             title: formTitle.textContent === 'Survey Title' ? 'Untitled Survey' : formTitle.textContent,
             questions: []
@@ -329,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function () {
             formData.questions.push(question);
         });
 
+        // Demo POST
         fetch(`${AppConfig.UPLOAD_SURVEY}`, {
             method: "POST",
             headers: {
@@ -342,9 +454,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => {
                 console.error(error.message)
             });
-        // Save form data to localStorage
-        // localStorage.setItem('surveyFormData', JSON.stringify(formData));
-        console.log(JSON.stringify(formData))
+
+        console.log(JSON.stringify(formData));
 
         alert('Survey published successfully!');
         window.location.href = "/message";
